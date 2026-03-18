@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fajita Bonita | Fast Casual Fajitas, Built Your Way</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --flame: #FF4500;
+  --ember: #FF6B35;
+  --gold: #FFB627;
+  --charcoal: #1A1A1A;
+  --smoke: #2D2D2D;
+  --cream: #FFF8F0;
+  --white: #FFFFFF;
+}
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--charcoal);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--charcoal);
+  color: var(--gold);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+.sti-badge:hover { transform: scale(1.05); }
+.sti-badge svg { width: 18px; height: 18px; fill: var(--gold); }
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.35);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 40px 24px;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  color: var(--white);
+  line-height: 0.95;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.hero .tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero .pitch {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--flame);
+  color: var(--white);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  padding: 16px 48px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--ember);
+  transform: translateY(-2px);
+}
+
+/* Flame divider */
+.flame-divider {
+  height: 6px;
+  background: linear-gradient(90deg, var(--flame), var(--gold), var(--flame));
+}
+
+/* Section base */
+section { padding: 100px 24px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 6px;
+  color: var(--flame);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 1.05;
+  margin-bottom: 24px;
+  color: var(--charcoal);
+}
+
+/* PROBLEM */
+.problem-section {
+  background: var(--charcoal);
+  color: var(--white);
+}
+.problem-section .section-title { color: var(--white); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 40px;
+}
+.problem-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.8);
+  font-weight: 300;
+}
+.problem-text strong { color: var(--gold); font-weight: 600; }
+.problem-img {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.problem-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* SOLUTION */
+.solution-section { background: var(--cream); }
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 40px;
+}
+.solution-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--smoke);
+  font-weight: 300;
+}
+.solution-img {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.solution-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* FEATURES */
+.features-section {
+  background: var(--white);
+  position: relative;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+.feature-card {
+  background: var(--cream);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+.feature-card-img {
+  height: 200px;
+  overflow: hidden;
+}
+.feature-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.feature-card:hover .feature-card-img img { transform: scale(1.05); }
+.feature-card-body { padding: 28px; }
+.feature-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--flame);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.feature-card-icon svg { width: 24px; height: 24px; fill: var(--white); }
+.feature-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: var(--charcoal);
+}
+.feature-card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--smoke);
+  font-weight: 300;
+}
+
+/* MARKET */
+.market-section {
+  background: var(--charcoal);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.market-bg-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+}
+.market-section .section-inner { position: relative; z-index: 2; }
+.market-section .section-title { color: var(--white); }
+.market-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 40px 28px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.stat-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  font-weight: 300;
+}
+.market-text {
+  margin-top: 48px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.75);
+  max-width: 800px;
+  font-weight: 300;
+}
+
+/* BUSINESS PLAN */
+.bizplan-section { background: var(--cream); }
+.bizplan-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.bizplan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.bizplan-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 36px;
+  border-left: 5px solid var(--flame);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+.bizplan-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: var(--flame);
+  margin-bottom: 14px;
+}
+.bizplan-card p, .bizplan-card li {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--smoke);
+  font-weight: 300;
+}
+.bizplan-card ul {
+  list-style: none;
+  padding: 0;
+}
+.bizplan-card ul li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+.bizplan-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.bizplan-full {
+  grid-column: 1 / -1;
+}
+.cost-badge {
+  display: inline-block;
+  background: var(--charcoal);
+  color: var(--gold);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+/* CTA Banner */
+.cta-banner {
+  background: linear-gradient(135deg, var(--flame), var(--ember));
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.cta-banner p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 500px;
+  margin: 0 auto 32px;
+  font-weight: 300;
+}
+.btn-white {
+  display: inline-block;
+  background: var(--white);
+  color: var(--flame);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  padding: 16px 48px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.btn-white:hover { transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  background: var(--charcoal);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 48px 24px;
+}
+footer p { font-size: 0.9rem; line-height: 1.8; }
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+footer .footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 3px;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-grid,
+  .solution-grid { grid-template-columns: 1fr; }
+  .solution-grid .solution-img { order: -1; }
+  .features-grid { grid-template-columns: 1fr; }
+  .market-stats { grid-template-columns: 1fr; }
+  .bizplan-grid { grid-template-columns: 1fr; }
+  .sti-badge { top: 12px; left: 12px; font-size: 0.8rem; padding: 8px 12px; }
+  section { padding: 72px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Fajita Bonita</h1>
+    <div class="tagline">Fast Casual Fajitas, Built Your Way</div>
+    <p class="pitch">The sizzling, customizable fajita experience you love at sit-down restaurants, now served fast casual. Pick your protein, load up the toppings, grab your tortillas, and go.</p>
+    <a href="#" class="btn-primary">Find a Location</a>
+  </div>
+</section>
+
+<div class="flame-divider"></div>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">The Problem</div>
+      <div class="section-title">Where Do You Even Get Fajitas?</div>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-text reveal">
+        <p>Fajitas are one of America's most beloved dishes. The sizzle, the aroma, the piled-high platter of grilled meats and peppers. <strong>But if you want fajitas right now, your only real option is a sit-down restaurant like Chili's.</strong></p>
+        <br>
+        <p>That means a longer wait, a bigger bill, and a full dining commitment just to get something that should be quick and easy. The fast casual Mexican space is dominated by burritos and tacos, and fajita lovers have been left without a dedicated, affordable, build-your-own option.</p>
+        <br>
+        <p><strong>The fajita deserves better than this.</strong></p>
+      </div>
+      <div class="problem-img reveal">
+        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800&q=80" alt="Sizzling fajita platter at a sit-down restaurant" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">The Solution</div>
+      <div class="section-title">The Chipotle of Fajitas</div>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-img reveal">
+        <img src="https://images.unsplash.com/photo-1613514785940-daed07799d9b?auto=format&fit=crop&w=800&q=80" alt="Grilled meats and vegetables on a flat-top grill" loading="lazy">
+      </div>
+      <div class="solution-text reveal">
+        <p>Fajita Bonita brings the sizzling fajita experience into a fast casual format. Walk down the line and watch your meal come together: choose from steak, chicken, shrimp, or grilled veggies cooked on open flat-top grills right behind the counter.</p>
+        <br>
+        <p>Then load up. Peppers, onions, corn, cilantro lime rice, Mexican rice, guacamole, fresh salsas, and your choice of warm corn or flour tortillas. The whole experience takes five minutes and costs a fraction of what you would pay at a sit-down restaurant.</p>
+        <br>
+        <p>It is the customizable, sensory-rich, quick-service fajita experience that simply does not exist anywhere else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">What Makes Us Different</div>
+      <div class="section-title">Four Reasons to Love Fajita Bonita</div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" alt="Grilled meats on an open flame" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.66 11.2c-.23-.3-.51-.56-.77-.82-.67-.6-1.43-1.03-2.07-1.66C13.33 7.26 13 5.86 13.95 4c-1.73 2.14-1.88 5.42-.46 7.52.07.1.15.2.23.31.23.31.05.75-.31.75-.14 0-.27-.06-.38-.16-2.45-2.18-2.98-5.66-1.58-8.42C8.89 5.95 7.31 9.01 8.21 12.19c.03.1.05.2.08.31.14.56-.33 1.07-.86.79-.24-.13-.44-.35-.55-.62-.71-1.74-.47-3.68.49-5.27C5.2 9.73 4.5 13.13 5.8 15.63c1.89 3.63 6.31 5.2 9.94 3.73 3.87-1.56 5.49-5.97 3.54-9.53l-.03-.05c-.52-.94-1.15-1.74-1.59-2.58zM12.2 17.5c-.83.38-1.77.2-2.4-.35-.71-.62-.88-1.6-.46-2.4.5-.92 1.27-1.56 1.73-2.45.47-.89.62-2.01.2-2.98.81 1.07 1.11 2.47.74 3.72-.41 1.31-.74 1.83.16 2.93.36.44.97.73 1.54.62-.52.43-1.06.72-1.51.91z"/></svg>
+          </div>
+          <h3>Open Grill Theater</h3>
+          <p>Watch your proteins sizzle on flat-top grills right behind the counter. The sound and aroma of grilling steak and peppers are part of the experience.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=800&q=80" alt="Colorful fresh toppings and salsas" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 6V4l-2 1-2-1-2 1-2-1-2 1-2-1v2H3v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6h-3zm1 14H5V8h14v12z"/><path d="M9 12h6v2H9z"/></svg>
+          </div>
+          <h3>Total Customization</h3>
+          <p>Corn or flour tortillas, multiple rices, a dozen fresh toppings, and a full salsa bar. Your fajita is built exactly how you want it, every single time.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Beautifully plated food ready to serve" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          </div>
+          <h3>Five-Minute Fajitas</h3>
+          <p>No reservations, no waiting for a table, no 45-minute dinner. Fast casual speed delivers sit-down quality in the time it takes to order a burrito.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1529543544282-ea57407bc2e3?auto=format&fit=crop&w=800&q=80" alt="Party catering platter of food" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Catering and Family Packs</h3>
+          <p>Office lunch, game day, or family night: order catering platters and family packs with all the fixings for groups of any size, ready for pickup or delivery.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market-section">
+  <div class="market-bg-img"></div>
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">The Opportunity</div>
+      <div class="section-title" style="color:var(--white);">A Massive Market With No Competition</div>
+    </div>
+    <div class="market-stats">
+      <div class="stat-card reveal">
+        <div class="stat-number">$100B+</div>
+        <div class="stat-label">U.S. Fast Casual Market</div>
+        <div class="stat-desc">One of the fastest-growing segments of the restaurant industry, with no signs of slowing down.</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">$9B+</div>
+        <div class="stat-label">Chipotle Annual Revenue</div>
+        <div class="stat-desc">Proof that fast casual Mexican food is a juggernaut. Fajitas are the next untapped category in this space.</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">0</div>
+        <div class="stat-label">National Fajita Chains</div>
+        <div class="stat-desc">No fast casual chain is dedicated to fajitas. The category is wide open for a first mover.</div>
+      </div>
+    </div>
+    <div class="market-text reveal">
+      <p>The target customer is millennial and Gen-Z diners aged 18 to 40 who love fast casual dining, Tex-Mex food, and customizable meals. Secondary markets include families looking for a quick weeknight dinner and health-conscious eaters seeking grilled protein with fresh toppings. Even capturing a small niche in a single metro area represents a $5 to $20 million annual opportunity, with national franchise potential reaching the hundreds of millions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan-section">
+  <div class="section-inner">
+    <div class="bizplan-header reveal">
+      <div class="section-label">The Business Plan</div>
+      <div class="section-title">How Fajita Bonita Makes Money</div>
+    </div>
+    <div class="bizplan-grid">
+      <div class="bizplan-card reveal">
+        <h3>Revenue Model</h3>
+        <p>In-store dine-in and takeout orders at an average ticket of $11 to $14 per person. Additional streams include catering packages for offices and events, delivery through third-party apps, and branded salsas for retail. A franchise model drives long-term scaling.</p>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch a single flagship location in a high-traffic suburban area with strong lunch and dinner demand. Grand opening events with free fajita tastings and local influencer partnerships build initial buzz. Validate unit economics over 6 to 12 months, then expand to 3 to 5 locations before exploring franchising.</p>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Competitive Advantage</h3>
+        <p>No national fast casual chain is dedicated to fajitas. Chipotle owns burritos, Taco Bell owns cheap tacos, but fajitas remain locked inside sit-down restaurants. The sound and smell of sizzling meats on the grill creates a sensory-rich atmosphere that burrito assembly lines simply cannot match.</p>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Year One Milestones</h3>
+        <ul>
+          <li>Open flagship location and achieve $1.2M in first-year revenue with a 15% net margin</li>
+          <li>Build a loyal local following of 5,000+ repeat customers through a rewards program and social media</li>
+          <li>Develop the catering program, generating at least 10% of total revenue from catering orders</li>
+        </ul>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Key Risks</h3>
+        <ul>
+          <li>Customer perception that fajitas are "just tacos" could make differentiation difficult without strong branding and in-store experience design</li>
+          <li>Food cost volatility on proteins like steak and shrimp could compress margins if pricing is not managed carefully</li>
+          <li>Competing against entrenched fast casual Mexican brands like Chipotle and Qdoba for the same customer base and real estate</li>
+        </ul>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Startup Cost Estimate</h3>
+        <p>Estimated cost to launch a single flagship location, including buildout, equipment, initial inventory, and operating capital:</p>
+        <div class="cost-badge">$350,000 to $750,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <div class="reveal">
+    <h2>Ready to Steal This Idea?</h2>
+    <p>Fajita Bonita is a concept from the Steal This Idea podcast. The idea is free. The fajitas are not.</p>
+    <a href="#" class="btn-white">Get Started</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p>Discussed in episode: <a href="https://www.youtube.com/watch?v=wiDHIB309A4" target="_blank" rel="noopener">Fajita Bonita</a></p>
+  <div class="footer-brand">Fajita Bonita</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function(el) { observer.observe(el); });
+});
+</script>
+
+</body>
+</html>

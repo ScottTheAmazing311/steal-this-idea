@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portals - Step Through. See the World Live.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f5;
+    --accent: #00e5ff;
+    --accent-dark: #00b8d4;
+    --warm: #ff6f3c;
+    --gray-900: #111;
+    --gray-800: #1a1a1a;
+    --gray-700: #2a2a2a;
+    --gray-400: #999;
+    --gray-300: #bbb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  /* Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--gray-800);
+    border: 1px solid var(--gray-700);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--gray-300);
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    background: rgba(26,26,26,0.85);
+  }
+  .sti-badge:hover {
+    background: rgba(0,229,255,0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .sti-badge svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--accent);
+  }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.85) 60%, var(--black) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+  }
+  .hero-content h1 {
+    font-size: clamp(4rem, 12vw, 10rem);
+    color: var(--white);
+    margin-bottom: 0.1em;
+    position: relative;
+  }
+  .hero-content h1 span {
+    color: var(--accent);
+  }
+  .hero-tagline {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-pitch {
+    font-size: 1.15rem;
+    color: var(--gray-300);
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--accent);
+    cursor: pointer;
+  }
+  .cta-btn:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+  .cta-btn-outline {
+    background: transparent;
+    color: var(--accent);
+    margin-left: 1rem;
+  }
+  .cta-btn-outline:hover {
+    background: var(--accent);
+    color: var(--black);
+  }
+
+  /* Glowing ring animation in hero */
+  .portal-ring {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,229,255,0.15);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-ring 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .portal-ring:nth-child(2) {
+    width: 600px;
+    height: 600px;
+    animation-delay: 1s;
+    border-color: rgba(0,229,255,0.08);
+  }
+  .portal-ring:nth-child(3) {
+    width: 700px;
+    height: 700px;
+    animation-delay: 2s;
+    border-color: rgba(0,229,255,0.04);
+  }
+  @keyframes pulse-ring {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.5; }
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    padding: 100px 2rem;
+  }
+  .section-label {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .section-heading {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+  .section-body {
+    font-size: 1.1rem;
+    color: var(--gray-300);
+    max-width: 620px;
+    font-weight: 300;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ===== PROBLEM ===== */
+  .problem {
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .problem-image {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .problem-image img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    filter: brightness(0.8);
+  }
+  .problem-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .stat-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .stat-item {
+    flex: 1;
+    padding: 1.2rem;
+    background: var(--gray-800);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+  }
+  .stat-number {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2rem;
+    color: var(--accent);
+  }
+  .stat-desc {
+    font-size: 0.85rem;
+    color: var(--gray-400);
+    margin-top: 0.25rem;
+  }
+
+  /* ===== SOLUTION ===== */
+  .solution {
+    background: var(--gray-900);
+    position: relative;
+    overflow: hidden;
+  }
+  .solution-visual {
+    margin-top: 4rem;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .solution-visual img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 21/9;
+    object-fit: cover;
+    filter: brightness(0.7);
+  }
+  .solution-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(10,10,10,0.8) 100%);
+  }
+  .solution-overlay {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    z-index: 2;
+    display: flex;
+    gap: 2rem;
+  }
+  .sol-card {
+    flex: 1;
+    padding: 1.5rem;
+    background: rgba(26,26,26,0.9);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,229,255,0.15);
+  }
+  .sol-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+  .sol-card p {
+    font-size: 0.9rem;
+    color: var(--gray-300);
+    font-weight: 300;
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    position: relative;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .feature-card {
+    background: var(--gray-800);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-700);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .feature-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .feature-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.75);
+  }
+  .feature-card-body {
+    padding: 1.8rem;
+  }
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(0,229,255,0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .feature-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .feature-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--gray-400);
+    font-weight: 300;
+  }
+
+  /* ===== MARKET ===== */
+  .market {
+    background: var(--gray-900);
+    position: relative;
+  }
+  .market-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .market-image-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .market-image-stack img {
+    width: 100%;
+    border-radius: 10px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    filter: brightness(0.8);
+  }
+  .market-image-stack img:first-child {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+  }
+  .market-list {
+    list-style: none;
+    margin-top: 2rem;
+  }
+  .market-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-700);
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    font-weight: 300;
+    color: var(--gray-300);
+  }
+  .market-list li:last-child { border-bottom: none; }
+  .market-bullet {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(0,229,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .market-bullet svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2.5;
+  }
+  .tam-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--gray-800);
+    border-radius: 10px;
+    border: 1px solid var(--gray-700);
+  }
+  .tam-box .stat-number { font-size: 2.5rem; }
+  .tam-box p { color: var(--gray-400); font-size: 0.9rem; margin-top: 0.5rem; font-weight: 300; }
+
+  /* ===== BUSINESS PLAN ===== */
+  .bizplan {
+    position: relative;
+  }
+  .bizplan-document {
+    max-width: 900px;
+    margin: 3rem auto 0;
+    background: var(--gray-800);
+    border-radius: 16px;
+    border: 1px solid var(--gray-700);
+    overflow: hidden;
+  }
+  .bizplan-header {
+    padding: 2.5rem 3rem;
+    background: linear-gradient(135deg, rgba(0,229,255,0.08), transparent);
+    border-bottom: 1px solid var(--gray-700);
+  }
+  .bizplan-header h3 {
+    font-size: 2.2rem;
+    color: var(--accent);
+  }
+  .bizplan-header p {
+    color: var(--gray-400);
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+  .bizplan-body {
+    padding: 2.5rem 3rem;
+  }
+  .bp-section {
+    margin-bottom: 2.5rem;
+  }
+  .bp-section:last-child { margin-bottom: 0; }
+  .bp-section h4 {
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .bp-section h4 .bp-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(0,229,255,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .bp-section h4 .bp-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+  }
+  .bp-section p, .bp-section li {
+    color: var(--gray-300);
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .bp-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .bp-section ul li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .bp-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1em;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .bp-divider {
+    height: 1px;
+    background: var(--gray-700);
+    margin: 2rem 0;
+  }
+  .bp-cost-tag {
+    display: inline-block;
+    background: rgba(0,229,255,0.1);
+    color: var(--accent);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.6rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .risk-card {
+    padding: 1.2rem;
+    background: rgba(255,111,60,0.06);
+    border: 1px solid rgba(255,111,60,0.15);
+    border-radius: 8px;
+  }
+  .risk-card p {
+    font-size: 0.9rem;
+  }
+  .risk-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.2rem;
+    color: var(--warm);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 60px 2rem 40px;
+    background: var(--gray-900);
+    text-align: center;
+    border-top: 1px solid var(--gray-700);
+  }
+  footer p {
+    color: var(--gray-400);
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  footer a:hover { text-decoration: underline; }
+  .footer-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .problem-grid,
+    .market-split {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    .solution-overlay {
+      flex-direction: column;
+    }
+    .stat-row { flex-direction: column; }
+    .risk-grid {
+      grid-template-columns: 1fr;
+    }
+    .bizplan-body, .bizplan-header {
+      padding: 1.5rem;
+    }
+    section { padding: 60px 1.5rem; }
+    .cta-btn-outline { margin-left: 0; margin-top: 1rem; }
+    .hero-content .cta-group { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .market-image-stack { grid-template-columns: 1fr; }
+    .market-image-stack img:first-child { grid-column: span 1; aspect-ratio: 16/9; }
+  }
+
+  @media (max-width: 600px) {
+    .sti-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 0.7rem; }
+    .portal-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-7v4h4l-5 7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="portal-ring"></div>
+  <div class="portal-ring"></div>
+  <div class="portal-ring"></div>
+  <div class="hero-content">
+    <h1>PORT<span>A</span>LS</h1>
+    <p class="hero-tagline">Step through. See the world live.</p>
+    <p class="hero-pitch">A pop-up museum experience featuring life-sized live video screens that connect you with real people in cities around the globe. Walk room to room, from Tokyo to Rome to Nairobi, sharing snacks, stories, and culture in real time.</p>
+    <div class="cta-group">
+      <a href="#" class="cta-btn">Get Early Access</a>
+      <a href="#solution" class="cta-btn cta-btn-outline">See How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal-left">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-heading">The world is closer than ever, yet feels further away</h2>
+        <p class="section-body">Most people will never set foot in more than a handful of countries. Virtual travel feels flat, one-directional, and impersonal. There is no visceral, human way to connect with someone across the globe without booking a flight, taking time off work, and spending thousands of dollars.</p>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-number">88%</div>
+            <div class="stat-desc">of Americans want to travel abroad but cite cost as the top barrier</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">4.3B</div>
+            <div class="stat-desc">people have never left their home country</div>
+          </div>
+        </div>
+      </div>
+      <div class="problem-image reveal-right">
+        <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=800&q=80" alt="Person looking out at an airport, longing to travel">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Solution</p>
+      <h2 class="section-heading">Walk through a portal. Land somewhere new.</h2>
+      <p class="section-body">Portals builds large-format live video installations inside pop-up museum spaces. Each room is a real-time window into a different city, staffed by local cultural ambassadors on the other side. Talk, laugh, share snacks, and learn through AI-powered live translation.</p>
+    </div>
+    <div class="solution-visual reveal">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80" alt="Sweeping global vista connecting cultures">
+      <div class="solution-overlay">
+        <div class="sol-card">
+          <h4>Live Connection</h4>
+          <p>Sub-second video sync means conversations feel natural and spontaneous, not delayed or awkward.</p>
+        </div>
+        <div class="sol-card">
+          <h4>Cultural Ambassadors</h4>
+          <p>Each portal is staffed by local hosts who share stories, answer questions, and guide the experience.</p>
+        </div>
+        <div class="sol-card">
+          <h4>Real-Time Translation</h4>
+          <p>AI-powered language translation lets you have a real conversation with anyone, anywhere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 1rem;">
+      <p class="section-label">Features</p>
+      <h2 class="section-heading" style="margin: 0 auto 0.5rem;">What makes it unforgettable</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&w=800&q=80" alt="Large display screen showing remote connection">
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Sub-Second Live Sync</h3>
+          <p>Life-sized portal screens with sub-second latency make you feel like you are standing in the same room as someone 6,000 miles away.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80" alt="People collaborating across cultures">
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>AI-Powered Translation</h3>
+          <p>Speak in English, hear back in Japanese. Our real-time translation layer removes language barriers so conversations flow naturally.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Diverse cultural food spread">
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3>Cultural Exchange Kits</h3>
+          <p>Each portal room includes curated local snacks, artifacts, and conversation starters. Hold up a treat and ask, "Should I try this?"</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=800&q=80" alt="Festival and cultural celebration">
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Rotating Monthly Themes</h3>
+          <p>Street food in March. Music and dance in April. Local crafts in May. Every visit is a different experience, keeping visitors coming back.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="container">
+    <div class="market-split">
+      <div class="reveal-left">
+        <p class="section-label">Market Opportunity</p>
+        <h2 class="section-heading">A growing appetite for real experiences</h2>
+        <p class="section-body">The experiential entertainment industry is booming. Consumers are spending less on things and more on moments. Portals sits at the intersection of pop-up culture, travel aspiration, and social media shareability.</p>
+        <ul class="market-list">
+          <li>
+            <span class="market-bullet"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Urban millennials and Gen Z (ages 18-40) who crave experiential entertainment and shareable moments
+          </li>
+          <li>
+            <span class="market-bullet"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            School field trips and educational groups seeking interactive cultural learning
+          </li>
+          <li>
+            <span class="market-bullet"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Corporate team-building events and tourism boards promoting their cities
+          </li>
+        </ul>
+        <div class="tam-box">
+          <div class="stat-number">$12B+</div>
+          <p>U.S. experiential entertainment market. Pop-up concepts like Museum of Ice Cream and Meow Wolf have each crossed $50M in revenue. A network of Portals in 10 cities could capture $30-50M annually at scale.</p>
+        </div>
+      </div>
+      <div class="market-image-stack reveal-right">
+        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=800&q=80" alt="Vibrant street scene in Venice">
+        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80" alt="Tokyo cityscape at night">
+        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80" alt="Colorful market scene in Morocco">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-heading" style="margin: 0 auto 0.5rem;">Built to scale, room by room</h2>
+    </div>
+    <div class="bizplan-document reveal">
+      <div class="bizplan-header">
+        <h3>Portals Business Plan</h3>
+        <p>A strategic overview for investors, partners, and operators</p>
+      </div>
+      <div class="bizplan-body">
+
+        <div class="bp-section">
+          <h4>
+            <span class="bp-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+            Revenue Model
+          </h4>
+          <p>Ticket sales at $20-35 per visitor for timed entry sessions. Additional revenue from corporate event bookings, educational group packages, branded cultural partnerships (food brands sponsoring the snack exchange), and merchandise. City tourism boards pay placement fees to be featured as a portal destination.</p>
+        </div>
+
+        <div class="bp-divider"></div>
+
+        <div class="bp-section">
+          <h4>
+            <span class="bp-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+            Go-to-Market Strategy
+          </h4>
+          <p>Launch a single flagship Portals experience in a high-traffic city like New York or Los Angeles, partnering with two to three international cities. Generate buzz through influencer previews and earned media coverage. Use timed-entry ticketing via platforms like Fever or Eventbrite to manage demand and create urgency through limited availability.</p>
+        </div>
+
+        <div class="bp-divider"></div>
+
+        <div class="bp-section">
+          <h4>
+            <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            Competitive Advantage
+          </h4>
+          <p>Unlike static museum exhibits or VR headset experiences, Portals delivers genuine two-way human interaction at scale. The live element is irreplaceable by video recordings or virtual reality. The pop-up model keeps overhead low while generating social media buzz and scarcity-driven demand.</p>
+        </div>
+
+        <div class="bp-divider"></div>
+
+        <div class="bp-section">
+          <h4>
+            <span class="bp-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+            Year One Milestones
+          </h4>
+          <ul>
+            <li>Launch flagship location with 6 portal rooms connecting to 6 international cities</li>
+            <li>Sell 150,000 tickets in the first 12 months at an average price of $25</li>
+            <li>Secure 3 corporate sponsors and 2 tourism board partnerships</li>
+          </ul>
+        </div>
+
+        <div class="bp-divider"></div>
+
+        <div class="bp-section">
+          <h4>
+            <span class="bp-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+            Startup Cost Estimate
+          </h4>
+          <p>First location buildout including AV hardware, venue lease, international installation, staffing, and launch marketing:</p>
+          <div class="bp-cost-tag">$500K - $1.2M</div>
+        </div>
+
+        <div class="bp-divider"></div>
+
+        <div class="bp-section">
+          <h4>
+            <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+            Key Risks
+          </h4>
+          <div class="risk-grid">
+            <div class="risk-card">
+              <div class="risk-num">01</div>
+              <p>Time zone logistics make it difficult to have live connections with all cities during peak visitor hours</p>
+            </div>
+            <div class="risk-card">
+              <div class="risk-num">02</div>
+              <p>Reliance on stable, high-bandwidth international video infrastructure across all portal locations</p>
+            </div>
+            <div class="risk-card">
+              <div class="risk-num">03</div>
+              <p>Pop-up venue leasing costs in major metropolitan areas can be unpredictable and expensive</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Portals</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=UO-iy1wqP_4" target="_blank">Steal This Idea podcast</a>. It is not a real company (yet).</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Built with imagination. Steal it if you dare.</p>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll-triggered reveals
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

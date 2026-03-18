@@ -1,0 +1,34 @@
+{
+  "slug": "city-jump",
+  "company_name": "City Jump",
+  "tagline": "Your city. Your leap. Limited days only.",
+  "elevator_pitch": "City Jump is a traveling bungee jumping experience that rolls into major cities for less than a week with a massive neon crane, live music, food trucks, and the thrill of a lifetime. It combines the viral excitement of a color run with the adrenaline of extreme sports—and then it's gone.",
+  "problem": "Bungee jumping is an incredible experience that most people never try because it requires traveling to remote bridges or canyons. There's no convenient, accessible way to experience the thrill in your own city, and the extreme sports event market is dominated by running-based events that all feel the same.",
+  "solution": "City Jump brings a professionally operated bungee crane directly into urban areas for a limited 6-day engagement. The scarcity creates urgency, the urban setting creates spectacle, and the full event experience (music, food, merch) creates memories. Then it moves to the next city, building anticipation year over year.",
+  "target_market": "Adventure-seeking millennials and Gen Z (18-35), corporate team-building groups, and thrill-seekers who attend events like Tough Mudder, color runs, and music festivals. Secondary: social media content creators looking for viral moments.",
+  "revenue_model": "Primary: $50-75 per jump ticket (groups of 10 at a time, ~5-10 min per jump cycle). Secondary: vendor booth fees from food trucks and sponsors, merchandise sales (t-shirts, wristbands, photos), and corporate sponsorship packages (e.g., 'The Red Bull Drop').",
+  "key_features": [
+    "Traveling urban crane bungee—eye-level with skyscrapers",
+    "Limited 6-day city engagements that create FOMO and urgency",
+    "Full festival atmosphere with food trucks, music, and vendors",
+    "Professional photo/video packages for instant social media sharing"
+  ],
+  "competitive_advantage": "No one is doing traveling urban bungee. The scarcity model (limited days per city) drives demand that a permanent location never could. The crane is mobile, the brand is bold, and the social media content practically creates itself. First-mover advantage in a category that doesn't exist yet.",
+  "market_size_estimate": "The U.S. adventure tourism market is $263B. The obstacle/adventure race market (Tough Mudder, Spartan Race) generates $500M+ annually. City Jump targets the intersection of extreme sports and event entertainment. Even reaching 50 cities at 2,000 jumps per city = $5-7.5M in ticket revenue alone.",
+  "go_to_market": "Start with one crane in a bungee-friendly city (think Austin, Nashville, or Denver). Document everything for social media. Let the spectacle market itself—people filming from office windows, drones capturing jumps against skylines. Expand to a second crane after proving the model in 5-6 cities.",
+  "risks": [
+    "Insurance and liability costs for bungee operations could be significant",
+    "City permitting for a crane in urban areas may be difficult or impossible in some markets",
+    "Weather dependency and seasonal routing require careful logistics planning"
+  ],
+  "year_one_milestones": [
+    "Complete 8-10 city engagements with one crane in the first operating year",
+    "Achieve 80%+ ticket sell-through rate by city #3 through social media momentum",
+    "Secure one major brand sponsor (energy drink, apparel, or action camera company)"
+  ],
+  "startup_cost_range": "$200,000 - $500,000 (crane purchase/lease, safety equipment, insurance, branding, initial marketing)",
+  "category": "Services",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=uyF9aBzlq6c",
+  "episode_number": 3
+}

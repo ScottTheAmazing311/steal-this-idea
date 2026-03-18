@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Jump: Your City. Your Leap. Limited Days Only.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111111;
+            --dark-card: #161616;
+            --card-border: #222222;
+            --cyan: #00f0ff;
+            --pink: #ff2d7b;
+            --yellow: #ffe600;
+            --white: #f5f5f5;
+            --gray: #888888;
+            --light-gray: #cccccc;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* Inline SVG icon helpers */
+        .icon-svg {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+        }
+
+        /* Steal This Idea Badge */
+        .sti-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(17, 17, 17, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--yellow);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .sti-badge:hover {
+            border-color: var(--yellow);
+            box-shadow: 0 0 20px rgba(255, 230, 0, 0.15);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1559677624-3c956f10d431?auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
+            z-index: 0;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 10, 10, 0.7) 0%,
+                rgba(10, 10, 10, 0.55) 40%,
+                rgba(10, 10, 10, 0.8) 100%
+            );
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 1;
+            background: radial-gradient(ellipse at 30% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(255, 45, 123, 0.06) 0%, transparent 50%);
+            animation: heroGlow 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-30px, 20px) rotate(3deg); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--black), transparent);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 24px;
+            padding: 6px 20px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 50px;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 15vw, 12rem);
+            line-height: 0.9;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 50%, var(--pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            letter-spacing: 6px;
+            color: var(--yellow);
+            margin-bottom: 32px;
+        }
+
+        .hero-pitch {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--light-gray);
+            max-width: 680px;
+            margin: 0 auto 48px;
+            font-weight: 300;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            padding: 16px 48px;
+            background: var(--cyan);
+            color: var(--black);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        }
+
+        .btn-primary:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            padding: 16px 48px;
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            border: 2px solid var(--card-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--cyan);
+            border-bottom: 2px solid var(--cyan);
+            transform: rotate(45deg);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 24px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            line-height: 1;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .section-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--light-gray);
+            max-width: 700px;
+            font-weight: 300;
+        }
+
+        /* Full-width image break */
+        .image-break {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .image-break img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-break::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                var(--black) 0%,
+                transparent 15%,
+                transparent 85%,
+                var(--black) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* Section inline images */
+        .section-img {
+            width: 100%;
+            border-radius: 2px;
+            display: block;
+            object-fit: cover;
+        }
+
+        .section-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        .section-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.06), rgba(255, 45, 123, 0.06));
+            pointer-events: none;
+        }
+
+        /* Problem */
+        .problem {
+            background: var(--dark);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .problem-img {
+            margin-top: 40px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+        }
+
+        .problem-img img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.8);
+            transition: filter 0.4s ease;
+        }
+
+        .problem-img:hover img {
+            filter: brightness(1);
+        }
+
+        .problem-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .stat-item {
+            padding: 32px;
+            border-left: 3px solid var(--pink);
+            background: rgba(255, 45, 123, 0.03);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--pink);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Solution */
+        .solution-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+            margin-top: 32px;
+        }
+
+        .solution-img-col {
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        .solution-img-col img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.85);
+            transition: filter 0.4s ease;
+        }
+
+        .solution-img-col:hover img {
+            filter: brightness(1);
+        }
+
+        .solution-highlight {
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(255, 45, 123, 0.05));
+            border: 1px solid var(--card-border);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .solution-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--pink));
+        }
+
+        .solution-quote {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            line-height: 1.3;
+            letter-spacing: 1px;
+            color: var(--white);
+        }
+
+        .solution-quote span {
+            color: var(--cyan);
+        }
+
+        /* Features */
+        .features {
+            background: var(--dark);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            margin-top: 64px;
+            background: var(--card-border);
+        }
+
+        .feature-card {
+            background: var(--dark);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--dark-card);
+        }
+
+        .feature-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.6);
+            transition: filter 0.4s ease;
+        }
+
+        .feature-card:hover .feature-card-img {
+            filter: brightness(0.75);
+        }
+
+        .feature-card-body {
+            padding: 36px 40px 48px;
+        }
+
+        .feature-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.03);
+            position: absolute;
+            top: 210px;
+            right: 24px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--gray);
+            font-weight: 300;
+        }
+
+        .feature-card:nth-child(1) h3 { color: var(--cyan); }
+        .feature-card:nth-child(2) h3 { color: var(--pink); }
+        .feature-card:nth-child(3) h3 { color: var(--yellow); }
+        .feature-card:nth-child(4) h3 { color: var(--cyan); }
+
+        /* Market */
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .market-stat {
+            text-align: center;
+            padding: 48px 24px;
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        .market-stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .market-stat:nth-child(1)::after { background: var(--cyan); }
+        .market-stat:nth-child(2)::after { background: var(--pink); }
+        .market-stat:nth-child(3)::after { background: var(--yellow); }
+
+        .market-stat .number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .market-stat:nth-child(1) .number { color: var(--cyan); }
+        .market-stat:nth-child(2) .number { color: var(--pink); }
+        .market-stat:nth-child(3) .number { color: var(--yellow); }
+
+        .market-stat .label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .market-audience {
+            margin-top: 48px;
+            padding: 40px;
+            background: var(--dark);
+            border: 1px solid var(--card-border);
+        }
+
+        .market-audience h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            color: var(--yellow);
+        }
+
+        .market-audience p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--light-gray);
+            font-weight: 300;
+        }
+
+        .market-img {
+            margin-top: 48px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+        }
+
+        .market-img img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.75);
+            transition: filter 0.4s ease;
+        }
+
+        .market-img:hover img {
+            filter: brightness(1);
+        }
+
+        /* Business Plan */
+        .business-plan {
+            background: var(--dark);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .bp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .bp-card {
+            padding: 40px;
+            background: var(--black);
+            border: 1px solid var(--card-border);
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+
+        .bp-card:hover {
+            border-color: #333;
+        }
+
+        .bp-card-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .bp-card:nth-child(1) .bp-card-label { color: var(--cyan); }
+        .bp-card:nth-child(2) .bp-card-label { color: var(--pink); }
+        .bp-card:nth-child(3) .bp-card-label { color: var(--yellow); }
+        .bp-card:nth-child(4) .bp-card-label { color: var(--cyan); }
+
+        .bp-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            color: var(--white);
+        }
+
+        .bp-card p, .bp-card li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--gray);
+            font-weight: 300;
+        }
+
+        .bp-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bp-card ul li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .bp-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .bp-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 16px;
+            width: 8px;
+            height: 2px;
+        }
+
+        .bp-card:nth-child(1) ul li::before,
+        .bp-card:nth-child(4) ul li::before { background: var(--cyan); }
+        .bp-card:nth-child(2) ul li::before { background: var(--pink); }
+        .bp-card:nth-child(3) ul li::before { background: var(--yellow); }
+
+        /* Full-width cards */
+        .bp-full {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .bp-mini {
+            padding: 32px;
+            background: var(--black);
+            border: 1px solid var(--card-border);
+            transition: border-color 0.3s ease;
+        }
+
+        .bp-mini:hover {
+            border-color: #333;
+        }
+
+        .bp-mini-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .bp-mini:nth-child(1) .bp-mini-label { color: var(--pink); }
+        .bp-mini:nth-child(2) .bp-mini-label { color: var(--yellow); }
+        .bp-mini:nth-child(3) .bp-mini-label { color: var(--cyan); }
+
+        .bp-mini h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .bp-mini p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--gray);
+            font-weight: 300;
+        }
+
+        .startup-cost-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--yellow);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 24px;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            background: var(--black);
+        }
+
+        .footer-concept {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .footer-concept a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-concept a:hover {
+            color: var(--white);
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            color: var(--card-border);
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .problem-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-stats {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .bp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bp-full {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card-body {
+                padding: 28px 28px 36px;
+            }
+
+            .feature-number {
+                top: 210px;
+            }
+
+            .solution-content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-break {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 80px 20px;
+            }
+
+            .hero {
+                padding: 60px 20px 40px;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+
+            .solution-highlight {
+                padding: 32px 24px;
+            }
+
+            .bp-card {
+                padding: 28px;
+            }
+
+            .sti-badge {
+                top: 12px;
+                left: 12px;
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+
+            .image-break {
+                height: 200px;
+            }
+
+            .feature-card-img {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="sti-badge">
+        Steal This Idea
+    </a>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="reveal">
+                <span class="hero-label">Traveling Extreme Sports Experience</span>
+            </div>
+            <h1 class="reveal reveal-delay-1">City Jump</h1>
+            <p class="hero-tagline reveal reveal-delay-2">Your city. Your leap. Limited days only.</p>
+            <p class="hero-pitch reveal reveal-delay-3">City Jump is a traveling bungee jumping experience that rolls into major cities for less than a week with a massive neon crane, live music, food trucks, and the thrill of a lifetime. It combines the viral excitement of a color run with the adrenaline of extreme sports, and then it's gone.</p>
+            <div class="hero-ctas reveal reveal-delay-4">
+                <a href="#" class="btn-primary" onclick="return false;">Find Your City</a>
+                <a href="#" class="btn-secondary" onclick="return false;">Get Notified</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- IMAGE BREAK: Cityscape -->
+    <div class="image-break reveal">
+        <img src="https://images.unsplash.com/photo-1758404196311-70c62a445e9c?auto=format&fit=crop&w=1920&q=80" alt="Illuminated city skyline at night" loading="lazy">
+    </div>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-grid">
+                <div>
+                    <p class="section-label reveal">The Problem</p>
+                    <h2 class="section-title reveal reveal-delay-1">Bungee Jumping Is<br>Stuck in the Middle<br>of Nowhere</h2>
+                    <p class="section-text reveal reveal-delay-2">Bungee jumping is an incredible experience that most people never try because it requires traveling to remote bridges or canyons. There's no convenient, accessible way to experience the thrill in your own city, and the extreme sports event market is dominated by running-based events that all feel the same.</p>
+                    <div class="problem-img reveal reveal-delay-3">
+                        <img src="https://images.unsplash.com/photo-1653315918982-4afe82e450a6?auto=format&fit=crop&w=1200&q=80" alt="Crane silhouette against sunset sky" loading="lazy">
+                    </div>
+                </div>
+                <div class="problem-stats">
+                    <div class="stat-item reveal">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">of people who want to bungee jump never do, because there's nowhere nearby to try it</div>
+                    </div>
+                    <div class="stat-item reveal reveal-delay-1">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">traveling urban bungee experiences currently exist in the United States</div>
+                    </div>
+                    <div class="stat-item reveal reveal-delay-2">
+                        <div class="stat-number">Same</div>
+                        <div class="stat-label">every adventure event is another mud run, color run, or obstacle race. Nothing new, nothing vertical.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="solution">
+        <div class="container">
+            <p class="section-label reveal">The Solution</p>
+            <h2 class="section-title reveal reveal-delay-1">We Bring the Jump<br>to You</h2>
+            <div class="solution-content-grid">
+                <div>
+                    <p class="section-text reveal reveal-delay-2">City Jump brings a professionally operated bungee crane directly into urban areas for a limited 6-day engagement. The scarcity creates urgency, the urban setting creates spectacle, and the full event experience (music, food, merch) creates memories. Then it moves to the next city, building anticipation year over year.</p>
+                    <div class="solution-highlight reveal reveal-delay-3" style="margin-top: 32px;">
+                        <p class="solution-quote">A neon-lit crane, eye-level with skyscrapers. <span>Six days</span>. Food trucks, live music, carnival games at the base. You jump, you scream, you get the t-shirt. Then we roll out, <span>and everyone wishes they'd gone</span>.</p>
+                    </div>
+                </div>
+                <div class="solution-img-col reveal reveal-delay-2">
+                    <img src="https://plus.unsplash.com/premium_photo-1664303680697-213369cc512e?auto=format&fit=crop&w=1200&q=80" alt="Festival crowd with stage lights" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMAGE BREAK: Food Trucks -->
+    <div class="image-break reveal">
+        <img src="https://images.unsplash.com/photo-1640251314219-be6eb294446b?auto=format&fit=crop&w=1920&q=80" alt="Food truck scene with crowd" loading="lazy">
+    </div>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <p class="section-label reveal">What Makes It Work</p>
+            <h2 class="section-title reveal reveal-delay-1">Built for Spectacle.<br>Designed for FOMO.</h2>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1653315918982-4afe82e450a6?auto=format&fit=crop&w=800&q=80" alt="Crane against sunset" loading="lazy">
+                    <span class="feature-number">01</span>
+                    <div class="feature-card-body">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="20,4 36,36 4,36" stroke="var(--cyan)" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3>Skyscraper-Height Urban Crane</h3>
+                        <p>A massive, neon-branded mobile crane that sets up in downtown areas, putting you eye-level with the city skyline. It is impossible to ignore and impossible not to film.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-1">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1758404196311-70c62a445e9c?auto=format&fit=crop&w=800&q=80" alt="City skyline at night" loading="lazy">
+                    <span class="feature-number">02</span>
+                    <div class="feature-card-body">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="16" stroke="var(--pink)" stroke-width="2" fill="none"/>
+                                <line x1="20" y1="8" x2="20" y2="20" stroke="var(--pink)" stroke-width="2"/>
+                                <line x1="20" y1="20" x2="28" y2="24" stroke="var(--pink)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>6-Day Scarcity Model</h3>
+                        <p>Limited engagements per city create real urgency. When City Jump is in your town, you either go or you miss it. The countdown drives ticket sales and social buzz.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <img class="feature-card-img" src="https://plus.unsplash.com/premium_photo-1664303680697-213369cc512e?auto=format&fit=crop&w=800&q=80" alt="Concert crowd" loading="lazy">
+                    <span class="feature-number">03</span>
+                    <div class="feature-card-body">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="28" width="4" height="8" fill="var(--yellow)"/>
+                                <rect x="14" y="22" width="4" height="14" fill="var(--yellow)"/>
+                                <rect x="20" y="16" width="4" height="20" fill="var(--yellow)"/>
+                                <rect x="26" y="10" width="4" height="26" fill="var(--yellow)"/>
+                                <rect x="32" y="4" width="4" height="32" fill="var(--yellow)"/>
+                            </svg>
+                        </div>
+                        <h3>Full Festival Atmosphere</h3>
+                        <p>Food trucks, live music, carnival games, and vendor booths transform the jump site into a destination. Even spectators have a reason to come and spend.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1559677624-3c956f10d431?auto=format&fit=crop&w=800&q=80" alt="Bungee jumping thrill" loading="lazy">
+                    <span class="feature-number">04</span>
+                    <div class="feature-card-body">
+                        <div class="feature-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="6" width="24" height="18" rx="2" stroke="var(--cyan)" stroke-width="2" fill="none"/>
+                                <circle cx="20" cy="15" r="4" stroke="var(--cyan)" stroke-width="2" fill="none"/>
+                                <line x1="14" y1="30" x2="20" y2="24" stroke="var(--cyan)" stroke-width="2"/>
+                                <line x1="26" y1="30" x2="20" y2="24" stroke="var(--cyan)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>Instant Social Content</h3>
+                        <p>Professional photo and video packages capture every jump against the city skyline. Drone footage, slow-mo reactions, shareable clips; the content creates itself.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMAGE BREAK: Aerial City -->
+    <div class="image-break reveal">
+        <img src="https://plus.unsplash.com/premium_photo-1754265696439-5d5d12a4a285?auto=format&fit=crop&w=1920&q=80" alt="Aerial drone view of city at sunset" loading="lazy">
+    </div>
+
+    <!-- MARKET -->
+    <section class="market">
+        <div class="container">
+            <p class="section-label reveal">Market Opportunity</p>
+            <h2 class="section-title reveal reveal-delay-1">The Adventure Market<br>Is Massive. And Bored.</h2>
+            <p class="section-text reveal reveal-delay-2">The U.S. adventure tourism market is worth $263B. The obstacle and adventure race market alone generates $500M+ annually. City Jump targets the intersection of extreme sports and event entertainment: a new category entirely.</p>
+
+            <div class="market-stats">
+                <div class="market-stat reveal">
+                    <div class="number">$263B</div>
+                    <div class="label">U.S. adventure<br>tourism market</div>
+                </div>
+                <div class="market-stat reveal reveal-delay-1">
+                    <div class="number">$500M+</div>
+                    <div class="label">Adventure race market<br>(Tough Mudder, Spartan)</div>
+                </div>
+                <div class="market-stat reveal reveal-delay-2">
+                    <div class="number">$5-7.5M</div>
+                    <div class="label">Year one ticket revenue<br>potential (50 cities)</div>
+                </div>
+            </div>
+
+            <div class="market-audience reveal">
+                <h3>Target Audience</h3>
+                <p>Adventure-seeking millennials and Gen Z (18 to 35), corporate team-building groups, and thrill-seekers who attend events like Tough Mudder, color runs, and music festivals. Secondary audience: social media content creators looking for viral moments.</p>
+            </div>
+
+            <div class="market-img reveal">
+                <img src="https://plus.unsplash.com/premium_photo-1664303680697-213369cc512e?auto=format&fit=crop&w=1200&q=80" alt="Excited crowd at live event" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS PLAN -->
+    <section class="business-plan">
+        <div class="container">
+            <p class="section-label reveal">The Business Plan</p>
+            <h2 class="section-title reveal reveal-delay-1">How City Jump<br>Makes Money</h2>
+
+            <div class="bp-grid">
+                <div class="bp-card reveal">
+                    <span class="bp-card-label">Revenue Model</span>
+                    <h3>Multiple Revenue Streams</h3>
+                    <ul>
+                        <li>$50 to $75 per jump ticket (groups of 10, roughly 5 to 10 min cycles)</li>
+                        <li>Vendor booth fees from food trucks and sponsors</li>
+                        <li>Merchandise: t-shirts, wristbands, jump photos</li>
+                        <li>Corporate sponsorship packages (e.g., "The Red Bull Drop")</li>
+                    </ul>
+                </div>
+
+                <div class="bp-card reveal reveal-delay-1">
+                    <span class="bp-card-label">Go-to-Market</span>
+                    <h3>Start Small, Go Viral</h3>
+                    <p>Start with one crane in a bungee-friendly city; think Austin, Nashville, or Denver. Document everything for social media. Let the spectacle market itself: people filming from office windows, drones capturing jumps against skylines. Expand to a second crane after proving the model in 5 to 6 cities.</p>
+                </div>
+
+                <div class="bp-card reveal">
+                    <span class="bp-card-label">Competitive Advantage</span>
+                    <h3>First-Mover in a New Category</h3>
+                    <p>No one is doing traveling urban bungee. The scarcity model drives demand that a permanent location never could. The crane is mobile, the brand is bold, and the social media content practically creates itself. First-mover advantage in a category that doesn't exist yet.</p>
+                </div>
+
+                <div class="bp-card reveal reveal-delay-1">
+                    <span class="bp-card-label">Year One Milestones</span>
+                    <h3>The Roadmap</h3>
+                    <ul>
+                        <li>Complete 8 to 10 city engagements with one crane in year one</li>
+                        <li>Achieve 80%+ ticket sell-through by city #3 via social momentum</li>
+                        <li>Secure one major brand sponsor (energy drink, apparel, or action camera)</li>
+                    </ul>
+                </div>
+
+                <div class="bp-full reveal">
+                    <div class="bp-mini">
+                        <span class="bp-mini-label">Startup Cost</span>
+                        <div class="startup-cost-value">$200K to $500K</div>
+                        <p>Crane purchase or lease, safety equipment, insurance, branding, and initial marketing to launch the first city tour.</p>
+                    </div>
+                    <div class="bp-mini">
+                        <span class="bp-mini-label">Key Risks</span>
+                        <h3>Eyes Wide Open</h3>
+                        <p>Insurance and liability costs could be significant. City permitting for cranes in urban areas may be difficult. Weather dependency requires careful seasonal routing.</p>
+                    </div>
+                    <div class="bp-mini">
+                        <span class="bp-mini-label">Seasonal Strategy</span>
+                        <h3>Follow the Weather</h3>
+                        <p>Michigan and the Midwest in summer. Orlando and the Sun Belt in winter. Route the tour to maximize outdoor comfort and attendance year-round.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="footer-concept">This is a concept from the <a href="https://www.youtube.com/watch?v=uyF9aBzlq6c" target="_blank" rel="noopener noreferrer">Steal This Idea</a> podcast. Not a real company. Yet.</p>
+        <div class="footer-brand">City Jump</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "slug": "wash-o-rama",
+  "company_name": "Wash-O-Rama",
+  "tagline": "Your car wash just became a ride.",
+  "elevator_pitch": "Wash-O-Rama transforms the mundane 5-minute car wash into a themed entertainment experience. Using AR games, LED light shows, and immersive audio, every wash becomes an adventure that keeps customers coming back for more.",
+  "problem": "Car washes are boring, forgettable, and completely interchangeable. Customers have no loyalty to any particular wash because the experience is identical everywhere. You sit in your car for five minutes staring at soap and brushes.",
+  "solution": "Wash-O-Rama turns every car wash into an immersive, themed experience. Customers choose from rotating scenarios (space battles, underwater adventures, holiday themes) delivered through AR on their phones, synchronized LED lighting, and surround audio. The car's movement through the wash becomes the ride itself.",
+  "target_market": "Families with children, millennials and Gen-Z drivers who value experiences over commodities, and car wash operators looking to differentiate and increase customer retention in a $15B+ industry.",
+  "revenue_model": "Premium pricing per wash ($5-10 above standard wash rates), monthly memberships with exclusive experiences, licensing the AR platform and hardware kit to existing car wash operators nationwide, and sponsored branded experiences (movie studio tie-ins, seasonal events).",
+  "key_features": [
+    "AR gaming via smartphone synced to the car wash track speed and stage",
+    "Themed LED light shows with surround audio piped through an FM frequency",
+    "Rotating seasonal and branded experiences that drive repeat visits",
+    "Leaderboard and push notifications to gamify customer retention"
+  ],
+  "competitive_advantage": "No one else is combining entertainment with car washing at scale. The controlled environment (fixed speed, fixed duration, captive audience) makes synchronization trivially reliable compared to other location-based AR. Early movers can lock in exclusive franchise territories and content deals.",
+  "market_size_estimate": "The US car wash industry is worth roughly $15 billion annually with over 60,000 locations. Capturing even 1% of locations as licensees at $25K/year in licensing fees represents a $150M opportunity, plus direct-operated premium locations.",
+  "go_to_market": "Launch a single flagship location in a high-traffic suburban area to prove the concept and generate viral social media content. Then license the technology kit (LED controllers, AR app, audio system) to existing car wash operators who want to differentiate.",
+  "risks": [
+    "Hardware installation costs may deter car wash operators from adopting the platform",
+    "AR adoption requires customers to download an app, which creates friction",
+    "Themed content production costs could be high and require frequent refreshes to retain interest"
+  ],
+  "year_one_milestones": [
+    "Open one flagship Wash-O-Rama location and achieve 500+ washes per week",
+    "Launch AR app with 3 themed experiences and hit 10,000 downloads",
+    "Sign letters of intent with 5 car wash operators for the licensing pilot program"
+  ],
+  "startup_cost_range": "$250K - $500K (flagship build-out, AR app development, LED/audio hardware, initial content production)",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=5ZvWF_GZWqU",
+  "episode_number": 14
+}

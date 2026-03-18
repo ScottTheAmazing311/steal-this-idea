@@ -1,0 +1,34 @@
+{
+  "slug": "the-boardwalk",
+  "company_name": "The Boardwalk",
+  "tagline": "Your favorite restaurants, all under one roof.",
+  "elevator_pitch": "The Boardwalk transforms dying big-box retail spaces into vibrant multi-restaurant food halls where independent chefs and restaurateurs share infrastructure, staff, and foot traffic. Think of it as a curated food court meets restaurant incubator, with bars, lounges, and entertainment woven in to diversify risk and maximize the experience.",
+  "problem": "Starting a restaurant is one of the riskiest ventures in business. Owners face enormous upfront costs, the challenge of finding a great location, and the pressure to build a customer base from scratch. One or two bad quarters can sink the whole operation. Meanwhile, prime retail spaces sit vacant as big-box stores die off.",
+  "solution": "The Boardwalk leases vacant big-box retail locations and subdivides them into multiple restaurant stalls, a bar, and an entertainment lounge. Independent restaurateurs move in with shared kitchen infrastructure, service staff, and marketing. The diversified model spreads risk across several concepts, so if one restaurant struggles, the others keep the venue thriving. Successful tenants graduate to standalone locations with a proven brand and loyal following.",
+  "target_market": "Aspiring and early-stage restaurant owners looking for lower-risk entry into the food industry, as well as food-loving consumers in suburban and urban areas who want variety, entertainment, and a curated dining experience in one destination.",
+  "revenue_model": "Revenue share with tenant restaurants (percentage of gross sales), direct operation of the bar and lounge, short-term pop-up kitchen rental fees for test concepts, event hosting and trivia night ticket sales, and ancillary revenue from merchandise and delivery partnerships.",
+  "key_features": [
+    "Turnkey restaurant spaces with shared kitchen infrastructure and service staff",
+    "Rotating pop-up test kitchen for aspiring chefs to trial new concepts",
+    "On-site bar, jazz lounge, and entertainment venue for trivia and live events",
+    "Built-in marketing engine with social media polls, food competitions, and community engagement"
+  ],
+  "competitive_advantage": "Unlike traditional food courts tied to malls or purpose-built food halls requiring millions in construction, The Boardwalk repurposes existing big-box retail shells at a fraction of the cost. The incubator model creates a pipeline of graduating restaurants that drives constant novelty, consumer urgency, and word-of-mouth marketing that static food halls cannot replicate.",
+  "market_size_estimate": "The U.S. restaurant industry generates over $1 trillion annually. The food hall segment alone is estimated at $2.4 billion and growing at roughly 10% per year. With thousands of big-box retail closures creating available square footage in high-traffic locations, the addressable market for repurposed food hall concepts is substantial.",
+  "go_to_market": "Launch a flagship location in a suburban market with a recently vacated big-box space. Recruit 3 to 4 local restaurateurs with proven menus but limited capital, plus operate the bar and lounge in-house. Generate buzz through a rotating pop-up chef series and aggressive local social media marketing, then expand to a second location within 18 months.",
+  "risks": [
+    "Negotiating favorable leases on big-box spaces and managing buildout costs could exceed projections",
+    "Tenant restaurant quality and consistency is hard to control across multiple independent operators",
+    "Consumer foot traffic may take time to build in locations not traditionally associated with dining"
+  ],
+  "year_one_milestones": [
+    "Open flagship location with 3 restaurant tenants, 1 bar, and 1 lounge within 6 months of lease signing",
+    "Host 50+ events including trivia nights, live music, and pop-up chef series in the first year",
+    "Achieve 80% tenant occupancy and positive unit economics by month 10"
+  ],
+  "startup_cost_range": "$500K - $1.5M",
+  "category": "Services",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=yt_xKDyYDPM",
+  "episode_number": 129
+}

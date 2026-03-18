@@ -1,0 +1,34 @@
+{
+  "slug": "cyclepet",
+  "company_name": "CyclePet",
+  "tagline": "Pedal More. Play More. Feel Better.",
+  "elevator_pitch": "CyclePet pairs an under-desk pedal exerciser with a Tamagotchi-style Chrome extension where your pedaling fuels a virtual pet's world. The harder you pedal, the sunnier the sky, the happier your pet, and the healthier you become during your workday.",
+  "problem": "Millions of remote and office workers sit at their desks for 8+ hours a day, leading to a sedentary lifestyle that contributes to chronic health issues. Under-desk exercisers exist, but they are boring and easy to forget about. There is no motivation loop that keeps people pedaling consistently throughout the day.",
+  "solution": "CyclePet connects a Bluetooth-enabled under-desk pedal exerciser to a browser-based virtual pet game. Your pedaling literally powers your pet's environment: sunshine, food growth, and happiness all depend on your movement. Stop pedaling and clouds roll in, rain starts, and your pet gets sad. It turns mindless desk exercise into a delightful, low-stakes game you never want to stop playing.",
+  "target_market": "Remote workers, hybrid employees, and office professionals aged 25 to 45 who spend long hours at a desk and want a fun, unobtrusive way to stay active throughout the workday.",
+  "revenue_model": "Hardware sales of the branded CyclePet under-desk pedal device ($149 to $199), plus a freemium Chrome extension with premium pet packs, environments, and seasonal content available through a $4.99/month subscription or one-time $2.99 expansion packs.",
+  "key_features": [
+    "Bluetooth-connected under-desk elliptical that syncs pedal data to your browser in real time",
+    "Tamagotchi-style virtual pet Chrome extension where your pedaling controls weather, food, and happiness",
+    "Daily streaks, unlockable pets, and seasonal themed environments to keep engagement high",
+    "Productivity mode that converts pedal time into earned break-time credits for guilt-free screen breaks"
+  ],
+  "competitive_advantage": "Existing under-desk exercisers are hardware-only products with no engagement layer. CyclePet is the first to combine casual desk fitness with a charming virtual pet game loop, creating an emotional reason to keep pedaling that pure fitness tracking cannot match.",
+  "market_size_estimate": "$2.4 billion. The global under-desk exercise equipment market is roughly $400M and growing, while the casual/hyper-casual gaming market exceeds $20B. CyclePet sits at the intersection; capturing even a small slice of desk-bound workers who game casually represents a multi-billion dollar addressable opportunity.",
+  "go_to_market": "Launch on Kickstarter with a playful campaign video showing office workers bonding over their virtual pets. Seed early units to productivity YouTubers and work-from-home influencers. Follow up with direct-to-consumer sales through the CyclePet website and a free-tier Chrome extension to build viral word of mouth.",
+  "risks": [
+    "Hardware manufacturing and logistics are capital-intensive and introduce supply chain risk for a startup",
+    "User novelty may wear off after the initial excitement, requiring constant content updates to retain engagement",
+    "Larger fitness brands like Peloton or Cubii could replicate the gamification layer and bundle it with superior hardware"
+  ],
+  "year_one_milestones": [
+    "Launch Kickstarter campaign and ship 5,000 units to early backers within 6 months",
+    "Release Chrome extension with 10 unlockable pets and 4 seasonal environments",
+    "Reach 15,000 active daily users and establish partnerships with 3 corporate wellness programs"
+  ],
+  "startup_cost_range": "$80,000 to $200,000",
+  "category": "Hardware",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=BAY-3KO0lXg",
+  "episode_number": 116
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "skipuleggja",
+  "company_name": "Skipuleggja",
+  "tagline": "Your space, perfectly organized.",
+  "elevator_pitch": "Skipuleggja is a customizable organization system that combines beautifully stained interlocking wood panels with precision 3D-printed inserts. Customers design compartments tailored to their exact belongings, turning chaotic bathroom counters, drawers, and desks into magazine-worthy spaces.",
+  "problem": "Bathroom counters and drawers are a daily frustration. Generic organizers never fit your specific collection of products, leaving you choosing between a cluttered countertop or a chaotic junk drawer. Off-the-shelf solutions look cheap and force you to adapt your life to their dimensions.",
+  "solution": "Skipuleggja lets you design a fully custom organizer online by selecting the items you own. A precision 3D-printed insert is created to hold every item perfectly, then wrapped in a handsome wood or metal frame that looks beautiful on your counter or tucked in a drawer.",
+  "target_market": "Design-conscious homeowners aged 25 to 45 who care about aesthetics and organization, particularly couples sharing bathroom or kitchen space who struggle to keep countertops and drawers tidy.",
+  "revenue_model": "Direct-to-consumer e-commerce with premium pricing. Countertop organizers at $79 to $149, drawer inserts at $49 to $99, and kitchen sets at $99 to $179. Upsell with premium frame materials (walnut, brass, matte black steel). Subscription refill program for replacement inserts as product collections change.",
+  "key_features": [
+    "Online configurator where you select your exact products and arrange the layout",
+    "Precision 3D-printed inserts custom-molded to your belongings",
+    "Premium interlocking wood frames in oak, walnut, and bamboo finishes",
+    "Modular design that works both standing on countertops and flat in drawers"
+  ],
+  "competitive_advantage": "Unlike generic organizers, every Skipuleggja unit is unique to the customer. The combination of mass-customization via 3D printing with premium natural materials creates a product that no off-the-shelf competitor can match on fit or aesthetics.",
+  "market_size_estimate": "The US home organization market is valued at roughly $12 billion annually. The premium bathroom accessories segment alone represents over $2 billion. Even capturing 0.1% of that market translates to $2 million in annual revenue.",
+  "go_to_market": "Launch with a focused Instagram and TikTok campaign showing dramatic before/after bathroom transformations. Partner with home organization influencers and interior design creators. Start with bathroom organizers as the hero product, then expand to kitchen drawers and desk setups.",
+  "risks": [
+    "3D printing at scale may create production bottlenecks and longer lead times than customers expect",
+    "Customer returns could be high since each unit is custom and non-resalable",
+    "Competitors like IKEA could introduce similar modular systems at lower price points"
+  ],
+  "year_one_milestones": [
+    "Launch online configurator and ship first 1,000 custom organizers within 6 months",
+    "Achieve $500K in revenue and 30% repeat purchase rate by end of year one",
+    "Expand product line from bathroom to kitchen and desk organization categories"
+  ],
+  "startup_cost_range": "$50,000 to $150,000",
+  "category": "Consumer",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=4-Hgz0XZKog",
+  "episode_number": 132
+}

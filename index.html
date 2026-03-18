@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steal This Idea - Business Ideas Worth Building</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #F2B705;
+  --yellow-light: #f5c623;
+  --yellow-dim: rgba(242, 183, 5, 0.10);
+  --black: #111111;
+  --black-soft: #1a1a1a;
+  --bg: #fafaf5;
+  --surface: #ffffff;
+  --surface-hover: #fffdf0;
+  --border: #e8e4d8;
+  --border-hover: #d4c9a8;
+  --text: #111111;
+  --text-muted: #555555;
+  --text-dim: #888888;
+  --accent: #111111;
+  --accent-bg: var(--yellow);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HERO BANNER */
+.hero-banner {
+  background: var(--yellow);
+  margin: 0 -28px;
+  padding: 60px 28px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--black);
+}
+
+.logo-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* HEADER */
+header {
+  padding: 0 0 48px;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--black);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--black);
+  opacity: 0.7;
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.65;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-bottom: 24px;
+}
+.stat-item {
+  text-align: center;
+}
+
+/* Listen links */
+.listen-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.listen-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.listen-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--black);
+  color: var(--yellow);
+  border-radius: 100px;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+.listen-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.listen-link svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.stat-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--black);
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Search */
+.search-bar {
+  max-width: 480px;
+  margin: 32px auto 32px;
+  position: relative;
+}
+.search-bar input {
+  width: 100%;
+  padding: 14px 20px 14px 48px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-bar input::placeholder { color: var(--text-dim); }
+.search-bar input:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px var(--yellow-dim);
+}
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--text-dim);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+.filter-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 8px 18px;
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-btn:hover {
+  border-color: var(--yellow);
+  color: var(--black);
+  background: var(--yellow-dim);
+}
+.filter-btn.active {
+  background: var(--yellow);
+  color: var(--black);
+  border-color: var(--yellow);
+  font-weight: 700;
+}
+.filter-count {
+  font-size: 10px;
+  opacity: 0.7;
+}
+.filter-btn.active .filter-count { opacity: 0.8; }
+
+/* Controls row */
+.controls-row {
+  margin-bottom: 48px;
+}
+
+/* Sort controls */
+.sort-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.sort-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 4px;
+}
+.sort-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 6px 14px;
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.sort-btn:hover {
+  border-color: var(--yellow);
+  color: var(--black);
+}
+.sort-btn.active {
+  background: var(--black);
+  color: var(--yellow);
+  border-color: var(--black);
+  font-weight: 700;
+}
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 80px 20px;
+  display: none;
+}
+.no-results h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.no-results p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+/* GRID */
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 28px;
+  padding-bottom: 80px;
+}
+
+/* CARDS */
+.idea-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.35s ease;
+  animation: fadeUp 0.5s ease both;
+}
+.idea-card:hover {
+  border-color: var(--yellow);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+.idea-card.hidden { display: none; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Card image */
+.card-img-link { display: block; text-decoration: none; }
+.card-img {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: transform 0.5s ease;
+}
+.idea-card:hover .card-img { transform: scale(1.03); }
+
+.card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 16px;
+}
+
+.card-vibe-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  color: #fff;
+}
+
+/* Vibe fallback gradients for cards without images */
+.vibe-bold { background-color: #1a1020; background-image: linear-gradient(135deg, #2a1030 0%, #18182a 100%); }
+.vibe-playful { background-color: #F2B705; background-image: linear-gradient(135deg, #f5c623 0%, #e8a800 100%); }
+.vibe-premium { background-color: #1a1828; background-image: linear-gradient(135deg, #2a2040 0%, #101020 100%); }
+.vibe-technical { background-color: #0c1420; background-image: linear-gradient(135deg, #0e1a2c 0%, #0a1218 100%); }
+.vibe-earthy { background-color: #2a3520; background-image: linear-gradient(135deg, #354428 0%, #1e2a18 100%); }
+.vibe-minimal { background-color: #e8e8e8; background-image: linear-gradient(135deg, #f0f0f0 0%, #d8d8d8 100%); }
+.vibe-retro { background-color: #3a2820; background-image: linear-gradient(135deg, #4a3425 0%, #2a1e18 100%); }
+
+/* Card body */
+.card-body { padding: 24px 24px 28px; }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.card-category {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  background: var(--yellow);
+  border-radius: 4px;
+}
+
+.card-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.card-title a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.card-title a:hover { color: var(--accent); }
+
+.card-tagline {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.card-pitch {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.page-link {
+  background: var(--yellow);
+  color: var(--black);
+  font-weight: 700;
+}
+.page-link:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(242, 183, 5, 0.3);
+}
+
+.ep-link {
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+.ep-link:hover {
+  border-color: var(--yellow);
+  color: var(--black);
+  background: var(--yellow-dim);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px 0 60px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  border-top: 2px solid var(--border);
+}
+footer a {
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-banner { padding: 40px 20px 36px; }
+  .logo-img { width: 90px; height: 90px; }
+  h1 { font-size: 2rem; }
+  .stats-row { gap: 32px; }
+  .stat-num { font-size: 1.8rem; }
+  .ideas-grid { grid-template-columns: 1fr; }
+  .card-img { height: 180px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .stats-row { gap: 24px; }
+  .filters { gap: 6px; }
+  .filter-btn { font-size: 10px; padding: 6px 12px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero-banner">
+  <img src="https://cachedimages.podchaser.com/256x256/aHR0cHM6Ly9zdG9yYWdlLmJ1enpzcHJvdXQuY29tL2x6YTY2cWtraWp3bDgzY2tlem9razE0d3JwYWE%2FLmpwZz0%3D/aHR0cHM6Ly93d3cucG9kY2hhc2VyLmNvbS9pbWFnZXMvbWlzc2luZy1pbWFnZS5wbmc%3D" alt="Steal This Idea" class="logo-img">
+  <h1>steal these ideas</h1>
+  <p class="subtitle">Business ideas from the podcast, each one explored with a full landing page and business plan. If you love it, steal it.</p>
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">93</div>
+      <div class="stat-label">Ideas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Categories</div>
+    </div>
+  </div>
+  <div class="listen-row">
+    <span class="listen-label">Listen to the show:</span>
+    <a href="https://open.spotify.com/show/1AZ2Xbo8EAFm0k3vxkl5so" target="_blank" rel="noopener" class="listen-link">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      Spotify
+    </a>
+    <a href="https://podcasts.apple.com/us/podcast/steal-this-idea/id1472895373" target="_blank" rel="noopener" class="listen-link">
+      <svg viewBox="0 0 24 24"><path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.6-.24 1.2-.84 1.32-.6.12-1.2-.24-1.32-.84-.264-1.272-.768-2.352-1.68-3.312-1.272-1.332-2.88-2.028-4.728-2.028-1.848 0-3.456.696-4.728 2.028-.888.936-1.416 2.04-1.68 3.312-.12.6-.72.96-1.32.84-.6-.12-.96-.72-.84-1.32.36-1.776 1.044-3.12 2.268-4.392 1.608-1.685 3.72-2.587 6.048-2.587zm.024 4.008c1.584 0 2.988.576 4.092 1.728.816.864 1.308 1.86 1.536 3.048.096.6-.312 1.164-.912 1.26-.6.096-1.164-.312-1.26-.912-.144-.756-.468-1.38-1.008-1.944-.732-.768-1.632-1.14-2.676-1.14-1.044 0-1.944.372-2.676 1.14-.54.564-.864 1.188-1.008 1.944-.096.6-.66 1.008-1.26.912-.6-.096-1.008-.66-.912-1.26.228-1.188.72-2.184 1.536-3.048 1.104-1.152 2.508-1.728 4.548-1.728zM12 10.8c1.32 0 2.4 1.08 2.4 2.4 0 .756-.348 1.392-.852 1.836l.696 3.708c.12.6-.312 1.164-.912 1.26a1.191 1.191 0 01-1.26-.912l-.072-.384-.072.384c-.096.6-.66 1.032-1.26.912-.6-.096-1.032-.66-.912-1.26l.696-3.708A2.376 2.376 0 019.6 13.2c0-1.32 1.08-2.4 2.4-2.4z"/></svg>
+      Apple
+    </a>
+    <a href="https://www.youtube.com/@stealthisideapodcast463/podcasts" target="_blank" rel="noopener" class="listen-link">
+      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      YouTube
+    </a>
+  </div>
+</div>
+<header></header>
+
+<div class="search-bar">
+  <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <input type="text" id="searchInput" placeholder="Search ideas...">
+</div>
+
+<div class="controls-row">
+  <div class="filters"><button class="filter-btn active" data-filter="all">All <span class="filter-count">93</span></button><button class="filter-btn" data-filter="AI/ML">AI/ML <span class="filter-count">4</span></button><button class="filter-btn" data-filter="Consumer">Consumer <span class="filter-count">39</span></button><button class="filter-btn" data-filter="Fintech">Fintech <span class="filter-count">3</span></button><button class="filter-btn" data-filter="Hardware">Hardware <span class="filter-count">9</span></button><button class="filter-btn" data-filter="Health">Health <span class="filter-count">4</span></button><button class="filter-btn" data-filter="Marketplace">Marketplace <span class="filter-count">16</span></button><button class="filter-btn" data-filter="SaaS">SaaS <span class="filter-count">3</span></button><button class="filter-btn" data-filter="Services">Services <span class="filter-count">15</span></button></div>
+  <div class="sort-controls">
+    <span class="sort-label">Sort:</span>
+    <button class="sort-btn active" data-sort="alpha">A to Z</button>
+    <button class="sort-btn" data-sort="newest">Newest First</button>
+    <button class="sort-btn" data-sort="oldest">Oldest First</button>
+  </div>
+</div>
+
+<div class="no-results" id="noResults">
+  <h3>No ideas match your search</h3>
+  <p>Try a different keyword or clear the filters.</p>
+</div>
+
+<div class="ideas-grid" id="ideasGrid">
+      <article class="idea-card" data-category="Marketplace" data-vibe="bold" data-name="2cents" data-ep="28">
+        <a href="ideas/2cents/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/2cents/index.html">2Cents</a></h2>
+          <p class="card-tagline">Quick answers from real people, instantly.</p>
+          <p class="card-pitch">2Cents is a mobile app that instantly connects you with knowledgeable everyday people for quick, low-cost advice on cooking, home projects, travel, cars, and more. Think of it as an on-demand knowledg...</p>
+          <div class="card-actions">
+            <a href="ideas/2cents/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=kUYsSnA6Gzo" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="amaze" data-ep="39">
+        <a href="ideas/amaze/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/amaze/index.html">Amaze</a></h2>
+          <p class="card-tagline">The Year-Round Indoor Maze Experience</p>
+          <p class="card-pitch">Amaze is a permanent, indoor maze entertainment venue housed in retrofitted warehouses. With modular walls, rotating themes, story-driven puzzles, and multi-level exploration, it delivers the thrill o...</p>
+          <div class="card-actions">
+            <a href="ideas/amaze/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=pYHXDmhJlEQ" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="earthy" data-name="andre's kitchen" data-ep="1">
+        <a href="ideas/andres-kitchen/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1543353071-c953d88f7033?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/andres-kitchen/index.html">Andre's Kitchen</a></h2>
+          <p class="card-tagline">Dinner, prepped. Just pop it in.</p>
+          <p class="card-pitch">Andre's Kitchen is a drive-through storefront where you pick up fully prepped sheet pan meals ready to bake at home. Call ahead, preheat your oven, grab your meal, and have a hot home-cooked dinner on...</p>
+          <div class="card-actions">
+            <a href="ideas/andres-kitchen/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=5KywRRYLe0g" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="autotaco" data-ep="144">
+        <a href="ideas/autotaco/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/autotaco/index.html">AutoTaco</a></h2>
+          <p class="card-tagline">Tacos while you wait for your oil change.</p>
+          <p class="card-pitch">AutoTaco pairs quick-service oil changes with a fresh taco counter, transforming the dreaded lube shop wait into a tasty experience. Instead of stale popcorn and Judge Judy reruns, customers enjoy han...</p>
+          <div class="card-actions">
+            <a href="ideas/autotaco/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_msfmD2S37U" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="balcony box" data-ep="88">
+        <a href="ideas/balcony-box/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1686466538761-2e6529312dba?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/balcony-box/index.html">Balcony Box</a></h2>
+          <p class="card-tagline">Your perfect balcony garden, delivered ready.</p>
+          <p class="card-pitch">Balcony Box is an all-in-one garden kit shipped directly to apartment dwellers. You tell us your location, balcony orientation, and style preference, and we send a planter box with mounting hardware, ...</p>
+          <div class="card-actions">
+            <a href="ideas/balcony-box/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_qYDBkmobBY" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="technical" data-name="better closet" data-ep="95">
+        <a href="ideas/better-closet/index.html" class="card-img-link">
+          <div class="card-img vibe-technical" style="background-image:url('https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">technical</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/better-closet/index.html">Better Closet</a></h2>
+          <p class="card-tagline">Your wardrobe, finally under control.</p>
+          <p class="card-pitch">Better Closet uses RFID tags and smart scanners to track every piece of clothing in your home. It knows what's clean, what's dirty, and what you never wear, so you can make smarter laundry and wardrob...</p>
+          <div class="card-actions">
+            <a href="ideas/better-closet/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=zNn9cuNzCO4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="bingo blitz" data-ep="109">
+        <a href="ideas/bingo-blitz/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1626972310639-638b41ed9810?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/bingo-blitz/index.html">Bingo Blitz</a></h2>
+          <p class="card-tagline">Play Bingo. Win Big. Support Local.</p>
+          <p class="card-pitch">Bingo Blitz is a free, regionalized mobile bingo app where local businesses sponsor games and give away cash prizes or services instead of spending on billboards. Users get daily chances to win while ...</p>
+          <div class="card-actions">
+            <a href="ideas/bingo-blitz/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=RnKIHNNMWhs" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="blender" data-ep="21">
+        <a href="ideas/blender/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/blender/index.html">Blender</a></h2>
+          <p class="card-tagline">Hit blend. Find your next adventure.</p>
+          <p class="card-pitch">Blender is a social activity discovery app that takes your group's budget, location, size, and available time, then serves up curated local experiences you never knew existed. Stop arguing about what ...</p>
+          <div class="card-actions">
+            <a href="ideas/blender/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=UbFAlnfR2lE" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="block party" data-ep="136">
+        <a href="ideas/block-party/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/block-party/index.html">Block Party</a></h2>
+          <p class="card-tagline">Build. Play. Swap. Repeat.</p>
+          <p class="card-pitch">Block Party is a toy subscription and community swap platform for families. Get monthly Lego kits, puzzles, and single-play games delivered to your door, play them, then send them back for something n...</p>
+          <div class="card-actions">
+            <a href="ideas/block-party/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=iZAQEBvYkf8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="playful" data-name="bon appetit" data-ep="98">
+        <a href="ideas/bon-appetit/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1564808868420-8aff5890528b?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/bon-appetit/index.html">Bon Appetit</a></h2>
+          <p class="card-tagline">Restaurants compete. You eat. Everyone wins.</p>
+          <p class="card-pitch">Bon Appetit is a mobile app that lets hungry diners broadcast their appetite to nearby restaurants, which then compete for their business with real-time deals and incentives. It turns dining indecisio...</p>
+          <div class="card-actions">
+            <a href="ideas/bon-appetit/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=ptzeNgX_thY" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="boom box" data-ep="122">
+        <a href="ideas/boom-box/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1630609682318-70047533e3c9?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/boom-box/index.html">Boom Box</a></h2>
+          <p class="card-tagline">Your night out, in a box.</p>
+          <p class="card-pitch">Boom Box is a drive-through mystery box packed with curated games, activities, playlists, swag, and local deals that turn any boring night into an instant party. For the price of a couple coffees, you...</p>
+          <div class="card-actions">
+            <a href="ideas/boom-box/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=jADwdabemZ4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="earthy" data-name="borrow" data-ep="87">
+        <a href="ideas/borrow-shed/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1720074337831-cb277d1ed9f7?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/borrow-shed/index.html">Borrow</a></h2>
+          <p class="card-tagline">Your neighborhood's tool shed, shared.</p>
+          <p class="card-pitch">Borrow places fully stocked tool sheds in neighborhoods, letting members check out premium power tools, lawn equipment, and more for a low monthly fee. Think of it as a library for tools, managed by a...</p>
+          <div class="card-actions">
+            <a href="ideas/borrow-shed/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=QqSDpFX5g9c" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="breadcrumbs" data-ep="35">
+        <a href="ideas/breadcrumbs/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1662140246046-fc44f41e4362?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/breadcrumbs/index.html">BreadCrumbs</a></h2>
+          <p class="card-tagline">Drop a pin. Share the find.</p>
+          <p class="card-pitch">BreadCrumbs is a social geotagging app that lets you leave location-based tips, discoveries, and deals for others to find. Think of it as a crowdsourced layer of local knowledge on top of the real wor...</p>
+          <div class="card-actions">
+            <a href="ideas/breadcrumbs/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=rw-16Tem5uc" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="SaaS" data-vibe="playful" data-name="bumpin" data-ep="99">
+        <a href="ideas/bumpin/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">SaaS</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/bumpin/index.html">Bumpin</a></h2>
+          <p class="card-tagline">Your voice in every podcast episode.</p>
+          <p class="card-pitch">Bumpin is an interactive podcast platform that lets listeners record audio reactions and comments that get dynamically inserted into episodes. Podcast producers approve and place listener contribution...</p>
+          <div class="card-actions">
+            <a href="ideas/bumpin/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=7dQ1Yr79klM" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="bold" data-name="carspot" data-ep="37">
+        <a href="ideas/carspot/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1622046120199-32f27980473d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/carspot/index.html">CarSpot</a></h2>
+          <p class="card-tagline">Test drive here. Delivered to your door.</p>
+          <p class="card-pitch">CarSpot reinvents the car dealership by replacing massive lots with compact, street-level showrooms that carry just two of each model for test drives. Once you choose your car, it ships from a central...</p>
+          <div class="card-actions">
+            <a href="ideas/carspot/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=AyZn0SD6wEI" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Fintech" data-vibe="bold" data-name="cardshark" data-ep="123">
+        <a href="ideas/card-shark/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1758598303866-743838235b41?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Fintech</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/card-shark/index.html">CardShark</a></h2>
+          <p class="card-tagline">Your spending finds your perfect card.</p>
+          <p class="card-pitch">CardShark analyzes your real spending habits and recommends the credit card that will maximize your rewards. Stop guessing which card is best and start seeing exactly how much you could have saved.</p>
+          <div class="card-actions">
+            <a href="ideas/card-shark/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=ROfZJbBrjJ4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="AI/ML" data-vibe="premium" data-name="careai" data-ep="127">
+        <a href="ideas/care-ai/index.html" class="card-img-link">
+          <div class="card-img vibe-premium" style="background-image:url('https://images.unsplash.com/photo-1596642748852-5596416147ac?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">premium</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">AI/ML</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/care-ai/index.html">CareAI</a></h2>
+          <p class="card-tagline">Your skin's progress, measured by AI</p>
+          <p class="card-pitch">CareAI is an AI-powered skincare tracking app that scans your face to objectively measure skin health over time. It replaces guesswork with data, showing you exactly how your products are performing a...</p>
+          <div class="card-actions">
+            <a href="ideas/care-ai/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=BjzwucD8uCc" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Fintech" data-vibe="playful" data-name="charity buck" data-ep="86">
+        <a href="ideas/charity-buck/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Fintech</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/charity-buck/index.html">Charity Buck</a></h2>
+          <p class="card-tagline">Slide your giving. Change the world.</p>
+          <p class="card-pitch">Charity Buck is a subscription-based charitable giving platform that lets you set a monthly donation budget, then seamlessly slide your pooled funds between vetted charities, emergency causes, and com...</p>
+          <div class="card-actions">
+            <a href="ideas/charity-buck/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=H_HetmAiKVE" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="premium" data-name="chefdate" data-ep="124">
+        <a href="ideas/chef-date/index.html" class="card-img-link">
+          <div class="card-img vibe-premium" style="background-image:url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">premium</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/chef-date/index.html">ChefDate</a></h2>
+          <p class="card-tagline">Your next great meal, made at home</p>
+          <p class="card-pitch">ChefDate is a gig economy marketplace that connects people with talented chefs for private, in-home dining experiences. Whether it is a romantic anniversary, a birthday dinner, or a casual cooking les...</p>
+          <div class="card-actions">
+            <a href="ideas/chef-date/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=BtTIcgic6h0" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="city jump" data-ep="3">
+        <a href="ideas/city-jump/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1559677624-3c956f10d431?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/city-jump/index.html">City Jump</a></h2>
+          <p class="card-tagline">Your city. Your leap. Limited days only.</p>
+          <p class="card-pitch">City Jump is a traveling bungee jumping experience that rolls into major cities for less than a week with a massive neon crane, live music, food trucks, and the thrill of a lifetime. It combines the v...</p>
+          <div class="card-actions">
+            <a href="ideas/city-jump/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=uyF9aBzlq6c" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="civic" data-ep="9">
+        <a href="ideas/civic/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/civic/index.html">Civic</a></h2>
+          <p class="card-tagline">Your civic duty, elevated.</p>
+          <p class="card-pitch">Civic is a mobile app that gives voters instant, unbiased access to every candidate and ballot measure in their local elections. By combining candidate profiles, community reviews, and plain-language ...</p>
+          <div class="card-actions">
+            <a href="ideas/civic/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=uWQ5qJoi34o" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="playful" data-name="comfy house" data-ep="126">
+        <a href="ideas/comfy-house/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1572022527926-535e18ae009a?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/comfy-house/index.html">Comfy House</a></h2>
+          <p class="card-tagline">Comfort rentals wherever the wait is long</p>
+          <p class="card-pitch">Comfy House places comfort and entertainment rental kiosks inside hospitals, airports, hotels, and other high-wait locations. Instead of suffering through stiff pillows, bad TV, and boredom, visitors ...</p>
+          <div class="card-actions">
+            <a href="ideas/comfy-house/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=NT7MjvVeuE8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="cookies" data-ep="131">
+        <a href="ideas/cookies/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/cookies/index.html">Cookies</a></h2>
+          <p class="card-tagline">Send good vibes, not just cash.</p>
+          <p class="card-pitch">Cookies is a social gifting platform that lets you send thoughtful pick-me-ups to friends and family, from lunch credits to spa days, redeemable on their own terms. Think Venmo meets a wish list, wher...</p>
+          <div class="card-actions">
+            <a href="ideas/cookies/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=WtlLfsCJr80" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="playful" data-name="cyclepet" data-ep="116">
+        <a href="ideas/cyclepet/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/cyclepet/index.html">CyclePet</a></h2>
+          <p class="card-tagline">Pedal More. Play More. Feel Better.</p>
+          <p class="card-pitch">CyclePet pairs an under-desk pedal exerciser with a Tamagotchi-style Chrome extension where your pedaling fuels a virtual pet's world. The harder you pedal, the sunnier the sky, the happier your pet, ...</p>
+          <div class="card-actions">
+            <a href="ideas/cyclepet/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=BAY-3KO0lXg" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="AI/ML" data-vibe="bold" data-name="dateai" data-ep="46">
+        <a href="ideas/date-ai/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">AI/ML</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/date-ai/index.html">DateAI</a></h2>
+          <p class="card-tagline">Your AI matchmaker books the date.</p>
+          <p class="card-pitch">DateAI is a premium dating service that uses AI to deeply analyze your personality, preferences, and social data, then matches you with highly compatible people and books real dates on your calendar. ...</p>
+          <div class="card-actions">
+            <a href="ideas/date-ai/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=ymyK6wyNtNQ" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="dino hunter" data-ep="130">
+        <a href="ideas/dino-hunter/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/dino-hunter/index.html">Dino Hunter</a></h2>
+          <p class="card-tagline">Hunt dinosaurs from a monster truck.</p>
+          <p class="card-pitch">Dino Hunter is an outdoor adventure experience where groups of four pile into real monster trucks, armed with paintball guns, to hunt life-sized dinosaur targets across rugged terrain. It combines the...</p>
+          <div class="card-actions">
+            <a href="ideas/dino-hunter/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=f0HivtRhQCY" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="bold" data-name="dishly" data-ep="94">
+        <a href="ideas/dishly/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/dishly/index.html">Dishly</a></h2>
+          <p class="card-tagline">One dish. Ten seconds. Spotless.</p>
+          <p class="card-pitch">Dishly is a compact countertop appliance that washes a single dish, cup, or utensil in 10 seconds flat. Think of it as the microwave equivalent for dishwashing: instant, one item at a time, no more wa...</p>
+          <div class="card-actions">
+            <a href="ideas/dishly/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=EckC1OfEL2o" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="drop stop" data-ep="143">
+        <a href="ideas/drop-stop/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/drop-stop/index.html">Drop Stop</a></h2>
+          <p class="card-tagline">Drop your bags. Explore the city.</p>
+          <p class="card-pitch">Drop Stop is a network of secure luggage lockers placed at the heart of tourist hotspots in major cities. Travelers with hours to kill between hotel checkout and their flight can stash their bags, exp...</p>
+          <div class="card-actions">
+            <a href="ideas/drop-stop/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=J44ikec_zO8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="fgs: freakin' good salads" data-ep="141">
+        <a href="ideas/freakin-good-salads/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/freakin-good-salads/index.html">FGS: Freakin' Good Salads</a></h2>
+          <p class="card-tagline">Drive-thru salads worth pulling over for.</p>
+          <p class="card-pitch">FGS is a fast-casual, drive-thru salad chain with an intentionally tiny menu of six perfected salads. Think In-N-Out, but for fresh, restaurant-quality salads you can grab in under five minutes.</p>
+          <div class="card-actions">
+            <a href="ideas/freakin-good-salads/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=m-MaLiQSqX0" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="fajita bonita" data-ep="106">
+        <a href="ideas/fajita-bonita/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/fajita-bonita/index.html">Fajita Bonita</a></h2>
+          <p class="card-tagline">Fast casual fajitas, built your way.</p>
+          <p class="card-pitch">Fajita Bonita is a fast casual restaurant where guests build custom fajitas from a line of grilled meats, fresh toppings, and handmade tortillas. Think Chipotle, but dedicated entirely to the sizzling...</p>
+          <div class="card-actions">
+            <a href="ideas/fajita-bonita/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=wiDHIB309A4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="flightstop" data-ep="17">
+        <a href="ideas/flightstop/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109db05?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/flightstop/index.html">FlightStop</a></h2>
+          <p class="card-tagline">Rent gear, upgrade your flight.</p>
+          <p class="card-pitch">FlightStop is an airport rental kiosk that lets travelers rent entertainment, comfort gear, baby essentials, and weather gear for their flight. No more unpredictable amenities, dead devices, or overst...</p>
+          <div class="card-actions">
+            <a href="ideas/flightstop/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=XluPj2Bq8MI" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="retro" data-name="flip station" data-ep="41">
+        <a href="ideas/flip-station/index.html" class="card-img-link">
+          <div class="card-img vibe-retro" style="background-image:url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">retro</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/flip-station/index.html">Flip Station</a></h2>
+          <p class="card-tagline">Source low. Sell high. Ship nationwide.</p>
+          <p class="card-pitch">Flip Station is a marketplace and logistics platform that connects vintage vehicle sellers in low-demand rural areas with high-paying collectors in affluent coastal markets. By exploiting geographic p...</p>
+          <div class="card-actions">
+            <a href="ideas/flip-station/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=L07gAAVfaIc" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="glovebox" data-ep="125">
+        <a href="ideas/glove-box/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/glove-box/index.html">GloveBox</a></h2>
+          <p class="card-tagline">Your entire car, in one app.</p>
+          <p class="card-pitch">GloveBox is the all-in-one vehicle management app that stores your documents, tracks maintenance schedules, compares insurance rates, and connects you with service partners. It replaces the chaos of c...</p>
+          <div class="card-actions">
+            <a href="ideas/glove-box/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=ug9NIcfnxqQ" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="go-nuts" data-ep="10">
+        <a href="ideas/go-nuts/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/go-nuts/index.html">Go-Nuts</a></h2>
+          <p class="card-tagline">Gourmet donuts, delivered fresh weekly.</p>
+          <p class="card-pitch">Go-Nuts is a Crumble-style gourmet donut company with a rotating weekly menu of six oversized, creative donut flavors. Customers check the menu each week, order online, and get hot, fresh donuts deliv...</p>
+          <div class="card-actions">
+            <a href="ideas/go-nuts/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=9iXmAqWgbJE" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="groupie" data-ep="112">
+        <a href="ideas/groupie/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/groupie/index.html">Groupie</a></h2>
+          <p class="card-tagline">Better errands with better company.</p>
+          <p class="card-pitch">Groupie is a social coordination app that turns boring errands and chores into shared experiences with your friend group. By matching friends who need to do similar tasks and leveraging location aware...</p>
+          <div class="card-actions">
+            <a href="ideas/groupie/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=Qwh_ys32_B4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="guac stop" data-ep="137">
+        <a href="ideas/guac-stop/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/guac-stop/index.html">Guac Stop</a></h2>
+          <p class="card-tagline">Fresh guac, no wait, just drive.</p>
+          <p class="card-pitch">Guac Stop is a drive-through concept dedicated entirely to fresh guacamole, chips, salsas, and Mexican beverages. Modeled after the tiny drive-through coffee stand, it serves the massive snack market ...</p>
+          <div class="card-actions">
+            <a href="ideas/guac-stop/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=RRStDRCULrU" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Health" data-vibe="bold" data-name="gymdrop" data-ep="105">
+        <a href="ideas/gymdrop/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Health</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/gymdrop/index.html">GymDrop</a></h2>
+          <p class="card-tagline">Your gym, delivered to work.</p>
+          <p class="card-pitch">GymDrop drops fully equipped, premium portable gyms right into office parking lots so employees can work out on their lunch break, before work, or on the way out. No commute, no excuses, just fitness ...</p>
+          <div class="card-actions">
+            <a href="ideas/gymdrop/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=QJuZM-Bkn4s" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="hometeam" data-ep="111">
+        <a href="ideas/hometeam/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/hometeam/index.html">HomeTeam</a></h2>
+          <p class="card-tagline">Your home celebrates every score.</p>
+          <p class="card-pitch">HomeTeam syncs your smart home lights, soundbars, and LEDs with live sports data so your entire room erupts in team colors when your team scores. It works with lights you already own, supports every m...</p>
+          <div class="card-actions">
+            <a href="ideas/hometeam/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=gyUuWTC2PP0" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="playful" data-name="kidcraft market" data-ep="139">
+        <a href="ideas/etsy-jr/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/etsy-jr/index.html">KidCraft Market</a></h2>
+          <p class="card-tagline">Where young makers become real entrepreneurs.</p>
+          <p class="card-pitch">KidCraft Market is a dedicated online marketplace where kids sell their handmade goods, from art and jewelry to crafts and ornaments. It gives young entrepreneurs a safe, supportive platform to learn ...</p>
+          <div class="card-actions">
+            <a href="ideas/etsy-jr/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=2lfDyvWaC8A" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="kitted" data-ep="11">
+        <a href="ideas/kitted/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1507680434567-5739c80be1ac?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/kitted/index.html">Kitted</a></h2>
+          <p class="card-tagline">Complete outfits. One click. Done.</p>
+          <p class="card-pitch">Kitted is an online clothing store that sells only complete, styled outfits you can buy in a single click. No more piecing together shirts, pants, shoes, and accessories. See a look you love, hit buy,...</p>
+          <div class="card-actions">
+            <a href="ideas/kitted/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=JuYJ1wxe_rM" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="lastpack" data-ep="33">
+        <a href="ideas/lastpack/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/lastpack/index.html">LastPack</a></h2>
+          <p class="card-tagline">The last backpack you will ever buy.</p>
+          <p class="card-pitch">LastPack is a modular backpack system that lets you build your perfect daily carry. Choose your outer frame style, then snap in only the internal modules you actually need, from a lunch compartment to...</p>
+          <div class="card-actions">
+            <a href="ideas/lastpack/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=GX6Y4zFg9aU" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Health" data-vibe="earthy" data-name="lifebar" data-ep="144">
+        <a href="ideas/life-bar/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Health</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/life-bar/index.html">LifeBar</a></h2>
+          <p class="card-tagline">Your daily supplements, served fresh.</p>
+          <p class="card-pitch">LifeBar is a walk-in supplement bar where vitamins, minerals, and adaptogens are served as delicious, precisely dosed shots and drinks. Think of it as a coffee shop, but instead of caffeine, you are p...</p>
+          <div class="card-actions">
+            <a href="ideas/life-bar/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_msfmD2S37U" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="little big box" data-ep="96">
+        <a href="ideas/little-big-box/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1566140967404-b8b3932483f5?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/little-big-box/index.html">Little Big Box</a></h2>
+          <p class="card-tagline">Nesting cardboard play worlds for kids.</p>
+          <p class="card-pitch">Little Big Box ships nested corrugated cardboard kits that unfold into entire play scenes: cities, farms, jungles, and more. Each set stacks like Russian dolls for easy storage, costs under $25, and r...</p>
+          <div class="card-actions">
+            <a href="ideas/little-big-box/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=6D7PFi8MGSY" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="lunarland" data-ep="18">
+        <a href="ideas/lunarland/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/lunarland/index.html">LunarLand</a></h2>
+          <p class="card-tagline">Space exploration for every generation.</p>
+          <p class="card-pitch">LunarLand is a franchisable, immersive space experience center that brings the wonder of the cosmos to communities everywhere. Think of it as the zoo or aquarium of outer space: interactive exhibits, ...</p>
+          <div class="card-actions">
+            <a href="ideas/lunarland/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=TKzbQ2EwTUo" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="playful" data-name="marq-e" data-ep="2">
+        <a href="ideas/marq-e/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1714836982299-7a3b6930e2f5?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/marq-e/index.html">Marq-E</a></h2>
+          <p class="card-tagline">Your door has something to say.</p>
+          <p class="card-pitch">Marq-E is a smart e-ink display that mounts to your front door, letting you communicate with anyone who approaches - from delivery drivers to dinner guests. Control it from your phone with one tap, se...</p>
+          <div class="card-actions">
+            <a href="ideas/marq-e/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=O_Lc5TOkT-I" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="meet.io" data-ep="38">
+        <a href="ideas/meetup-io/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/meetup-io/index.html">Meet.io</a></h2>
+          <p class="card-tagline">Quick organic meetups, zero awkwardness.</p>
+          <p class="card-pitch">Meet.io connects you with three strangers for structured, 10-minute video conversations sparked by fun icebreakers. It is the antidote to social isolation, turning screen time into genuine human conne...</p>
+          <div class="card-actions">
+            <a href="ideas/meetup-io/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=a04SZxZu3ro" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="microzoo" data-ep="142">
+        <a href="ideas/microzoo/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1474511320723-9a56873571b7?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/microzoo/index.html">MicroZoo</a></h2>
+          <p class="card-tagline">A tiny zoo, a huge experience.</p>
+          <p class="card-pitch">MicroZoo is a compact, storefront-sized zoo featuring rotating exhibits of small to medium animals. It offers families an affordable, intimate, and educational wildlife experience without the sprawl, ...</p>
+          <div class="card-actions">
+            <a href="ideas/microzoo/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=BAwp--tx26k" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="earthy" data-name="milkmaid" data-ep="24">
+        <a href="ideas/milkmaid/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/milkmaid/index.html">MilkMaid</a></h2>
+          <p class="card-tagline">Breast milk, matched to your baby.</p>
+          <p class="card-pitch">MilkMaid is a two-sided marketplace connecting mothers who need breast milk with vetted suppliers who produce it. Whether a mother cannot produce enough, has dietary restrictions, or simply needs a re...</p>
+          <div class="card-actions">
+            <a href="ideas/milkmaid/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=p-1cnQ1Qcuw" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="playful" data-name="minipost" data-ep="107">
+        <a href="ideas/minipost/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/minipost/index.html">Minipost</a></h2>
+          <p class="card-tagline">Social media microservices for small business</p>
+          <p class="card-pitch">Minipost is a marketplace portal where small businesses can request bite-sized social media content from freelance creators. Instead of hiring an agency or doing it yourself, just post a quick gig, ge...</p>
+          <div class="card-actions">
+            <a href="ideas/minipost/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=Q6eQi3i2mT4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="earthy" data-name="mountain mike's" data-ep="113">
+        <a href="ideas/mountain-mikes/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/mountain-mikes/index.html">Mountain Mike's</a></h2>
+          <p class="card-tagline">Premium camping without the price tag.</p>
+          <p class="card-pitch">Mountain Mike's is an outfitter franchise located near national parks and popular camping destinations that rents fully stocked RVs, campers, and gear packages so anyone can enjoy a premium outdoor ex...</p>
+          <div class="card-actions">
+            <a href="ideas/mountain-mikes/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=uISMwXW7wvw" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="technical" data-name="nexserve" data-ep="4">
+        <a href="ideas/nexserve/index.html" class="card-img-link">
+          <div class="card-img vibe-technical" style="background-image:url('https://images.unsplash.com/photo-1752052029345-6f494e314b05?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">technical</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/nexserve/index.html">NexServe</a></h2>
+          <p class="card-tagline">Your neighbors, at your service.</p>
+          <p class="card-pitch">NexServe is a hyper-local gig economy app for apartment complexes. Need your laundry done, cat fed, or trash taken out? Someone in your building is home right now and happy to help for a few bucks. It...</p>
+          <div class="card-actions">
+            <a href="ideas/nexserve/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=7FJBj8yVf5Q" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="premium" data-name="nightowls" data-ep="103">
+        <a href="ideas/nightowls/index.html" class="card-img-link">
+          <div class="card-img vibe-premium" style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">premium</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/nightowls/index.html">NightOwls</a></h2>
+          <p class="card-tagline">Your overnight team gets it done.</p>
+          <p class="card-pitch">NightOwls is a subscription executive assistant service that works while you sleep. A dedicated project manager calls you each evening, captures your to-do list, then dispatches a network of specializ...</p>
+          <div class="card-actions">
+            <a href="ideas/nightowls/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=1xtqa3DxorE" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="SaaS" data-vibe="minimal" data-name="notable" data-ep="102">
+        <a href="ideas/notable/index.html" class="card-img-link">
+          <div class="card-img vibe-minimal" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168d6c?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">minimal</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">SaaS</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/notable/index.html">Notable</a></h2>
+          <p class="card-tagline">Your news, curated by real humans.</p>
+          <p class="card-pitch">Notable pairs you with a real human curator who learns your interests and delivers a personalized digest of only the stories that matter to you. Think Stitch Fix, but for news and information.</p>
+          <div class="card-actions">
+            <a href="ideas/notable/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=XFkczPbe9bw" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="playful" data-name="otto" data-ep="15">
+        <a href="ideas/otto/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/otto/index.html">Otto</a></h2>
+          <p class="card-tagline">Wet pet food, finally automated.</p>
+          <p class="card-pitch">Otto is a smart countertop device that dispenses wet pet food from pre-filled pouches on a schedule you control from your phone. No more wasted cans, no more rushing home for feeding time, and no more...</p>
+          <div class="card-actions">
+            <a href="ideas/otto/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_iDO6BW370o" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="packagebuddy" data-ep="23">
+        <a href="ideas/package-buddy/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/package-buddy/index.html">PackageBuddy</a></h2>
+          <p class="card-tagline">Your porch, finally pirate-proof.</p>
+          <p class="card-pitch">PackageBuddy is a sleek, lockable door-mounted delivery sack that secures your packages and food deliveries without custom installation or bulky porch lockers. It hangs on any front door, locks with a...</p>
+          <div class="card-actions">
+            <a href="ideas/package-buddy/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=BjVVOzg46_I" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="bold" data-name="park shark" data-ep="108">
+        <a href="ideas/park-shark/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/park-shark/index.html">Park Shark</a></h2>
+          <p class="card-tagline">Your spot is waiting. Reserve it.</p>
+          <p class="card-pitch">Park Shark is the Airbnb of parking. Homeowners, businesses, and lot operators list their available spaces on demand, and drivers reserve and pay through the app before they even leave the house. No m...</p>
+          <div class="card-actions">
+            <a href="ideas/park-shark/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=qQDZYZQFik8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="phone down" data-ep="140">
+        <a href="ideas/phone-down/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/phone-down/index.html">Phone Down</a></h2>
+          <p class="card-tagline">Earn rewards by putting your phone away.</p>
+          <p class="card-pitch">Phone Down is a smart wireless charging pad paired with a gamified app that rewards you for not touching your phone. The longer your phone stays on the pad, the more points you earn, unlocking streaks...</p>
+          <div class="card-actions">
+            <a href="ideas/phone-down/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=MN3wkk7i_vE" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="portals" data-ep="138">
+        <a href="ideas/portals/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/portals/index.html">Portals</a></h2>
+          <p class="card-tagline">Step through. See the world live.</p>
+          <p class="card-pitch">Portals is a pop-up museum experience featuring life-sized live video screens that connect visitors with real people in cities around the globe. Walk room to room, from Tokyo to Rome to Nairobi, shari...</p>
+          <div class="card-actions">
+            <a href="ideas/portals/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=UO-iy1wqP_4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="primetime" data-ep="31">
+        <a href="ideas/primetime/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/primetime/index.html">PrimeTime</a></h2>
+          <p class="card-tagline">Watch Together. Like It Was Meant To Be.</p>
+          <p class="card-pitch">PrimeTime is a membership-based entertainment venue that transforms old movie theaters into social screening lounges with a full restaurant and bar. Members get access to dedicated zones for sports, e...</p>
+          <div class="card-actions">
+            <a href="ideas/primetime/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=aXLgzaD673w" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="playful" data-name="rentastic" data-ep="134">
+        <a href="ideas/rentastic/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/rentastic/index.html">Rentastic</a></h2>
+          <p class="card-tagline">Your stuff, their adventure.</p>
+          <p class="card-pitch">Rentastic is a marketplace that connects vacation rental hosts with local gear owners, letting hosts offer premium add-ons like e-bikes, golf clubs, and game consoles without buying them. Gear owners ...</p>
+          <div class="card-actions">
+            <a href="ideas/rentastic/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=s7IYr68btKQ" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="earthy" data-name="retreatful" data-ep="82">
+        <a href="ideas/retreatful/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/retreatful/index.html">Retreatful</a></h2>
+          <p class="card-tagline">Travel with a purpose.</p>
+          <p class="card-pitch">Retreatful organizes meaningful vacation retreats for people navigating life's biggest transitions. Whether you're processing grief, rebuilding after a breakup, reconnecting with your partner, or simp...</p>
+          <div class="card-actions">
+            <a href="ideas/retreatful/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=24VURlEMix0" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="return post" data-ep="97">
+        <a href="ideas/return-post/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/return-post/index.html">Return Post</a></h2>
+          <p class="card-tagline">All your returns. One quick stop.</p>
+          <p class="card-pitch">Return Post is a one-stop retail return center where customers can bring back items from multiple stores in a single trip. You drop off your returns, get gift cards back, and leave in under three minu...</p>
+          <div class="card-actions">
+            <a href="ideas/return-post/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=kSZKuDvSj_k" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="playful" data-name="roamy" data-ep="97">
+        <a href="ideas/roamy/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/roamy/index.html">Roamy</a></h2>
+          <p class="card-tagline">Let kids roam. Stay in range.</p>
+          <p class="card-pitch">Roamy is a lightweight GPS wristband for kids that replaces bulky smartwatches with simple geofence technology. Parents set a safe zone, kids get freedom to explore, and everyone stays worry-free.</p>
+          <div class="card-actions">
+            <a href="ideas/roamy/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=kSZKuDvSj_k" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="s'mos" data-ep="135">
+        <a href="ideas/s-mos/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/s-mos/index.html">S'Mos</a></h2>
+          <p class="card-tagline">Gather around. Reconnect over fire.</p>
+          <p class="card-pitch">S'Mos is a nostalgia-driven social lounge built around communal fire pits, craft s'mores, and cocktails. It gives city dwellers the warmth of a campfire gathering without leaving town, and it doubles ...</p>
+          <div class="card-actions">
+            <a href="ideas/s-mos/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=rEhdRbwoIRA" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="salad shack" data-ep="143">
+        <a href="ideas/salad-shack/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/salad-shack/index.html">Salad Shack</a></h2>
+          <p class="card-tagline">Unlimited salad and flatbread. One membership.</p>
+          <p class="card-pitch">Salad Shack is a membership-only quick-service restaurant offering unlimited salads and artisan flatbreads for $49 per month. Walk in, grab a fresh salad or a hot flatbread slice, and walk out. No lin...</p>
+          <div class="card-actions">
+            <a href="ideas/salad-shack/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=J44ikec_zO8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="retro" data-name="scoreboard" data-ep="110">
+        <a href="ideas/scoreboard/index.html" class="card-img-link">
+          <div class="card-img vibe-retro" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">retro</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/scoreboard/index.html">Scoreboard</a></h2>
+          <p class="card-tagline">Turn your walls into a game.</p>
+          <p class="card-pitch">Scoreboard is a retro-inspired, wall-mounted digital scoreboard that lets families, couples, classrooms, and teams track points, goals, and friendly competitions in a visceral, physical way. Controlle...</p>
+          <div class="card-actions">
+            <a href="ideas/scoreboard/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=QUcw_BdC3TM" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="technical" data-name="securibot" data-ep="19">
+        <a href="ideas/securibot/index.html" class="card-img-link">
+          <div class="card-img vibe-technical" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">technical</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/securibot/index.html">SecuriBot</a></h2>
+          <p class="card-tagline">Your neighborhood never sleeps.</p>
+          <p class="card-pitch">SecuriBot is an autonomous neighborhood patrol robot equipped with 360-degree cameras and AI-powered threat detection. Shared among residents, it roams the streets at night, streaming live footage to ...</p>
+          <div class="card-actions">
+            <a href="ideas/securibot/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_T1iGm70E5Q" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Health" data-vibe="bold" data-name="sick juice" data-ep="40">
+        <a href="ideas/sick-juice/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Health</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/sick-juice/index.html">Sick Juice</a></h2>
+          <p class="card-tagline">Your 3-stage defense against getting sick</p>
+          <p class="card-pitch">Sick Juice is a color-coded, 3-stage remedy system that covers every phase of feeling unwell: prevention, fighting it off, and recovery. Think of it as the Pepto-Bismol of cold and flu season, but des...</p>
+          <div class="card-actions">
+            <a href="ideas/sick-juice/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=DqE-IAk1t-U" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="simple sample" data-ep="133">
+        <a href="ideas/simple-sample/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/simple-sample/index.html">Simple Sample</a></h2>
+          <p class="card-tagline">Try everything. Commit to the best.</p>
+          <p class="card-pitch">Simple Sample is an ultra-affordable subscription box that sends you curated sample-size personal care products every month. For just a couple bucks, you get to try five or six competing brands of too...</p>
+          <div class="card-actions">
+            <a href="ideas/simple-sample/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=R6NANJbeGBk" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="skillpost" data-ep="91">
+        <a href="ideas/skill-post/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/skill-post/index.html">SkillPost</a></h2>
+          <p class="card-tagline">A new skill, delivered to your door.</p>
+          <p class="card-pitch">SkillPost is a subscription box that ships you everything you need to learn a new hands-on skill, from ukulele to watercolors to calligraphy. Each box includes quality materials, a curated step-by-ste...</p>
+          <div class="card-actions">
+            <a href="ideas/skill-post/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=P3csoqn8kJ4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="skipuleggja" data-ep="132">
+        <a href="ideas/skipuleggja/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/skipuleggja/index.html">Skipuleggja</a></h2>
+          <p class="card-tagline">Your space, perfectly organized.</p>
+          <p class="card-pitch">Skipuleggja is a customizable organization system that combines beautifully stained interlocking wood panels with precision 3D-printed inserts. Customers design compartments tailored to their exact be...</p>
+          <div class="card-actions">
+            <a href="ideas/skipuleggja/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=4-Hgz0XZKog" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="bold" data-name="sky rangers" data-ep="101">
+        <a href="ideas/sky-rangers/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1508444845599-5c89863b1c44?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/sky-rangers/index.html">Sky Rangers</a></h2>
+          <p class="card-tagline">Your drone. Your city. Your mission.</p>
+          <p class="card-pitch">Sky Rangers is a civic drone network that connects everyday drone owners with municipalities, news organizations, and first responders. When emergencies happen, Sky Rangers mobilizes a distributed fle...</p>
+          <div class="card-actions">
+            <a href="ideas/sky-rangers/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=SmYWeEN2DqM" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="sluggers" data-ep="118">
+        <a href="ideas/sluggers/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1529768167801-9173d94c2a42?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/sluggers/index.html">Sluggers</a></h2>
+          <p class="card-tagline">The social batting experience, reinvented.</p>
+          <p class="card-pitch">Sluggers is the Topgolf of batting cages: a premium social entertainment venue where groups rent bays, eat great food, and compete in fast-paced mini-games using baseball bats, tennis rackets, hockey ...</p>
+          <div class="card-actions">
+            <a href="ideas/sluggers/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=VbUzk5-5Dco" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="premium" data-name="soft" data-ep="144">
+        <a href="ideas/soft/index.html" class="card-img-link">
+          <div class="card-img vibe-premium" style="background-image:url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">premium</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/soft/index.html">Soft</a></h2>
+          <p class="card-tagline">Everything here is soft. That is the rule.</p>
+          <p class="card-pitch">Soft is a curated retail brand where every single product meets one criterion: it has to be soft. Blankets, pillows, loungewear, rugs, baby gifts, towels. If it is not impossibly soft, it does not mak...</p>
+          <div class="card-actions">
+            <a href="ideas/soft/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_msfmD2S37U" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Hardware" data-vibe="earthy" data-name="soil iq" data-ep="93">
+        <a href="ideas/soil-iq/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Hardware</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/soil-iq/index.html">Soil IQ</a></h2>
+          <p class="card-tagline">Your garden's brain in the ground</p>
+          <p class="card-pitch">Soil IQ is a smart garden sensor spike paired with an intelligent app that reads your soil pH, moisture, sunlight, and climate data to tell you exactly what to plant, when to water, and how to harvest...</p>
+          <div class="card-actions">
+            <a href="ideas/soil-iq/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=UjZ_8eTAOFs" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="stixx" data-ep="83">
+        <a href="ideas/stixx/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/stixx/index.html">Stixx</a></h2>
+          <p class="card-tagline">Gourmet breadsticks, delivered to your door.</p>
+          <p class="card-pitch">Stixx is a Crumbl-style breadstick shop that delivers rotating flavors of oversized gourmet breadsticks with premium dipping sauces. Order a box of four creative flavors each week, from triple cheese ...</p>
+          <div class="card-actions">
+            <a href="ideas/stixx/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=Tk5q-PlVafo" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Fintech" data-vibe="bold" data-name="supercharge" data-ep="119">
+        <a href="ideas/supercharge/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Fintech</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/supercharge/index.html">Supercharge</a></h2>
+          <p class="card-tagline">Pre-fund. Set. Forget. Score.</p>
+          <p class="card-pitch">Supercharge is a pre-funded purchasing platform that buys hard-to-get products on your behalf the moment they come in stock or go on sale. Load your account, set your wishlist, and let Supercharge han...</p>
+          <div class="card-actions">
+            <a href="ideas/supercharge/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=MLQPsLYZ5u0" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="earthy" data-name="supportive" data-ep="100">
+        <a href="ideas/supportive/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/supportive/index.html">Supportive</a></h2>
+          <p class="card-tagline">Shop your values. Gift with purpose.</p>
+          <p class="card-pitch">Supportive is a consumer discovery app that lets you look up any brand or product and instantly see what causes, movements, and lifestyles it supports. Whether you are making everyday purchases, hunti...</p>
+          <div class="card-actions">
+            <a href="ideas/supportive/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=Srvt8lq8Ys8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="AI/ML" data-vibe="technical" data-name="symphoney" data-ep="36">
+        <a href="ideas/symphoney/index.html" class="card-img-link">
+          <div class="card-img vibe-technical" style="background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">technical</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">AI/ML</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/symphoney/index.html">SymPhoney</a></h2>
+          <p class="card-tagline">Only the notifications that matter.</p>
+          <p class="card-pitch">SymPhoney is an AI-powered notification filter that learns which messages, calls, emails, and Slacks actually matter to you, then silences everything else. It gives professionals the freedom to unplug...</p>
+          <div class="card-actions">
+            <a href="ideas/symphoney/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=jX-GIO-s2L0" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="bold" data-name="the boardwalk" data-ep="129">
+        <a href="ideas/the-boardwalk/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1676408577323-4dda604089f8?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/the-boardwalk/index.html">The Boardwalk</a></h2>
+          <p class="card-tagline">Your favorite restaurants, all under one roof.</p>
+          <p class="card-pitch">The Boardwalk transforms dying big-box retail spaces into vibrant multi-restaurant food halls where independent chefs and restaurateurs share infrastructure, staff, and foot traffic. Think of it as a ...</p>
+          <div class="card-actions">
+            <a href="ideas/the-boardwalk/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=yt_xKDyYDPM" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="the college pen" data-ep="19">
+        <a href="ideas/college-pen/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/college-pen/index.html">The College Pen</a></h2>
+          <p class="card-tagline">The pen that helps you focus.</p>
+          <p class="card-pitch">The College Pen is a multi-functional writing instrument designed for students that combines a premium ballpoint pen with fidget-friendly sensory elements, a built-in lecture recorder, laser pointer, ...</p>
+          <div class="card-actions">
+            <a href="ideas/college-pen/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=_T1iGm70E5Q" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="earthy" data-name="the field" data-ep="30">
+        <a href="ideas/the-field/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/the-field/index.html">The Field</a></h2>
+          <p class="card-tagline">Your indoor park. Rain or shine.</p>
+          <p class="card-pitch">The Field transforms abandoned big-box retail spaces into year-round indoor community parks. With astroturf fields, walking tracks, playgrounds for every age group, and local food vendors, it solves t...</p>
+          <div class="card-actions">
+            <a href="ideas/the-field/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=rIDjas6X6Sw" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="playful" data-name="the loft" data-ep="13">
+        <a href="ideas/andres-loft/index.html" class="card-img-link">
+          <div class="card-img vibe-playful" style="background-image:url('https://images.unsplash.com/photo-1566140967404-b8b3932483f5?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">playful</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/andres-loft/index.html">The Loft</a></h2>
+          <p class="card-tagline">Where kids play, parents stay.</p>
+          <p class="card-pitch">The Loft is a membership-based indoor play space built around interactive toy zones. Parents get a clean, comfortable destination for their kids year-round, while discovering and purchasing the toys t...</p>
+          <div class="card-actions">
+            <a href="ideas/andres-loft/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=ua7ou6Dh5aQ" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="the orchard" data-ep="104">
+        <a href="ideas/the-orchard/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/the-orchard/index.html">The Orchard</a></h2>
+          <p class="card-tagline">Every apple experience under one roof.</p>
+          <p class="card-pitch">The Orchard is an immersive apple-themed destination where families, couples, and friends come to pick apples, press fresh cider, bake pies, and dive into the world's deepest leaf pit. Think of it as ...</p>
+          <div class="card-actions">
+            <a href="ideas/the-orchard/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=5aypjfIgmZ8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Services" data-vibe="premium" data-name="the v.i.b." data-ep="5">
+        <a href="ideas/the-vib/index.html" class="card-img-link">
+          <div class="card-img vibe-premium" style="background-image:url('https://images.unsplash.com/photo-1750036015902-c6f5ebca924e?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">premium</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Services</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/the-vib/index.html">The V.I.B.</a></h2>
+          <p class="card-tagline">Restrooms worth the membership.</p>
+          <p class="card-pitch">The V.I.B. (Very Important Bathroom) is a subscription-based network of premium portable restrooms. For $9.99/month, badge into clean, sanitized, music-playing restrooms placed throughout your city - ...</p>
+          <div class="card-actions">
+            <a href="ideas/the-vib/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=FYNmnMlRkjE" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="AI/ML" data-vibe="technical" data-name="timelineai" data-ep="7">
+        <a href="ideas/timeline-ai/index.html" class="card-img-link">
+          <div class="card-img vibe-technical" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">technical</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">AI/ML</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/timeline-ai/index.html">TimelineAI</a></h2>
+          <p class="card-tagline">Predict project risk before it spirals</p>
+          <p class="card-pitch">TimelineAI is an AI-powered project management intelligence layer that scores project risk, flags unrealistic timelines, and identifies bottlenecks before they derail your delivery. It plugs into tool...</p>
+          <div class="card-actions">
+            <a href="ideas/timeline-ai/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=3kn5kAnQ7v8" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="premium" data-name="toilettrust" data-ep="8">
+        <a href="ideas/toilet-trust/index.html" class="card-img-link">
+          <div class="card-img vibe-premium" style="background-image:url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">premium</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/toilet-trust/index.html">ToiletTrust</a></h2>
+          <p class="card-tagline">Your bathroom essentials, locked and sanitized.</p>
+          <p class="card-pitch">ToiletTrust is a sleek, lockable bathroom safe with built-in UV sanitization that keeps your toiletries organized, germ-free, and out of reach from curious kids. It combines countertop organization wi...</p>
+          <div class="card-actions">
+            <a href="ideas/toilet-trust/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=1bUOfrtV320" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="bold" data-name="uplevel" data-ep="29">
+        <a href="ideas/uplevel/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/uplevel/index.html">UpLevel</a></h2>
+          <p class="card-tagline">Try five. Keep the best.</p>
+          <p class="card-pitch">UpLevel sends you a curated box of five top-rated products in any category so you can try them all at home and keep only the one you love. Think Warby Parker, but for wallets, headphones, and every ev...</p>
+          <div class="card-actions">
+            <a href="ideas/uplevel/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=0to6RtiBuWU" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="SaaS" data-vibe="bold" data-name="visibuildity" data-ep="6">
+        <a href="ideas/visibuildity/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">SaaS</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/visibuildity/index.html">Visibuildity</a></h2>
+          <p class="card-tagline">Real-time visibility into every build.</p>
+          <p class="card-pitch">Visibuildity is a project transparency platform that gives homeowners real-time updates on their construction projects through checklists, photos, and text-based contractor coordination. No more drivi...</p>
+          <div class="card-actions">
+            <a href="ideas/visibuildity/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=-SnZ5WxWsfQ" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="bold" data-name="wash-o-rama" data-ep="14">
+        <a href="ideas/wash-o-rama/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1605164599901-57e4186efa65?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/wash-o-rama/index.html">Wash-O-Rama</a></h2>
+          <p class="card-tagline">Your car wash just became a ride.</p>
+          <p class="card-pitch">Wash-O-Rama transforms the mundane 5-minute car wash into a themed entertainment experience. Using AR games, LED light shows, and immersive audio, every wash becomes an adventure that keeps customers ...</p>
+          <div class="card-actions">
+            <a href="ideas/wash-o-rama/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=5ZvWF_GZWqU" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Consumer" data-vibe="earthy" data-name="wetrail" data-ep="12">
+        <a href="ideas/wetrail/index.html" class="card-img-link">
+          <div class="card-img vibe-earthy" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">earthy</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Consumer</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/wetrail/index.html">WeTrail</a></h2>
+          <p class="card-tagline">Hike smarter. Stay safer. Share more.</p>
+          <p class="card-pitch">WeTrail is a hiking companion app that lets you download offline trail maps to your smartwatch, check in with loved ones via GPS breadcrumbs, and share your adventures through a social network built f...</p>
+          <div class="card-actions">
+            <a href="ideas/wetrail/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=b_-EgwheU00" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Health" data-vibe="bold" data-name="weightwin" data-ep="120">
+        <a href="ideas/weightwin/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Health</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/weightwin/index.html">WeightWin</a></h2>
+          <p class="card-tagline">Lose weight. Unlock rewards. Level up.</p>
+          <p class="card-pitch">WeightWin is a gamified weight loss platform that pairs with your smart scale to unlock real-world rewards, exclusive content, and brand discounts as you hit milestones. Instead of crash diets and wil...</p>
+          <div class="card-actions">
+            <a href="ideas/weightwin/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=sFOoX3j27Z4" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article>
+      <article class="idea-card" data-category="Marketplace" data-vibe="bold" data-name="iguides" data-ep="20">
+        <a href="ideas/iguides/index.html" class="card-img-link">
+          <div class="card-img vibe-bold" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=60')">
+            <div class="card-img-overlay">
+              <span class="card-vibe-tag">bold</span>
+            </div>
+          </div>
+        </a>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-category">Marketplace</span>
+          </div>
+          <h2 class="card-title"><a href="ideas/iguides/index.html">iGuides</a></h2>
+          <p class="card-tagline">Your world, narrated by locals.</p>
+          <p class="card-pitch">iGuides is an Audible-style marketplace for self-guided audio tours. Local experts, history buffs, and passionate storytellers record GPS-triggered walking tours that travelers can download and experi...</p>
+          <div class="card-actions">
+            <a href="ideas/iguides/index.html" class="card-link page-link">View Landing Page</a>
+            <a href="https://www.youtube.com/watch?v=eGH5GpNt0_M" target="_blank" rel="noopener" class="card-link ep-link">Watch Episode</a>
+          </div>
+        </div>
+      </article></div>
+
+<footer>
+  <p>A project by the Steal This Idea Podcast. All ideas are free to use. Go build something.</p>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  var activeFilter = 'all';
+  var searchTerm = '';
+  var activeSort = 'alpha';
+  var grid = document.getElementById('ideasGrid');
+
+  function sortCards() {
+    var cards = Array.from(grid.querySelectorAll('.idea-card'));
+    cards.sort(function(a, b) {
+      if (activeSort === 'newest') {
+        return parseInt(b.dataset.ep || 0) - parseInt(a.dataset.ep || 0);
+      } else if (activeSort === 'oldest') {
+        return parseInt(a.dataset.ep || 0) - parseInt(b.dataset.ep || 0);
+      } else {
+        return (a.dataset.name || '').localeCompare(b.dataset.name || '');
+      }
+    });
+    cards.forEach(function(card) { grid.appendChild(card); });
+  }
+
+  function filterCards() {
+    var cards = grid.querySelectorAll('.idea-card');
+    var visible = 0;
+    cards.forEach(function(card, i) {
+      var matchCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
+      var matchSearch = !searchTerm ||
+        card.dataset.name.indexOf(searchTerm) !== -1 ||
+        (card.querySelector('.card-tagline') && card.querySelector('.card-tagline').textContent.toLowerCase().indexOf(searchTerm) !== -1) ||
+        (card.querySelector('.card-pitch') && card.querySelector('.card-pitch').textContent.toLowerCase().indexOf(searchTerm) !== -1) ||
+        card.dataset.category.toLowerCase().indexOf(searchTerm) !== -1;
+      var show = matchCategory && matchSearch;
+      card.classList.toggle('hidden', !show);
+      if (show) {
+        card.style.animationDelay = (visible * 0.06) + 's';
+        visible++;
+      }
+    });
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      filterCards();
+    });
+  });
+
+  // Sort buttons
+  document.querySelectorAll('.sort-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeSort = btn.dataset.sort;
+      sortCards();
+      filterCards();
+    });
+  });
+
+  // Search
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    searchTerm = e.target.value.toLowerCase().trim();
+    filterCards();
+  });
+
+  // Initial stagger
+  grid.querySelectorAll('.idea-card').forEach(function(c, i) {
+    c.style.animationDelay = (i * 0.08) + 's';
+  });
+})();
+</script>
+</body>
+</html>

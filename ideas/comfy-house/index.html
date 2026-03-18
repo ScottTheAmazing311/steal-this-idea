@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comfy House - Comfort Rentals Wherever the Wait Is Long</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--peach:#FFE8D6;
+--coral:#FF6B6B;
+--sky:#7EC8E3;
+--mint:#A8E6CF;
+--plum:#6C5B7B;
+--cream:#FFF9F0;
+--warm-white:#FFFCF7;
+--soft-shadow:0 8px 32px rgba(108,91,123,0.12);
+--pop-shadow:0 12px 40px rgba(255,107,107,0.2);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;color:#3D3250;background:var(--cream);overflow-x:hidden;line-height:1.7}
+h1,h2,h3,h4{font-family:'Fredoka',sans-serif;line-height:1.2}
+
+/* STI Badge */
+.sti-badge{
+position:fixed;top:20px;left:20px;z-index:1000;
+background:var(--plum);color:#fff;
+padding:8px 16px;border-radius:50px;
+font-family:'Fredoka',sans-serif;font-size:0.85rem;font-weight:600;
+text-decoration:none;display:flex;align-items:center;gap:8px;
+box-shadow:0 4px 16px rgba(108,91,123,0.3);
+transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.sti-badge:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(108,91,123,0.4)}
+.sti-badge svg{width:18px;height:18px;flex-shrink:0}
+
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* Hero */
+.hero{
+position:relative;min-height:100vh;
+display:flex;align-items:center;justify-content:center;
+overflow:hidden;
+}
+.hero-bg{
+position:absolute;inset:0;
+background:url('https://images.unsplash.com/photo-1572022527926-535e18ae009a?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+}
+.hero-bg::after{
+content:'';position:absolute;inset:0;
+background:linear-gradient(135deg,rgba(255,232,214,0.92) 0%,rgba(168,230,207,0.88) 50%,rgba(126,200,227,0.85) 100%);
+}
+.hero-content{
+position:relative;z-index:2;text-align:center;
+max-width:800px;padding:40px 24px;
+}
+.hero-icon{
+width:100px;height:100px;margin:0 auto 32px;
+background:white;border-radius:28px;
+display:flex;align-items:center;justify-content:center;
+box-shadow:var(--soft-shadow);
+animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero-icon svg{width:56px;height:56px;color:var(--coral)}
+.hero h1{
+font-size:clamp(3rem,7vw,5.5rem);
+color:var(--plum);margin-bottom:16px;
+}
+.hero .tagline{
+font-size:clamp(1.2rem,2.5vw,1.6rem);
+color:var(--plum);opacity:0.8;
+font-weight:600;margin-bottom:24px;
+}
+.hero .pitch{
+font-size:1.15rem;max-width:600px;margin:0 auto 40px;
+color:#4A3F5C;line-height:1.8;
+}
+.cta-btn{
+display:inline-block;
+background:var(--coral);color:#fff;
+font-family:'Fredoka',sans-serif;
+font-size:1.15rem;font-weight:600;
+padding:16px 48px;border-radius:60px;
+text-decoration:none;border:none;cursor:pointer;
+box-shadow:var(--pop-shadow);
+transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 48px rgba(255,107,107,0.3)}
+.cta-btn-outline{
+background:transparent;color:var(--plum);
+border:3px solid var(--plum);box-shadow:none;
+margin-left:16px;
+}
+.cta-btn-outline:hover{background:var(--plum);color:#fff}
+
+/* Blob decorations */
+.blob{position:absolute;border-radius:50%;opacity:0.15;pointer-events:none}
+.blob-1{width:400px;height:400px;background:var(--coral);top:-100px;right:-100px}
+.blob-2{width:300px;height:300px;background:var(--sky);bottom:-80px;left:-80px}
+.blob-3{width:250px;height:250px;background:var(--mint);top:50%;left:-60px}
+
+/* Section basics */
+section{padding:100px 24px;position:relative;overflow:hidden}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+font-family:'Fredoka',sans-serif;
+font-size:0.85rem;font-weight:600;
+text-transform:uppercase;letter-spacing:3px;
+color:var(--coral);margin-bottom:12px;
+}
+.section-title{
+font-size:clamp(2rem,4vw,3rem);
+color:var(--plum);margin-bottom:24px;
+}
+.section-text{
+font-size:1.1rem;max-width:650px;
+line-height:1.8;color:#5A4E6B;
+}
+
+/* Problem section */
+.problem{background:var(--warm-white)}
+.problem-grid{
+display:grid;grid-template-columns:1fr 1fr;
+gap:60px;align-items:center;margin-top:48px;
+}
+.problem-image{
+border-radius:24px;overflow:hidden;
+box-shadow:var(--soft-shadow);
+position:relative;
+}
+.problem-image img{width:100%;height:400px;object-fit:cover;display:block}
+.problem-cards{display:flex;flex-direction:column;gap:20px}
+.problem-card{
+background:white;padding:24px 28px;border-radius:20px;
+box-shadow:0 4px 20px rgba(108,91,123,0.08);
+display:flex;align-items:flex-start;gap:16px;
+transition:transform 0.3s ease;
+}
+.problem-card:hover{transform:translateX(8px)}
+.problem-card .icon-circle{
+width:48px;height:48px;border-radius:14px;
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;
+}
+.problem-card .icon-circle svg{width:24px;height:24px;color:#fff}
+.problem-card:nth-child(1) .icon-circle{background:var(--coral)}
+.problem-card:nth-child(2) .icon-circle{background:var(--sky)}
+.problem-card:nth-child(3) .icon-circle{background:var(--mint)}
+.problem-card h4{font-size:1.05rem;color:var(--plum);margin-bottom:4px}
+.problem-card p{font-size:0.95rem;color:#6B5E80;line-height:1.6}
+
+/* Solution section */
+.solution{
+background:linear-gradient(160deg,var(--plum) 0%,#8B6FA3 100%);
+color:#fff;
+}
+.solution .section-label{color:var(--mint)}
+.solution .section-title{color:#fff}
+.solution .section-text{color:rgba(255,255,255,0.85)}
+.solution-visual{
+margin-top:48px;display:grid;
+grid-template-columns:1.2fr 1fr;gap:40px;
+align-items:center;
+}
+.solution-image{
+border-radius:24px;overflow:hidden;
+box-shadow:0 12px 40px rgba(0,0,0,0.3);
+}
+.solution-image img{width:100%;height:420px;object-fit:cover;display:block}
+.solution-steps{display:flex;flex-direction:column;gap:24px}
+.step{
+display:flex;align-items:flex-start;gap:16px;
+background:rgba(255,255,255,0.1);
+padding:20px 24px;border-radius:18px;
+backdrop-filter:blur(8px);
+transition:background 0.3s ease;
+}
+.step:hover{background:rgba(255,255,255,0.18)}
+.step-num{
+width:40px;height:40px;border-radius:12px;
+background:var(--coral);color:#fff;
+display:flex;align-items:center;justify-content:center;
+font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem;
+flex-shrink:0;
+}
+.step h4{color:#fff;margin-bottom:4px;font-size:1rem}
+.step p{color:rgba(255,255,255,0.75);font-size:0.95rem;line-height:1.6}
+
+/* Features section */
+.features{background:var(--cream)}
+.features-grid{
+display:grid;grid-template-columns:repeat(2,1fr);
+gap:32px;margin-top:48px;
+}
+.feature-card{
+background:#fff;border-radius:24px;overflow:hidden;
+box-shadow:0 4px 24px rgba(108,91,123,0.08);
+transition:transform 0.4s ease,box-shadow 0.4s ease;
+}
+.feature-card:hover{transform:translateY(-8px);box-shadow:var(--soft-shadow)}
+.feature-card-image{height:200px;overflow:hidden}
+.feature-card-image img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+.feature-card:hover .feature-card-image img{transform:scale(1.06)}
+.feature-card-body{padding:28px 28px 32px}
+.feature-card-body .feature-icon{
+width:48px;height:48px;border-radius:14px;
+display:flex;align-items:center;justify-content:center;
+margin-bottom:16px;
+}
+.feature-card-body .feature-icon svg{width:24px;height:24px;color:#fff}
+.feature-card:nth-child(1) .feature-icon{background:var(--coral)}
+.feature-card:nth-child(2) .feature-icon{background:var(--sky)}
+.feature-card:nth-child(3) .feature-icon{background:var(--mint)}
+.feature-card:nth-child(4) .feature-icon{background:var(--plum)}
+.feature-card-body h3{font-size:1.2rem;color:var(--plum);margin-bottom:8px}
+.feature-card-body p{font-size:0.95rem;color:#6B5E80;line-height:1.7}
+
+/* Market section */
+.market{
+background:var(--warm-white);
+position:relative;
+}
+.market-content{
+display:grid;grid-template-columns:1fr 1fr;
+gap:60px;align-items:center;margin-top:48px;
+}
+.market-stats{display:flex;flex-direction:column;gap:24px}
+.stat-card{
+background:white;padding:28px 32px;border-radius:20px;
+box-shadow:0 4px 20px rgba(108,91,123,0.08);
+border-left:5px solid var(--coral);
+transition:transform 0.3s ease;
+}
+.stat-card:nth-child(2){border-left-color:var(--sky)}
+.stat-card:nth-child(3){border-left-color:var(--mint)}
+.stat-card:hover{transform:translateX(8px)}
+.stat-card .stat-number{
+font-family:'Fredoka',sans-serif;
+font-size:2.2rem;font-weight:700;
+color:var(--plum);
+}
+.stat-card .stat-label{font-size:0.95rem;color:#6B5E80;margin-top:4px}
+.market-image{
+border-radius:24px;overflow:hidden;
+box-shadow:var(--soft-shadow);
+}
+.market-image img{width:100%;height:450px;object-fit:cover;display:block}
+
+/* Business plan section */
+.business-plan{
+background:linear-gradient(160deg,#F7F0FF 0%,var(--peach) 100%);
+}
+.plan-grid{
+display:grid;grid-template-columns:repeat(2,1fr);
+gap:32px;margin-top:48px;
+}
+.plan-card{
+background:white;padding:32px;border-radius:20px;
+box-shadow:0 4px 20px rgba(108,91,123,0.08);
+transition:transform 0.3s ease;
+}
+.plan-card:hover{transform:translateY(-4px)}
+.plan-card .plan-icon{
+width:44px;height:44px;border-radius:12px;
+display:flex;align-items:center;justify-content:center;
+margin-bottom:16px;
+}
+.plan-card .plan-icon svg{width:22px;height:22px;color:#fff}
+.plan-card:nth-child(1) .plan-icon{background:var(--coral)}
+.plan-card:nth-child(2) .plan-icon{background:var(--sky)}
+.plan-card:nth-child(3) .plan-icon{background:var(--mint)}
+.plan-card:nth-child(4) .plan-icon{background:var(--plum)}
+.plan-card:nth-child(5) .plan-icon{background:#F4A261}
+.plan-card:nth-child(6) .plan-icon{background:#E76F51}
+.plan-card h3{font-size:1.15rem;color:var(--plum);margin-bottom:12px}
+.plan-card p{font-size:0.95rem;color:#6B5E80;line-height:1.7}
+.plan-card ul{list-style:none;padding:0}
+.plan-card ul li{
+font-size:0.95rem;color:#6B5E80;line-height:1.7;
+padding:6px 0 6px 24px;position:relative;
+}
+.plan-card ul li::before{
+content:'';position:absolute;left:0;top:14px;
+width:10px;height:10px;border-radius:50%;
+background:var(--mint);
+}
+.plan-card:nth-child(5) ul li::before{background:#F4A261}
+.plan-card:nth-child(6) ul li::before{background:#E76F51}
+
+.plan-full{grid-column:1/-1}
+.cost-badge{
+display:inline-block;
+background:var(--plum);color:#fff;
+font-family:'Fredoka',sans-serif;
+font-size:1.3rem;font-weight:600;
+padding:12px 32px;border-radius:50px;
+margin-top:12px;
+}
+
+/* Footer */
+.footer{
+background:var(--plum);color:rgba(255,255,255,0.8);
+text-align:center;padding:60px 24px;
+}
+.footer p{font-size:1rem;margin-bottom:8px}
+.footer a{color:var(--mint);text-decoration:underline}
+.footer .footer-brand{
+font-family:'Fredoka',sans-serif;
+font-size:1.5rem;color:#fff;
+margin-bottom:16px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+.hero-content{padding:100px 20px 60px}
+.problem-grid,.solution-visual,.market-content{grid-template-columns:1fr}
+.features-grid,.plan-grid{grid-template-columns:1fr}
+.problem-image img,.solution-image img,.market-image img{height:280px}
+.cta-btn-outline{margin-left:0;margin-top:12px}
+.sti-badge{top:12px;left:12px;font-size:0.75rem;padding:6px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- STI Badge -->
+<a href="../index.html" class="sti-badge">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="hero-content">
+<div class="hero-icon">
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="8" y="24" width="48" height="32" rx="6" fill="#FFE8D6" stroke="#FF6B6B" stroke-width="3"/>
+<path d="M16 24C16 16 24 8 32 8C40 8 48 16 48 24" stroke="#FF6B6B" stroke-width="3" fill="none"/>
+<circle cx="24" cy="38" r="3" fill="#FF6B6B"/>
+<circle cx="40" cy="38" r="3" fill="#FF6B6B"/>
+<path d="M28 46C28 46 32 50 36 46" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>
+</div>
+<h1>Comfy House</h1>
+<p class="tagline">Comfort rentals wherever the wait is long</p>
+<p class="pitch">Blankets, pillows, tablets, gaming consoles, and more. Rent a comfort kit at any hospital, airport, or hotel and actually enjoy the wait.</p>
+<a href="#solution" class="cta-btn">See How It Works</a>
+<a href="#business-plan" class="cta-btn cta-btn-outline">View Business Plan</a>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+<div class="container">
+<div class="reveal">
+<span class="section-label">The Problem</span>
+<h2 class="section-title">Waiting Shouldn't Feel Like Suffering</h2>
+<p class="section-text">Whether you are recovering from surgery, waiting on a delayed flight, or stuck in a budget hotel, the experience is almost always the same: uncomfortable, boring, and frustrating.</p>
+</div>
+<div class="problem-grid">
+<div class="problem-image reveal-left">
+<img src="https://images.unsplash.com/photo-1519494140681-8b17d830a3e9?auto=format&fit=crop&w=1200&q=80" alt="Hospital waiting area with uncomfortable seating">
+</div>
+<div class="problem-cards">
+<div class="problem-card reveal-right" style="transition-delay:0.1s">
+<div class="icon-circle">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h1m8-9v1m8 8h1M5.6 5.6l.7.7m12.1-.7-.7.7"/><path d="M9 16a5 5 0 1 1 6 0"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+</div>
+<div>
+<h4>Rock-Hard Pillows, Paper-Thin Blankets</h4>
+<p>Hospital bedding is designed for sanitation, not sleep. Airport benches are steel. Hotel pillows feel like they were packed in 1998.</p>
+</div>
+</div>
+<div class="problem-card reveal-right" style="transition-delay:0.2s">
+<div class="icon-circle">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+</div>
+<div>
+<h4>Nothing to Watch, Nothing to Do</h4>
+<p>Basic cable with 12 channels. Spotty Wi-Fi. No preloaded entertainment. Hours of staring at a ceiling or a departure board.</p>
+</div>
+</div>
+<div class="problem-card reveal-right" style="transition-delay:0.3s">
+<div class="icon-circle">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-6 0v4"/><rect x="6" y="9" width="12" height="12" rx="2"/></svg>
+</div>
+<div>
+<h4>No Good Way to Fix It</h4>
+<p>Gift shops sell overpriced keychains. You cannot rent a Switch at the hospital. There is no comfort concierge at any budget hotel.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+<div class="container">
+<div class="reveal">
+<span class="section-label">The Solution</span>
+<h2 class="section-title">Rent Comfort in Three Simple Steps</h2>
+<p class="section-text">Comfy House installs rental kiosks in hospitals, airports, hotels, and waiting areas. Pick a kit, enjoy your stay, return it when you leave.</p>
+</div>
+<div class="solution-visual">
+<div class="solution-image reveal-left">
+<img src="https://images.unsplash.com/photo-1574227136494-46cf4c368a4e?auto=format&fit=crop&w=1200&q=80" alt="Cozy blankets and pillows for comfort">
+</div>
+<div class="solution-steps">
+<div class="step reveal-right" style="transition-delay:0.1s">
+<div class="step-num">1</div>
+<div>
+<h4>Scan at the Kiosk</h4>
+<p>Walk up to any Comfy House kiosk, tap your phone or credit card, and browse available comfort and entertainment packages.</p>
+</div>
+</div>
+<div class="step reveal-right" style="transition-delay:0.2s">
+<div class="step-num">2</div>
+<div>
+<h4>Pick Your Kit</h4>
+<p>Choose a cozy comfort pack with blankets and pillows, or go premium with a loaded tablet, gaming console, and noise-canceling headphones.</p>
+</div>
+</div>
+<div class="step reveal-right" style="transition-delay:0.3s">
+<div class="step-num">3</div>
+<div>
+<h4>Return and Relax</h4>
+<p>When your stay is over, drop everything at the kiosk or nurses station. We handle sanitization and restocking.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+<div class="container">
+<div class="reveal" style="text-align:center">
+<span class="section-label">What We Offer</span>
+<h2 class="section-title">Everything You Need, Nothing You Don't</h2>
+</div>
+<div class="features-grid">
+<div class="feature-card reveal" style="transition-delay:0.1s">
+<div class="feature-card-image">
+<img src="https://images.unsplash.com/photo-1564019472231-4586c552dc27?auto=format&fit=crop&w=1200&q=80" alt="Soft cozy blankets and comfort items">
+</div>
+<div class="feature-card-body">
+<div class="feature-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+</div>
+<h3>Curated Comfort Kits</h3>
+<p>Premium blankets, memory foam pillows, cozy slippers, and eye masks. Everything sanitized and packaged fresh for each guest.</p>
+</div>
+</div>
+<div class="feature-card reveal" style="transition-delay:0.2s">
+<div class="feature-card-image">
+<img src="https://images.unsplash.com/photo-1616469829526-7057a1427626?auto=format&fit=crop&w=1200&q=80" alt="Tablet with entertainment and streaming content">
+</div>
+<div class="feature-card-body">
+<div class="feature-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+</div>
+<h3>Entertainment Bundles</h3>
+<p>Pre-loaded tablets with movies and shows, portable gaming consoles, Kindles full of bestsellers, and noise-canceling headphones.</p>
+</div>
+</div>
+<div class="feature-card reveal" style="transition-delay:0.3s">
+<div class="feature-card-image">
+<img src="https://images.unsplash.com/photo-1581982231900-6a1a46b744c9?auto=format&fit=crop&w=1200&q=80" alt="Hospital environment with clean amenities">
+</div>
+<div class="feature-card-body">
+<div class="feature-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+</div>
+<h3>Hospital-Grade Sanitization</h3>
+<p>Every item goes through a rigorous cleaning cycle between rentals. UV sanitization for electronics, industrial laundering for fabrics.</p>
+</div>
+</div>
+<div class="feature-card reveal" style="transition-delay:0.4s">
+<div class="feature-card-image">
+<img src="https://images.unsplash.com/photo-1686170605768-08666730fc6c?auto=format&fit=crop&w=1200&q=80" alt="Modern airport terminal and lounge area">
+</div>
+<div class="feature-card-body">
+<div class="feature-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+</div>
+<h3>Self-Service Kiosk Checkout</h3>
+<p>Walk up, tap, and go. No lines, no paperwork. Available 24/7 at every location. Return items at any kiosk or staffed drop point.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+<div class="container">
+<div class="reveal">
+<span class="section-label">The Opportunity</span>
+<h2 class="section-title">A Massive, Underserved Market</h2>
+<p class="section-text">Millions of people spend extended time in uncomfortable institutional settings every single day. No one is solving for their comfort at the point of need.</p>
+</div>
+<div class="market-content">
+<div class="market-stats">
+<div class="stat-card reveal-left" style="transition-delay:0.1s">
+<div class="stat-number">36M+</div>
+<div class="stat-label">Hospital overnight stays in the US each year, with patients and visitors alike craving basic comfort</div>
+</div>
+<div class="stat-card reveal-left" style="transition-delay:0.2s">
+<div class="stat-number">900M</div>
+<div class="stat-label">Annual US air passengers navigating layovers, delays, and overnight connections with minimal amenities</div>
+</div>
+<div class="stat-card reveal-left" style="transition-delay:0.3s">
+<div class="stat-number">$2B+</div>
+<div class="stat-label">Estimated addressable market across hospitals, airports, budget hotels, and outpatient clinics</div>
+</div>
+</div>
+<div class="market-image reveal-right">
+<img src="https://images.unsplash.com/photo-1729595320795-09427ccad5bc?auto=format&fit=crop&w=1200&q=80" alt="Airport terminal with passengers waiting">
+</div>
+</div>
+</div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan" id="business-plan">
+<div class="container">
+<div class="reveal" style="text-align:center">
+<span class="section-label">The Business Plan</span>
+<h2 class="section-title">Built to Scale, Designed to Delight</h2>
+</div>
+<div class="plan-grid">
+<div class="plan-card reveal" style="transition-delay:0.1s">
+<div class="plan-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+</div>
+<h3>Revenue Model</h3>
+<p>Tiered per-stay rental fees. A basic comfort pack (blanket, pillow, slippers) runs around $20. Premium entertainment bundles with tablets, consoles, and headphones go for $40 to $50. Revenue sharing agreements with venue partners provide placement access and mutual upside.</p>
+</div>
+<div class="plan-card reveal" style="transition-delay:0.2s">
+<div class="plan-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+</div>
+<h3>Go-to-Market Strategy</h3>
+<p>Launch with a pilot program in 3 to 5 hospitals in one metro area, starting with maternity wards where stays are predictable and visitors are highly motivated. Use patient satisfaction data and success metrics to pitch larger hospital networks for broader rollout.</p>
+</div>
+<div class="plan-card reveal" style="transition-delay:0.3s">
+<div class="plan-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+</div>
+<h3>Competitive Advantage</h3>
+<p>No one currently serves the comfort rental niche in institutional waiting environments. Hospital gift shops sell overpriced trinkets instead of useful comfort items. Comfy House replaces that dead retail space with a high-margin rental model that solves a universal problem.</p>
+</div>
+<div class="plan-card reveal" style="transition-delay:0.4s">
+<div class="plan-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+</div>
+<h3>Year One Milestones</h3>
+<ul>
+<li>Secure pilot agreements with 5 hospitals and deploy kiosks in maternity and long-stay wards</li>
+<li>Reach 1,000 rentals per month with a 90%+ return rate and strong patient feedback</li>
+<li>Expand to 2 airport locations and begin franchise model development</li>
+</ul>
+</div>
+<div class="plan-card reveal" style="transition-delay:0.5s">
+<div class="plan-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+</div>
+<h3>Key Risks</h3>
+<ul>
+<li>Hospitals may resist due to infection control policies and liability concerns around third-party items</li>
+<li>Theft and damage rates on electronics could erode margins if deposit systems are not well designed</li>
+<li>Venue partnerships require long sales cycles with institutional decision makers</li>
+</ul>
+</div>
+<div class="plan-card plan-full reveal" style="transition-delay:0.6s">
+<div class="plan-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+</div>
+<h3>Startup Cost Estimate</h3>
+<p>Covers kiosk hardware, initial inventory (blankets, pillows, tablets, consoles), sanitization equipment, venue partnership development, and working capital for the first 6 months of operations.</p>
+<div class="cost-badge">$150,000 - $300,000</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-brand">Comfy House</div>
+<p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+<p>Inspired by Episode 79. <a href="https://www.youtube.com/watch?v=NT7MjvVeuE8" target="_blank" rel="noopener">Watch the episode</a></p>
+<p style="margin-top:24px;font-size:0.85rem;opacity:0.6">Not a real company. Yet.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered reveal animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

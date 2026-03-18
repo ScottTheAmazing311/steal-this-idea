@@ -1,0 +1,34 @@
+{
+  "slug": "bon-appetit",
+  "company_name": "Bon Appetit",
+  "tagline": "Restaurants compete. You eat. Everyone wins.",
+  "elevator_pitch": "Bon Appetit is a mobile app that lets hungry diners broadcast their appetite to nearby restaurants, which then compete for their business with real-time deals and incentives. It turns dining indecision into a win-win, helping consumers discover great food while giving restaurants a powerful tool to fill empty seats.",
+  "problem": "Choosing where to eat, especially while traveling, is a frustrating guessing game. Yelp ratings blur together, most great local spots never surface, and restaurants waste money on outdated coupon mailers that nobody uses. Meanwhile, restaurants with empty tables or surplus inventory have no way to reach nearby hungry customers in the moment.",
+  "solution": "Bon Appetit connects hungry diners directly with restaurants in real time. Users open the app, tap 'I'm Hungry,' and nearby partner restaurants instantly see the demand and can send personalized offers: a free appetizer, complimentary drinks, or a specialty dish they need to move. Restaurants gain a direct channel to attract foot traffic exactly when they need it most.",
+  "target_market": "Tourists and travelers in food-centric destinations (ages 22-45), as well as local foodies and couples who eat out frequently but struggle with dining indecision. Secondary market: restaurant owners looking for smarter, real-time marketing tools.",
+  "revenue_model": "Freemium SaaS for restaurants. Basic listing and offer capability is free. Premium tiers ($49-199/month) unlock analytics dashboards, demographic insights, peak-time data, advanced promotion tools, and priority placement. Additional revenue from featured placements and loyalty program integrations.",
+  "key_features": [
+    "One-tap 'I'm Hungry' broadcast that pings all nearby partner restaurants in real time",
+    "Restaurant dashboard where owners and hosts craft live, personalized offers to attract diners",
+    "Smart discovery engine surfacing hidden gems and under-the-radar local favorites",
+    "Built-in menus, loyalty card management, and curated local dining guides"
+  ],
+  "competitive_advantage": "Unlike Yelp or Google Maps which show static reviews, Bon Appetit creates a live, two-way marketplace where restaurants actively compete for your visit with real-time incentives. This dynamic model means every session is different, offers are personalized, and restaurants can solve supply problems (cancellations, surplus inventory, slow nights) instantly.",
+  "market_size_estimate": "$35B+ global restaurant marketing and discovery market. The U.S. restaurant industry alone spends over $10B annually on advertising, much of it on inefficient channels like direct mail. The food tourism segment adds another $150B+ worldwide.",
+  "go_to_market": "Launch in 3-5 major tourist destinations (Rome, Tokyo, Cancun) by signing up restaurant clusters in high-traffic dining districts. Offer the app free to both sides initially to build network density. Partner with travel influencers and hotel concierge services to drive tourist downloads. Expand to U.S. foodie cities (NYC, LA, Austin) once the model is proven.",
+  "risks": [
+    "Classic chicken-and-egg marketplace problem: need enough restaurants to attract users and enough users to attract restaurants",
+    "Established players like Yelp, Google Maps, and OpenTable could replicate the real-time offer feature with their existing user bases",
+    "Restaurants may resist giving away free items or discounts if they do not see measurable ROI quickly enough"
+  ],
+  "year_one_milestones": [
+    "Launch in 3 tourist-heavy cities with 500+ restaurant partners and 50,000 app downloads",
+    "Achieve 15% weekly active user rate with an average of 2+ dining sessions per active user per month",
+    "Convert 10% of free restaurant partners to premium paid tiers, reaching $25K monthly recurring revenue"
+  ],
+  "startup_cost_range": "$150K - $350K",
+  "category": "Marketplace",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=ptzeNgX_thY",
+  "episode_number": 98
+}

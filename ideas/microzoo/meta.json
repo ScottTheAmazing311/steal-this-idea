@@ -1,0 +1,34 @@
+{
+  "slug": "microzoo",
+  "company_name": "MicroZoo",
+  "tagline": "A tiny zoo, a huge experience.",
+  "elevator_pitch": "MicroZoo is a compact, storefront-sized zoo featuring rotating exhibits of small to medium animals. It offers families an affordable, intimate, and educational wildlife experience without the sprawl, cost, or sleeping-animal disappointment of traditional zoos.",
+  "problem": "Traditional zoos are expensive (often $60+ per visit), sprawling, and exhausting for families with young children. Worse, many animals are asleep or hiding during visits, making the experience feel like a letdown. Parents need a convenient, affordable way to give kids meaningful animal encounters.",
+  "solution": "MicroZoo operates in regular retail storefronts with a high density of small to medium animals in clean, well-designed habitats. Permanent exhibits feature reptiles, birds, fish, and insects, while rotating mammal exhibits (foxes, lemurs, otters, peacocks) follow a 'Crumble model' that keeps visitors coming back. Admission stays under $5.",
+  "target_market": "Families with children ages 2 to 12 in suburban and mid-sized metro areas. Secondary audiences include school field trip coordinators, homeschool groups, date-night couples, and animal enthusiasts of all ages.",
+  "revenue_model": "Low-cost admission ($3 to $5 per person), annual memberships, birthday party packages, school group bookings, gift shop sales, animal feeding token purchases, and franchise fees from new locations.",
+  "key_features": [
+    "Rotating animal exhibits that change every few weeks, giving visitors a reason to return",
+    "Permanent reptile, bird, fish, and insect zones for consistent year-round attractions",
+    "Storefront-sized footprint that fits in strip malls and shopping centers",
+    "Hands-on educational programming and close-up animal encounters"
+  ],
+  "competitive_advantage": "MicroZoo fills the gap between expensive full-scale zoos and unpolished roadside petting zoos. Its small footprint keeps overhead low, its rotating exhibits drive repeat visits, and its franchise model enables rapid geographic expansion. No direct competitor occupies this middle tier of the animal experience market.",
+  "market_size_estimate": "The U.S. zoo and aquarium industry generates over $22 billion annually. With 75+ million families in the U.S. and growing demand for experiential entertainment, even capturing a small slice of the family entertainment market represents a multi-billion dollar TAM.",
+  "go_to_market": "Launch a single flagship location in a family-dense suburban area (Utah or similar market) to prove unit economics and foot traffic. Partner with local animal rescues and wildlife educators to source rotating exhibits. Use social media to build anticipation around new animal arrivals, then franchise the model to other cities.",
+  "risks": [
+    "Animal welfare regulations and permitting could vary widely by state and municipality, creating expansion friction",
+    "Sourcing a reliable pipeline of rotating animals through shelters, rescues, and zoos requires strong institutional partnerships",
+    "Consumer perception must be carefully managed to avoid comparisons to sketchy roadside attractions or pet stores"
+  ],
+  "year_one_milestones": [
+    "Open flagship location and achieve 500+ visitors per week within 3 months",
+    "Establish partnerships with at least 5 regional animal organizations for rotating exhibits",
+    "Reach profitability at the unit level and begin documenting the franchise playbook"
+  ],
+  "startup_cost_range": "$150,000 to $350,000 for first location including buildout, animal habitats, permits, and initial operating capital",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=BAwp--tx26k",
+  "episode_number": 142
+}

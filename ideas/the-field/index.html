@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Field - Your Indoor Park. Rain or Shine.</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --forest: #2D5016;
+    --sage: #7A9E6D;
+    --cream: #FAF7F0;
+    --warm-brown: #8B6F47;
+    --dark-earth: #3B2F1E;
+    --golden: #D4A843;
+    --soft-green: #E8F0E3;
+    --moss: #4A6741;
+    --sand: #F0E6D3;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Karla', sans-serif;
+    color: var(--dark-earth);
+    background: var(--cream);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Libre Baskerville', serif;
+    line-height: 1.3;
+  }
+
+  /* Steal This Idea Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--dark-earth);
+    color: var(--golden);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .sti-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .sti-badge svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--golden);
+  }
+
+  /* Scroll Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    filter: brightness(0.4);
+    z-index: 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(45,80,22,0.6) 0%, rgba(59,47,30,0.7) 100%);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(212,168,67,0.2);
+    border: 1px solid var(--golden);
+    color: var(--golden);
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    color: #fff;
+    font-size: clamp(3rem, 8vw, 6rem);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+  }
+  .hero h1 span {
+    color: var(--golden);
+  }
+  .hero-tagline {
+    color: var(--sage);
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    margin-bottom: 1.5rem;
+  }
+  .hero-pitch {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--golden);
+    color: var(--dark-earth);
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212,168,67,0.4);
+  }
+  .btn-secondary {
+    display: inline-block;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 1rem;
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+  }
+  .btn-secondary:hover {
+    background: #fff;
+    color: var(--dark-earth);
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+  }
+  .scroll-indicator svg {
+    width: 28px;
+    height: 28px;
+    stroke: rgba(255,255,255,0.5);
+    fill: none;
+    stroke-width: 2;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  /* ---- SECTION HELPERS ---- */
+  .section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    display: inline-block;
+    background: var(--soft-green);
+    color: var(--forest);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--dark-earth);
+    margin-bottom: 1.5rem;
+  }
+  .section-desc {
+    font-size: 1.1rem;
+    color: #6B5D4D;
+    max-width: 700px;
+    line-height: 1.8;
+  }
+
+  /* ---- PROBLEM ---- */
+  .problem {
+    background: var(--dark-earth);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .problem .section-label {
+    background: rgba(212,168,67,0.2);
+    color: var(--golden);
+  }
+  .problem .section-title { color: #fff; }
+  .problem .section-desc { color: rgba(255,255,255,0.75); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .problem-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.2rem;
+    color: var(--golden);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+  }
+  .problem-image {
+    border-radius: 20px;
+    overflow: hidden;
+    height: 400px;
+  }
+  .problem-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---- SOLUTION ---- */
+  .solution { background: var(--cream); }
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .solution-image {
+    border-radius: 20px;
+    overflow: hidden;
+    height: 450px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  }
+  .solution-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .solution-points {
+    list-style: none;
+    margin-top: 2rem;
+  }
+  .solution-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .solution-points .point-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--soft-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .solution-points .point-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--forest);
+    fill: none;
+    stroke-width: 2.5;
+  }
+  .solution-points .point-text h4 {
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .solution-points .point-text p {
+    font-size: 0.9rem;
+    color: #6B5D4D;
+  }
+
+  /* ---- FEATURES ---- */
+  .features {
+    background: var(--soft-green);
+    position: relative;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+  .feature-card-image {
+    height: 200px;
+    overflow: hidden;
+  }
+  .feature-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .feature-card:hover .feature-card-image img {
+    transform: scale(1.05);
+  }
+  .feature-card-body {
+    padding: 1.5rem;
+  }
+  .feature-card-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-earth);
+  }
+  .feature-card-body p {
+    font-size: 0.9rem;
+    color: #6B5D4D;
+    line-height: 1.7;
+  }
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--soft-green);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .feature-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--forest);
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ---- MARKET ---- */
+  .market {
+    background: var(--cream);
+    position: relative;
+  }
+  .market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  .market-left {}
+  .market-segments {
+    margin-top: 2rem;
+  }
+  .segment {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding: 1rem 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .segment-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .segment h4 {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .segment p {
+    font-size: 0.8rem;
+    color: #6B5D4D;
+    margin-top: 2px;
+  }
+  .market-image {
+    border-radius: 20px;
+    overflow: hidden;
+    height: 100%;
+    min-height: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+  .market-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tam-box {
+    margin-top: 2rem;
+    background: var(--dark-earth);
+    color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .tam-box h4 {
+    color: var(--golden);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .tam-box .tam-number {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.5rem;
+    color: #fff;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .tam-box p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+
+  /* ---- BUSINESS PLAN ---- */
+  .biz-plan {
+    background: var(--sand);
+    position: relative;
+  }
+  .biz-plan::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--forest), var(--golden), var(--sage));
+  }
+  .biz-plan .section-title {
+    text-align: center;
+  }
+  .biz-plan .section-label {
+    display: block;
+    text-align: center;
+  }
+  .biz-plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .biz-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--sage);
+  }
+  .biz-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--forest);
+  }
+  .biz-card p, .biz-card li {
+    font-size: 0.9rem;
+    color: #6B5D4D;
+    line-height: 1.7;
+  }
+  .biz-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .biz-card ul li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .biz-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+  }
+  .biz-card.full-width {
+    grid-column: 1 / -1;
+    border-left-color: var(--golden);
+  }
+  .biz-card.highlight {
+    background: var(--dark-earth);
+    border-left-color: var(--golden);
+  }
+  .biz-card.highlight h3 { color: var(--golden); }
+  .biz-card.highlight p,
+  .biz-card.highlight li { color: rgba(255,255,255,0.75); }
+  .biz-card.highlight ul li::before { background: var(--golden); }
+
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .milestone {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .milestone-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2rem;
+    color: var(--golden);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .milestone-text {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+
+  /* ---- CTA ---- */
+  .cta-section {
+    position: relative;
+    padding: 6rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1596394723269-e9b926236baa?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    filter: brightness(0.35);
+  }
+  .cta-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(45,80,22,0.7) 0%, rgba(59,47,30,0.8) 100%);
+  }
+  .cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .cta-content h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+  .cta-content p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--dark-earth);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .footer-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .footer-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--golden);
+    margin: 0 auto 1.5rem;
+  }
+  .footer p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+  .footer a {
+    color: var(--golden);
+    text-decoration: none;
+  }
+  .footer a:hover { text-decoration: underline; }
+  .footer-logo {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    .problem-grid,
+    .solution-grid,
+    .market-grid,
+    .biz-plan-grid,
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    .milestones {
+      grid-template-columns: 1fr;
+    }
+    .problem-image { height: 280px; }
+    .solution-image { height: 300px; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .btn-secondary { margin-left: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.25rem; }
+    .problem-stats { grid-template-columns: 1fr; }
+    .sti-badge { top: 12px; left: 12px; font-size: 0.7rem; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">Community Spaces, Reimagined</div>
+    <h1>The <span>Field</span></h1>
+    <p class="hero-tagline">Your indoor park. Rain or shine.</p>
+    <p class="hero-pitch">Transforming abandoned big-box stores into year-round indoor community parks with playgrounds, walking tracks, local food vendors, and gathering spaces for every age group.</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn-primary">Explore the Vision</a>
+      <a href="#biz-plan" class="btn-secondary">See the Plan</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem section">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">Nowhere to go. Nothing to do.</h2>
+      <p class="section-desc">Families, teens, and young adults are constantly searching for affordable, casual places to hang out. Outdoor parks are brutal in extreme heat or cold. Meanwhile, thousands of empty big-box stores sit abandoned across the country.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-stats reveal-left">
+        <div class="stat-card">
+          <span class="stat-number">11,000+</span>
+          <span class="stat-label">Vacant big-box retail stores across the US</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">Days per year too hot or cold for outdoor parks</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">$0</span>
+          <span class="stat-label">Affordable gathering options for teens and families</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">72%</span>
+          <span class="stat-label">Of parents want more indoor play options</span>
+        </div>
+      </div>
+      <div class="problem-image reveal-right">
+        <img src="https://images.unsplash.com/photo-1567449303078-57ad995bd329?auto=format&fit=crop&w=800&q=80" alt="Empty warehouse space waiting to be transformed" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution section">
+  <div class="section-inner">
+    <div class="solution-grid">
+      <div class="solution-image reveal-left">
+        <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=800&q=80" alt="Kids playing in a vibrant indoor space" loading="lazy">
+      </div>
+      <div class="reveal-right">
+        <span class="section-label">The Solution</span>
+        <h2 class="section-title">Dead malls become living parks</h2>
+        <p class="section-desc">The Field takes vacant retail spaces and fills them with life: astroturf fields, walking tracks, play structures, game rentals, and local food kiosks. One space serves the whole community, all year long.</p>
+        <ul class="solution-points">
+          <li>
+            <div class="point-icon"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg></div>
+            <div class="point-text">
+              <h4>Repurpose vacant big-box stores</h4>
+              <p>No new construction needed. Renovate existing spaces at a fraction of the cost.</p>
+            </div>
+          </li>
+          <li>
+            <div class="point-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="point-text">
+              <h4>Day-part programming</h4>
+              <p>Mornings for families, afternoons for teens, evenings for adults. Always relevant.</p>
+            </div>
+          </li>
+          <li>
+            <div class="point-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="point-text">
+              <h4>Low-cost, high-access</h4>
+              <p>$5 admission keeps it affordable for everyone while managing capacity.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features section" id="features">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; margin-bottom:1rem;">
+      <span class="section-label">Key Features</span>
+      <h2 class="section-title">Everything a park should be, indoors</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80" alt="Indoor astroturf field with families" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg>
+          </div>
+          <h3>Climate-Controlled Fields and Track</h3>
+          <p>Astroturf playing fields surrounded by a walking and jogging track. Perfect temperatures year-round, whether it is 100 degrees or 12 degrees outside.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1566454825481-9c31bd88c36f?auto=format&fit=crop&w=800&q=80" alt="Colorful playground equipment for children" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Age-Zoned Playgrounds</h3>
+          <p>Separate areas for toddlers, kids, and teens. Modern play structures, safe surfacing, and designs that keep every age group engaged and entertained.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Local food vendors and market stalls" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+          </div>
+          <h3>Local Food Kiosks and Market</h3>
+          <p>Rotating food vendors, concession stands, and a permanent indoor farmers market. Not a restaurant; just great local options when you want a snack or a meal.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Friends gathering and socializing" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>Flexible Day-Part Programming</h3>
+          <p>Family-friendly mornings with playdates and mom meetups. Teen hangout afternoons with games and activities. Relaxed adult evenings with fire pits and social spaces.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market section">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Market Opportunity</span>
+      <h2 class="section-title">A park-sized gap in every community</h2>
+    </div>
+    <div class="market-grid">
+      <div class="market-left reveal-left">
+        <p class="section-desc">Between expensive indoor entertainment centers and free (but weather-dependent) outdoor parks, there is a massive underserved space. The Field fills it.</p>
+        <div class="market-segments">
+          <div class="segment">
+            <div class="segment-dot" style="background: var(--forest);"></div>
+            <div>
+              <h4>Parents with Young Children</h4>
+              <p>Safe, affordable indoor play without the chaos of commercial play centers</p>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="segment-dot" style="background: var(--golden);"></div>
+            <div>
+              <h4>Teenagers</h4>
+              <p>A casual, cheap hangout spot that is not the mall or a parking lot</p>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="segment-dot" style="background: var(--sage);"></div>
+            <div>
+              <h4>Young Adults</h4>
+              <p>Social gathering space beyond bars and expensive restaurants</p>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="segment-dot" style="background: var(--warm-brown);"></div>
+            <div>
+              <h4>Extreme-Weather Communities</h4>
+              <p>Cities with harsh winters or scorching summers that need year-round options</p>
+            </div>
+          </div>
+        </div>
+        <div class="tam-box">
+          <h4>Total Addressable Market</h4>
+          <span class="tam-number">$8B+</span>
+          <p>The US family entertainment center market alone exceeds $8 billion annually. The Field targets an underserved, lower-cost segment of this market with dramatically better unit economics through repurposed real estate.</p>
+        </div>
+      </div>
+      <div class="market-image reveal-right">
+        <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" alt="Diverse community gathering in an open space" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="biz-plan section" id="biz-plan">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Business Plan</span>
+      <h2 class="section-title">Built to grow, built to last</h2>
+    </div>
+    <div class="biz-plan-grid">
+      <div class="biz-card reveal">
+        <h3>Revenue Model</h3>
+        <ul>
+          <li>Low admission fees: $5 per visit or monthly memberships</li>
+          <li>Vendor booth rentals for food kiosks and farmers market stalls</li>
+          <li>Equipment and game rentals (bocce, cornhole, frisbee, etc.)</li>
+          <li>Event space bookings for birthday parties and community events</li>
+          <li>Corporate sponsorship and naming rights deals</li>
+        </ul>
+      </div>
+      <div class="biz-card reveal">
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch a pilot location in a mid-size city with available vacant retail space and extreme seasonal weather. Partner with a local corporate sponsor for naming rights to offset initial buildout costs. Build grassroots demand through a parent petition to demonstrate community need and secure municipal support for zoning approvals.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>Competitive Advantage</h3>
+        <p>No direct competitor occupies this niche between pricey indoor entertainment centers and free outdoor parks. By repurposing existing vacant buildings, The Field dramatically reduces construction costs while revitalizing dead commercial zones, creating goodwill with local governments and communities that accelerates expansion.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>Startup Cost Estimate</h3>
+        <p style="font-size:1.8rem; font-family:'Libre Baskerville',serif; color:var(--forest); margin-bottom:0.5rem;">$500K - $1.5M</p>
+        <p>Covers lease deposit, interior renovation, astroturf installation, playground equipment, HVAC upgrades, initial vendor buildout, and insurance. Significantly lower than new construction thanks to repurposed retail infrastructure.</p>
+      </div>
+      <div class="biz-card highlight full-width reveal">
+        <h3>Year One Milestones</h3>
+        <div class="milestones">
+          <div class="milestone">
+            <span class="milestone-num">1</span>
+            <span class="milestone-text">Secure first vacant big-box location and complete indoor park buildout within 6 months</span>
+          </div>
+          <div class="milestone">
+            <span class="milestone-num">2</span>
+            <span class="milestone-text">Reach 5,000 monthly visitors and sign 1,000 monthly memberships by end of year one</span>
+          </div>
+          <div class="milestone">
+            <span class="milestone-num">3</span>
+            <span class="milestone-text">Onboard 10+ local food vendors and secure at least one major corporate naming sponsor</span>
+          </div>
+        </div>
+      </div>
+      <div class="biz-card full-width reveal">
+        <h3>Key Risks</h3>
+        <ul>
+          <li>Commercial real estate zoning restrictions may limit the ability to convert retail spaces into recreational use, requiring municipal cooperation</li>
+          <li>High ongoing costs for climate control, maintenance, insurance, and liability in a large indoor space could pressure margins</li>
+          <li>Maintaining a low price point while covering operational expenses depends heavily on securing significant sponsorship revenue</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content reveal">
+    <h2>Every community deserves a Field</h2>
+    <p>Dead malls and abandoned Walmarts are waiting. The families and teens who need somewhere to go are waiting, too. This idea is yours to build.</p>
+    <a href="#" class="btn-primary">Steal This Idea</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-divider"></div>
+    <p class="footer-logo">The Field</p>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet).</p>
+    <p style="margin-top: 0.75rem;">
+      <a href="https://www.youtube.com/watch?v=rIDjas6X6Sw" target="_blank" rel="noopener">Watch the original episode</a>
+    </p>
+    <p style="margin-top: 1.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.3);">
+      Photos via Unsplash. Fonts via Google Fonts.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll-triggered animations
+  document.addEventListener('DOMContentLoaded', function() {
+    var targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+      targets.forEach(function(el) { observer.observe(el); });
+    } else {
+      targets.forEach(function(el) { el.classList.add('visible'); });
+    }
+  });
+</script>
+
+</body>
+</html>

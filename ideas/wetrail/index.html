@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeTrail - Hike Smarter. Stay Safer. Share More.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#2d5016;
+  --forest-dark:#1a3009;
+  --sage:#7a9a5a;
+  --cream:#f5f0e8;
+  --sand:#e8dcc8;
+  --bark:#5c3d2e;
+  --sky:#8ab4c7;
+  --gold:#c8a84e;
+  --white:#fff;
+  --text:#2c2c2c;
+  --text-light:#5a5a5a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Karla',sans-serif;color:var(--text);background:var(--cream);line-height:1.7;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Libre Baskerville',serif;line-height:1.3}
+img{max-width:100%;display:block}
+
+/* Badge */
+.sti-badge{
+  position:fixed;top:20px;left:20px;z-index:1000;
+  background:var(--forest);color:var(--cream);
+  padding:8px 16px;border-radius:24px;
+  font-size:0.8rem;font-weight:600;letter-spacing:0.5px;
+  text-decoration:none;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.sti-badge:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+.sti-badge svg{width:18px;height:18px;fill:var(--gold)}
+
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* Hero */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(26,48,9,0.75) 0%,rgba(45,80,22,0.5) 50%,rgba(0,0,0,0.4) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;
+  max-width:800px;padding:40px 24px;
+}
+.hero-content h1{
+  font-size:clamp(3rem,8vw,6rem);
+  color:var(--cream);letter-spacing:-1px;
+  margin-bottom:12px;
+  text-shadow:0 4px 30px rgba(0,0,0,0.3);
+}
+.hero-tagline{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:clamp(1.1rem,2.5vw,1.5rem);
+  color:var(--sand);margin-bottom:28px;
+}
+.hero-pitch{
+  font-size:1.05rem;color:rgba(245,240,232,0.9);
+  max-width:600px;margin:0 auto 40px;line-height:1.8;
+}
+.btn{
+  display:inline-block;padding:16px 40px;
+  border-radius:50px;font-family:'Karla',sans-serif;
+  font-weight:700;font-size:1rem;letter-spacing:0.5px;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.btn-primary{
+  background:var(--gold);color:var(--forest-dark);
+  box-shadow:0 4px 20px rgba(200,168,78,0.4);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(200,168,78,0.5)}
+.btn-outline{
+  background:transparent;color:var(--cream);
+  border:2px solid rgba(245,240,232,0.5);
+  margin-left:12px;
+}
+.btn-outline:hover{border-color:var(--cream);transform:translateY(-3px)}
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  z-index:2;color:var(--sand);font-size:0.85rem;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:bobble 2s ease-in-out infinite;
+}
+@keyframes bobble{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.hero-scroll svg{width:24px;height:24px;stroke:var(--sand);fill:none;stroke-width:2}
+
+/* Section base */
+.section{padding:100px 24px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{
+  font-family:'Karla',sans-serif;font-weight:700;
+  font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sage);margin-bottom:12px;
+}
+.section-title{
+  font-size:clamp(2rem,4vw,3rem);
+  margin-bottom:24px;color:var(--forest-dark);
+}
+.section-text{
+  font-size:1.05rem;color:var(--text-light);
+  max-width:640px;line-height:1.9;
+}
+
+/* Problem */
+.problem{background:var(--white)}
+.problem-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;margin-top:60px;
+}
+.problem-img{
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.1);
+}
+.problem-img img{width:100%;height:400px;object-fit:cover}
+.problem-stats{display:flex;gap:40px;margin-top:40px}
+.stat{text-align:center}
+.stat-num{
+  font-family:'Libre Baskerville',serif;
+  font-size:2.5rem;font-weight:700;color:var(--forest);
+}
+.stat-label{font-size:0.85rem;color:var(--text-light);margin-top:4px}
+
+/* Solution */
+.solution{
+  background:var(--forest-dark);color:var(--cream);
+  position:relative;overflow:hidden;
+}
+.solution .section-label{color:var(--sage)}
+.solution .section-title{color:var(--cream)}
+.solution .section-text{color:rgba(245,240,232,0.8)}
+.solution-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;margin-top:60px;
+}
+.solution-visual{position:relative}
+.solution-img{border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.solution-img img{width:100%;height:480px;object-fit:cover}
+.solution-float{
+  position:absolute;bottom:-20px;right:-20px;
+  background:var(--gold);color:var(--forest-dark);
+  padding:20px 28px;border-radius:12px;
+  font-family:'Libre Baskerville',serif;
+  font-weight:700;font-size:1.1rem;
+  box-shadow:0 8px 30px rgba(0,0,0,0.3);
+}
+.solution-steps{margin-top:40px;display:flex;flex-direction:column;gap:24px}
+.step{display:flex;align-items:flex-start;gap:16px}
+.step-num{
+  min-width:44px;height:44px;border-radius:50%;
+  background:var(--sage);color:var(--forest-dark);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1.1rem;flex-shrink:0;
+}
+.step-content h4{font-size:1.05rem;margin-bottom:4px;color:var(--cream)}
+.step-content p{font-size:0.95rem;color:rgba(245,240,232,0.7)}
+
+/* Features */
+.features{background:var(--cream)}
+.features-header{text-align:center;max-width:640px;margin:0 auto 60px}
+.features-header .section-text{margin:0 auto}
+.features-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:32px;
+}
+.feature-card{
+  background:var(--white);border-radius:16px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,0.06);
+  transition:transform 0.4s,box-shadow 0.4s;
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 16px 50px rgba(0,0,0,0.1)}
+.feature-card-img{height:220px;overflow:hidden}
+.feature-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+.feature-card:hover .feature-card-img img{transform:scale(1.05)}
+.feature-card-body{padding:28px}
+.feature-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--forest);display:flex;
+  align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.feature-icon svg{width:24px;height:24px;stroke:var(--cream);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.feature-card-body h3{font-size:1.2rem;margin-bottom:8px;color:var(--forest-dark)}
+.feature-card-body p{font-size:0.95rem;color:var(--text-light);line-height:1.7}
+
+/* Market */
+.market{
+  position:relative;overflow:hidden;
+  background:url('https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+.market::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(26,48,9,0.88) 0%,rgba(45,80,22,0.85) 100%);
+}
+.market .section-inner{position:relative;z-index:2}
+.market .section-label{color:var(--gold)}
+.market .section-title{color:var(--cream)}
+.market .section-text{color:rgba(245,240,232,0.85)}
+.market-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;
+}
+.market-card{
+  background:rgba(245,240,232,0.08);
+  border:1px solid rgba(245,240,232,0.15);
+  border-radius:16px;padding:36px 28px;
+  backdrop-filter:blur(10px);
+  transition:background 0.3s;
+}
+.market-card:hover{background:rgba(245,240,232,0.12)}
+.market-card-icon{
+  width:56px;height:56px;border-radius:14px;
+  background:rgba(200,168,78,0.15);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+}
+.market-card-icon svg{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.market-card h3{
+  font-size:1.1rem;color:var(--cream);margin-bottom:8px;
+}
+.market-card p{font-size:0.9rem;color:rgba(245,240,232,0.7);line-height:1.7}
+.market-card .market-stat{
+  font-family:'Libre Baskerville',serif;
+  font-size:2rem;color:var(--gold);margin-bottom:8px;display:block;
+}
+
+/* Business Plan */
+.bizplan{background:var(--white)}
+.bizplan-header{text-align:center;margin-bottom:60px}
+.bizplan-header .section-text{margin:0 auto}
+.bizplan-document{
+  background:var(--cream);border-radius:20px;
+  padding:60px;max-width:900px;margin:0 auto;
+  box-shadow:0 8px 40px rgba(0,0,0,0.06);
+  border:1px solid var(--sand);
+}
+.bizplan-section{margin-bottom:48px}
+.bizplan-section:last-child{margin-bottom:0}
+.bizplan-section-title{
+  font-size:1.3rem;color:var(--forest);
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:2px solid var(--sand);
+}
+.bizplan-section p{font-size:0.95rem;color:var(--text-light);line-height:1.9}
+.bizplan-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px}
+.bizplan-list li{
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:0.95rem;color:var(--text-light);line-height:1.7;
+}
+.bizplan-list li::before{
+  content:'';min-width:8px;height:8px;border-radius:50%;
+  background:var(--sage);margin-top:8px;flex-shrink:0;
+}
+.bizplan-risk li::before{background:var(--bark)}
+.bizplan-cost{
+  display:inline-block;
+  background:var(--forest);color:var(--cream);
+  padding:12px 28px;border-radius:8px;
+  font-family:'Libre Baskerville',serif;
+  font-size:1.2rem;font-weight:700;
+  margin-top:8px;
+}
+.bizplan-img{
+  border-radius:12px;overflow:hidden;margin:40px 0;
+  box-shadow:0 8px 30px rgba(0,0,0,0.08);
+}
+.bizplan-img img{width:100%;height:260px;object-fit:cover}
+
+/* CTA */
+.cta{
+  padding:100px 24px;text-align:center;
+  background:var(--forest-dark);color:var(--cream);
+  position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';position:absolute;top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(circle at 30% 50%,rgba(122,154,90,0.15) 0%,transparent 60%);
+}
+.cta-inner{position:relative;z-index:2;max-width:600px;margin:0 auto}
+.cta h2{font-size:clamp(2rem,4vw,2.8rem);margin-bottom:16px}
+.cta p{color:rgba(245,240,232,0.8);margin-bottom:36px;font-size:1.05rem}
+
+/* Footer */
+.footer{
+  background:var(--forest-dark);border-top:1px solid rgba(245,240,232,0.1);
+  padding:40px 24px;text-align:center;
+}
+.footer p{color:rgba(245,240,232,0.5);font-size:0.85rem;line-height:1.8}
+.footer a{color:var(--gold);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* Responsive */
+@media(max-width:900px){
+  .problem-grid,.solution-grid{grid-template-columns:1fr;gap:40px}
+  .features-grid{grid-template-columns:1fr}
+  .market-cards{grid-template-columns:1fr}
+  .bizplan-document{padding:36px 24px}
+  .problem-stats{flex-direction:column;gap:24px;align-items:center}
+  .hero-btns{display:flex;flex-direction:column;gap:12px;align-items:center}
+  .btn-outline{margin-left:0}
+  .solution-float{position:static;display:inline-block;margin-top:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-7v4h4l-5 7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>WeTrail</h1>
+    <p class="hero-tagline">Hike smarter. Stay safer. Share more.</p>
+    <p class="hero-pitch">Download trail maps to your smartwatch, check in with loved ones via GPS breadcrumbs, and share your adventures through a social network built for hikers. Navigate with confidence, even off the grid.</p>
+    <div class="hero-btns">
+      <a href="#features" class="btn btn-primary">Explore Features</a>
+      <a href="#bizplan" class="btn btn-outline">See the Plan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem section" id="problem">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div class="reveal-left">
+        <span class="section-label">The Problem</span>
+        <h2 class="section-title">Lost signals, lost hikers, lost opportunities</h2>
+        <p class="section-text">The moment you step into a national park, your phone becomes a paperweight. No cell service means no maps, no way to call for help, and no connection to the people who care about you. Trail information is scattered across outdated government websites that were never designed for mobile use. Planning a hike should not feel like a research project.</p>
+        <p class="section-text" style="margin-top:16px">Every year, thousands of hikers find themselves off-trail, injured, or stranded with no way to signal their location. And those who make it back often wish they could have shared the experience with others in a more meaningful way than a blurry phone photo posted days later.</p>
+        <div class="problem-stats">
+          <div class="stat">
+            <div class="stat-num">60M+</div>
+            <div class="stat-label">Americans hike yearly</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3,600+</div>
+            <div class="stat-label">Search and rescue ops/year</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">0</div>
+            <div class="stat-label">Good apps for offline hiking</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="problem-img">
+          <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=800&q=80" alt="Hiker looking at vast wilderness landscape" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution section" id="solution">
+  <div class="section-inner">
+    <div class="solution-grid">
+      <div class="solution-visual reveal-left">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?auto=format&fit=crop&w=800&q=80" alt="Mountain trail at golden hour" loading="lazy">
+        </div>
+        <div class="solution-float">Your trail, your watch, your safety net.</div>
+      </div>
+      <div class="reveal-right">
+        <span class="section-label">The Solution</span>
+        <h2 class="section-title">Your trails, offline and on your wrist</h2>
+        <p class="section-text">WeTrail puts the entire trail experience in your hands before, during, and after the hike. Download maps to your Apple Watch, log your route, and let your loved ones track your progress in real time.</p>
+        <div class="solution-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Plan your route</h4>
+              <p>Browse trails by park, difficulty, or community rating. Download maps to your watch with one tap.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Check in and go</h4>
+              <p>Log your trail and start time. GPS breadcrumbs ping your location along the route, even without cell service.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Share the journey</h4>
+              <p>Pin photos and notes to exact map locations. Rate conditions. Help the next hiker have a better experience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features section" id="features">
+  <div class="section-inner">
+    <div class="features-header reveal">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Everything you need on the trail</h2>
+      <p class="section-text">Four pillars that make WeTrail the only hiking app you will ever need.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1510797215324-95aa89f43c33?auto=format&fit=crop&w=800&q=80" alt="Smartwatch on wrist in nature" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Offline Watch Maps</h3>
+          <p>Download detailed trail maps directly to your Apple Watch or Garmin. Navigate turn by turn with no cell signal required. Your wrist becomes your compass.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&w=800&q=80" alt="Hiker on mountain trail with safety gear" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Safety Check-In System</h3>
+          <p>Log your planned route before you go. GPS breadcrumbs track your progress automatically. If something goes wrong, your emergency contacts get alerted with your last known position.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=800&q=80" alt="Group of hikers sharing a trail experience" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Social Trail Feed</h3>
+          <p>Share geo-tagged photos, wildlife sightings, and real-time trail conditions. Discover hikes through the eyes of people who were just there. Like Strava, but for the trails.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80" alt="Scenic trail through forest with sunlight" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Smart Recommendations</h3>
+          <p>Get trail suggestions based on your fitness level, current weather, and crowd density. Know if the trail is muddy before you drive an hour to find out the hard way.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market section" id="market">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Market Opportunity</span>
+      <h2 class="section-title">A growing market, ready for something better</h2>
+      <p class="section-text">Outdoor recreation is booming. Hiking has become one of the most popular forms of exercise and self-care in America. The tools hikers use have not kept pace with that growth.</p>
+    </div>
+    <div class="market-cards">
+      <div class="market-card reveal">
+        <div class="market-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="market-stat">60M+</span>
+        <h3>Active Hikers in the US</h3>
+        <p>Hiking participation has surged since 2020, with millions of new hikers discovering trails each year. This audience is digitally savvy and gear-conscious.</p>
+      </div>
+      <div class="market-card reveal">
+        <div class="market-card-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <span class="market-stat">$862B</span>
+        <h3>Outdoor Recreation Economy</h3>
+        <p>The US outdoor recreation economy is massive. Hiking-specific apps and services represent a $200M+ segment with significant room for innovation.</p>
+      </div>
+      <div class="market-card reveal">
+        <div class="market-card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <span class="market-stat">$180M+</span>
+        <h3>Addressable Revenue</h3>
+        <p>Capturing just 2-3% of active hikers at $4.99/month premium subscription represents a $180M to $270M annual revenue opportunity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan section" id="bizplan">
+  <div class="section-inner">
+    <div class="bizplan-header reveal">
+      <span class="section-label">Business Plan</span>
+      <h2 class="section-title">The path to the summit</h2>
+      <p class="section-text">A clear plan to build, launch, and grow WeTrail into the definitive hiking platform.</p>
+    </div>
+    <div class="bizplan-document reveal">
+
+      <div class="bizplan-section">
+        <h3 class="bizplan-section-title">Revenue Model</h3>
+        <p>Freemium subscription model. The free tier includes the top 10 trails at major national parks with basic offline maps. Premium subscribers ($4.99/month) unlock all trails across state parks, national forests, and backcountry routes, plus advanced safety features, weather-synced trail alerts, and detailed social analytics. Additional revenue from targeted advertising partnerships with outdoor gear brands and affiliate commissions from equipment retailers.</p>
+      </div>
+
+      <div class="bizplan-img">
+        <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=900&q=80" alt="Panoramic mountain landscape at sunrise" loading="lazy">
+      </div>
+
+      <div class="bizplan-section">
+        <h3 class="bizplan-section-title">Go-to-Market Strategy</h3>
+        <p>Launch with the 10 most popular national parks as a free beta: Glacier, Yellowstone, Zion, Yosemite, Grand Canyon, Rocky Mountain, Acadia, Great Smoky Mountains, Joshua Tree, and Olympic. Partner with park visitor centers and outdoor gear shops like REI for co-marketing. Recruit hiking influencers and trail running communities to seed the social network with high-quality content early.</p>
+      </div>
+
+      <div class="bizplan-section">
+        <h3 class="bizplan-section-title">Competitive Advantage</h3>
+        <p>WeTrail is the only app that combines offline smartwatch navigation, active safety monitoring, and a hiker-specific social network in a single platform. AllTrails offers trail information but lacks offline watch maps and safety check-ins. Strava tracks fitness but is not built for hiking-specific needs like trail conditions and wildlife reports. The social layer creates a powerful network effect: each new user makes the trail data more accurate and valuable for everyone else.</p>
+      </div>
+
+      <div class="bizplan-section">
+        <h3 class="bizplan-section-title">Year One Milestones</h3>
+        <ul class="bizplan-list">
+          <li>Launch MVP with offline maps and safety check-ins for 10 major national parks, targeting 50,000 downloads in the first six months</li>
+          <li>Build an active social community of 10,000 monthly contributors sharing trail photos, condition reports, and difficulty ratings</li>
+          <li>Secure 3 outdoor brand partnerships (REI, Merrell, Osprey) for in-app advertising and co-branded marketing campaigns</li>
+        </ul>
+      </div>
+
+      <div class="bizplan-section">
+        <h3 class="bizplan-section-title">Key Risks</h3>
+        <ul class="bizplan-list bizplan-risk">
+          <li>Competition from established players like AllTrails and Gaia GPS that already have large user bases, extensive trail databases, and brand recognition among hikers</li>
+          <li>GPS accuracy limitations on consumer smartwatches in deep canyons, dense forest cover, and remote backcountry areas could undermine the core safety promise</li>
+          <li>Social networks require critical mass before they become valuable to users, creating a chicken-and-egg challenge during early adoption</li>
+        </ul>
+      </div>
+
+      <div class="bizplan-section">
+        <h3 class="bizplan-section-title">Startup Cost Estimate</h3>
+        <p>Estimated investment to reach a functional MVP:</p>
+        <div class="bizplan-cost">$400K - $600K</div>
+        <p style="margin-top:12px;font-size:0.9rem">Covers iOS and watchOS development, trail data licensing, backend infrastructure, initial marketing push, and a small team of 4-5 for the first year. The podcast hosts proposed investing $500K to stand up a prototype at Glacier National Park as a proof of concept.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-inner reveal">
+    <h2>Ready to hit the trail?</h2>
+    <p>WeTrail is a concept from the Steal This Idea podcast. If you have what it takes to build it, the trail is yours.</p>
+    <a href="#hero" class="btn btn-primary">Back to Top</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p>Discussed by Scott, Andre, and Eve. <a href="https://www.youtube.com/watch?v=b_-EgwheU00" target="_blank" rel="noopener">Watch the episode</a></p>
+  <p style="margin-top:12px;opacity:0.6">Not a real product. Built to inspire builders and dreamers.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered animations
+document.addEventListener('DOMContentLoaded', () => {
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  revealElements.forEach(el => observer.observe(el));
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "slug": "go-nuts",
+  "company_name": "Go-Nuts",
+  "tagline": "Gourmet donuts, delivered fresh weekly.",
+  "elevator_pitch": "Go-Nuts is a Crumble-style gourmet donut company with a rotating weekly menu of six oversized, creative donut flavors. Customers check the menu each week, order online, and get hot, fresh donuts delivered to their door, even late at night.",
+  "problem": "Traditional donut shops serve the same stale flavors every day, close early, and never deliver. There is no premium, experience-driven donut brand that creates weekly anticipation the way Crumble Cookies does for cookies.",
+  "solution": "Go-Nuts offers six oversized gourmet donuts on a rotating weekly menu, combining two classic staples with four bold, limited-edition flavors. Orders are delivered hot and fresh, with availability extending into late-night hours when cravings hit hardest.",
+  "target_market": "Millennials and Gen Z consumers aged 18 to 35 who follow food trends, order delivery frequently, and enjoy the 'drop culture' of rotating limited-edition products. Secondary market includes families and office catering.",
+  "revenue_model": "Revenue comes from direct-to-consumer donut sales via storefront and delivery, with premium pricing on oversized gourmet donuts (averaging $5 to $6 per donut, or $28 to $34 per six-pack). Additional revenue from branded merchandise, corporate gifting boxes, and catering packages.",
+  "key_features": [
+    "Rotating weekly menu with six oversized gourmet flavors",
+    "Late-night delivery until midnight",
+    "Mix of cake and yeast donuts for variety",
+    "Weekly flavor teasers and social media drops to build anticipation"
+  ],
+  "competitive_advantage": "Go-Nuts combines the scarcity-driven rotating menu model (proven by Crumble Cookies) with the underserved gourmet donut market. Unlike Krispy Kreme or local shops, Go-Nuts creates a weekly event around its menu, driving repeat visits and social media buzz. Late-night delivery fills a gap no major donut brand currently owns.",
+  "market_size_estimate": "The U.S. donut market is valued at roughly $20 billion annually. The premium/gourmet segment is growing at 8% per year. Even capturing 0.1% of the national market represents $20 million in annual revenue. In a single metro area, a Go-Nuts location could reasonably target $1.5 to $3 million in year-one revenue.",
+  "go_to_market": "Launch with a single flagship storefront in a college town or trendy urban neighborhood. Build hype pre-launch with weekly flavor reveals on Instagram and TikTok. Offer free delivery within a 5-mile radius for the first month to build the customer base and collect reviews.",
+  "risks": [
+    "Donut freshness degrades quickly during delivery, requiring tight logistics",
+    "Rotating menus demand constant R&D and risk flavor fatigue or misses",
+    "Low barriers to entry mean local bakeries or larger chains could copy the model"
+  ],
+  "year_one_milestones": [
+    "Open flagship location and achieve $150K in monthly revenue by month 6",
+    "Build an Instagram and TikTok following of 50,000 combined followers",
+    "Launch a second location or licensed delivery kitchen in an adjacent market"
+  ],
+  "startup_cost_range": "$150,000 to $350,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=9iXmAqWgbJE",
+  "episode_number": 10
+}

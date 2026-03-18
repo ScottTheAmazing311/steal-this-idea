@@ -1,0 +1,34 @@
+{
+  "slug": "flip-station",
+  "company_name": "Flip Station",
+  "tagline": "Source low. Sell high. Ship nationwide.",
+  "elevator_pitch": "Flip Station is a marketplace and logistics platform that connects vintage vehicle sellers in low-demand rural areas with high-paying collectors in affluent coastal markets. By exploiting geographic price disparities on classic SUVs, trucks, and cars, Flip Station turns forgotten barn finds into six-figure sales.",
+  "problem": "Thousands of classic and vintage SUVs sit forgotten on farms, in garages, and on rural lots across America. Their owners often have no idea these vehicles are worth tens or even hundreds of thousands of dollars to the right buyer. Meanwhile, affluent collectors in places like Nantucket, the Hamptons, and Malibu struggle to find authentic vintage vehicles in restorable condition.",
+  "solution": "Flip Station bridges the gap by sourcing undervalued vintage vehicles from rural and inland markets, coordinating professional restoration, and reselling them to high-demand affluent coastal markets. Using web scraping, a scout network, and a vetted restoration pipeline, Flip Station captures the massive price arbitrage that exists between geographic markets.",
+  "target_market": "Affluent buyers in premium coastal communities (Nantucket, Hamptons, Malibu, Martha's Vineyard) seeking restored vintage SUVs and classic vehicles as lifestyle status symbols. Secondary market: rural vehicle owners looking to sell forgotten classics at fair value.",
+  "revenue_model": "Flip Station earns revenue through direct buy-and-flip margins (targeting 3x to 10x markup after restoration and shipping costs), optional commission splits with vehicle scouts who identify leads, and premium listing fees for consignment sellers. Average restored vehicle sale price: $75,000 to $150,000.",
+  "key_features": [
+    "Automated web scraper that monitors KSL Classifieds, Craigslist, Facebook Marketplace, and regional listing sites for undervalued vintage vehicles",
+    "Scout Network program that pays finders fees to locals who identify barn finds and forgotten classics in their area",
+    "Vetted restoration shop partnerships across the Mountain West, ensuring quality rebuilds at competitive labor rates",
+    "White-glove delivery via enclosed flatbed transport to premium markets nationwide"
+  ],
+  "competitive_advantage": "Flip Station's edge is geographic arbitrage intelligence. By building proprietary data on regional vehicle valuations and establishing scout networks in low-cost sourcing regions, the company creates a defensible pipeline that individual flippers cannot replicate at scale.",
+  "market_size_estimate": "The classic and collector car market is valued at over $30 billion annually in the US. Restored vintage SUVs (Broncos, Defenders, CJs) represent a fast-growing segment, with individual vehicles regularly selling for $75K to $250K. Targeting the top 1% of this niche suggests a serviceable market of $300M+ per year.",
+  "go_to_market": "Launch in one corridor: Utah/Idaho sourcing to Nantucket/Cape Cod sales. Build a proof-of-concept with 10 to 15 vehicles in the first season. Partner with 2 to 3 restoration shops in the Salt Lake area and establish a pop-up showroom presence on Nantucket during peak summer season.",
+  "risks": [
+    "Restoration costs can be unpredictable, potentially eroding margins on individual vehicles",
+    "The vintage vehicle market is cyclical and sensitive to economic downturns affecting luxury spending",
+    "Sourcing quality vehicles at scale requires a reliable scout network that takes time and trust to build"
+  ],
+  "year_one_milestones": [
+    "Source and restore 15 vintage SUVs from the Mountain West region",
+    "Achieve $1.5M in gross sales with an average margin of 40% after all costs",
+    "Establish active scout networks in Utah, Idaho, Wyoming, and New Mexico"
+  ],
+  "startup_cost_range": "$150,000 to $350,000",
+  "category": "Marketplace",
+  "vibe": "retro",
+  "episode_url": "https://www.youtube.com/watch?v=L07gAAVfaIc",
+  "episode_number": 41
+}

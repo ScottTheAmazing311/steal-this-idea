@@ -1,0 +1,34 @@
+{
+  "slug": "supercharge",
+  "company_name": "Supercharge",
+  "tagline": "Pre-fund. Set. Forget. Score.",
+  "elevator_pitch": "Supercharge is a pre-funded purchasing platform that buys hard-to-get products on your behalf the moment they come in stock or go on sale. Load your account, set your wishlist, and let Supercharge handle the rest, securing verified, fraud-free transactions with major retailers.",
+  "problem": "Hot products sell out in minutes, leaving real customers empty-handed while scalpers and bots snap up inventory. Consumers are forced to obsessively refresh pages, set alarms for restocks, and still miss out on limited drops, sales, and high-demand items.",
+  "solution": "Supercharge lets customers pre-fund an account and queue up the items they want. When products restock or hit a target sale price, Supercharge purchases on their behalf using verified, bot-free transactions. Retailers get guaranteed sales with zero chargebacks, and consumers get the products they actually want without the stress.",
+  "target_market": "Millennial and Gen-Z consumers who shop for high-demand electronics, sneakers, limited-edition drops, home goods, and trending products. Secondary market includes parents hunting for popular toys, hobbyists tracking niche items, and deal-seekers who want sale alerts with auto-purchase.",
+  "revenue_model": "Subscription tiers (free tier with limits, premium for unlimited watches and priority purchasing), per-transaction convenience fees (2-5%), interchange revenue on the stored-value accounts, and B2B partnerships with retailers who pay for access to a pool of verified, pre-funded buyers.",
+  "key_features": [
+    "Pre-funded digital wallet with instant purchase capability when items restock",
+    "Smart watchlist that monitors stock levels, price drops, and limited releases across retailers",
+    "Verified buyer network that eliminates bots and scalpers for retailers",
+    "Real-time alerts and auto-buy triggers based on price thresholds and availability"
+  ],
+  "competitive_advantage": "Unlike price trackers or wishlist apps, Supercharge holds real funds in escrow and executes purchases instantly. The pre-funded model creates trust with retailers, who benefit from guaranteed fraud-free transactions and can allocate inventory to real customers. This two-sided value proposition builds a defensible network effect.",
+  "market_size_estimate": "The global e-commerce market exceeds $5 trillion annually. Product resale and secondary markets (sneakers, electronics, collectibles) represent over $30 billion. Even capturing a fraction of high-demand purchasing through convenience fees and subscriptions points to a TAM of $2-5 billion.",
+  "go_to_market": "Launch with a focus on one vertical, likely sneaker drops and gaming console restocks, where demand vastly outstrips supply. Partner with 2-3 major retailers to demonstrate the verified-buyer value proposition. Build community through social media targeting sneakerheads and gaming enthusiasts.",
+  "risks": [
+    "Retailers may resist third-party purchasing intermediaries or build competing in-house solutions",
+    "Regulatory complexity around holding customer funds in escrow across multiple states",
+    "Consumer trust barrier: convincing users to pre-load funds into yet another digital wallet"
+  ],
+  "year_one_milestones": [
+    "Secure partnerships with 3 major retailers and process 50,000 verified purchases",
+    "Reach 100,000 active users with $10M in pre-funded account balances",
+    "Expand from electronics and sneakers into home goods and limited-edition product categories"
+  ],
+  "startup_cost_range": "$500K - $1.5M (payment infrastructure, retailer integrations, compliance, and initial marketing)",
+  "category": "Fintech",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=MLQPsLYZ5u0",
+  "episode_number": 119
+}

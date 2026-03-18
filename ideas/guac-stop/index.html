@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guac Stop - Fresh Guac, No Wait, Just Drive</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green-deep: #2d5016;
+    --green-mid: #4a7c23;
+    --green-bright: #6db33f;
+    --green-light: #a8d574;
+    --cream: #fdf6e3;
+    --cream-dark: #f0e6c8;
+    --brown: #5c3d2e;
+    --brown-light: #8b6f47;
+    --red-pepper: #c0392b;
+    --white: #ffffff;
+    --text-dark: #2c2c2c;
+    --text-mid: #5a5a5a;
+  }
+
+  body {
+    font-family: 'Karla', sans-serif;
+    color: var(--text-dark);
+    background: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Libre Baskerville', serif; }
+
+  /* Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--white);
+    border: 2px solid var(--green-mid);
+    border-radius: 30px;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--green-deep);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .sti-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .sti-badge svg { flex-shrink: 0; }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(45, 80, 22, 0.88) 0%,
+      rgba(74, 124, 35, 0.78) 50%,
+      rgba(45, 80, 22, 0.85) 100%
+    );
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 40px 24px;
+  }
+  .hero-icon {
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .hero .tagline {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--green-light);
+    margin-bottom: 28px;
+  }
+  .hero .pitch {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    color: rgba(255,255,255,0.9);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--green-bright);
+    color: var(--white);
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(109, 179, 63, 0.4);
+  }
+  .btn-primary:hover {
+    background: var(--green-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(109, 179, 63, 0.5);
+  }
+
+  /* Section base */
+  section { padding: 100px 24px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--green-deep);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .section-text {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+    max-width: 650px;
+    line-height: 1.8;
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--white);
+    position: relative;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .problem-image {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  }
+  .problem-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .problem-image:hover img { transform: scale(1.03); }
+  .pain-points {
+    list-style: none;
+    margin-top: 28px;
+  }
+  .pain-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  .pain-points li svg { flex-shrink: 0; margin-top: 3px; }
+
+  /* SOLUTION */
+  .solution {
+    background: var(--green-deep);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .solution .section-label { color: var(--green-light); }
+  .solution .section-title { color: var(--white); }
+  .solution .section-text { color: rgba(255,255,255,0.85); }
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .solution-image {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  }
+  .solution-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .solution-image:hover img { transform: scale(1.03); }
+  .solution-highlights {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .highlight-box {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1;
+    text-align: center;
+  }
+  .highlight-box .num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--green-light);
+  }
+  .highlight-box .label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  /* FEATURES */
+  .features { background: var(--cream); }
+  .features .section-title { text-align: center; }
+  .features .section-label { text-align: center; }
+  .features-intro {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 60px;
+    color: var(--text-mid);
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .feature-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+  .feature-card-img {
+    height: 200px;
+    overflow: hidden;
+  }
+  .feature-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .feature-card:hover .feature-card-img img { transform: scale(1.06); }
+  .feature-card-body {
+    padding: 28px;
+  }
+  .feature-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--green-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .feature-card h3 {
+    font-size: 1.2rem;
+    color: var(--green-deep);
+    margin-bottom: 10px;
+  }
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* MARKET */
+  .market {
+    background: var(--white);
+    position: relative;
+  }
+  .market-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .market-image {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  }
+  .market-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .market-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 36px;
+  }
+  .stat-card {
+    background: var(--cream);
+    padding: 24px;
+    border-radius: 12px;
+    border-left: 4px solid var(--green-bright);
+  }
+  .stat-card .stat-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--green-deep);
+  }
+  .stat-card .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+
+  /* BUSINESS PLAN */
+  .business-plan {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+  }
+  .bp-header { text-align: center; margin-bottom: 60px; }
+  .bp-header .section-title { margin-bottom: 12px; }
+  .bp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .bp-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--green-bright);
+  }
+  .bp-card.full-width {
+    grid-column: 1 / -1;
+  }
+  .bp-card-label {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 12px;
+  }
+  .bp-card h3 {
+    font-size: 1.3rem;
+    color: var(--green-deep);
+    margin-bottom: 14px;
+  }
+  .bp-card p {
+    color: var(--text-mid);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  .bp-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .bp-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .bp-list li:last-child { border-bottom: none; }
+  .bp-list li svg { flex-shrink: 0; margin-top: 2px; }
+  .bp-cost {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-top: 8px;
+  }
+  .bp-cost-note {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    margin-top: 6px;
+  }
+
+  /* CTA band */
+  .cta-band {
+    background: var(--green-mid);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: -60px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .cta-band::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .cta-band h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .cta-band p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .btn-white {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--white);
+    color: var(--green-deep);
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.2);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--green-deep);
+    color: rgba(255,255,255,0.7);
+    padding: 48px 24px;
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  footer a {
+    color: var(--green-light);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  footer a:hover { border-bottom-color: var(--green-light); }
+  footer .footer-divider {
+    width: 60px;
+    height: 2px;
+    background: rgba(255,255,255,0.15);
+    margin: 20px auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .problem-grid,
+    .solution-grid,
+    .market-layout {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .features-grid,
+    .bp-grid {
+      grid-template-columns: 1fr;
+    }
+    .solution-highlights {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .market-stats {
+      grid-template-columns: 1fr;
+    }
+    .market-image { aspect-ratio: 16/9; }
+    section { padding: 72px 20px; }
+    .sti-badge {
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18l6-6-6-6"/>
+  </svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1600&q=80" alt="Fresh guacamole and chips spread" />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-icon">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" stroke="rgba(168,213,116,0.5)" stroke-width="2"/>
+        <ellipse cx="32" cy="30" rx="16" ry="14" fill="#6db33f" opacity="0.8"/>
+        <ellipse cx="32" cy="30" rx="10" ry="9" fill="#4a7c23"/>
+        <circle cx="32" cy="28" r="4" fill="#2d5016"/>
+      </svg>
+    </div>
+    <h1>Guac Stop</h1>
+    <p class="tagline">Fresh guac, no wait, just drive.</p>
+    <p class="pitch">A tiny drive-through kiosk serving freshly made guacamole, chips, salsas, queso, and Mexican beverages. Rotating daily flavors. Zero hot prep. All the satisfaction of your favorite snack, ready in seconds.</p>
+    <a href="#" class="btn-primary" onclick="return false;">Find a Location</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div>
+        <p class="section-label reveal">The Problem</p>
+        <h2 class="section-title reveal">You deserve a better snack run.</h2>
+        <p class="section-text reveal">When a craving hits mid-drive, your options are bleak. Greasy burgers, sugary coffee, or a 20-minute sit-down just to get some chips and dip. There is no quick, fresh, drive-through option for the snack everyone actually wants.</p>
+        <ul class="pain-points reveal">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#c0392b" stroke-width="2"/><line x1="7" y1="7" x2="13" y2="13" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="7" x2="7" y2="13" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/></svg>
+            Fast food is heavy, greasy, and unsatisfying for a light snack
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#c0392b" stroke-width="2"/><line x1="7" y1="7" x2="13" y2="13" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="7" x2="7" y2="13" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/></svg>
+            Mexican restaurants require too much time for a simple craving
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#c0392b" stroke-width="2"/><line x1="7" y1="7" x2="13" y2="13" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="7" x2="7" y2="13" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/></svg>
+            No one owns the "quick dip and chips" niche in food service
+          </li>
+        </ul>
+      </div>
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Fast food drive-through" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="section-inner">
+    <div class="solution-grid">
+      <div class="solution-image reveal">
+        <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=800&q=80" alt="Fresh guacamole being prepared" />
+      </div>
+      <div>
+        <p class="section-label reveal">The Solution</p>
+        <h2 class="section-title reveal">Freshly made. Endlessly varied. Impossibly fast.</h2>
+        <p class="section-text reveal">Guac Stop operates out of tiny drive-through kiosks, just like your favorite coffee stand. Pull up, pick your flavor, and go. All ingredients are cold-prepped and assembled to order, keeping things simple, fast, and delicious. With 30+ rotating guacamole recipes, there is always something new to try.</p>
+        <div class="solution-highlights reveal">
+          <div class="highlight-box">
+            <div class="num">30+</div>
+            <div class="label">Guac Recipes</div>
+          </div>
+          <div class="highlight-box">
+            <div class="num">90s</div>
+            <div class="label">Avg. Service Time</div>
+          </div>
+          <div class="highlight-box">
+            <div class="num">$0</div>
+            <div class="label">Hot Prep Needed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-inner">
+    <p class="section-label reveal">What We Serve</p>
+    <h2 class="section-title reveal">More than guac. A whole experience.</h2>
+    <p class="features-intro reveal">Every visit is a little different. Rotating daily specials, seasonal flavors, and a carefully curated menu of dips, chips, and drinks make Guac Stop a repeat-visit destination.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=800&q=80" alt="Colorful guacamole varieties" />
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a8d574" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Guac of the Day</h3>
+          <p>A rotating daily specialty flavor pulled from a library of 30+ original recipes. Mango habanero on Monday. Roasted garlic lime on Tuesday. You never know what tomorrow brings.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed514?auto=format&fit=crop&w=800&q=80" alt="Small drive-through kiosk" />
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a8d574" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 3v18"/></svg>
+          </div>
+          <h3>Tiny Footprint</h3>
+          <p>Our kiosks are compact drive-through stations with minimal overhead. No dining room, no kitchen, no fuss. Just a window, a smile, and the freshest guac in town.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1604152135912-04a022e23696?auto=format&fit=crop&w=800&q=80" alt="Fresh chopped ingredients" />
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a8d574" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <h3>Zero Hot Prep</h3>
+          <p>All ingredients are cold-chopped and assembled to order. No grills, no fryers, no hoods. That means faster service, simpler staffing, and dramatically lower equipment costs.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=800&q=80" alt="Mexican beverages and agua fresca" />
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a8d574" stroke-width="2" stroke-linecap="round"><path d="M8 2h8l2 18H6L8 2z"/><path d="M6 12h12"/></svg>
+          </div>
+          <h3>Mexican Beverage Bar</h3>
+          <p>Horchata, agua fresca, and Mexican sodas round out the menu. The perfect pairing for chips and guac, and another high-margin revenue stream for the business.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="section-inner">
+    <div class="market-layout">
+      <div>
+        <p class="section-label reveal">The Market</p>
+        <h2 class="section-title reveal">A multi-billion dollar craving with no owner.</h2>
+        <p class="section-text reveal">Americans consume over 2.5 billion pounds of avocados each year, and the drive-through quick-service market exceeds $300 billion. Yet nobody has claimed the single-category guacamole niche. Guac Stop sits at the intersection of the snacking boom, the fresh food movement, and the drive-through convenience that consumers demand.</p>
+        <div class="market-stats reveal">
+          <div class="stat-card">
+            <div class="stat-num">$2.5B+</div>
+            <div class="stat-label">U.S. Avocado Market</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">$300B+</div>
+            <div class="stat-label">Drive-Through QSR</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">22-45</div>
+            <div class="stat-label">Target Age Range</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">$150B</div>
+            <div class="stat-label">U.S. Snack Market</div>
+          </div>
+        </div>
+      </div>
+      <div class="market-image reveal">
+        <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80" alt="Busy suburban street with drive-throughs" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan">
+  <div class="section-inner">
+    <div class="bp-header">
+      <p class="section-label reveal">Business Plan</p>
+      <h2 class="section-title reveal">Built lean. Designed to scale.</h2>
+    </div>
+    <div class="bp-grid">
+      <div class="bp-card reveal">
+        <p class="bp-card-label">Revenue Model</p>
+        <h3>Chips, dips, drinks, and catering</h3>
+        <p>Individual chip-and-guac cups run $6 to $10 with premium flavors at a slight upcharge. Queso, salsa, and beverages add $3 to $5 per order. Party-size platters at $25 to $40 serve the catering and office market. High margins on avocado products and minimal labor costs keep unit economics strong.</p>
+      </div>
+      <div class="bp-card reveal reveal-delay-1">
+        <p class="bp-card-label">Go-to-Market Strategy</p>
+        <h3>One kiosk, one neighborhood, total dominance</h3>
+        <p>Launch a single kiosk in a high-traffic suburban corridor near existing drive-through clusters. Build a social media presence around daily guac flavor reveals. Partner with local offices for catering and bulk orders to drive consistent weekday volume before expanding.</p>
+      </div>
+      <div class="bp-card reveal">
+        <p class="bp-card-label">Competitive Advantage</p>
+        <h3>Own the niche before anyone else</h3>
+        <p>Nobody else operates a single-category guacamole drive-through. The tiny kiosk model keeps startup costs far below any restaurant. Cold prep means faster service, simpler staffing, and fewer equipment requirements. The rotating daily flavor model creates organic social media buzz and repeat visits.</p>
+      </div>
+      <div class="bp-card reveal reveal-delay-1">
+        <p class="bp-card-label">Startup Cost Estimate</p>
+        <h3>Lean to launch</h3>
+        <div class="bp-cost">$80K - $150K</div>
+        <p class="bp-cost-note">Covers kiosk build-out or lease, initial inventory, branding, permits, and 3 months of operating runway. Significantly lower than a traditional restaurant build.</p>
+      </div>
+      <div class="bp-card reveal">
+        <p class="bp-card-label">Year One Milestones</p>
+        <ul class="bp-list">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#6db33f"/><path d="M5.5 9l2.5 2.5 4.5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Open first kiosk and reach 200 daily transactions within 6 months
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#6db33f"/><path d="M5.5 9l2.5 2.5 4.5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Develop and test 30+ guac recipes with customer flavor feedback
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#6db33f"/><path d="M5.5 9l2.5 2.5 4.5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Launch catering and party platter service generating 20% of revenue
+          </li>
+        </ul>
+      </div>
+      <div class="bp-card reveal reveal-delay-1">
+        <p class="bp-card-label">Key Risks</p>
+        <ul class="bp-list">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#c0392b" opacity="0.15"/><circle cx="9" cy="9" r="8" stroke="#c0392b" stroke-width="1.5"/><line x1="9" y1="5" x2="9" y2="10" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="13" r="1" fill="#c0392b"/></svg>
+            Avocado price volatility and supply shortages could compress margins
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#c0392b" opacity="0.15"/><circle cx="9" cy="9" r="8" stroke="#c0392b" stroke-width="1.5"/><line x1="9" y1="5" x2="9" y2="10" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="13" r="1" fill="#c0392b"/></svg>
+            Standalone guacamole may not generate enough ticket size per visit
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill="#c0392b" opacity="0.15"/><circle cx="9" cy="9" r="8" stroke="#c0392b" stroke-width="1.5"/><line x1="9" y1="5" x2="9" y2="10" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="13" r="1" fill="#c0392b"/></svg>
+            Seasonal demand dips in colder months could challenge winter revenue
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="reveal">
+    <h2>Ready to scoop up this opportunity?</h2>
+    <p>Guac Stop is a concept waiting for the right entrepreneur. Low startup costs, high margins, and a product everyone loves.</p>
+    <a href="#" class="btn-white" onclick="return false;">Get the Business Plan</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p>Discussed in <a href="https://www.youtube.com/watch?v=RRStDRCULrU" target="_blank" rel="noopener">Episode 88: Guac Stop</a></p>
+  <div class="footer-divider"></div>
+  <p>The ideas on this site are free for anyone to take, build, and make real.</p>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll-triggered reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

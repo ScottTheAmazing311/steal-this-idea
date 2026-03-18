@@ -1,0 +1,34 @@
+{
+  "slug": "weightwin",
+  "company_name": "WeightWin",
+  "tagline": "Lose weight. Unlock rewards. Level up.",
+  "elevator_pitch": "WeightWin is a gamified weight loss platform that pairs with your smart scale to unlock real-world rewards, exclusive content, and brand discounts as you hit milestones. Instead of crash diets and willpower alone, WeightWin turns your progress into a game you actually want to keep playing.",
+  "problem": "Most weight loss programs demand overnight lifestyle changes that feel miserable and unsustainable. People bounce back because strict diets ignore real life: holiday treats, office lunches, and the simple fact that broccoli gets old fast. There is no reward loop that makes the journey feel worth it day to day.",
+  "solution": "WeightWin connects to your scale and tracks progress in real time, unlocking tiered reward levels as you lose weight. Each tier grants access to exclusive discounts, curated content, and community challenges. If you regain weight, you lose access, creating a gentle accountability loop that keeps you motivated without shame.",
+  "target_market": "Adults aged 25 to 45 who have tried and failed at traditional diets, especially those motivated by tangible rewards and social accountability. Secondary market includes corporate wellness programs looking for engaging employee health tools.",
+  "revenue_model": "Freemium subscription: free tier with basic tracking and milestones, $9.99/month premium tier with brand reward partnerships, personalized meal transition plans, and advanced analytics. Additional revenue from brand partnership commissions (retailers pay to place discount offers in reward tiers) and white-label corporate wellness licensing.",
+  "key_features": [
+    "Tiered milestone system that locks and unlocks content, rewards, and discounts based on verified weigh-ins",
+    "Smart scale integration (Bluetooth/Wi-Fi) with automatic progress syncing and celebration animations",
+    "Gradual meal transition engine that slowly shifts your meals from comfort food toward healthier options over weeks",
+    "Community challenges with video sharing, leaderboards, and positive-only feedback loops"
+  ],
+  "competitive_advantage": "Unlike calorie counters or meal kits, WeightWin creates a real-stakes reward economy around weight loss. The lock/unlock mechanic tied to verified scale data is unique and creates genuine accountability. Brand partnerships fund the reward pool, making it self-sustaining.",
+  "market_size_estimate": "The global weight management market is valued at over $140 billion. Digital fitness apps alone represent a $15 billion segment. Capturing even 0.5% of the digital fitness market yields a $75 million opportunity.",
+  "go_to_market": "Launch with a waitlist campaign emphasizing the 'unlock rewards by losing weight' hook, partnering with 10 to 15 mid-tier retail brands for initial discount inventory. Seed the community with fitness micro-influencers who document their tier progression on social media. Target New Year's resolution season for maximum cultural relevance.",
+  "risks": [
+    "Health sensitivity: gamifying weight loss could encourage unhealthy behaviors or trigger eating disorders if not carefully designed with clinical input",
+    "Brand partnership chicken-and-egg: need users to attract brands, need brands to attract users",
+    "Smart scale fragmentation: supporting dozens of scale manufacturers adds engineering complexity"
+  ],
+  "year_one_milestones": [
+    "Launch MVP app with scale integration, 5 reward tiers, and 15 brand partners within 6 months",
+    "Reach 50,000 active users and 25 brand partnerships by end of year one",
+    "Secure 3 corporate wellness pilot programs generating $150K in annual licensing revenue"
+  ],
+  "startup_cost_range": "$150K - $300K to MVP",
+  "category": "Health",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=sFOoX3j27Z4",
+  "episode_number": 120
+}

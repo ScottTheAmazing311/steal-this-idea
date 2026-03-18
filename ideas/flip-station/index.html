@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flip Station | Source Low. Sell High. Ship Nationwide.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#F5F0E8;
+  --rust:#C45B28;
+  --navy:#1A2332;
+  --sand:#D4C5A9;
+  --charcoal:#2C2C2C;
+  --gold:#D4A843;
+  --forest:#3A5A40;
+  --off-white:#FAF8F5;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;color:var(--charcoal);background:var(--cream);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Archivo Black',sans-serif;text-transform:uppercase;letter-spacing:0.02em}
+
+/* Badge */
+.sti-badge{
+  position:fixed;top:20px;left:20px;z-index:1000;
+  background:var(--navy);color:var(--gold);
+  padding:10px 16px;border-radius:6px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.8rem;
+  text-decoration:none;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.sti-badge:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.4)}
+.sti-badge svg{width:18px;height:18px;fill:var(--gold)}
+
+/* Scroll Animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.active{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.active{opacity:1;transform:translateX(0)}
+
+/* Hero */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(26,35,50,0.75) 0%,rgba(26,35,50,0.85) 60%,rgba(44,44,44,0.95) 100%);
+}
+.hero-content{position:relative;z-index:2;padding:2rem;max-width:900px}
+.hero-tag{
+  display:inline-block;
+  background:var(--rust);color:var(--cream);
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.75rem;
+  padding:6px 16px;border-radius:3px;letter-spacing:0.15em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.hero h1{
+  font-size:clamp(3rem,8vw,7rem);line-height:0.95;color:var(--cream);
+  margin-bottom:1rem;
+}
+.hero h1 span{color:var(--gold);display:block;font-size:0.5em;margin-top:0.2em}
+.hero-tagline{
+  font-size:clamp(1.1rem,2.5vw,1.5rem);color:var(--sand);
+  font-weight:300;margin-bottom:1rem;letter-spacing:0.03em;
+}
+.hero-pitch{
+  font-size:1rem;color:rgba(245,240,232,0.75);max-width:600px;margin:0 auto 2.5rem;
+  line-height:1.7;
+}
+.btn{
+  display:inline-block;padding:16px 40px;border:none;border-radius:4px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;
+  text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;
+  text-decoration:none;transition:all 0.3s ease;
+}
+.btn-primary{
+  background:var(--rust);color:var(--cream);
+}
+.btn-primary:hover{background:#D96A35;transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,91,40,0.4)}
+.btn-outline{
+  background:transparent;color:var(--cream);border:2px solid var(--sand);margin-left:12px;
+}
+.btn-outline:hover{background:var(--sand);color:var(--navy)}
+.hero-scroll{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
+  animation:bounce 2s infinite;
+}
+.hero-scroll svg{width:28px;height:28px;stroke:var(--sand);stroke-width:2}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+/* Section base */
+section{padding:6rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  display:inline-block;font-weight:600;font-size:0.75rem;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--rust);
+  margin-bottom:0.75rem;
+}
+.section-title{font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin-bottom:1.5rem}
+
+/* Problem */
+.problem{background:var(--navy);color:var(--cream);position:relative;overflow:hidden}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.problem-img{
+  border-radius:8px;overflow:hidden;position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.problem-img img{width:100%;height:400px;object-fit:cover;display:block}
+.problem-img::after{
+  content:'';position:absolute;inset:0;
+  border:2px solid var(--gold);border-radius:8px;pointer-events:none;
+  transform:translate(12px,12px);
+}
+.problem .section-label{color:var(--gold)}
+.problem .section-title{color:var(--cream)}
+.problem p{color:var(--sand);line-height:1.8;font-size:1.05rem}
+.stat-row{display:flex;gap:2rem;margin-top:2rem}
+.stat{text-align:center}
+.stat-num{font-family:'Archivo Black',sans-serif;font-size:2rem;color:var(--rust)}
+.stat-label{font-size:0.8rem;color:var(--sand);margin-top:0.25rem}
+
+/* Solution */
+.solution{background:var(--off-white);position:relative}
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.solution-img{
+  border-radius:8px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,0.12);
+}
+.solution-img img{width:100%;height:420px;object-fit:cover;display:block}
+.solution p{line-height:1.8;font-size:1.05rem;color:#555}
+.solution-steps{margin-top:2rem;display:flex;flex-direction:column;gap:1.25rem}
+.step{display:flex;align-items:flex-start;gap:1rem}
+.step-num{
+  flex-shrink:0;width:40px;height:40px;border-radius:50%;
+  background:var(--rust);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo Black',sans-serif;font-size:0.9rem;
+}
+.step-text{font-size:0.95rem;color:#555;line-height:1.6}
+.step-text strong{color:var(--charcoal)}
+
+/* Features */
+.features{
+  background:linear-gradient(135deg,var(--navy) 0%,#243447 100%);
+  color:var(--cream);position:relative;
+}
+.features .section-label{color:var(--gold)}
+.features .section-title{color:var(--cream);text-align:center}
+.features .section-label{text-align:center;display:block}
+.features-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:3rem;
+}
+.feature-card{
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px;padding:0;overflow:hidden;
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.feature-card-img{height:180px;overflow:hidden}
+.feature-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+.feature-card:hover .feature-card-img img{transform:scale(1.05)}
+.feature-card-body{padding:1.5rem}
+.feature-icon{
+  width:44px;height:44px;border-radius:8px;
+  background:var(--rust);display:flex;align-items:center;justify-content:center;
+  margin-bottom:1rem;
+}
+.feature-icon svg{width:22px;height:22px;fill:var(--cream)}
+.feature-card h3{font-size:1rem;margin-bottom:0.5rem;color:var(--cream);text-transform:none;font-family:'Space Grotesk',sans-serif;font-weight:700}
+.feature-card p{font-size:0.9rem;color:var(--sand);line-height:1.6}
+
+/* Market */
+.market{background:var(--cream);position:relative;overflow:hidden}
+.market-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.market-img-stack{position:relative;height:500px}
+.market-img-stack img{
+  position:absolute;border-radius:8px;object-fit:cover;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+.market-img-stack img:first-child{width:65%;height:320px;top:0;left:0;z-index:2}
+.market-img-stack img:last-child{width:55%;height:280px;bottom:0;right:0;z-index:1}
+.market-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.market-stat{
+  background:white;padding:1.5rem;border-radius:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06);text-align:center;
+}
+.market-stat-num{font-family:'Archivo Black',sans-serif;font-size:1.8rem;color:var(--rust)}
+.market-stat-label{font-size:0.8rem;color:#888;margin-top:0.25rem}
+
+/* Business Plan */
+.bizplan{background:var(--off-white);position:relative}
+.bizplan-header{text-align:center;margin-bottom:3rem}
+.bizplan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.biz-card{
+  background:white;border-radius:10px;padding:2rem;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06);
+  border-top:4px solid var(--rust);
+  transition:transform 0.3s ease;
+}
+.biz-card:hover{transform:translateY(-3px)}
+.biz-card h3{
+  font-size:0.85rem;font-family:'Space Grotesk',sans-serif;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.1em;color:var(--rust);margin-bottom:1rem;
+}
+.biz-card p,.biz-card li{font-size:0.92rem;color:#555;line-height:1.7}
+.biz-card ul{list-style:none;padding:0}
+.biz-card ul li{position:relative;padding-left:1.2rem;margin-bottom:0.5rem}
+.biz-card ul li::before{
+  content:'';position:absolute;left:0;top:8px;
+  width:8px;height:8px;border-radius:50%;background:var(--gold);
+}
+.biz-card.full-width{grid-column:1/-1}
+.milestones{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.milestone{text-align:center;padding:1rem}
+.milestone-num{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--navy);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo Black',sans-serif;font-size:1.1rem;
+  margin:0 auto 0.75rem;
+}
+.milestone p{font-size:0.9rem;color:#555;line-height:1.5}
+.risks-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.risk{
+  padding:1rem;background:rgba(196,91,40,0.05);border-radius:8px;
+  border-left:3px solid var(--rust);
+}
+.risk p{font-size:0.9rem;color:#555;line-height:1.5}
+
+/* Footer */
+footer{
+  background:var(--navy);color:var(--sand);padding:4rem 2rem;text-align:center;
+}
+footer p{font-size:0.9rem;line-height:1.7;max-width:500px;margin:0 auto}
+footer a{color:var(--gold);text-decoration:underline}
+footer .footer-brand{
+  font-family:'Archivo Black',sans-serif;font-size:1.5rem;color:var(--cream);
+  margin-bottom:1rem;text-transform:uppercase;
+}
+.footer-divider{
+  width:60px;height:3px;background:var(--rust);margin:1.5rem auto;border-radius:2px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .problem-grid,.solution-grid,.market-layout{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .bizplan-grid{grid-template-columns:1fr}
+  .milestones,.risks-row,.stat-row{grid-template-columns:1fr;flex-direction:column}
+  .market-img-stack{height:auto;display:flex;flex-direction:column;gap:1rem}
+  .market-img-stack img{position:static!important;width:100%!important;height:250px!important}
+  .problem-img img,.solution-img img{height:280px}
+  .hero h1{font-size:clamp(2.5rem,10vw,4rem)}
+  .btn-outline{margin-left:0;margin-top:10px}
+  .hero-buttons{display:flex;flex-direction:column;align-items:center;gap:10px}
+  section{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge" aria-label="Back to Steal This Idea">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Vintage Vehicle Arbitrage</div>
+    <h1>Flip Station<span>Source Low. Sell High. Ship Nationwide.</span></h1>
+    <p class="hero-tagline">Turning forgotten barn finds into six-figure collector sales.</p>
+    <p class="hero-pitch">Flip Station is a marketplace and logistics platform that connects vintage vehicle sellers in low-demand rural areas with high-paying collectors in affluent coastal markets. By exploiting geographic price disparities on classic SUVs, trucks, and cars, we turn rust into gold.</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn btn-primary">See How It Works</a>
+      <a href="#bizplan" class="btn btn-outline">View Business Plan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal-left">
+        <div class="problem-img">
+          <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80" alt="Classic vintage vehicle on dusty road" loading="lazy">
+        </div>
+      </div>
+      <div class="reveal-right">
+        <span class="section-label">The Problem</span>
+        <h2 class="section-title">A $150K Bronco is Rotting in Someone's Backyard</h2>
+        <p>Thousands of classic and vintage SUVs sit forgotten on farms, in garages, and on rural lots across America. Their owners often have no idea these vehicles are worth tens, or even hundreds of thousands of dollars to the right buyer.</p>
+        <p style="margin-top:1rem">Meanwhile, affluent collectors in places like Nantucket, the Hamptons, and Malibu struggle to find authentic vintage vehicles in restorable condition. The disconnect between supply and demand is staggering.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-num">$30B+</div>
+            <div class="stat-label">US Collector Car Market</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">10x</div>
+            <div class="stat-label">Price Gap, Rural vs. Coastal</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">$1,500</div>
+            <div class="stat-label">Coast-to-Coast Shipping</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <div class="solution-grid">
+      <div class="reveal-left">
+        <span class="section-label">The Solution</span>
+        <h2 class="section-title">Geographic Arbitrage, Systematized</h2>
+        <p>Flip Station bridges the gap by sourcing undervalued vintage vehicles from rural and inland markets, coordinating professional restoration, and reselling them to high-demand affluent coastal markets. We use technology, local scouts, and a vetted restoration pipeline to capture massive price disparities.</p>
+        <div class="solution-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Source:</strong> Our scrapers and scout network find undervalued classics across the Mountain West and rural America.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Restore:</strong> Vetted partner shops bring each vehicle back to showroom condition at competitive inland labor rates.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Ship:</strong> White-glove enclosed transport delivers the finished vehicle to its new home in a premium market.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>Sell:</strong> Targeted marketing to affluent coastal buyers through pop-up showrooms and online listings.</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80" alt="Restored classic car in a garage workshop" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">Built for Scale, Not Just a Side Hustle</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data analytics dashboard on a screen" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          </div>
+          <h3>Automated Vehicle Scraper</h3>
+          <p>Our system monitors KSL Classifieds, Craigslist, Facebook Marketplace, and regional listing sites around the clock, flagging undervalued vintage vehicles the moment they appear.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" alt="Team of people collaborating on a project" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Scout Network</h3>
+          <p>Local finders across the Mountain West earn commissions by identifying barn finds and forgotten classics in their communities. The best leads come from people who know the land.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="Mechanic working on a vehicle restoration" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+          </div>
+          <h3>Vetted Restoration Pipeline</h3>
+          <p>Partnered shops across the Salt Lake, Boise, and Albuquerque corridors deliver quality rebuilds at competitive rates. Every vehicle leaves looking better than the day it rolled off the factory floor.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1586953208270-767889fa9b0e?auto=format&fit=crop&w=800&q=80" alt="Car transport truck on highway" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          </div>
+          <h3>White-Glove Delivery</h3>
+          <p>Enclosed flatbed transport carries each finished vehicle to premium markets nationwide. No miles on the odometer. No road grime. Just pristine delivery to your buyer's doorstep.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="market-layout">
+      <div class="reveal-left">
+        <span class="section-label">Market Opportunity</span>
+        <h2 class="section-title">Where Rust Belt Meets the Gold Coast</h2>
+        <p style="color:#555;line-height:1.8;font-size:1.05rem">The classic and collector car market exceeds $30 billion annually in the US. Restored vintage SUVs, including Ford Broncos, Land Rover Defenders, and Jeep CJs, represent one of the fastest-growing segments. Individual vehicles regularly sell for $75K to $250K in the right market.</p>
+        <p style="color:#555;line-height:1.8;font-size:1.05rem;margin-top:1rem">Our target buyers are affluent individuals in premium coastal communities: Nantucket, the Hamptons, Martha's Vineyard, Malibu, and Montauk. These buyers view restored vintage SUVs not just as transportation, but as lifestyle status symbols.</p>
+        <div class="market-stats">
+          <div class="market-stat reveal">
+            <div class="market-stat-num">$30B+</div>
+            <div class="market-stat-label">Annual US Collector Market</div>
+          </div>
+          <div class="market-stat reveal">
+            <div class="market-stat-num">$300M+</div>
+            <div class="market-stat-label">Serviceable Market (Vintage SUVs)</div>
+          </div>
+          <div class="market-stat reveal">
+            <div class="market-stat-num">3x-10x</div>
+            <div class="market-stat-label">Target Markup per Vehicle</div>
+          </div>
+          <div class="market-stat reveal">
+            <div class="market-stat-num">40%+</div>
+            <div class="market-stat-label">Target Net Margin</div>
+          </div>
+        </div>
+      </div>
+      <div class="market-img-stack reveal-right">
+        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80" alt="Classic Ford Bronco on a coastal road" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" alt="Coastal luxury community with ocean views" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan" id="bizplan">
+  <div class="container">
+    <div class="bizplan-header reveal">
+      <span class="section-label">The Plan</span>
+      <h2 class="section-title">Business Blueprint</h2>
+    </div>
+    <div class="bizplan-grid">
+      <div class="biz-card reveal">
+        <h3>Revenue Model</h3>
+        <p>Direct buy-and-flip margins targeting 3x to 10x markup after restoration and shipping costs. Average restored vehicle sale price: $75,000 to $150,000. Secondary revenue from scout commissions on consignment deals and premium listing fees for partner sellers.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch in one corridor: Utah/Idaho sourcing to Nantucket/Cape Cod sales. Prove the model with 10 to 15 vehicles in the first season. Partner with 2 to 3 restoration shops in the Salt Lake area and establish a pop-up showroom presence on Nantucket during peak summer season.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>Competitive Advantage</h3>
+        <p>Flip Station's edge is geographic arbitrage intelligence. Proprietary data on regional vehicle valuations, combined with established scout networks in low-cost sourcing regions, creates a defensible pipeline that individual flippers cannot replicate at scale.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>Startup Cost Estimate</h3>
+        <p style="font-family:'Archivo Black',sans-serif;font-size:1.5rem;color:var(--rust);margin-bottom:0.75rem">$150K -- $350K</p>
+        <p>Covers initial vehicle acquisition (5 to 8 units), restoration deposits, transport logistics setup, web scraping infrastructure, pop-up showroom costs, and working capital for the first operating season.</p>
+      </div>
+      <div class="biz-card full-width reveal">
+        <h3>Year One Milestones</h3>
+        <div class="milestones">
+          <div class="milestone">
+            <div class="milestone-num">1</div>
+            <p>Source and restore 15 vintage SUVs from the Mountain West region</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-num">2</div>
+            <p>Achieve $1.5M in gross sales with an average margin of 40% after all costs</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-num">3</div>
+            <p>Establish active scout networks in Utah, Idaho, Wyoming, and New Mexico</p>
+          </div>
+        </div>
+      </div>
+      <div class="biz-card full-width reveal">
+        <h3>Key Risks</h3>
+        <div class="risks-row">
+          <div class="risk">
+            <p><strong>Unpredictable Restoration Costs.</strong> Hidden mechanical or body issues can inflate restoration budgets well beyond initial estimates, potentially eroding margins on individual vehicles.</p>
+          </div>
+          <div class="risk">
+            <p><strong>Cyclical Luxury Market.</strong> The vintage vehicle market is sensitive to economic downturns that directly impact discretionary spending among affluent buyers.</p>
+          </div>
+          <div class="risk">
+            <p><strong>Scout Network Scaling.</strong> Building a reliable network of local vehicle scouts requires time, trust, and consistent incentive structures that take seasons to mature.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Flip Station</div>
+  <div class="footer-divider"></div>
+  <p>This is a concept from the <a href="https://www.youtube.com/watch?v=L07gAAVfaIc" target="_blank" rel="noopener">Steal This Idea podcast</a>. The idea was presented by Geoff Atkinson, former SVP of Marketing at Overstock and CEO of Huckabuy.</p>
+  <p style="margin-top:1rem;font-size:0.8rem;color:rgba(212,197,169,0.6)">Not a real company. Built to inspire the next great startup.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered animations
+document.addEventListener('DOMContentLoaded', function() {
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  reveals.forEach(function(el) {
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>

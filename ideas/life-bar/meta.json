@@ -1,0 +1,34 @@
+{
+  "slug": "life-bar",
+  "company_name": "LifeBar",
+  "tagline": "Your daily supplements, served fresh.",
+  "elevator_pitch": "LifeBar is a walk-in supplement bar where vitamins, minerals, and adaptogens are served as delicious, precisely dosed shots and drinks. Think of it as a coffee shop, but instead of caffeine, you are powering up with creatine, magnesium, omega-3s, and D3, all in forms that actually taste good.",
+  "problem": "Most people know they should be taking supplements like magnesium, vitamin D, omega-3s, and creatine, but the experience is terrible. Chalky powders, horse-pill capsules, confusing dosages, and bottles that sit forgotten in cabinets. People want to feel healthier but the delivery mechanism is broken.",
+  "solution": "LifeBar serves supplements as crafted, great-tasting shots and small drinks. Walk in, tell the bar staff your goals or health profile, and get a personalized flight of wellness shots. Each one is precisely dosed, flavor-optimized, and served fresh. It is the ritual of a coffee shop combined with the function of a pharmacy.",
+  "target_market": "Health-conscious adults aged 22-45 in urban and suburban markets who already buy supplements or want to start. Secondary market: fitness enthusiasts, biohackers, and anyone looking for a social third-place that is not a coffee shop or a bar.",
+  "revenue_model": "Per-visit sales of individual shots ($4-8 each) and curated flights ($12-20). Subscription memberships for daily regulars at a discount. Branded take-home shot packs for weekly use. Custom supplement profiles with personalized formulations at a premium tier.",
+  "key_features": [
+    "Precisely dosed wellness shots in creatine, magnesium, D3, zinc, omega-3, and more",
+    "Personalized supplement profiles based on your age, goals, and health needs",
+    "Flight-style service: order a tray of 3-5 shots for a complete daily wellness routine",
+    "Take-home packs and subscriptions for your custom blend, delivered weekly"
+  ],
+  "competitive_advantage": "While juice bars and smoothie shops exist, none focus specifically on supplement delivery as the core product. LifeBar owns the intersection of precise nutrition and great taste. The personalization engine and subscription model create sticky, recurring customers that juice bars cannot match.",
+  "market_size_estimate": "The U.S. dietary supplement market is valued at over $55 billion and growing 7% annually. The juice and smoothie bar market adds another $3 billion. LifeBar sits at the intersection, targeting the growing segment of consumers who want functional nutrition in a convenient, social format.",
+  "go_to_market": "Open a flagship location in a health-forward urban market (Austin, Portland, Salt Lake City, or Brooklyn). Partner with local gyms and fitness studios for cross-promotions. Build a strong social media presence around the 'shot flight' visual aesthetic. Offer first-visit free tastings to drive trial.",
+  "risks": [
+    "Supplement bars and juice bars already exist in major coastal cities; differentiation must be clear",
+    "FDA regulations around supplement claims and food service add compliance complexity",
+    "Customer education is required to shift people from pill-based supplement habits to a bar format"
+  ],
+  "year_one_milestones": [
+    "Open flagship location and serve 200+ customers per day within six months",
+    "Launch subscription membership program with 500+ recurring members",
+    "Develop and release a branded take-home shot pack line in 10 formulations"
+  ],
+  "startup_cost_range": "$150,000 - $400,000",
+  "category": "Health",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=_msfmD2S37U",
+  "episode_number": 144
+}

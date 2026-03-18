@@ -1,0 +1,34 @@
+{
+  "slug": "otto",
+  "company_name": "Otto",
+  "tagline": "Wet pet food, finally automated.",
+  "elevator_pitch": "Otto is a smart countertop device that dispenses wet pet food from pre-filled pouches on a schedule you control from your phone. No more wasted cans, no more rushing home for feeding time, and no more choosing between convenience and your pet's health.",
+  "problem": "Pet owners who feed their cats and dogs premium wet food face a daily frustration: wet food spoils quickly once opened, cannot be left out like kibble, and requires someone to be physically present at mealtimes. There is no automated dispenser for wet food the way there is for dry food. This forces owners to waste half-eaten cans, hire pet sitters for even short trips, and often compromise by switching to less nutritious dry food.",
+  "solution": "Otto is a sleek, app-connected dispenser that accepts large pouches of fresh wet food and squeezes precise portions into your pet's bowl on a timer or on demand. A built-in camera and weight sensor let you monitor meals remotely. The pouch system keeps food sealed and fresh for up to a week, eliminating waste and the hassle of single-serve cans.",
+  "target_market": "Millennial and Gen-Z pet owners (ages 25 to 40) who already spend on premium wet food brands and smart home gadgets. Secondary market: frequent travelers, dual-income households, and pet parents with multiple animals.",
+  "revenue_model": "Hardware sales (device at $199 to $249) plus recurring subscription for proprietary wet food pouches ($29 to $59/month depending on pet size and formula). Additional revenue from partner brand pouches sold through the Otto marketplace and optional extended warranty plans.",
+  "key_features": [
+    "App-controlled scheduling with Alexa and Google Home integration",
+    "Built-in camera and weight sensor for remote meal monitoring",
+    "Pouch system keeps food sealed and fresh for up to seven days",
+    "Adjustable portion sizes for cats and dogs of all breeds"
+  ],
+  "competitive_advantage": "No true automated wet food dispenser exists on the market today. Dry food feeders cannot handle wet food, and the single refrigerated-compartment products that do exist still require manual loading of individual portions. Otto's pouch-and-squeeze mechanism is a category-creating innovation with strong recurring revenue from proprietary food pouches.",
+  "market_size_estimate": "The U.S. pet food market is roughly $58B annually, with wet food representing about 20% ($11.6B). Automated pet feeders are a $1.5B segment growing at 8% CAGR. Otto targets the overlap: premium wet food buyers who want automation. A conservative 1% capture of the wet food segment represents a $116M TAM.",
+  "go_to_market": "Launch via Kickstarter to validate demand among passionate pet communities on Reddit, Facebook, and TikTok. Use the crowdfunding campaign to fund initial manufacturing, then expand through DTC e-commerce and partnerships with premium pet food brands for co-branded pouches.",
+  "risks": [
+    "Engineering complexity of a reliable squeeze-and-dispense mechanism at consumer price points",
+    "Consumer hesitation around a Juicero-like pouch model and potential negative comparisons",
+    "Food safety and spoilage concerns if the device malfunctions or loses power"
+  ],
+  "year_one_milestones": [
+    "Raise $500K through Kickstarter pre-orders within the first 60 days",
+    "Ship first 2,000 units and onboard initial subscribers within 9 months",
+    "Secure one co-branded pouch partnership with a premium pet food company"
+  ],
+  "startup_cost_range": "$400K to $750K to reach MVP and first production run",
+  "category": "Hardware",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=_iDO6BW370o",
+  "episode_number": 15
+}

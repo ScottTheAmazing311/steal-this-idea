@@ -1,0 +1,34 @@
+{
+  "slug": "minipost",
+  "company_name": "Minipost",
+  "tagline": "Social media microservices for small business",
+  "elevator_pitch": "Minipost is a marketplace portal where small businesses can request bite-sized social media content from freelance creators. Instead of hiring an agency or doing it yourself, just post a quick gig, get tweets, posts, and graphics delivered, then approve and publish directly from one dashboard.",
+  "problem": "Small businesses and independent creators know they need social media presence, but they lack the time, skill, or budget to manage it. Hiring an agency is too expensive, hiring a dedicated social media manager is overkill, and doing it yourself means constant context switching away from your actual work.",
+  "solution": "Minipost connects small businesses with freelance social media creators through a streamlined portal. Businesses post micro-gigs like 'write 10 tweets for our October sale' or 'create a Facebook banner,' freelancers pick them up and deliver content inside the portal, and business owners review, edit, and publish directly to their social channels without ever sharing login credentials.",
+  "target_market": "Small and medium businesses, independent content creators, podcasters, and local service companies that need social media presence but cannot justify a full-time hire or agency retainer.",
+  "revenue_model": "Monthly platform subscription for businesses (tiered from $10/month for single-channel access up to $50/month for full access). Freelancers join free. Transaction fees are kept to processing costs only, so creators keep nearly 100% of their earnings. Premium tiers unlock scheduling tools, analytics, and additional social channels.",
+  "key_features": [
+    "Micro-gig marketplace for bite-sized social media tasks like tweets, posts, banners, and short videos",
+    "Built-in content calendar with drag-and-drop scheduling and direct publishing to all major social platforms",
+    "Brand profile portal where businesses upload assets, colors, voice guidelines, and current promotions for freelancers to reference",
+    "Performance-based tipping system that automatically rewards creators when their content exceeds engagement thresholds"
+  ],
+  "competitive_advantage": "Unlike Upwork or Fiverr, Minipost is purpose-built for social media micro-tasks with integrated publishing tools. Unlike Buffer or Hootsuite, it includes a marketplace of creators. The combination of content creation marketplace plus scheduling and publishing portal in a single platform keeps both sides engaged and reduces the friction of outsourcing social media.",
+  "market_size_estimate": "There are roughly 33 million small businesses in the US alone. If even 1% adopt a $30/month average subscription, that represents roughly $120M in annual recurring revenue. The global social media management market is projected to exceed $40 billion, and the freelance content creation economy continues to grow rapidly.",
+  "go_to_market": "Launch with podcasters and small content creators as the initial niche, since they have clear social media needs and tight budgets. Partner with podcast hosting platforms and creator communities to drive early adoption. Expand into local businesses like restaurants, salons, and service providers through targeted social media ads and referral incentives.",
+  "risks": [
+    "Quality control at scale: ensuring freelancer output meets business expectations when tasks are small and fast",
+    "Marketplace liquidity: building enough supply of freelancers and demand from businesses simultaneously in early stages",
+    "AI-generated content competition: tools like ChatGPT and Canva AI may reduce the perceived need for human social media creators"
+  ],
+  "year_one_milestones": [
+    "Launch MVP with Twitter, Instagram, and Facebook integration and onboard 500 businesses and 1,000 freelancers",
+    "Reach $25K monthly recurring revenue through platform subscriptions",
+    "Expand to TikTok and YouTube Shorts with video micro-gig support"
+  ],
+  "startup_cost_range": "$75,000 - $150,000",
+  "category": "Marketplace",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=Q6eQi3i2mT4",
+  "episode_number": 107
+}

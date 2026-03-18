@@ -1,0 +1,34 @@
+{
+  "slug": "sluggers",
+  "company_name": "Sluggers",
+  "tagline": "The social batting experience, reinvented.",
+  "elevator_pitch": "Sluggers is the Topgolf of batting cages: a premium social entertainment venue where groups rent bays, eat great food, and compete in fast-paced mini-games using baseball bats, tennis rackets, hockey sticks, and more. It turns a solo sports drill into the next great group night out.",
+  "problem": "Batting cages are stuck in the past: dingy facilities designed only for serious baseball players. Meanwhile, consumers are hungry for new social entertainment options beyond bowling and Topgolf, but nothing else delivers that same mix of competition, food, drinks, and group fun.",
+  "solution": "Sluggers builds premium, beautifully designed venues where groups rent bays and play rapid-fire mini-games. Each bay is stocked with an array of hitting instruments (bats, rackets, hockey sticks, cricket paddles) and ball types. Games like Swing Roulette randomize your combo, keeping rounds short, inclusive, and endlessly replayable. Add craft food, drinks, and a scoring system, and you have a night out that rivals bowling or Topgolf in accessibility.",
+  "target_market": "Adults aged 21-40 looking for social group entertainment: friend groups, corporate team-building, bachelor/bachelorette parties, date nights, and families on weekends. Secondary market includes college students and youth leagues looking for a fun alternative to traditional batting cages.",
+  "revenue_model": "Bay rentals by the hour (premium pricing similar to Topgolf), food and beverage sales (high-margin craft cocktails and shareable plates), corporate event packages, private party bookings, league nights, merchandise, and membership programs for repeat visitors.",
+  "key_features": [
+    "Multi-sport bays stocked with bats, rackets, hockey sticks, cricket paddles, and more",
+    "Quick-round mini-games like Swing Roulette that randomize equipment and ball combos",
+    "Premium venue design with LED scoring, ambient lighting, and upscale lounge seating",
+    "Full food and craft cocktail menu served directly to your bay"
+  ],
+  "competitive_advantage": "No direct competitor occupies this niche. Traditional batting cages are utilitarian and unappealing to casual consumers. Topgolf proved the 'premium social driving range' model works but still requires golf skill. Sluggers is more accessible because nearly everyone can swing a bat off a tee, and the multi-sport variety keeps every skill level engaged.",
+  "market_size_estimate": "The U.S. social entertainment market (bowling, Topgolf, axe throwing, escape rooms) exceeds $25 billion annually. Topgolf alone generates over $1.5B in revenue. Even capturing a small slice of the 'group night out' market represents a multi-hundred-million dollar opportunity.",
+  "go_to_market": "Launch a single flagship location in a mid-size metro area with strong nightlife culture and a gap in social entertainment options. Build buzz through influencer events, corporate partnership pilots, and bachelor party packages. Validate unit economics before expanding to a second city.",
+  "risks": [
+    "High upfront capital required for venue build-out, similar to Topgolf-scale investment",
+    "Operational complexity of maintaining multiple sports equipment types and game systems",
+    "Consumer adoption risk: proving that 'premium batting' resonates beyond the baseball audience"
+  ],
+  "year_one_milestones": [
+    "Open flagship venue and achieve 70% bay utilization on weekends within 6 months",
+    "Reach $2M in combined bay rental and F&B revenue in the first 12 months",
+    "Secure 50+ corporate event bookings and build a waitlist for a second location"
+  ],
+  "startup_cost_range": "$2M - $5M for a single flagship location (lease, buildout, equipment, staffing, marketing)",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=VbUzk5-5Dco",
+  "episode_number": 118
+}

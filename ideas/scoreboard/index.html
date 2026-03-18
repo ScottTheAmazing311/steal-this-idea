@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoreboard - Turn Your Walls Into a Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E63946;
+    --amber: #F4A236;
+    --cream: #FFF8F0;
+    --dark: #1A1A2E;
+    --dark-surface: #22223B;
+    --green: #2EC4B6;
+    --led-glow: #FF6B6B;
+    --text-light: #F0E6D3;
+    --text-muted: #9A8C7A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Archivo Black', sans-serif; }
+
+  /* Steal This Idea Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--dark-surface);
+    border: 2px solid var(--amber);
+    border-radius: 8px;
+    padding: 8px 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .sti-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(244, 162, 54, 0.3);
+  }
+  .sti-badge svg { width: 20px; height: 20px; }
+  .sti-badge span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--amber);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=80') center/cover;
+    filter: brightness(0.2) saturate(0.5);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(26,26,46,0.6) 0%, var(--dark) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+  }
+  .hero-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--red);
+    margin-bottom: 2rem;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(230, 57, 70, 0.6); }
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 1;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--red), var(--amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .tagline {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+  }
+  .hero .pitch {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cta-primary {
+    background: linear-gradient(135deg, var(--red), var(--amber));
+    color: #fff;
+  }
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
+  }
+  .cta-outline {
+    background: transparent;
+    color: var(--amber);
+    border: 2px solid var(--amber);
+  }
+  .cta-outline:hover {
+    background: var(--amber);
+    color: var(--dark);
+    transform: translateY(-2px);
+  }
+
+  /* LED Score Animation */
+  .led-strip {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 2rem;
+  }
+  .led-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    opacity: 0.3;
+    animation: led-chase 1.5s ease-in-out infinite;
+  }
+  .led-dot:nth-child(2) { animation-delay: 0.1s; }
+  .led-dot:nth-child(3) { animation-delay: 0.2s; }
+  .led-dot:nth-child(4) { animation-delay: 0.3s; }
+  .led-dot:nth-child(5) { animation-delay: 0.4s; }
+  .led-dot:nth-child(6) { animation-delay: 0.5s; }
+  .led-dot:nth-child(7) { animation-delay: 0.6s; }
+  .led-dot:nth-child(8) { animation-delay: 0.7s; }
+  .led-dot:nth-child(9) { animation-delay: 0.8s; }
+  .led-dot:nth-child(10) { animation-delay: 0.9s; }
+  @keyframes led-chase {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 8px var(--red); }
+  }
+
+  /* Section Styling */
+  section {
+    padding: 6rem 2rem;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+  .section-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    max-width: 650px;
+  }
+
+  /* Scroll animation base */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Problem Section */
+  .problem {
+    background: var(--dark);
+    position: relative;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .problem-img {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .problem-img img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.7);
+  }
+  .problem-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--red);
+    border-radius: 12px;
+    opacity: 0.4;
+  }
+  .problem-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .problem-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+  .problem-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(230, 57, 70, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .problem-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Solution Section */
+  .solution {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--dark-surface) 100%);
+    text-align: center;
+    position: relative;
+  }
+  .solution-visual {
+    margin: 3rem auto;
+    max-width: 900px;
+    position: relative;
+  }
+  .solution-img-main {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+  .solution-img-main img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    display: block;
+  }
+  .solution-img-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--dark-surface) 0%, transparent 40%);
+    z-index: 1;
+  }
+  .solution .section-text {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .solution-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.3s;
+  }
+  .stat-card:hover {
+    border-color: var(--amber);
+  }
+  .stat-number {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--red), var(--amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  /* Features Section */
+  .features {
+    background: var(--dark-surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s, border-color 0.4s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--red);
+  }
+  .feature-card-img {
+    height: 200px;
+    overflow: hidden;
+  }
+  .feature-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .feature-card:hover .feature-card-img img {
+    transform: scale(1.05);
+  }
+  .feature-card-body {
+    padding: 1.5rem;
+  }
+  .feature-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--red), var(--amber));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .feature-card-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .feature-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  /* Market Section */
+  .market {
+    background: var(--dark);
+    position: relative;
+  }
+  .market-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .market-img {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .market-img img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+  }
+  .market-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), transparent);
+    border-radius: 16px;
+  }
+  .market-segments {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .market-segment {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--amber);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+  }
+  .market-segment h4 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+  .market-segment p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .market-tam {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.1), rgba(244, 162, 54, 0.1));
+    border-radius: 12px;
+    border: 1px solid rgba(244, 162, 54, 0.2);
+  }
+  .market-tam h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+  }
+  .market-tam p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* Business Plan Section */
+  .business-plan {
+    background: var(--dark-surface);
+  }
+  .bp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .bp-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .bp-card h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--amber);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .bp-card h3 svg { width: 18px; height: 18px; }
+  .bp-card p, .bp-card li {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+  .bp-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .bp-card li {
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .bp-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  .bp-full {
+    grid-column: 1 / -1;
+  }
+  .bp-highlight {
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.08), rgba(244, 162, 54, 0.08));
+    border-color: rgba(230, 57, 70, 0.2);
+  }
+  .milestones-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .milestone {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .milestone-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2rem;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+  .milestone p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .cost-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--red), var(--amber));
+    border-radius: 6px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.1rem;
+    color: #fff;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    padding: 6rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80') center/cover;
+    filter: brightness(0.15) saturate(0.4);
+  }
+  .cta-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), rgba(26, 26, 46, 0.95));
+  }
+  .cta-banner-content {
+    position: relative;
+    z-index: 2;
+  }
+  .cta-banner h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .cta-banner p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Footer */
+  footer {
+    background: #111122;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  footer p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  footer a {
+    color: var(--amber);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  footer a:hover { color: var(--red); }
+  .footer-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--amber));
+    margin: 1.5rem auto;
+    border-radius: 2px;
+  }
+
+  /* Retro scanline texture */
+  .scanlines::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .problem-grid,
+    .features-grid,
+    .market-split,
+    .bp-grid {
+      grid-template-columns: 1fr;
+    }
+    .solution-stats {
+      grid-template-columns: 1fr;
+    }
+    .milestones-list {
+      grid-template-columns: 1fr;
+    }
+    .problem-img img,
+    .market-img img {
+      height: 280px;
+    }
+    section {
+      padding: 4rem 1.25rem;
+    }
+    .sti-badge {
+      top: 12px;
+      left: 12px;
+      padding: 6px 10px;
+    }
+    .sti-badge span { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#F4A236" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="8" x2="12" y2="12"/>
+    <line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>
+  <span>Steal This Idea</span>
+</a>
+
+<!-- HERO -->
+<section class="hero scanlines">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="led-strip">
+      <div class="led-dot"></div><div class="led-dot"></div><div class="led-dot"></div>
+      <div class="led-dot"></div><div class="led-dot"></div><div class="led-dot"></div>
+      <div class="led-dot"></div><div class="led-dot"></div><div class="led-dot"></div>
+      <div class="led-dot"></div>
+    </div>
+    <div class="hero-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+    </div>
+    <h1>Scoreboard</h1>
+    <p class="tagline">Turn your walls into a game.</p>
+    <p class="pitch">A retro-inspired, wall-mounted LED scoreboard that lets families, couples, classrooms, and teams track points, goals, and friendly competitions. Controlled from your phone, it brings the thrill of a pinball machine into your everyday life.</p>
+    <a href="#features" class="cta-btn cta-primary">Pre-Order Now</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">Goals Without Fanfare<br>Fade Into Silence</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-img reveal">
+        <img src="https://images.unsplash.com/photo-1484981138541-3d074aa97716?auto=format&fit=crop&w=800&q=80" alt="Boring office environment with sticky notes" loading="lazy">
+      </div>
+      <ul class="problem-points reveal">
+        <li>
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <span>Sticker charts lose their novelty after a few days. Kids stop caring, and parents stop tracking.</span>
+        </li>
+        <li>
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <span>Phone apps feel lifeless and invisible. Tracking progress on a screen buried in your pocket creates zero excitement.</span>
+        </li>
+        <li>
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <span>There is no physical, tangible way to gamify daily life. Chore tracking, fitness goals, and friendly competitions deserve better.</span>
+        </li>
+        <li>
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <span>Whiteboards and dry-erase trackers are functional but completely devoid of personality or delight.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Solution</p>
+      <h2 class="section-title">A Scoreboard That Feels<br>Like a Pinball Machine</h2>
+      <p class="section-text">Mount it on your wall. Add your players. Award points from your phone. Watch the board light up with retro LED animations and satisfying sound effects that make every single point feel like a celebration.</p>
+    </div>
+    <div class="solution-visual reveal">
+      <div class="solution-img-main">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" alt="Retro arcade aesthetic with LED lights" loading="lazy">
+      </div>
+    </div>
+    <div class="solution-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">30s</div>
+        <div class="stat-label">Setup time from unbox to wall</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1 Tap</div>
+        <div class="stat-label">Award points from your phone</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">More fun than a sticker chart</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Built for Fun.<br>Designed for Life.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=800&q=80" alt="Retro LED display" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Retro LED Display</h3>
+          <p>High-visibility LED numbers with satisfying sound effects and light-up animations every time someone scores. It looks and feels like a real arcade scoreboard.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" alt="Phone app interface" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h3>Companion App</h3>
+          <p>Add players, set point values, create custom games, and award points with a single tap. The whole family can control the board from their own phones.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=800&q=80" alt="Family game night" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3>Game Templates</h3>
+          <p>Pre-loaded templates for chore tracking, fitness challenges, classroom behavior, party games, weight loss goals, and more. Create your own or browse the community library.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" alt="Modern wall decor" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Two Sizes, One Vibe</h3>
+          <p>The Home model is dartboard-sized, perfect for kitchens and playrooms. The Pro model is built for classrooms, offices, and common areas where everyone needs to see the score.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Market Opportunity</p>
+      <h2 class="section-title">Everyone Keeps Score.<br>Now They Can See It.</h2>
+    </div>
+    <div class="market-split">
+      <div class="market-img reveal">
+        <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=800&q=80" alt="Happy family at home" loading="lazy">
+      </div>
+      <div class="reveal">
+        <div class="market-segments">
+          <div class="market-segment">
+            <h4>Families with Kids</h4>
+            <p>Parents who want to gamify chores, healthy eating, screen time limits, and good behavior. Sticker charts are tired. Scoreboard makes it exciting.</p>
+          </div>
+          <div class="market-segment">
+            <h4>Couples</h4>
+            <p>Playful accountability for fitness goals, savings targets, household tasks, or who wins the most board games. Friendly competition keeps things fun.</p>
+          </div>
+          <div class="market-segment">
+            <h4>Classrooms</h4>
+            <p>Teachers who run classroom reward systems, team competitions, and behavior tracking. A physical, visible scoreboard transforms engagement.</p>
+          </div>
+          <div class="market-segment">
+            <h4>Teams and Offices</h4>
+            <p>Sales floors, small teams, and startups that want a tangible way to celebrate wins and track performance beyond spreadsheets.</p>
+          </div>
+        </div>
+        <div class="market-tam">
+          <h4>Market Size</h4>
+          <p>The U.S. smart home and decorative display market exceeds $40B. Letterboards, Vestaboards, and decorative displays make up a $500M+ niche. Targeting just 1% of U.S. households with children represents a $33M+ opportunity before education and office segments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom: 1rem;">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-title">The Playbook</h2>
+    </div>
+    <div class="bp-grid">
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Revenue Model
+        </h3>
+        <p>Direct-to-consumer hardware sales: $99 for the Home model, $249 for the Pro model. Companion app with a freemium tier and a premium subscription at $4.99/month that unlocks advanced game templates, leaderboard history, and multi-board syncing.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          Go-to-Market Strategy
+        </h3>
+        <p>Launch on Kickstarter to validate demand and build a community of early adopters. Then sell direct-to-consumer through Instagram and TikTok ads showcasing families and classrooms in action. Partner with parenting influencers and teacher communities to drive organic awareness.</p>
+      </div>
+      <div class="bp-card reveal bp-highlight">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Competitive Advantage
+        </h3>
+        <p>Unlike apps or sticker charts, Scoreboard is a physical, always-visible presence in the room that creates real emotional engagement. The retro aesthetic and tactile feedback tap into the same appeal as Vestaboard and letterboards, but at a fraction of the price, with interactive functionality no one else offers.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Key Risks
+        </h3>
+        <ul>
+          <li>Hardware manufacturing complexity and upfront tooling costs could delay launch and strain early capital</li>
+          <li>Consumer electronics returns and warranty claims can erode margins if quality is not tightly controlled</li>
+          <li>Larger competitors like Amazon or established smart home brands could replicate the concept once proven</li>
+        </ul>
+      </div>
+      <div class="bp-card bp-full reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Year One Milestones
+        </h3>
+        <div class="milestones-list">
+          <div class="milestone">
+            <div class="milestone-num">01</div>
+            <p>Successfully fund and fulfill a Kickstarter campaign with 2,000+ units sold</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-num">02</div>
+            <p>Launch the companion app on iOS and Android with 10+ pre-loaded game templates</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-num">03</div>
+            <p>Secure partnerships with 5 parenting or education influencers for sponsored content</p>
+          </div>
+        </div>
+      </div>
+      <div class="bp-card bp-full reveal" style="text-align:center;">
+        <h3 style="justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Startup Cost Estimate
+        </h3>
+        <p style="margin-bottom: 1rem;">From prototype to first production run, including app development, tooling, and initial marketing.</p>
+        <div class="cost-badge">$50,000 - $150,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-banner-bg"></div>
+  <div class="cta-banner-overlay"></div>
+  <div class="cta-banner-content reveal">
+    <div class="led-strip">
+      <div class="led-dot"></div><div class="led-dot"></div><div class="led-dot"></div>
+      <div class="led-dot"></div><div class="led-dot"></div><div class="led-dot"></div>
+      <div class="led-dot"></div><div class="led-dot"></div><div class="led-dot"></div>
+      <div class="led-dot"></div>
+    </div>
+    <h2>Ready to Keep Score?</h2>
+    <p>Be the first to know when Scoreboard launches. Join the waitlist and get early-bird pricing.</p>
+    <div class="cta-btns">
+      <a href="#" class="cta-btn cta-primary">Join the Waitlist</a>
+      <a href="#features" class="cta-btn cta-outline">See Features</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p><strong>Scoreboard</strong> is a concept from the <a href="https://www.youtube.com/watch?v=QUcw_BdC3TM" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+    <div class="footer-divider"></div>
+    <p>This landing page is a conceptual exercise. The product does not exist yet.<br>If you want to build it, that is the whole point. <a href="../index.html">Browse more ideas</a>.</p>
+  </div>
+</footer>
+
+<!-- IntersectionObserver scroll animations -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+});
+</script>
+
+</body>
+</html>

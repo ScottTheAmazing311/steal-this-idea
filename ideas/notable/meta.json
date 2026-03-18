@@ -1,0 +1,34 @@
+{
+  "slug": "notable",
+  "company_name": "Notable",
+  "tagline": "Your news, curated by real humans.",
+  "elevator_pitch": "Notable pairs you with a real human curator who learns your interests and delivers a personalized digest of only the stories that matter to you. Think Stitch Fix, but for news and information.",
+  "problem": "We are drowning in 24-hour news cycles, endless social media feeds, and algorithmically driven content that keeps us scrolling without purpose. Most people check multiple platforms daily and still miss the stories they actually care about, while wasting hours on content that leaves them frustrated or anxious.",
+  "solution": "Notable assigns you a dedicated human curator who gets to know your interests, habits, and preferences. They sift through the noise and deliver a concise, personalized digest on your preferred schedule, whether that is nightly, every few days, or weekly. You can rate stories and give feedback so your digest gets better over time.",
+  "target_market": "Busy professionals aged 25-45 who feel overwhelmed by information overload and want to stay informed without spending hours on social media and news apps. Secondary market includes executives, parents, and anyone experiencing digital fatigue.",
+  "revenue_model": "Subscription-based SaaS: $9.99/month for a weekly digest, $14.99/month for a twice-weekly digest, $24.99/month for a nightly digest. Curators earn a base rate per subscriber managed, with bonuses tied to satisfaction scores. Premium tier at $49.99/month includes topic-specific deep dives and trending alerts.",
+  "key_features": [
+    "Matched with a real human curator based on your interest profile and personality",
+    "Customizable delivery schedule: nightly, every few days, or weekly digests via email or text",
+    "Interactive feedback system to rate stories and refine your preferences over time",
+    "Curator profiles with bios, headshots, and interest areas so you can find the right fit"
+  ],
+  "competitive_advantage": "Unlike algorithmic aggregators (Google News, Apple News) or broad newsletters (The Hustle, Morning Brew), Notable provides genuinely personalized curation by a real person who understands nuance, context, and what makes a story worth your time. The human element creates trust and a relationship that algorithms cannot replicate.",
+  "market_size_estimate": "The digital news and newsletter market is valued at over $25 billion globally. With 200+ million newsletter subscribers in the US alone and growing demand for curated content, even capturing 0.1% of the market represents a $25M+ opportunity. The premium personalization angle supports higher ARPU than typical newsletter products.",
+  "go_to_market": "Launch with 10 curators, each managing 100-200 subscribers, in a single metro market (Salt Lake City). Partner with coworking spaces and tech meetups for initial user acquisition. Offer a free two-week trial with a curated sample digest to demonstrate value before converting to paid subscriptions.",
+  "risks": [
+    "Scaling human curation is expensive and difficult; curator quality may vary as the team grows",
+    "AI-powered news aggregation tools may close the quality gap with human curation over time",
+    "User retention depends heavily on curator-subscriber relationship, creating churn risk if curators leave"
+  ],
+  "year_one_milestones": [
+    "Reach 2,000 paying subscribers with a net promoter score above 70",
+    "Build and train a team of 20 curators covering diverse interest categories",
+    "Launch mobile app with push notifications and in-app feedback tools"
+  ],
+  "startup_cost_range": "$75,000 - $150,000",
+  "category": "SaaS",
+  "vibe": "minimal",
+  "episode_url": "https://www.youtube.com/watch?v=XFkczPbe9bw",
+  "episode_number": 102
+}

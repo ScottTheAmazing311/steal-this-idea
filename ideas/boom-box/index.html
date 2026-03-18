@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boom Box - Your Night Out, In a Box</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #FF6B6B;
+            --sunshine: #FFD93D;
+            --mint: #6BCB77;
+            --sky: #4D96FF;
+            --purple: #9B59B6;
+            --peach: #FFEAA7;
+            --cream: #FFF9F0;
+            --dark: #2D3436;
+            --warm-white: #FFFFFE;
+            --shadow: rgba(45, 52, 54, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* STI Badge */
+        .sti-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--dark);
+            color: var(--sunshine);
+            padding: 10px 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .sti-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(45, 52, 54, 0.2);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1630609682318-70047533e3c9?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            filter: brightness(0.35);
+        }
+
+        .hero-shapes {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .hero-shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--coral);
+            top: -100px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--sunshine);
+            bottom: -80px;
+            left: -80px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .hero-shape-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--mint);
+            top: 30%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--sunshine);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-5deg);
+            box-shadow: 0 8px 30px rgba(255, 217, 61, 0.4);
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-3deg); }
+        }
+
+        .hero-icon svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--warm-white);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--sunshine);
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--peach);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-pitch {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--coral);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.4);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--warm-white);
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--sunshine);
+            color: var(--sunshine);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--sunshine);
+            color: var(--dark);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #636e72;
+            max-width: 650px;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: var(--warm-white);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .problem-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px var(--shadow);
+            position: relative;
+        }
+
+        .problem-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .problem-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            border: 3px solid var(--coral);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .problem-image:hover::after {
+            opacity: 1;
+        }
+
+        .problem-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #636e72;
+            margin-top: 0.25rem;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, var(--dark) 0%, #3d3d3d 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution .section-text {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .solution-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .solution-steps {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .solution-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: var(--sunshine);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .step-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .step-text strong {
+            color: var(--sunshine);
+        }
+
+        /* Full Width Image Break */
+        .image-break {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-break img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-break-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.7), rgba(77, 150, 255, 0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-break-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: white;
+            text-align: center;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 0 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--cream);
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-header .section-text {
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--warm-white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px var(--shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(45, 52, 54, 0.15);
+        }
+
+        .feature-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .feature-card-image img {
+            transform: scale(1.05);
+        }
+
+        .feature-card-body {
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .feature-icon-1 { background: rgba(255, 107, 107, 0.15); }
+        .feature-icon-1 svg { color: var(--coral); }
+        .feature-icon-2 { background: rgba(255, 217, 61, 0.2); }
+        .feature-icon-2 svg { color: #e6a800; }
+        .feature-icon-3 { background: rgba(107, 203, 119, 0.15); }
+        .feature-icon-3 svg { color: var(--mint); }
+        .feature-icon-4 { background: rgba(77, 150, 255, 0.15); }
+        .feature-icon-4 svg { color: var(--sky); }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #636e72;
+        }
+
+        /* Market Section */
+        .market {
+            background: var(--warm-white);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .market-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .market-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .market-highlight {
+            background: linear-gradient(135deg, var(--coral), #ff8787);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+
+        .market-highlight h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .market-highlight p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .market-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .market-tag {
+            background: var(--cream);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Business Plan Section */
+        .business-plan {
+            background: linear-gradient(180deg, var(--cream) 0%, #f0e6d6 100%);
+            padding: 6rem 2rem;
+        }
+
+        .bp-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .bp-header .section-text {
+            margin: 0 auto;
+        }
+
+        .bp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .bp-card {
+            background: var(--warm-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .bp-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .bp-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .bp-card-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .bp-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .bp-card p, .bp-card li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #636e72;
+        }
+
+        .bp-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bp-card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .bp-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .bp-revenue li::before { background: var(--mint); }
+        .bp-gtm li::before { background: var(--sky); }
+        .bp-milestones li::before { background: var(--sunshine); }
+        .bp-risks li::before { background: var(--coral); }
+
+        .bp-full {
+            grid-column: 1 / -1;
+        }
+
+        .bp-cost-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--mint), #4ecdc4);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .bp-advantage-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #636e72;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--sunshine);
+        }
+
+        .footer-concept {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-link {
+            color: var(--coral);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--sunshine);
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--coral);
+            margin: 2rem auto;
+            border-radius: 2px;
+        }
+
+        .footer-bottom {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .problem-grid,
+            .solution-grid,
+            .market-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .problem-image img,
+            .solution-image img,
+            .market-image img {
+                height: 280px;
+            }
+
+            .image-break {
+                height: 280px;
+            }
+
+            .sti-badge {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+
+            .problem-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STI Badge -->
+    <a href="../index.html" class="sti-badge">Steal This Idea</a>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-shapes">
+            <div class="hero-shape hero-shape-1"></div>
+            <div class="hero-shape hero-shape-2"></div>
+            <div class="hero-shape hero-shape-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2D3436" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+            </div>
+            <h1>Boom <span>Box</span></h1>
+            <p class="hero-tagline">Your night out, in a box.</p>
+            <p class="hero-pitch">A drive-through mystery box packed with curated games, activities, playlists, swag, and local deals that turn any boring night into an instant party.</p>
+            <div class="hero-buttons">
+                <a href="#features" class="btn-primary">See What's Inside</a>
+                <a href="#business-plan" class="btn-secondary">View the Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-grid">
+                <div class="reveal-left">
+                    <span class="section-label">The Problem</span>
+                    <h2 class="section-title">Friday night and nothing to do.</h2>
+                    <p class="section-text">People are constantly searching for something fun. Going out is expensive, planning activities is exhausting, and most nights end with everyone staring at their phones. We are a civilization begging to be entertained, and it does not take much to get us there.</p>
+                    <div class="problem-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">$100+</div>
+                            <div class="stat-label">Average cost of a night out per person</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">73%</div>
+                            <div class="stat-label">Of adults say they are "bored" on weekends</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="problem-image reveal-right">
+                    <img src="https://images.unsplash.com/photo-1511145822182-677fa5800671?auto=format&fit=crop&w=1200&q=80" alt="Group of friends looking for something to do" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-image reveal-left">
+                    <img src="https://images.unsplash.com/photo-1697717657359-46433ee8497c?auto=format&fit=crop&w=1200&q=80" alt="Colorful surprise box" loading="lazy">
+                </div>
+                <div class="reveal-right">
+                    <span class="section-label">The Solution</span>
+                    <h2 class="section-title">Grab a box. Crack it open. Let the fun begin.</h2>
+                    <p class="section-text">Boom Box is a grab-and-go mystery box you pick up at a local drive-through. Each box is packed with everything you need for an unforgettable night: no planning required.</p>
+                    <div class="solution-steps">
+                        <div class="solution-step">
+                            <div class="step-num">1</div>
+                            <div class="step-text"><strong>Drive through</strong> and grab your Boom Box. Choose your crew type: couples, friends, family, or solo.</div>
+                        </div>
+                        <div class="solution-step">
+                            <div class="step-num">2</div>
+                            <div class="step-text"><strong>Crack it open</strong> to find a curated playlist, party games, swag, local coupons, and a collectible surprise.</div>
+                        </div>
+                        <div class="solution-step">
+                            <div class="step-num">3</div>
+                            <div class="step-text"><strong>Play all night.</strong> Follow the game cards, compete for prizes, and scan for sweepstakes rewards.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Width Image Break -->
+    <div class="image-break reveal-scale">
+        <img src="https://images.unsplash.com/photo-1526653054275-5a4f37ea1c64?auto=format&fit=crop&w=1200&q=80" alt="Celebration and confetti" loading="lazy">
+        <div class="image-break-overlay">
+            <div class="image-break-text">New box every week. New fun every time.</div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="features-header reveal">
+                <span class="section-label">What's Inside</span>
+                <h2 class="section-title">Every box is packed with surprises</h2>
+                <p class="section-text">Curated by a creative team obsessed with fun, each Boom Box delivers a complete night of entertainment for the price of a couple coffees.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal-left">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1630609682318-70047533e3c9?auto=format&fit=crop&w=800&q=80" alt="Friends playing games together" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-icon feature-icon-1">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3>Rotating Mystery Contents</h3>
+                        <p>New games, playlists, activities, and swag every single week. Curated by our creative team and refreshed constantly so no two boxes are ever the same.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal-right">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1769577608140-9f91760aef04?auto=format&fit=crop&w=800&q=80" alt="Board games and cards on a table" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-icon feature-icon-2">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3>Box Types for Every Crew</h3>
+                        <p>Couples, families with kids, friend groups, or solo adventurers. Pick the box that matches your vibe and get activities designed for your exact situation.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal-left">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1643061754933-82a75ce41f1e?auto=format&fit=crop&w=800&q=80" alt="Friends enjoying time together" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-icon feature-icon-3">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3>Local Vendor Partnerships</h3>
+                        <p>Exclusive coupons and sponsored items from businesses in your area. Free drinks, buy-one-get-one deals, and local discoveries you would never find on your own.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal-right">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1526653054275-5a4f37ea1c64?auto=format&fit=crop&w=800&q=80" alt="Colorful celebration" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-icon feature-icon-4">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <h3>Collectibles and Prizes</h3>
+                        <p>Every box has a sweepstakes element. Win cash prizes, collect pieces of multi-part puzzles, and redeem rewards at local spots. One in fifty wins the big prize.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Section -->
+    <section class="market">
+        <div class="container">
+            <div class="market-grid">
+                <div class="reveal-left">
+                    <span class="section-label">The Market</span>
+                    <h2 class="section-title">A massive appetite for affordable fun</h2>
+                    <p class="section-text">Young adults, families, and friend groups looking for spontaneous entertainment. Especially strong in suburban areas where nightlife options are limited and everyone is tired of the same routines.</p>
+                    <div class="market-tags">
+                        <span class="market-tag">Young Adults 18-35</span>
+                        <span class="market-tag">Families with Kids</span>
+                        <span class="market-tag">Friend Groups</span>
+                        <span class="market-tag">Date Night Couples</span>
+                        <span class="market-tag">Suburban Communities</span>
+                    </div>
+                    <div class="market-highlight">
+                        <h4>$2-4B Addressable Market</h4>
+                        <p>The U.S. subscription box market exceeds $30B. The board game and activity market tops $13B. Boom Box sits at the intersection of impulse entertainment, local deals, and mystery box culture.</p>
+                    </div>
+                </div>
+                <div class="market-image reveal-right">
+                    <img src="https://images.unsplash.com/photo-1643061754933-82a75ce41f1e?auto=format&fit=crop&w=1200&q=80" alt="Group of friends having fun together" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Second Image Break -->
+    <div class="image-break reveal-scale">
+        <img src="https://images.unsplash.com/photo-1630609674924-1b381d09d313?auto=format&fit=crop&w=1200&q=80" alt="Game night with friends" loading="lazy">
+        <div class="image-break-overlay" style="background: linear-gradient(135deg, rgba(155, 89, 182, 0.7), rgba(255, 217, 61, 0.7));">
+            <div class="image-break-text">Cheaper than a night out. Better than staying in.</div>
+        </div>
+    </div>
+
+    <!-- Business Plan Section -->
+    <section id="business-plan" class="business-plan">
+        <div class="container">
+            <div class="bp-header reveal">
+                <span class="section-label">Business Plan</span>
+                <h2 class="section-title">Built to scale, designed to delight</h2>
+                <p class="section-text">A lean operation where creativity is the core product. Low cost of goods, high-margin content, and a local-first growth strategy.</p>
+            </div>
+            <div class="bp-grid">
+                <div class="bp-card bp-revenue reveal-left">
+                    <div class="bp-card-icon" style="background: rgba(107, 203, 119, 0.15);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3>Revenue Model</h3>
+                    <ul>
+                        <li>Direct box sales at $15-30 per unit through drive-through locations</li>
+                        <li>Local business sponsorships and advertising placed inside boxes</li>
+                        <li>Vendor partnership fees for coupon and product placement</li>
+                        <li>Limited-edition and premium themed boxes at higher price points</li>
+                    </ul>
+                </div>
+
+                <div class="bp-card bp-gtm reveal-right">
+                    <div class="bp-card-icon" style="background: rgba(77, 150, 255, 0.15);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                        </svg>
+                    </div>
+                    <h3>Go-to-Market Strategy</h3>
+                    <ul>
+                        <li>Start with 100 hand-assembled boxes sold at farmers markets and pop-ups</li>
+                        <li>Give 25 free boxes to distinct friend groups for organic feedback and buzz</li>
+                        <li>Open first drive-through in a college town or suburban hub</li>
+                        <li>Build local vendor partnerships to subsidize box contents and boost margins</li>
+                    </ul>
+                </div>
+
+                <div class="bp-card bp-full reveal">
+                    <div class="bp-card-icon" style="background: rgba(155, 89, 182, 0.15);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Competitive Advantage</h3>
+                    <p class="bp-advantage-text">Unlike subscription boxes that arrive monthly whether you want them or not, Boom Box is impulse-driven and local. The drive-through model means zero shipping costs, instant gratification, and the ability to pack in local deals and partnerships that national competitors cannot replicate. 60% of box contents are creative material produced in-house at near-zero marginal cost, keeping margins healthy at scale.</p>
+                </div>
+
+                <div class="bp-card bp-milestones reveal-left">
+                    <div class="bp-card-icon" style="background: rgba(255, 217, 61, 0.2);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#e6a800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <h3>Year One Milestones</h3>
+                    <ul>
+                        <li>Validate concept by selling 500 boxes through pop-up locations and farmers markets in the first 3 months</li>
+                        <li>Open first permanent drive-through location and secure 20 local vendor partnerships by month 6</li>
+                        <li>Reach 1,000 boxes sold per week with positive unit economics and begin scouting a second location by month 12</li>
+                    </ul>
+                </div>
+
+                <div class="bp-card bp-risks reveal-right">
+                    <div class="bp-card-icon" style="background: rgba(255, 107, 107, 0.15);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>Key Risks</h3>
+                    <ul>
+                        <li>Boxes could feel cheap or gimmicky if design and content quality are not consistently high</li>
+                        <li>Drive-through retail locations have significant lease and build-out costs that increase burn rate</li>
+                        <li>Customer retention depends on creative teams continuously generating fresh, exciting content every week</li>
+                    </ul>
+                </div>
+
+                <div class="bp-card reveal" style="text-align: center;">
+                    <div class="bp-card-icon" style="background: rgba(107, 203, 119, 0.15); margin: 0 auto 1.25rem;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Startup Cost Estimate</h3>
+                    <p style="color: #636e72; margin-bottom: 0.5rem;">Pop-up validation phase</p>
+                    <div class="bp-cost-badge">$15,000 - $50,000</div>
+                    <p style="color: #636e72; margin-top: 1.25rem; margin-bottom: 0.5rem;">First drive-through location</p>
+                    <div class="bp-cost-badge" style="background: linear-gradient(135deg, var(--sky), #357abd);">$75,000 - $150,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Boom Box</div>
+        <p class="footer-concept">This is a concept from the <a href="https://www.youtube.com/watch?v=jADwdabemZ4" class="footer-link" target="_blank" rel="noopener">Steal This Idea podcast</a></p>
+        <div class="footer-divider"></div>
+        <p class="footer-bottom">Not a real company. Just a really good idea waiting to happen.</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

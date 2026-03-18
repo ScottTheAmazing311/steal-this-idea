@@ -1,0 +1,34 @@
+{
+  "slug": "comfy-house",
+  "company_name": "Comfy House",
+  "tagline": "Comfort rentals wherever the wait is long",
+  "elevator_pitch": "Comfy House places comfort and entertainment rental kiosks inside hospitals, airports, hotels, and other high-wait locations. Instead of suffering through stiff pillows, bad TV, and boredom, visitors rent curated kits of blankets, tablets, gaming consoles, and more for the duration of their stay.",
+  "problem": "Hospitals, airports, and budget hotels are notoriously uncomfortable places to spend extended time. Visitors are stuck with thin blankets, flat pillows, basic cable, and no entertainment options. People bring random items from home, but they rarely have everything they need.",
+  "solution": "Comfy House installs branded rental kiosks in high-wait venues. Guests scan, pick a comfort or entertainment package, and enjoy premium blankets, memory foam pillows, loaded tablets, gaming consoles, Kindles, and more. Everything is returned at discharge or departure, then sanitized and restocked.",
+  "target_market": "Hospital patients and visitors, airport travelers with layovers, budget hotel guests, and anyone stuck waiting in clinical or institutional settings for extended periods.",
+  "revenue_model": "Per-stay rental fees for tiered comfort kits. A basic comfort pack (blanket, pillow, slippers) runs around $20, while a premium entertainment bundle (tablet with movies, gaming console, headphones plus comfort items) runs $40 to $50. Revenue sharing agreements with venue partners provide placement access.",
+  "key_features": [
+    "Curated comfort kits with premium blankets, pillows, and slippers",
+    "Entertainment bundles with pre-loaded tablets, gaming consoles, and Kindles",
+    "Hospital-grade sanitization between every rental cycle",
+    "Self-service kiosk with scan-and-go checkout at any venue"
+  ],
+  "competitive_advantage": "No one currently serves the comfort rental niche in institutional waiting environments. Hospital gift shops sell overpriced trinkets instead of useful comfort items. Comfy House replaces that dead retail space with a high-margin rental model that actually solves a universal pain point.",
+  "market_size_estimate": "Over 6,000 hospitals in the US alone handle 36 million+ overnight stays per year. Add airports (900 million annual US passengers), budget hotels, and outpatient clinics, and the addressable market for comfort rentals easily exceeds $2 billion annually.",
+  "go_to_market": "Launch with a pilot program in 3 to 5 hospitals in one metro area, starting with maternity wards where stays are predictable and visitors are highly motivated to be comfortable. Use success metrics and patient satisfaction data to pitch hospital networks for broader rollout.",
+  "risks": [
+    "Hospitals may resist due to infection control policies and liability concerns around third-party items",
+    "Theft and damage rates on electronics could erode margins if deposit systems are not well designed",
+    "Venue partnerships require long sales cycles with institutional decision makers"
+  ],
+  "year_one_milestones": [
+    "Secure pilot agreements with 5 hospitals and deploy kiosks in maternity and long-stay wards",
+    "Reach 1,000 rentals per month with a 90%+ return rate and positive patient feedback",
+    "Expand to 2 airport locations and begin franchise model development"
+  ],
+  "startup_cost_range": "$150,000 to $300,000",
+  "category": "Services",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=NT7MjvVeuE8",
+  "episode_number": 126
+}

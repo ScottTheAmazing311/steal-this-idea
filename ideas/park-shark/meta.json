@@ -1,0 +1,34 @@
+{
+  "slug": "park-shark",
+  "company_name": "Park Shark",
+  "tagline": "Your spot is waiting. Reserve it.",
+  "elevator_pitch": "Park Shark is the Airbnb of parking. Homeowners, businesses, and lot operators list their available spaces on demand, and drivers reserve and pay through the app before they even leave the house. No more circling the block, no more cash-only lots, no more mile-long walks to the stadium.",
+  "problem": "Parking near stadiums, event venues, and busy areas is a frustrating, disorganized experience. Drivers circle endlessly, overpay sketchy cash-only lots, or park a mile away and walk. Meanwhile, homeowners and businesses sitting on prime unused spaces have no easy way to monetize them.",
+  "solution": "Park Shark creates a two-sided marketplace connecting drivers with available parking spaces. Homeowners list their driveways, businesses open their after-hours lots, and apartment dwellers rent out spots while they are away. Drivers search, reserve, and pay in advance through the app, with clear directions, pricing, and reviews.",
+  "target_market": "Urban drivers attending sporting events, concerts, and festivals; commuters in parking-scarce downtowns; homeowners and businesses near high-traffic venues looking for passive income.",
+  "revenue_model": "Park Shark takes a 15-20% service fee on every transaction. Additional revenue comes from premium listings for lot operators, surge pricing during peak events, and value-added services like car washes or EV charging upsells.",
+  "key_features": [
+    "Real-time map of available spots near your destination with instant booking",
+    "Dynamic surge pricing that rewards hosts during high-demand events",
+    "Host dashboard for managing availability, earnings, and guest reviews",
+    "Value-add marketplace for car washes, EV charging, and covered parking upgrades"
+  ],
+  "competitive_advantage": "Park Shark targets the overlooked supply of residential driveways, business lots, and apartment guest spots that traditional parking companies ignore. By combining peer-to-peer listings with commercial lot digitization, it builds the largest, most flexible parking inventory in any city.",
+  "market_size_estimate": "The U.S. parking industry generates over $130 billion annually. Even capturing 1% of event and urban parking through the platform represents a $1.3 billion opportunity, with international expansion potential beyond that.",
+  "go_to_market": "Launch city by city, starting with neighborhoods adjacent to major stadiums and arenas. Partner with fan communities and tailgate groups for grassroots adoption. Simultaneously onboard nearby businesses and homeowners with a simple sign-up and guaranteed minimum payouts for the first season.",
+  "risks": [
+    "Liability and insurance concerns if vehicles are damaged on private property",
+    "Local zoning regulations or HOA rules that restrict commercial use of residential driveways",
+    "Incumbent parking companies lobbying against peer-to-peer competition"
+  ],
+  "year_one_milestones": [
+    "Launch in 3 cities with 500+ active host spots per city",
+    "Process 50,000 reservations in the first 12 months",
+    "Achieve a 4.5+ average host and driver satisfaction rating"
+  ],
+  "startup_cost_range": "$150,000 - $400,000",
+  "category": "Marketplace",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=qQDZYZQFik8",
+  "episode_number": 108
+}

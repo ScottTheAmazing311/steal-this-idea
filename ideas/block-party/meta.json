@@ -1,0 +1,34 @@
+{
+  "slug": "block-party",
+  "company_name": "Block Party",
+  "tagline": "Build. Play. Swap. Repeat.",
+  "elevator_pitch": "Block Party is a toy subscription and community swap platform for families. Get monthly Lego kits, puzzles, and single-play games delivered to your door, play them, then send them back for something new. Think Netflix for building toys.",
+  "problem": "Kids cycle through toys quickly, leaving parents with expensive clutter collecting dust. Lego sets, puzzles, and single-play games are fun to build once but rarely get revisited. Families end up spending hundreds of dollars a year on toys that have a short shelf life.",
+  "solution": "Block Party lets families subscribe to a rotating library of Lego kits, puzzles, and single-play games. Each month, a new kit arrives and the old one goes back. For local communities, the app also powers neighborhood toy swaps, coordinating who buys what so families get maximum variety for minimum spend.",
+  "target_market": "Parents of children ages 3 to 12 who buy construction toys, puzzles, and tabletop games regularly. Secondary market includes hobbyist adults who enjoy Lego builds but do not want permanent collections.",
+  "revenue_model": "Monthly subscription fees ($15 to $30/month) for the rental service with tiered plans based on kit complexity. The community swap app is free, monetized through Amazon affiliate links on toy purchases. Optional buy-to-keep pricing on kits families want to hold onto.",
+  "key_features": [
+    "Monthly delivery of curated Lego kits, puzzles, and single-play games with prepaid return shipping",
+    "Community Swap mode lets neighborhoods coordinate toy exchanges and avoid duplicate purchases",
+    "Every item is cleaned, sanitized, and inspected with a piece-count guarantee before shipping",
+    "Buy-to-keep option on any kit you fall in love with, at a discounted member price"
+  ],
+  "competitive_advantage": "Unlike past toy rental services (Toy Guru), Block Party focuses exclusively on box-shaped, standardized items like Legos and puzzles, making warehousing and shipping predictable and affordable. The community swap layer creates network effects and local engagement that pure rental cannot match.",
+  "market_size_estimate": "The global toy market is over $100B annually, with construction toys (Lego alone does $9B+ revenue) and puzzles being top categories. The U.S. toy subscription box market is estimated at $500M and growing. Even capturing 1% of U.S. Lego-buying households represents a $50M+ opportunity.",
+  "go_to_market": "Launch with a curated catalog of 200 popular Lego sets and 100 puzzles. Target parent communities on Instagram and Facebook with ads showing the unboxing-to-return cycle. Seed the community swap feature in 10 family-dense neighborhoods to prove the local model before scaling.",
+  "risks": [
+    "Lost or damaged pieces leading to high replacement costs and inventory shrinkage",
+    "Lego Group licensing or distribution restrictions on rental/resale of their products",
+    "Low retention if families feel the monthly fee does not justify the value versus buying outright"
+  ],
+  "year_one_milestones": [
+    "Reach 2,000 active subscribers and 50 community swap groups across 10 metro areas",
+    "Achieve a kit return rate above 90% with fewer than 5% of kits needing piece replacements",
+    "Launch partnerships with two major toy brands for exclusive or early-access kits"
+  ],
+  "startup_cost_range": "$80,000 to $200,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=iZAQEBvYkf8",
+  "episode_number": 136
+}

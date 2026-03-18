@@ -1,0 +1,34 @@
+{
+  "slug": "milkmaid",
+  "company_name": "MilkMaid",
+  "tagline": "Breast milk, matched to your baby.",
+  "elevator_pitch": "MilkMaid is a two-sided marketplace connecting mothers who need breast milk with vetted suppliers who produce it. Whether a mother cannot produce enough, has dietary restrictions, or simply needs a reliable source, MilkMaid makes safe, screened breast milk accessible and convenient.",
+  "problem": "Many mothers struggle to provide breast milk for their babies due to low supply, dietary conflicts, or lifestyle constraints. Existing milk banks are expensive, scarce, and heavily rationed. Mothers resort to unverified Facebook groups and word-of-mouth to find donors, which raises serious safety and trust concerns.",
+  "solution": "MilkMaid creates a vetted, trust-centered marketplace where certified milk suppliers are background-checked, health-screened, and diet-verified. Buyers browse supplier profiles filtered by dietary preferences, location, and availability. The platform handles secure payments, cold-chain shipping logistics, and ongoing supplier certification.",
+  "target_market": "New mothers and families in the U.S. who need breast milk but face supply, dietary, or lifestyle barriers. Secondary markets include NICU families, adoptive parents, and surrogacy arrangements.",
+  "revenue_model": "Annual membership fee ($99/year for buyers, free for sellers) plus a 15% transaction fee on each sale. Premium tier offers priority matching, expedited shipping, and detailed supplier health reports for $29/month.",
+  "key_features": [
+    "Rigorous supplier vetting with health screenings, background checks, and diet verification",
+    "Smart matching engine that pairs buyers with suppliers based on dietary needs and location",
+    "Cold-chain logistics with insulated packaging and tracked overnight shipping",
+    "Transparent supplier profiles with dietary details, certifications, and buyer reviews"
+  ],
+  "competitive_advantage": "MilkMaid is the only platform that combines clinical-grade supplier vetting with the convenience of a modern marketplace. Milk banks serve hospitals first and are chronically undersupplied. Facebook groups offer no safety guarantees. MilkMaid fills the gap with trust, transparency, and technology.",
+  "market_size_estimate": "Approximately 3.6 million babies are born in the U.S. each year. Studies show up to 15% of mothers experience significant breastfeeding difficulties. At an average spend of $500-$2,000 per family, the addressable market is roughly $270M-$1B annually.",
+  "go_to_market": "Launch in 3-5 metro areas with high birth rates and strong parenting communities (Austin, Denver, Portland). Partner with lactation consultants, doulas, and NICU social workers for referrals. Build trust through clinical advisory board and transparent safety standards.",
+  "risks": [
+    "Regulatory hurdles: breast milk sales occupy a legal gray area in many states, requiring careful navigation of FDA and state health department guidelines",
+    "Trust and safety liability: any contamination incident could be catastrophic for brand reputation and could trigger lawsuits",
+    "Marketplace leakage: buyers and sellers may connect on-platform and then transact off-platform to avoid fees"
+  ],
+  "year_one_milestones": [
+    "Onboard 500 vetted suppliers and 1,500 active buyers across 5 launch markets",
+    "Establish clinical advisory board and obtain any required state-level certifications",
+    "Reach $50K monthly gross merchandise volume with a 4.5+ star average supplier rating"
+  ],
+  "startup_cost_range": "$150K - $350K to MVP (platform development, legal/regulatory counsel, initial supplier screening infrastructure, cold-chain shipping partnerships)",
+  "category": "Marketplace",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=p-1cnQ1Qcuw",
+  "episode_number": 24
+}

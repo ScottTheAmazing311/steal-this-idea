@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The V.I.B. | Very Important Bathroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --deep: #0d0d1a;
+  --navy: #1a1a2e;
+  --navy-light: #22223a;
+  --gold: #c9a84c;
+  --gold-light: #e2c97e;
+  --gold-pale: #f5e6b8;
+  --champagne: #f0e4c9;
+  --cream: #f5f0e8;
+  --cream-dim: #c4bfb4;
+  --white: #ffffff;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Utility */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+.reveal-delay-4 { transition-delay: 0.48s; }
+
+/* Steal-This-Idea badge */
+.sti-badge {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1000;
+  background: var(--navy-light);
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  transition: background 0.3s, color 0.3s;
+  backdrop-filter: blur(8px);
+}
+.sti-badge:hover {
+  background: var(--gold);
+  color: var(--deep);
+}
+
+/* Inline SVG icons */
+.icon-svg {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+}
+.icon-svg svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Section spacing */
+section {
+  padding: 100px 0;
+}
+
+.section-label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.2;
+  color: var(--cream);
+  margin-bottom: 28px;
+}
+
+.section-heading em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.gold-rule {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  border: none;
+  margin-bottom: 32px;
+}
+
+.body-text {
+  font-size: 1.05rem;
+  color: var(--cream-dim);
+  max-width: 680px;
+  line-height: 1.85;
+}
+
+/* Full-width image break */
+.image-break {
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+  position: relative;
+}
+.image-break img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.image-break::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--deep) 0%, transparent 20%, transparent 80%, var(--deep) 100%);
+  pointer-events: none;
+}
+
+/* Section image (inline) */
+.section-image {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 40px 0;
+  position: relative;
+}
+.section-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.section-image.has-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(13,13,26,0.6) 100%);
+  pointer-events: none;
+}
+
+/* =====================
+   1. HERO
+   ===================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.1) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(13,13,26,0.82) 0%, rgba(26,26,46,0.88) 50%, rgba(13,13,26,0.92) 100%);
+}
+
+/* Decorative floating orbs */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero::before {
+  width: 600px; height: 600px;
+  background: var(--gold);
+  top: -200px; right: -100px;
+  animation: float 20s ease-in-out infinite;
+}
+.hero::after {
+  width: 400px; height: 400px;
+  background: var(--gold-light);
+  bottom: -100px; left: -80px;
+  animation: float 16s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -40px); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero-overline {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.5rem, 10vw, 7.5rem);
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+
+.hero-title .dot {
+  color: var(--gold);
+}
+
+.hero-full-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  color: var(--gold-light);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s forwards;
+}
+
+.hero-tagline {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--cream-dim);
+  max-width: 560px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--deep);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  padding: 18px 52px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  animation: fadeUp 1s 1.1s forwards;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(201,168,76,0.3);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================
+   2. PROBLEM
+   ===================== */
+.problem {
+  background: var(--navy);
+  position: relative;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.problem-stat {
+  text-align: center;
+  padding: 48px 32px;
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 4px;
+  background: rgba(201,168,76,0.03);
+}
+
+.problem-stat-number {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.problem-stat-label {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.problem-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* Problem section inline image */
+.problem-image {
+  margin-top: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.1);
+}
+.problem-image img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+  .problem-stats-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* =====================
+   3. SOLUTION
+   ===================== */
+.solution {
+  background: var(--deep);
+  text-align: center;
+}
+
+.solution .body-text {
+  margin: 0 auto 48px;
+  max-width: 720px;
+}
+
+.solution-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.solution-card {
+  padding: 36px 28px;
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.04) 0%, transparent 100%);
+  text-align: left;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.solution-card:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-4px);
+}
+
+.solution-card h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.solution-card p {
+  font-size: 0.92rem;
+  color: var(--cream-dim);
+  line-height: 1.7;
+}
+
+/* Solution card images */
+.solution-card-img {
+  width: 100%;
+  height: 160px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.solution-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.solution-card:hover .solution-card-img img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 768px) {
+  .solution-cards { grid-template-columns: 1fr; }
+}
+
+/* =====================
+   4. FEATURES
+   ===================== */
+.features {
+  background: var(--navy);
+  overflow: hidden;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.feature-item {
+  padding: 56px 40px;
+  border: 1px solid rgba(201,168,76,0.08);
+  position: relative;
+  transition: background 0.4s;
+}
+.feature-item:hover {
+  background: rgba(201,168,76,0.03);
+}
+
+.feature-number {
+  font-family: var(--serif);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(201,168,76,0.15);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.feature-item h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+}
+
+.feature-item p {
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+  line-height: 1.75;
+  max-width: 380px;
+}
+
+@media (max-width: 768px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .feature-item { padding: 40px 24px; }
+}
+
+/* =====================
+   5. MARKET
+   ===================== */
+.market {
+  background: var(--deep);
+  position: relative;
+}
+
+.market-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 48px;
+}
+
+.market-who h3,
+.market-opp h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--gold-light);
+  margin-bottom: 18px;
+}
+
+.market-list {
+  list-style: none;
+  padding: 0;
+}
+
+.market-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 14px;
+  font-size: 0.98rem;
+  color: var(--cream-dim);
+}
+
+.market-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.market-highlight {
+  margin-top: 32px;
+  padding: 28px 32px;
+  background: rgba(201,168,76,0.06);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 4px 4px 0;
+}
+
+.market-highlight .big-number {
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.market-highlight p {
+  font-size: 0.92rem;
+  color: var(--cream-dim);
+  margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+  .market-columns { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* =====================
+   6. BUSINESS PLAN
+   ===================== */
+.business-plan {
+  background: var(--navy);
+  padding-top: 100px;
+  padding-bottom: 120px;
+}
+
+.bp-document {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--deep);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 4px;
+  padding: clamp(32px, 6vw, 72px);
+  position: relative;
+}
+
+.bp-document::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+}
+
+.bp-header {
+  text-align: center;
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+
+.bp-header h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.bp-header p {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.bp-section {
+  margin-bottom: 48px;
+}
+
+.bp-section:last-child {
+  margin-bottom: 0;
+}
+
+.bp-section h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+
+.bp-section p, .bp-section li {
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+  line-height: 1.8;
+}
+
+.bp-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bp-section ul li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 10px;
+}
+
+.bp-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 8px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.bp-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.bp-cost-badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 14px 28px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 4px;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--gold-light);
+}
+
+.bp-risks li::before {
+  background: #c44;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  top: 9px;
+}
+
+@media (max-width: 768px) {
+  .bp-columns { grid-template-columns: 1fr; gap: 36px; }
+  .bp-document { padding: 28px 20px; }
+}
+
+/* =====================
+   7. FOOTER
+   ===================== */
+.site-footer {
+  background: var(--deep);
+  text-align: center;
+  padding: 56px 24px;
+  border-top: 1px solid rgba(201,168,76,0.08);
+}
+
+.footer-concept {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  margin-bottom: 8px;
+}
+
+.footer-concept a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  transition: border-color 0.3s;
+}
+.footer-concept a:hover {
+  border-color: var(--gold);
+}
+
+.footer-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(201,168,76,0.4);
+  margin-top: 12px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--deep); }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.25); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.4); }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea badge -->
+<a href="../index.html" class="sti-badge">Steal This Idea</a>
+
+<!-- =====================
+     1. HERO
+     ===================== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1750036015902-c6f5ebca924e?auto=format&fit=crop&w=1200&q=80" alt="Luxury modern bathroom interior" loading="eager">
+  </div>
+  <div class="hero-inner">
+    <p class="hero-overline">Members Only</p>
+    <h1 class="hero-title">The V<span class="dot">.</span>I<span class="dot">.</span>B<span class="dot">.</span></h1>
+    <p class="hero-full-name">Very Important Bathroom</p>
+    <p class="hero-tagline">Restrooms worth the membership. A subscription-based network of premium portable restrooms, clean, sanitized, and music-playing, placed throughout your city. The private members' club your bladder has been waiting for.</p>
+    <a href="#" class="hero-cta" onclick="return false;">Become a Member</a>
+  </div>
+</section>
+
+<!-- =====================
+     2. PROBLEM
+     ===================== -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <p class="section-label reveal">The Problem</p>
+        <h2 class="section-heading reveal reveal-delay-1">A <em>$7 billion</em> industry that hasn't changed in a century.</h2>
+        <hr class="gold-rule reveal reveal-delay-2">
+        <p class="body-text reveal reveal-delay-2">Portable restrooms are universally despised: dirty, smelly, and degrading. Office workers in gender-imbalanced workplaces wait in endless lines. Concertgoers brave horrifying conditions. Park visitors just hold it. The industry has had zero consumer-facing innovation in over 100 years, competing only on price for a product everyone hates. Everyone deserves better.</p>
+        <div class="problem-image reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1744124371841-44c8b489660f?auto=format&fit=crop&w=1200&q=80" alt="Urban city street with buildings" loading="lazy">
+        </div>
+      </div>
+      <div>
+        <div class="problem-stats-row reveal reveal-delay-3">
+          <div class="problem-stat">
+            <div class="problem-stat-number">$7B</div>
+            <div class="problem-stat-label">Industry Size</div>
+          </div>
+          <div class="problem-stat">
+            <div class="problem-stat-number">100+</div>
+            <div class="problem-stat-label">Years Stagnant</div>
+          </div>
+        </div>
+        <div class="problem-stats-row reveal reveal-delay-4">
+          <div class="problem-stat">
+            <div class="problem-stat-number">0</div>
+            <div class="problem-stat-label">Consumer Innovation</div>
+          </div>
+          <div class="problem-stat">
+            <div class="problem-stat-number">100%</div>
+            <div class="problem-stat-label">User Dissatisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Full-width image break -->
+<div class="image-break">
+  <img src="https://images.unsplash.com/photo-1745396121787-ba34c6a12cfa?auto=format&fit=crop&w=1200&q=80" alt="Modern white architecture with pillars" loading="lazy">
+</div>
+
+<!-- =====================
+     3. SOLUTION
+     ===================== -->
+<section class="solution">
+  <div class="container">
+    <p class="section-label reveal">The Solution</p>
+    <h2 class="section-heading reveal reveal-delay-1">A citywide network of <em>premium restrooms</em>, accessible only to members.</h2>
+    <hr class="gold-rule reveal reveal-delay-2" style="margin-left:auto;margin-right:auto;">
+    <p class="body-text reveal reveal-delay-2">The V.I.B. deploys climate-controlled, regularly sanitized portable restrooms that play ambient music. Badge-in access limits traffic and creates accountability, keeping every unit immaculate. An app shows real-time availability and locations near you. Starting at just $9.99 per month.</p>
+
+    <div class="solution-cards">
+      <div class="solution-card reveal reveal-delay-1">
+        <div class="solution-card-img">
+          <img src="https://images.unsplash.com/photo-1750036015902-c6f5ebca924e?auto=format&fit=crop&w=800&q=80" alt="Elegant bathroom interior" loading="lazy">
+        </div>
+        <div class="icon-svg">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="16" stroke="#c9a84c" stroke-width="1.5"/>
+            <path d="M12 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#e2c97e" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="18" cy="12" r="2" fill="#c9a84c"/>
+            <path d="M10 26h16" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Ambient Experience</h3>
+        <p>Climate control, soft lighting, and curated music transform a routine stop into something almost pleasant.</p>
+      </div>
+      <div class="solution-card reveal reveal-delay-2">
+        <div class="solution-card-img">
+          <img src="https://images.unsplash.com/photo-1742836531239-1fe146bf7e3f?auto=format&fit=crop&w=800&q=80" alt="Contactless tap access payment" loading="lazy">
+        </div>
+        <div class="icon-svg">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="10" width="24" height="16" rx="3" stroke="#c9a84c" stroke-width="1.5"/>
+            <circle cx="18" cy="18" r="4" stroke="#e2c97e" stroke-width="1.5"/>
+            <circle cx="18" cy="18" r="1.5" fill="#c9a84c"/>
+          </svg>
+        </div>
+        <h3>Badge-In Access</h3>
+        <p>Key fob or badge entry limits traffic, creates accountability, and ensures every unit stays pristine for every visit.</p>
+      </div>
+      <div class="solution-card reveal reveal-delay-3">
+        <div class="solution-card-img">
+          <img src="https://images.unsplash.com/photo-1744124371841-44c8b489660f?auto=format&fit=crop&w=800&q=80" alt="City street locations" loading="lazy">
+        </div>
+        <div class="icon-svg">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="4" width="16" height="28" rx="3" stroke="#c9a84c" stroke-width="1.5"/>
+            <circle cx="18" cy="18" r="4" stroke="#e2c97e" stroke-width="1.5"/>
+            <path d="M18 14v8M14 18h8" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+            <line x1="14" y1="29" x2="22" y2="29" stroke="#c9a84c" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Real-Time App</h3>
+        <p>Find the nearest V.I.B., check availability, and navigate there instantly. Never wonder or worry again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================
+     4. FEATURES
+     ===================== -->
+<section class="features">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:56px;">
+      <p class="section-label reveal">Key Features</p>
+      <h2 class="section-heading reveal reveal-delay-1">Four pillars of the <em>V.I.B. experience.</em></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item reveal">
+        <div class="feature-number">01</div>
+        <h3>Badge-In Access</h3>
+        <p>Real-time availability displayed in the app. Tap your badge, walk in. No lines, no unknowns, no sharing with the unbadged masses.</p>
+      </div>
+      <div class="feature-item reveal reveal-delay-1">
+        <div class="feature-number">02</div>
+        <h3>Climate &amp; Sound</h3>
+        <p>Temperature-controlled interiors with ambient music. Each unit is sanitized on a rigorous schedule, ensuring a consistently fresh environment.</p>
+      </div>
+      <div class="feature-item reveal reveal-delay-2">
+        <div class="feature-number">03</div>
+        <h3>Citywide Network</h3>
+        <p>V.I.B. units deployed at office parks, downtown corridors, public parks, and event venues. Your membership works everywhere in the network.</p>
+      </div>
+      <div class="feature-item reveal reveal-delay-3">
+        <div class="feature-number">04</div>
+        <h3>Accountability System</h3>
+        <p>Every entry is logged to a member badge. This simple mechanism creates a sense of shared ownership and keeps every unit in impeccable condition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Full-width image break -->
+<div class="image-break">
+  <img src="https://images.unsplash.com/photo-1750036015902-c6f5ebca924e?auto=format&fit=crop&w=1200&q=80" alt="Premium luxury bathroom" loading="lazy">
+</div>
+
+<!-- =====================
+     5. MARKET
+     ===================== -->
+<section class="market">
+  <div class="container">
+    <p class="section-label reveal">Market Opportunity</p>
+    <h2 class="section-heading reveal reveal-delay-1">Premium restrooms for those <em>who refuse to settle.</em></h2>
+    <hr class="gold-rule reveal reveal-delay-2">
+
+    <div class="market-columns">
+      <div class="market-who reveal reveal-delay-2">
+        <h3>Target Market</h3>
+        <ul class="market-list">
+          <li>Urban professionals in office parks with inadequate restroom ratios</li>
+          <li>Frequent event and concert attendees tired of standard porta-potties</li>
+          <li>Gig economy workers, including delivery drivers and rideshare operators, who need reliable access</li>
+          <li>Outdoor enthusiasts and park visitors</li>
+          <li>Event organizers seeking a premium restroom option for their venues</li>
+        </ul>
+        <div class="section-image has-overlay reveal reveal-delay-3" style="margin-top:24px; margin-bottom:0; height:200px; overflow:hidden; border-radius:4px;">
+          <img src="https://images.unsplash.com/photo-1744124371841-44c8b489660f?auto=format&fit=crop&w=800&q=80" alt="City street with buildings" loading="lazy" style="height:200px;">
+        </div>
+      </div>
+      <div class="market-opp reveal reveal-delay-3">
+        <h3>The Opportunity</h3>
+        <p class="body-text" style="max-width:100%;">The global portable restroom market exceeds $7 billion with steady year-over-year growth. Premium restroom rentals for events already command 3 to 5x standard pricing, proving willingness to pay for quality.</p>
+        <div class="market-highlight">
+          <div class="big-number">$60M+ ARR</div>
+          <p>Network subscription model across 10 major U.S. cities with 50,000 subscribers each, before corporate and event revenue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================
+     6. BUSINESS PLAN
+     ===================== -->
+<section class="business-plan">
+  <div class="container">
+    <div class="bp-document reveal">
+      <div class="bp-header">
+        <h2>The V.I.B. Business Plan</h2>
+        <p>Confidential / For Review Only</p>
+      </div>
+
+      <div class="bp-columns">
+        <div class="bp-section reveal reveal-delay-1">
+          <h3>Revenue Model</h3>
+          <ul>
+            <li>Individual subscriptions at $9.99/month</li>
+            <li>Corporate office park plans at $500 to $2,000/month</li>
+            <li>Event rental packages at premium rates</li>
+            <li>Per-use swipe option at $1 to $2 for non-subscribers</li>
+            <li>Hardware revenue from selling/leasing premium units to venue operators</li>
+          </ul>
+        </div>
+
+        <div class="bp-section reveal reveal-delay-2">
+          <h3>Go-to-Market Strategy</h3>
+          <ul>
+            <li>Launch with 20 to 30 units in a single city at high-traffic office parks and outdoor venues</li>
+            <li>Secure corporate partnerships first for guaranteed recurring revenue</li>
+            <li>Build consumer base through events and word-of-mouth</li>
+            <li>Expand city-by-city once unit economics are proven</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bp-section reveal reveal-delay-2">
+        <h3>Competitive Advantage</h3>
+        <p>The portable restroom industry has had zero consumer-facing innovation. Honey Bucket and competitors compete on price for a commodity product. The V.I.B. creates an entirely new premium tier with recurring revenue, brand loyalty, and network effects. Badge access solves the vandalism and overcrowding problems that make current porta-potties terrible. There is no incumbent to displace; only a vacuum to fill.</p>
+      </div>
+
+      <div class="bp-section reveal reveal-delay-3">
+        <h3>Year One Milestones</h3>
+        <ul>
+          <li>Deploy 30 premium units across one metro area with 2,000+ active subscribers</li>
+          <li>Sign 5 corporate office park partnerships for guaranteed recurring revenue</li>
+          <li>Prove unit economics: each unit generating 2x its monthly maintenance cost</li>
+        </ul>
+      </div>
+
+      <div class="bp-columns">
+        <div class="bp-section reveal reveal-delay-3">
+          <h3>Startup Cost</h3>
+          <p>Premium unit manufacturing, placement logistics, app development, and initial maintenance operations.</p>
+          <div class="bp-cost-badge">$150,000 to $400,000</div>
+        </div>
+
+        <div class="bp-section bp-risks reveal reveal-delay-4">
+          <h3>Key Risks</h3>
+          <ul>
+            <li>High upfront capital required to achieve sufficient network density</li>
+            <li>Vandalism and misuse despite badge system could erode the premium experience</li>
+            <li>Consumer willingness to pay monthly for restroom access is unproven in the U.S. market</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================
+     7. FOOTER
+     ===================== -->
+<footer class="site-footer">
+  <p class="footer-concept">This is a concept from the <a href="https://www.youtube.com/watch?v=FYNmnMlRkjE" target="_blank" rel="noopener">Steal This Idea</a> podcast. Not a real company. Yet.</p>
+  <p class="footer-tagline">Restrooms worth the membership.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered reveals
+document.addEventListener('DOMContentLoaded', () => {
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+});
+</script>
+
+</body>
+</html>

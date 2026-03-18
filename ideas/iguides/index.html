@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iGuides - Your World, Narrated by Locals</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --orange:#FF6B35;
+  --dark:#0D1117;
+  --charcoal:#161B22;
+  --slate:#21262D;
+  --light:#F0F6FC;
+  --muted:#8B949E;
+  --cyan:#58A6FF;
+  --gradient:linear-gradient(135deg,#FF6B35,#FF3D71);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',sans-serif;color:#c9d1d9;background:var(--dark);overflow-x:hidden;line-height:1.7}
+h1,h2,h3,h4,h5{font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;line-height:1.1}
+
+/* Badge */
+.sti-badge{
+  position:fixed;top:20px;left:20px;z-index:1000;
+  background:var(--gradient);color:#fff;padding:8px 16px;border-radius:40px;
+  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.08em;
+  text-decoration:none;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(255,107,53,.4);transition:transform .3s,box-shadow .3s;
+}
+.sti-badge:hover{transform:scale(1.05);box-shadow:0 6px 30px rgba(255,107,53,.6)}
+.sti-badge svg{width:18px;height:18px;fill:#fff}
+
+/* Scroll Animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-60px);transition:opacity .8s ease,transform .8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(60px);transition:opacity .8s ease,transform .8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:120px 24px 80px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(13,17,23,.7) 0%,rgba(13,17,23,.85) 60%,var(--dark) 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-tag{
+  display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.2em;
+  color:var(--orange);border:1px solid var(--orange);padding:6px 20px;border-radius:40px;margin-bottom:24px;
+}
+.hero h1{font-size:clamp(3.5rem,10vw,7rem);color:#fff;margin-bottom:16px}
+.hero h1 span{color:var(--orange)}
+.hero .tagline{font-size:clamp(1.2rem,3vw,1.6rem);color:var(--muted);font-weight:300;margin-bottom:32px}
+.hero .pitch{font-size:1.1rem;color:#c9d1d9;max-width:620px;margin:0 auto 40px;line-height:1.8}
+.btn-primary{
+  display:inline-block;padding:16px 48px;background:var(--gradient);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.1em;
+  border:none;border-radius:60px;cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 30px rgba(255,107,53,.35);transition:transform .3s,box-shadow .3s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(255,107,53,.5)}
+.btn-secondary{
+  display:inline-block;padding:14px 40px;border:2px solid var(--muted);color:var(--light);
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;
+  border-radius:60px;text-decoration:none;margin-left:16px;transition:border-color .3s,color .3s;
+}
+.btn-secondary:hover{border-color:var(--orange);color:var(--orange)}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.hero-stats{
+  display:flex;gap:48px;justify-content:center;margin-top:60px;
+}
+.hero-stat{text-align:center}
+.hero-stat .num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--orange)}
+.hero-stat .label{font-size:.85rem;color:var(--muted);letter-spacing:.05em}
+
+/* Scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.scroll-hint span{font-size:.75rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+.scroll-hint .arrow{
+  width:24px;height:24px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+  transform:rotate(45deg);animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(8px)}}
+
+/* ===== SECTIONS ===== */
+section{padding:100px 24px}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.25em;
+  color:var(--orange);margin-bottom:12px;
+}
+.section-title{font-size:clamp(2.2rem,5vw,3.5rem);color:#fff;margin-bottom:24px}
+.section-desc{font-size:1.05rem;color:var(--muted);max-width:620px;line-height:1.8}
+
+/* ===== PROBLEM ===== */
+.problem{background:var(--charcoal);position:relative;overflow:hidden}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.problem-image{
+  border-radius:16px;overflow:hidden;position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.problem-image img{width:100%;height:400px;object-fit:cover;display:block}
+.problem-image::after{
+  content:'';position:absolute;inset:0;
+  border:1px solid rgba(255,107,53,.2);border-radius:16px;pointer-events:none;
+}
+.pain-points{list-style:none;margin-top:32px;display:flex;flex-direction:column;gap:20px}
+.pain-points li{display:flex;align-items:flex-start;gap:16px;font-size:1rem;color:#c9d1d9}
+.pain-icon{
+  flex-shrink:0;width:40px;height:40px;border-radius:10px;
+  background:rgba(255,107,53,.12);display:flex;align-items:center;justify-content:center;
+}
+.pain-icon svg{width:20px;height:20px;stroke:var(--orange);fill:none;stroke-width:2}
+
+/* ===== SOLUTION ===== */
+.solution{position:relative}
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.solution-visual{position:relative}
+.solution-phone{
+  width:280px;height:560px;background:var(--slate);border-radius:40px;margin:0 auto;
+  border:3px solid #30363D;position:relative;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+.solution-phone img{width:100%;height:100%;object-fit:cover}
+.solution-phone::before{
+  content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:80px;height:6px;background:#30363D;border-radius:4px;z-index:2;
+}
+.phone-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:340px;height:340px;background:radial-gradient(circle,rgba(255,107,53,.15),transparent 70%);
+  pointer-events:none;
+}
+.solution-features{list-style:none;margin-top:32px;display:flex;flex-direction:column;gap:16px}
+.solution-features li{
+  display:flex;align-items:center;gap:12px;font-size:1rem;color:#c9d1d9;
+}
+.check-circle{
+  flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--gradient);
+  display:flex;align-items:center;justify-content:center;
+}
+.check-circle svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:3}
+
+/* ===== FEATURES ===== */
+.features{background:var(--charcoal)}
+.features-header{text-align:center;margin-bottom:64px}
+.features-header .section-desc{margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.feature-card{
+  background:var(--slate);border-radius:16px;overflow:hidden;
+  border:1px solid #30363D;transition:transform .4s,border-color .4s;position:relative;
+}
+.feature-card:hover{transform:translateY(-4px);border-color:var(--orange)}
+.feature-img{height:200px;overflow:hidden}
+.feature-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.feature-card:hover .feature-img img{transform:scale(1.05)}
+.feature-body{padding:28px}
+.feature-num{
+  font-family:'Bebas Neue',sans-serif;font-size:3rem;
+  color:rgba(255,107,53,.15);position:absolute;top:16px;right:20px;
+}
+.feature-body h3{font-size:1.5rem;color:#fff;margin-bottom:10px}
+.feature-body p{font-size:.95rem;color:var(--muted);line-height:1.7}
+
+/* ===== MARKET ===== */
+.market{position:relative;overflow:hidden}
+.market-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+.market-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(13,17,23,.92),rgba(13,17,23,.88));
+}
+.market .container{position:relative;z-index:2}
+.market-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.market-number{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,7rem);color:var(--orange);line-height:1}
+.market-number-label{font-size:1.1rem;color:var(--muted);margin-bottom:32px}
+.market-segments{display:flex;flex-direction:column;gap:20px}
+.segment{
+  background:rgba(33,38,45,.7);border:1px solid #30363D;border-radius:12px;padding:20px 24px;
+  backdrop-filter:blur(10px);transition:border-color .3s;
+}
+.segment:hover{border-color:var(--orange)}
+.segment h4{font-size:1.2rem;color:#fff;margin-bottom:6px}
+.segment p{font-size:.9rem;color:var(--muted);line-height:1.6}
+.market-image{border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.market-image img{width:100%;height:100%;object-fit:cover;display:block;min-height:400px}
+
+/* ===== BUSINESS PLAN ===== */
+.business-plan{background:var(--charcoal)}
+.bp-header{text-align:center;margin-bottom:64px}
+.bp-header .section-desc{margin:0 auto}
+.bp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:40px}
+.bp-card{
+  background:var(--dark);border:1px solid #30363D;border-radius:14px;padding:32px;
+  position:relative;overflow:hidden;transition:border-color .3s;
+}
+.bp-card:hover{border-color:var(--orange)}
+.bp-card::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+  background:var(--gradient);border-radius:4px 0 0 4px;
+}
+.bp-card h3{font-size:1.4rem;color:#fff;margin-bottom:12px}
+.bp-card p{font-size:.95rem;color:var(--muted);line-height:1.7}
+.bp-card ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.bp-card ul li{display:flex;align-items:flex-start;gap:10px;font-size:.95rem;color:#c9d1d9}
+.bp-card ul li::before{
+  content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;
+  background:var(--orange);margin-top:8px;
+}
+.bp-full{
+  background:var(--dark);border:1px solid #30363D;border-radius:14px;padding:32px;
+  position:relative;overflow:hidden;
+}
+.bp-full::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:4px;
+  background:var(--gradient);
+}
+.bp-full h3{font-size:1.4rem;color:#fff;margin-bottom:16px}
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.risk-item{
+  background:var(--charcoal);border-radius:10px;padding:20px;
+  border:1px solid #30363D;
+}
+.risk-item h4{font-size:1rem;color:var(--orange);margin-bottom:8px;font-family:'Bebas Neue',sans-serif;letter-spacing:.05em}
+.risk-item p{font-size:.9rem;color:var(--muted);line-height:1.6}
+
+/* ===== FOOTER ===== */
+.footer{
+  background:var(--dark);border-top:1px solid #21262D;padding:60px 24px;text-align:center;
+}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#fff;margin-bottom:12px}
+.footer-logo span{color:var(--orange)}
+.footer p{color:var(--muted);font-size:.95rem;margin-bottom:8px;line-height:1.7}
+.footer a{color:var(--orange);text-decoration:none;transition:color .3s}
+.footer a:hover{color:#FF3D71}
+.footer-line{width:40px;height:2px;background:var(--gradient);margin:24px auto 0;border-radius:2px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .problem-grid,.solution-grid,.market-content,.bp-grid,.risk-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:24px}
+  .hero-buttons{flex-direction:column;align-items:center}
+  .btn-secondary{margin-left:0}
+  .solution-phone{width:220px;height:440px}
+  section{padding:72px 20px}
+  .market-number{font-size:4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Audio Tour Marketplace</div>
+    <h1>i<span>Guides</span></h1>
+    <p class="tagline">Your world, narrated by locals.</p>
+    <p class="pitch">An Audible-style marketplace for self-guided audio tours. Local experts and passionate storytellers record GPS-triggered walking tours you can download and experience at your own pace. From ancient ruins to neighborhood pizza crawls.</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn-primary">Explore the Platform</a>
+      <a href="#business-plan" class="btn-secondary">View Business Plan</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">$90B</div><div class="label">Guided Tours Market</div></div>
+      <div class="hero-stat"><div class="num">2.5B</div><div class="label">Smartphones Worldwide</div></div>
+      <div class="hero-stat"><div class="num">72%</div><div class="label">Prefer Self-Guided</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- ===== PROBLEM ===== -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal-left">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Guided tours are broken.</h2>
+        <p class="section-desc">You show up at an incredible destination, but your options are limited: follow a stranger holding a flag at a painfully slow pace, overpay for a rigid schedule, or wander aimlessly and miss everything worth knowing.</p>
+        <ul class="pain-points">
+          <li>
+            <div class="pain-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span>Group tours force you onto someone else's schedule and pace, with no flexibility for your interests or energy level</span>
+          </li>
+          <li>
+            <div class="pain-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span>You get one perspective from one guide, with no way to choose based on quality, depth, or storytelling style</span>
+          </li>
+          <li>
+            <div class="pain-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span>Many fascinating places have no guided tours at all: baseball stadiums, local neighborhoods, hidden food scenes</span>
+          </li>
+        </ul>
+      </div>
+      <div class="reveal-right">
+        <div class="problem-image">
+          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" alt="Crowded tour group following a guide flag">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTION ===== -->
+<section class="solution">
+  <div class="container">
+    <div class="solution-grid">
+      <div class="solution-visual reveal-left">
+        <div class="phone-glow"></div>
+        <div class="solution-phone">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80" alt="Travel destination on phone screen">
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="section-label">The Solution</div>
+        <h2 class="section-title">Every place has a story. Now anyone can tell it.</h2>
+        <p class="section-desc">iGuides is a marketplace where local experts, history buffs, and passionate storytellers create GPS-triggered audio tours. Travelers browse by location, read reviews, choose their preferred tour length and theme, then walk at their own pace while narration plays automatically at each point of interest.</p>
+        <ul class="solution-features">
+          <li><div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Download tours for offline use, anywhere in the world</li>
+          <li><div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Walk at your own pace; narration triggers by location</li>
+          <li><div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Pick from short highlights or deep-dive explorations</li>
+          <li><div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Follow creators you love across multiple destinations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <div class="section-label">Key Features</div>
+      <h2 class="section-title">Built for explorers and storytellers.</h2>
+      <p class="section-desc">Whether you are walking through Mayan ruins or hunting for the best pizza in Brooklyn, iGuides transforms every journey into a curated experience.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-img"><img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=800&q=80" alt="GPS navigation on phone"></div>
+        <span class="feature-num">01</span>
+        <div class="feature-body">
+          <h3>GPS-Triggered Narration</h3>
+          <p>Your phone knows where you are. As you walk to each point of interest, narration plays automatically. No tapping, no searching. Just walk and listen.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-img"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Creator community collaborating"></div>
+        <span class="feature-num">02</span>
+        <div class="feature-body">
+          <h3>Creator Marketplace</h3>
+          <p>Anyone can record, publish, and sell their own audio tours. A 30-year Fenway regular knows things no official guide ever will. Give every local expert a platform and a revenue stream.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-img"><img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=800&q=80" alt="Traveler exploring at own pace"></div>
+        <span class="feature-num">03</span>
+        <div class="feature-body">
+          <h3>Multiple Perspectives</h3>
+          <p>One destination, many stories. Choose a 10-minute highlights reel, a deep historical dive, or a local food tour. Pick the length, theme, and narrator that matches your mood.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-img"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Five star reviews on screen"></div>
+        <span class="feature-num">04</span>
+        <div class="feature-body">
+          <h3>Ratings and Reviews</h3>
+          <p>The best storytellers rise to the top, not just whoever happens to be available. Verified ratings ensure quality, and tips let you reward guides who make your trip unforgettable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARKET ===== -->
+<section class="market">
+  <div class="market-bg"></div>
+  <div class="container">
+    <div class="market-content">
+      <div class="reveal-left">
+        <div class="section-label">Market Opportunity</div>
+        <h2 class="section-title">A massive market waiting to be unlocked.</h2>
+        <div class="market-number">$90B</div>
+        <p class="market-number-label">Global guided tours market, growing steadily with the rise of independent travel and smartphone adoption.</p>
+        <div class="market-segments">
+          <div class="segment">
+            <h4>Independent Travelers</h4>
+            <p>Adults aged 25 to 55 who want enriched experiences without being locked into group tour schedules and pacing.</p>
+          </div>
+          <div class="segment">
+            <h4>Local Experts and Storytellers</h4>
+            <p>History buffs, food bloggers, sports fans, and longtime residents ready to monetize their knowledge of the places they love.</p>
+          </div>
+          <div class="segment">
+            <h4>Travel Platforms</h4>
+            <p>Companies like TripAdvisor and Expedia looking to expand their "things to do" offerings with digital, scalable tour content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="market-image">
+          <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80" alt="Travelers exploring a city street">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUSINESS PLAN ===== -->
+<section class="business-plan" id="business-plan">
+  <div class="container">
+    <div class="bp-header reveal">
+      <div class="section-label">Business Plan</div>
+      <h2 class="section-title">The path to profitability.</h2>
+      <p class="section-desc">A clear roadmap for building, launching, and scaling the audio tour marketplace.</p>
+    </div>
+    <div class="bp-grid">
+      <div class="bp-card reveal">
+        <h3>Revenue Model</h3>
+        <p>Platform takes a 30% commission on every tour sold, with tours priced from $0.99 to $30 depending on depth and length. Additional revenue from optional listener tips, strategic travel platform partnerships, and location-based merchant promotions (e.g., 5% off at nearby restaurants triggered in-tour).</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch in 3 to 5 high-traffic tourist cities by recruiting passionate local guides and history enthusiasts to seed the platform with quality content. Partner with travel bloggers and influencers for organic distribution, then pursue integrations with TripAdvisor and Expedia to tap into their "things to do" traffic.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>Competitive Advantage</h3>
+        <p>Unlike Rick Steves or traditional tour companies, iGuides is a two-sided marketplace that scales through user-generated content. The network effect of more creators attracting more travelers creates a defensible moat. GPS-triggered playback and future AR integration leverage smartphone capabilities that simply were not available five years ago.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>Year One Milestones</h3>
+        <ul>
+          <li>Launch in 5 major tourist cities with 200+ curated audio tours</li>
+          <li>Reach 50,000 app downloads and 10,000 paid tour purchases</li>
+          <li>Secure one strategic partnership with a major travel platform or airline</li>
+        </ul>
+      </div>
+      <div class="bp-card reveal">
+        <h3>Startup Cost Estimate</h3>
+        <p>$150,000 to $400,000 to reach MVP, covering mobile app development (iOS and Android), creator recording tools, content moderation systems, and initial content seeding in launch cities. Primary costs: engineering team, UX design, and early creator incentive programs.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>Distribution Channels</h3>
+        <ul>
+          <li>App Store and Google Play organic discovery via travel category</li>
+          <li>Partnerships with TripAdvisor, Expedia, and airline in-flight entertainment</li>
+          <li>Creator-driven social sharing and travel influencer collaborations</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bp-full reveal">
+      <h3>Key Risks</h3>
+      <div class="risk-grid">
+        <div class="risk-item">
+          <h4>Cold Start Problem</h4>
+          <p>Need enough quality tours to attract travelers, and enough travelers to attract creators. Mitigate by seeding content in launch cities with paid early creators and partnerships.</p>
+        </div>
+        <div class="risk-item">
+          <h4>Quality Control</h4>
+          <p>As the platform opens to anyone, maintaining content quality becomes harder. Address with review systems, minimum quality standards, and editorial curation of featured tours.</p>
+        </div>
+        <div class="risk-item">
+          <h4>Big Tech Competition</h4>
+          <p>Google Maps or Apple could add native audio guide features. Defend through depth of creator community, niche expertise, and storytelling quality that algorithms cannot replicate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">i<span>Guides</span></div>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+    <p>Presented by Alex Bean, co-founder of Divvy, as "one of the best ideas ever" on the show.</p>
+    <p style="margin-top:16px"><a href="https://www.youtube.com/watch?v=eGH5GpNt0_M" target="_blank" rel="noopener">Watch the full episode</a></p>
+    <div class="footer-line"></div>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll animations
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>

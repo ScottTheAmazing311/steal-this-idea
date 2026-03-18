@@ -1,0 +1,34 @@
+{
+  "slug": "bingo-blitz",
+  "company_name": "Bingo Blitz",
+  "tagline": "Play Bingo. Win Big. Support Local.",
+  "elevator_pitch": "Bingo Blitz is a free, regionalized mobile bingo app where local businesses sponsor games and give away cash prizes or services instead of spending on billboards. Users get daily chances to win while businesses get trackable, engaged leads.",
+  "problem": "Billboards cost tens of thousands of dollars per month, yet businesses have zero way to track ROI or know if anyone even notices their ad. Consumers drive past hundreds of billboards without understanding what most companies do, making it a wildly inefficient form of advertising.",
+  "solution": "Bingo Blitz replaces passive billboard spending with an interactive, gamified advertising platform. Businesses sponsor free-to-play bingo games in their local market, embedding rich ads, videos, and lead forms into the game experience. Players must engage with the sponsor content to play, guaranteeing attention and generating trackable leads.",
+  "target_market": "Local and regional businesses currently spending on outdoor advertising, direct mail, or Yelp ads, as well as consumers in metro areas looking for free entertainment with real prizes.",
+  "revenue_model": "Businesses pay to sponsor bingo games on a per-game or monthly subscription basis, similar to what they would spend on a billboard. Tiered pricing based on prize size, market region, and game frequency. Premium placements and featured sponsor spots generate additional revenue.",
+  "key_features": [
+    "Regionalized gameplay: Players compete only against others in their local area, improving win odds",
+    "Sponsor-powered prizes: Cash, free services, and product giveaways funded entirely by local advertisers",
+    "Built-in lead generation: Every game embeds sponsor videos, offers, and clickthrough links with full analytics",
+    "Referral multiplier: Invite friends to unlock additional bingo boards and extra chances to win"
+  ],
+  "competitive_advantage": "Unlike billboards, every impression is verified and trackable. Unlike HQ Trivia, games are regionalized so odds of winning stay attractive. The free-to-play model with real prizes creates a viral loop that traditional advertising cannot replicate.",
+  "market_size_estimate": "The U.S. out-of-home advertising market is roughly $9 billion annually. Capturing even 1-2% of local billboard and direct advertising budgets in mid-size metro areas represents a $90-180 million opportunity.",
+  "go_to_market": "Launch in a single metro area (e.g., Salt Lake City) with 10-20 local business sponsors offering service-based prizes like free carpet cleaning, haircuts, or restaurant meals. Use aggressive social media and word-of-mouth referral incentives to build an initial player base, then expand city by city.",
+  "risks": [
+    "Building a large enough local player base to make the platform attractive to sponsors before revenue scales",
+    "Navigating state-by-state gambling and sweepstakes regulations, since free-to-play prize games sit in a legal gray area",
+    "Sustaining daily user engagement long-term after the initial novelty fades, as seen with HQ Trivia's decline"
+  ],
+  "year_one_milestones": [
+    "Launch in one metro area with 20+ sponsor businesses and 10,000 active monthly players",
+    "Achieve $500K in annualized sponsor revenue with measurable ROI data for each campaign",
+    "Expand to 3 additional metro markets with a repeatable city-launch playbook"
+  ],
+  "startup_cost_range": "$150K - $400K",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=RnKIHNNMWhs",
+  "episode_number": 109
+}

@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dishly - One dish. Ten seconds. Spotless.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f8f8f8;
+      --accent: #00e5ff;
+      --accent-dark: #00b8d4;
+      --gray-900: #111;
+      --gray-800: #1a1a1a;
+      --gray-700: #2a2a2a;
+      --gray-400: #888;
+      --gray-300: #aaa;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Badge */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: var(--accent);
+      color: var(--black);
+      text-decoration: none;
+      padding: 8px 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .sti-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);
+    }
+
+    .sti-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Scroll animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      filter: brightness(0.2) saturate(0.6);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.9) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+
+    .hero-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 6px;
+      color: var(--accent);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 12vw, 160px);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--white) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-tagline {
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 300;
+      color: var(--gray-300);
+      margin-bottom: 16px;
+    }
+
+    .hero-pitch {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--gray-400);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 48px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: var(--black);
+      background: var(--accent);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.4);
+    }
+
+    .cta-btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      margin-left: 16px;
+    }
+
+    .cta-btn-outline:hover {
+      background: rgba(0, 229, 255, 0.1);
+    }
+
+    /* Section base */
+    section {
+      padding: 120px 24px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 5px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .section-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--gray-300);
+      max-width: 640px;
+    }
+
+    /* Problem Section */
+    .problem {
+      background: var(--gray-900);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .problem-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      filter: saturate(0.7);
+    }
+
+    .problem-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: var(--gray-800);
+      padding: 24px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+
+    /* Solution Section */
+    .solution {
+      position: relative;
+    }
+
+    .solution-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .solution-image-wrap {
+      position: relative;
+    }
+
+    .solution-image-wrap img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+    }
+
+    .solution-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      right: -12px;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--accent);
+      z-index: -1;
+    }
+
+    .solution-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .solution-points li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .solution-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solution-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .solution-points h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .solution-points p {
+      font-size: 15px;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    /* Features */
+    .features {
+      background: var(--gray-900);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      padding: 48px 32px;
+      border: 1px solid var(--gray-700);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease;
+    }
+
+    .feature-card:hover {
+      background: var(--gray-800);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      color: var(--gray-700);
+      line-height: 1;
+      margin-bottom: 20px;
+      transition: color 0.4s ease;
+    }
+
+    .feature-card:hover .feature-number {
+      color: var(--accent);
+    }
+
+    .feature-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    /* Image Strip */
+    .image-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 350px;
+      overflow: hidden;
+    }
+
+    .image-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.6) brightness(0.7);
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+
+    .image-strip img:hover {
+      filter: saturate(1) brightness(0.9);
+      transform: scale(1.05);
+    }
+
+    /* Market */
+    .market {
+      position: relative;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 60px;
+    }
+
+    .market-segments {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .segment {
+      background: var(--gray-800);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid var(--gray-700);
+      transition: border-color 0.3s ease;
+    }
+
+    .segment:hover {
+      border-color: var(--accent);
+    }
+
+    .segment-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 229, 255, 0.08);
+    }
+
+    .segment-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .segment h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .segment p {
+      font-size: 14px;
+      color: var(--gray-400);
+    }
+
+    .market-size-card {
+      background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+      border: 1px solid var(--gray-700);
+      padding: 48px;
+      text-align: center;
+    }
+
+    .market-size-card .tam-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .market-size-card .tam-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--white), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .market-size-card .tam-desc {
+      font-size: 15px;
+      color: var(--gray-400);
+      line-height: 1.7;
+    }
+
+    .market-image {
+      margin-top: 40px;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      filter: saturate(0.6);
+    }
+
+    /* Business Plan */
+    .business-plan {
+      background: var(--gray-900);
+    }
+
+    .bp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .bp-card {
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      padding: 36px;
+    }
+
+    .bp-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .bp-card-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bp-card-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-700);
+    }
+
+    .bp-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .bp-card p, .bp-card li {
+      font-size: 15px;
+      color: var(--gray-300);
+      line-height: 1.7;
+    }
+
+    .bp-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bp-card li {
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .bp-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .milestones-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .milestone {
+      text-align: center;
+      padding: 24px 16px;
+      border: 1px solid var(--gray-700);
+    }
+
+    .milestone-q {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .milestone p {
+      font-size: 14px;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    .cost-range {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .cost-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--gray-700);
+      position: relative;
+    }
+
+    .cost-bar-fill {
+      height: 100%;
+      width: 60%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    }
+
+    .cost-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: var(--accent);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      filter: brightness(0.15) saturate(0.5);
+    }
+
+    .cta-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 80px);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--gray-300);
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 1px solid var(--gray-800);
+    }
+
+    footer p {
+      font-size: 14px;
+      color: var(--gray-400);
+      line-height: 1.8;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .problem-grid,
+      .solution-visual,
+      .market-grid,
+      .bp-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .milestones-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-strip {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .image-strip img {
+        height: 250px;
+      }
+
+      .problem-image {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 80px 20px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-btn-outline {
+        margin-left: 0;
+        margin-top: 12px;
+      }
+
+      .hero-content .cta-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .solution-image-wrap::after {
+        display: none;
+      }
+
+      .cost-range {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Steal This Idea Badge -->
+  <a href="../index.html" class="sti-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18l-6-6 6-6"/><path d="M3 12h18"/>
+    </svg>
+    STEAL THIS IDEA
+  </a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-label">The Microwave of Dishwashing</div>
+      <h1>Dishly</h1>
+      <p class="hero-tagline">One dish. Ten seconds. Spotless.</p>
+      <p class="hero-pitch">A compact countertop appliance that washes a single dish, cup, or utensil in 10 seconds flat. No more waiting for a full load. No more crusty, forgotten dishes. Just clean, instantly.</p>
+      <div class="cta-wrap">
+        <a href="#" class="cta-btn">PRE-ORDER NOW</a>
+        <a href="#features" class="cta-btn cta-btn-outline">SEE HOW IT WORKS</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="reveal">
+          <div class="section-label">The Problem</div>
+          <h2 class="section-title">Dishwashers Were Built for a Different Era</h2>
+          <p class="section-text">The dishwasher was designed in the 1950s for large families producing mountains of dishes. Today, 37 million Americans live alone. Couples, students, and office workers generate one or two dirty items at a time. The result? Dishes pile up, food crusts onto bowls, and you end up pre-rinsing everything before loading a machine that takes an hour to run half-empty.</p>
+          <div class="problem-stats">
+            <div class="stat-card">
+              <div class="stat-number">37M</div>
+              <div class="stat-desc">Single-person households in the US</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">1-3 hrs</div>
+              <div class="stat-desc">Average dishwasher cycle time</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">80%</div>
+              <div class="stat-desc">Of people pre-rinse their dishes</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">0</div>
+              <div class="stat-desc">Single-item dishwashers on the market</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <img src="https://images.unsplash.com/photo-1585837146751-a44118595688?auto=format&fit=crop&w=800&q=80" alt="Messy kitchen with piled dishes" class="problem-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">The Solution</div>
+        <h2 class="section-title">Wash It Now.<br>Not Later.</h2>
+        <p class="section-text">Dishly reimagines dishwashing from the ground up. One item at a time, cleaned and sanitized in seconds. It is the microwave equivalent that the dishwasher never had.</p>
+      </div>
+      <div class="solution-visual">
+        <div class="solution-image-wrap reveal">
+          <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?auto=format&fit=crop&w=800&q=80" alt="Clean modern kitchen countertop">
+        </div>
+        <ul class="solution-points reveal">
+          <li>
+            <div class="solution-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            </div>
+            <div>
+              <h4>HIGH-PRESSURE JETS</h4>
+              <p>Aerated water blasts away food particles with precision, targeting every surface of the dish in seconds.</p>
+            </div>
+          </li>
+          <li>
+            <div class="solution-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <h4>UV STERILIZATION</h4>
+              <p>Hospital-grade UV light kills 99.9% of bacteria after every wash, no harsh chemicals required.</p>
+            </div>
+          </li>
+          <li>
+            <div class="solution-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 3v18M5.5 8.5L12 3l6.5 5.5M5.5 15.5L12 21l6.5-5.5"/></svg>
+            </div>
+            <div>
+              <h4>COMPRESSED-AIR DRY</h4>
+              <p>Instant forced-air drying means your dish comes out ready to use, not dripping wet.</p>
+            </div>
+          </li>
+          <li>
+            <div class="solution-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h4>WATER RECYCLING</h4>
+              <p>Built-in filtration cleans and recirculates water, so you can run dozens of cycles without refilling.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Key Features</div>
+        <h2 class="section-title">Engineered for the<br>Way You Actually Live</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-number">01</div>
+          <h3>10-Second Wash Cycle</h3>
+          <p>Pressurized aerated water jets strip food residue, rinse, and prep the dish for sterilization in a single rapid burst. Put your cup in, hold down the lid, and it is done before you finish your next thought.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-number">02</div>
+          <h3>UV + Compressed Air</h3>
+          <p>UV-C light sterilizes every surface while compressed air flash-dries the item. Your dish comes out clean, dry, and ready to use immediately. No towel needed.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-number">03</div>
+          <h3>Self-Contained Water System</h3>
+          <p>Advanced filtration recycles water between cycles. No plumbing hookup needed. Just plug it in, fill the reservoir, and go. Perfect for dorms, offices, and small apartments.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-number">04</div>
+          <h3>Soap Tablet System</h3>
+          <p>Drop in a proprietary cleaning tablet that lasts for dozens of washes. No measuring, no mess, no bottles cluttering the counter. Subscribe for automatic refills.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Strip -->
+  <div class="image-strip">
+    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80" alt="Modern minimalist kitchen" class="reveal">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Office breakroom" class="reveal">
+    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80" alt="Studio apartment living" class="reveal">
+  </div>
+
+  <!-- MARKET -->
+  <section class="market">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Market Opportunity</div>
+        <h2 class="section-title">A Category That<br>Doesn't Exist Yet</h2>
+        <p class="section-text">The microwave created a new category alongside the oven. Dishly does the same for dishwashing. There are zero single-item rapid dishwashers on the market today.</p>
+      </div>
+      <div class="market-grid">
+        <div class="market-segments reveal">
+          <div class="segment">
+            <div class="segment-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <h4>SINGLES AND COUPLES</h4>
+              <p>72 million US households with 1-2 people who never fill a dishwasher</p>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="segment-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+            </div>
+            <div>
+              <h4>OFFICES AND CO-WORKING</h4>
+              <p>5+ million breakrooms tired of communal sink messes and dirty mugs</p>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="segment-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </div>
+            <div>
+              <h4>STUDENTS AND DORMS</h4>
+              <p>20 million college students in spaces with no kitchen and no dishwasher</p>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="segment-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <h4>FAMILIES WITH KIDS</h4>
+              <p>Parents who want each child responsible for their own dish, cleaned in 10 seconds</p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="market-size-card">
+            <div class="tam-label">TOTAL ADDRESSABLE MARKET</div>
+            <div class="tam-number">$15B+</div>
+            <div class="tam-desc">Based on 72M+ small households, 5M+ offices, and 20M students at $200 per unit, plus $2-3B in annual recurring tablet revenue.</div>
+          </div>
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Modern apartment kitchen" class="market-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS PLAN -->
+  <section class="business-plan">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Business Plan</div>
+        <h2 class="section-title">The Roadmap to<br>a New Category</h2>
+      </div>
+      <div class="bp-grid">
+        <div class="bp-card reveal">
+          <div class="bp-card-label">REVENUE MODEL</div>
+          <p>Hardware sales at $189-$240 per unit for the consumer model, with premium pricing for commercial/office units. Recurring revenue from proprietary soap tablets sold via subscription (razor-blade model). Optional custom-designed dishware sets sold as accessories create ecosystem lock-in and maximize cleaning performance.</p>
+        </div>
+        <div class="bp-card reveal">
+          <div class="bp-card-label">GO-TO-MARKET</div>
+          <p>Launch through a Kickstarter campaign targeting minimalists, tiny-home enthusiasts, and productivity-obsessed office managers. Fuel viral growth with 10-second demo videos on TikTok and Instagram. Secure early B2B pilots with co-working chains and university housing departments for bulk orders.</p>
+        </div>
+        <div class="bp-card reveal">
+          <div class="bp-card-label">COMPETITIVE ADVANTAGE</div>
+          <p>Dishly creates an entirely new product category with no direct competitors. Traditional dishwashers cannot serve the single-item use case. The combination of proprietary cleaning tablets, optional custom dishware, and a self-contained water system creates a defensible ecosystem. First-mover advantage in the rapid single-item wash space is significant.</p>
+        </div>
+        <div class="bp-card reveal">
+          <div class="bp-card-label">KEY RISKS</div>
+          <ul>
+            <li>Hardware development and manufacturing complexity could delay time to market and inflate costs beyond initial projections</li>
+            <li>Consumer skepticism that a 10-second cycle can truly sanitize dishes to the standard they expect from traditional methods</li>
+            <li>Established appliance giants like Samsung, Bosch, or LG could enter the category with greater manufacturing resources and distribution networks</li>
+          </ul>
+        </div>
+        <div class="bp-card full-width reveal">
+          <div class="bp-card-label">YEAR ONE MILESTONES</div>
+          <div class="milestones-grid">
+            <div class="milestone">
+              <div class="milestone-q">Q1-Q2</div>
+              <p>Complete industrial design and working prototype validated by third-party hygiene testing labs</p>
+            </div>
+            <div class="milestone">
+              <div class="milestone-q">Q2-Q3</div>
+              <p>Raise $500K+ through crowdfunding campaign with 3,000+ pre-orders from early adopters</p>
+            </div>
+            <div class="milestone">
+              <div class="milestone-q">Q3-Q4</div>
+              <p>Ship first production units and secure 5 B2B pilot programs with co-working spaces or universities</p>
+            </div>
+          </div>
+        </div>
+        <div class="bp-card full-width reveal">
+          <div class="bp-card-label">STARTUP COST ESTIMATE</div>
+          <div class="cost-labels">
+            <span>$150K</span>
+            <span>$350K</span>
+          </div>
+          <div class="cost-range">
+            <div class="cost-bar">
+              <div class="cost-bar-fill"></div>
+            </div>
+          </div>
+          <p style="margin-top: 16px; font-size: 14px; color: var(--gray-400);">Covers industrial design, prototyping, third-party hygiene certification, initial manufacturing tooling, and first production run of 1,000 units.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container reveal">
+      <h2>Ready to Rethink<br>the Kitchen?</h2>
+      <p>Dishly is a concept from the Steal This Idea podcast. If you have the skills and the drive to build this, the idea is yours for the taking.</p>
+      <a href="#" class="cta-btn">STEAL THIS IDEA</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">DISHLY</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=EckC1OfEL2o" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+    <p>Not a real company. Built to inspire the next great founder.</p>
+    <p style="margin-top: 20px;"><a href="../index.html">Browse all ideas</a></p>
+  </footer>
+
+  <script>
+    // IntersectionObserver for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

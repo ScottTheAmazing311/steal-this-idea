@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Big Box - Nesting Cardboard Play Worlds for Kids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sun:#FFBE0B;
+  --coral:#FF6B6B;
+  --sky:#4ECDC4;
+  --ocean:#2C6E8A;
+  --forest:#2D6A4F;
+  --cream:#FFF8F0;
+  --warm:#FFF1E6;
+  --dark:#1A1A2E;
+  --card:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;color:var(--dark);background:var(--cream);overflow-x:hidden;line-height:1.65}
+h1,h2,h3,h4{font-family:'Fredoka',sans-serif;line-height:1.2}
+
+/* ---- BADGE ---- */
+.sti-badge{
+  position:fixed;top:16px;left:16px;z-index:1000;
+  background:var(--dark);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.82rem;font-weight:600;
+  padding:8px 16px;border-radius:40px;
+  text-decoration:none;display:flex;align-items:center;gap:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+  transition:transform .2s,box-shadow .2s;
+}
+.sti-badge:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(0,0,0,.35)}
+.sti-badge svg{flex-shrink:0}
+
+/* ---- ANIM ---- */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-50px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(50px);transition:opacity .7s ease,transform .7s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* ---- HERO ---- */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:80px 24px 60px;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1566140967404-b8b3932483f5?auto=format&fit=crop&w=1600&q=80') center/cover;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(255,190,11,.88) 0%,rgba(255,107,107,.82) 50%,rgba(78,205,196,.8) 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:780px}
+.hero-icon{
+  width:80px;height:80px;margin:0 auto 24px;
+  background:var(--card);border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 30px rgba(0,0,0,.15);
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero h1{
+  font-size:clamp(2.8rem,7vw,5rem);color:#fff;
+  text-shadow:0 4px 30px rgba(0,0,0,.18);margin-bottom:12px;
+}
+.hero .tagline{
+  font-size:clamp(1.15rem,2.5vw,1.5rem);color:#fff;
+  font-weight:600;margin-bottom:20px;opacity:.95;
+}
+.hero .pitch{
+  font-size:clamp(.95rem,1.8vw,1.15rem);color:#fff;
+  max-width:620px;margin:0 auto 32px;opacity:.9;line-height:1.7;
+}
+.btn{
+  display:inline-block;padding:16px 40px;border-radius:60px;
+  font-family:'Fredoka',sans-serif;font-size:1.05rem;font-weight:600;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.2)}
+.btn-primary{background:#fff;color:var(--coral)}
+.btn-dark{background:var(--dark);color:#fff}
+
+/* ---- SECTION UTILITY ---- */
+.section{padding:80px 24px}
+.section-lg{padding:100px 24px}
+.container{max-width:1100px;margin:0 auto}
+.section-title{
+  font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:12px;
+}
+.section-sub{
+  font-size:1.05rem;max-width:620px;color:#555;margin-bottom:48px;line-height:1.7;
+}
+.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}
+
+/* ---- PROBLEM ---- */
+.problem{background:var(--warm);position:relative;overflow:hidden}
+.problem-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+.problem-img{
+  border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.12);
+  aspect-ratio:4/3;
+}
+.problem-img img{width:100%;height:100%;object-fit:cover;display:block}
+.problem-text h2{color:var(--coral);margin-bottom:16px}
+.problem-text p{color:#444;font-size:1.05rem;line-height:1.75}
+.problem-text p + p{margin-top:16px}
+.pain-list{list-style:none;margin-top:24px}
+.pain-list li{
+  padding:10px 0 10px 36px;position:relative;font-size:1rem;color:#444;
+}
+.pain-list li::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border-radius:50%;background:var(--coral);opacity:.2;
+}
+.pain-list li::after{
+  content:'';position:absolute;left:7px;top:50%;transform:translateY(-50%) rotate(45deg);
+  width:6px;height:11px;border-right:2.5px solid var(--coral);border-bottom:2.5px solid var(--coral);
+}
+
+/* ---- SOLUTION ---- */
+.solution{background:#fff;position:relative}
+.solution-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+.solution-text h2{color:var(--forest);margin-bottom:16px}
+.solution-text p{color:#444;font-size:1.05rem;line-height:1.75}
+.solution-img{
+  border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.1);
+  aspect-ratio:4/3;
+}
+.solution-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---- GALLERY STRIP ---- */
+.gallery-strip{
+  background:var(--cream);padding:40px 0;overflow:hidden;
+}
+.gallery-track{
+  display:flex;gap:20px;padding:0 24px;
+  animation:scrollStrip 30s linear infinite;
+  width:max-content;
+}
+@keyframes scrollStrip{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.gallery-track img{
+  height:220px;border-radius:16px;object-fit:cover;flex-shrink:0;
+  box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+
+/* ---- FEATURES ---- */
+.features{background:var(--warm)}
+.features-header{text-align:center;margin-bottom:56px}
+.features-header h2{color:var(--ocean)}
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;
+}
+.feature-card{
+  background:var(--card);border-radius:20px;padding:32px 28px;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);
+  transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden;
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(0,0,0,.12)}
+.feature-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+}
+.feature-card:nth-child(1)::before{background:var(--sun)}
+.feature-card:nth-child(2)::before{background:var(--coral)}
+.feature-card:nth-child(3)::before{background:var(--sky)}
+.feature-card:nth-child(4)::before{background:var(--forest)}
+.feature-icon{
+  width:56px;height:56px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+}
+.feature-card:nth-child(1) .feature-icon{background:rgba(255,190,11,.15)}
+.feature-card:nth-child(2) .feature-icon{background:rgba(255,107,107,.15)}
+.feature-card:nth-child(3) .feature-icon{background:rgba(78,205,196,.15)}
+.feature-card:nth-child(4) .feature-icon{background:rgba(45,106,79,.12)}
+.feature-card h3{font-size:1.15rem;margin-bottom:10px;color:var(--dark)}
+.feature-card p{font-size:.95rem;color:#555;line-height:1.65}
+.feature-img{
+  margin-top:28px;border-radius:14px;overflow:hidden;
+  aspect-ratio:16/9;
+}
+.feature-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---- MARKET ---- */
+.market{background:#fff;position:relative}
+.market-content{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+.market-text h2{color:var(--ocean);margin-bottom:16px}
+.market-text p{color:#444;font-size:1.05rem;line-height:1.75}
+.market-text p + p{margin-top:14px}
+.stat-row{display:flex;gap:24px;margin-top:32px;flex-wrap:wrap}
+.stat-box{
+  background:var(--warm);border-radius:16px;padding:20px 24px;flex:1;min-width:140px;
+}
+.stat-box .num{font-family:'Fredoka',sans-serif;font-size:1.6rem;color:var(--coral);font-weight:700}
+.stat-box .label{font-size:.85rem;color:#666;margin-top:4px}
+.market-img{
+  border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.1);
+  aspect-ratio:4/3;
+}
+.market-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---- BUSINESS PLAN ---- */
+.biz{background:var(--dark);color:#fff;position:relative;overflow:hidden}
+.biz::before{
+  content:'';position:absolute;top:-200px;right:-200px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(78,205,196,.15),transparent 70%);
+}
+.biz .section-title{color:#fff}
+.biz .section-sub{color:rgba(255,255,255,.6)}
+.biz-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;
+}
+.biz-card{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:32px 28px;
+  transition:background .3s;
+}
+.biz-card:hover{background:rgba(255,255,255,.1)}
+.biz-card h3{
+  font-size:1.1rem;color:var(--sky);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.biz-card p,.biz-card li{font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.7}
+.biz-card ul{list-style:none;padding:0}
+.biz-card ul li{padding:6px 0 6px 20px;position:relative}
+.biz-card ul li::before{
+  content:'';position:absolute;left:0;top:14px;
+  width:8px;height:8px;border-radius:50%;background:var(--sky);opacity:.5;
+}
+.biz-img{
+  grid-column:1/-1;border-radius:20px;overflow:hidden;
+  max-height:320px;margin-top:12px;
+}
+.biz-img img{width:100%;height:100%;object-fit:cover;display:block;opacity:.7}
+
+/* ---- FOOTER ---- */
+.footer{
+  background:var(--dark);color:rgba(255,255,255,.5);
+  padding:40px 24px;text-align:center;font-size:.9rem;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.footer a{color:var(--sky);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.footer p+p{margin-top:8px}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:768px){
+  .problem-grid,.solution-grid,.market-content{grid-template-columns:1fr;gap:32px}
+  .solution-img{order:-1}
+  .stat-row{flex-direction:column}
+  .gallery-track img{height:160px}
+  .section{padding:60px 20px}
+  .section-lg{padding:72px 20px}
+  .biz-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- STEAL THIS IDEA BADGE -->
+<a href="../index.html" class="sti-badge" aria-label="Back to Steal This Idea">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFBE0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2C9 2 6.5 4 6.5 7c0 2 1 3.5 2.5 4.5V13a1 1 0 001 1h4a1 1 0 001-1v-1.5C16.5 10.5 17.5 9 17.5 7c0-3-2.5-5-5.5-5z"/>
+    <line x1="9" y1="17" x2="15" y2="17"/>
+    <line x1="10" y1="20" x2="14" y2="20"/>
+  </svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-icon">
+      <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+        <rect x="6" y="16" width="36" height="24" rx="3" stroke="#FF6B6B" stroke-width="3" fill="none"/>
+        <rect x="12" y="20" width="24" height="16" rx="2" stroke="#FFBE0B" stroke-width="2.5" fill="none"/>
+        <rect x="18" y="24" width="12" height="8" rx="1.5" stroke="#4ECDC4" stroke-width="2" fill="none"/>
+        <path d="M24 10V16" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M18 12L20 16" stroke="#FFBE0B" stroke-width="2" stroke-linecap="round"/>
+        <path d="M30 12L28 16" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1>Little Big Box</h1>
+    <p class="tagline">Nesting cardboard play worlds for kids.</p>
+    <p class="pitch">Themed kits of 8 to 10 nested corrugated boxes that unfold into entire play scenes: cities, farms, jungles, and more. Stack them up, play them out, recycle when done. Imagination delivered to your door.</p>
+    <a href="#features" class="btn btn-primary">Explore the Kits</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section-lg problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="problem-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80" alt="Child playing with plain cardboard boxes" loading="lazy">
+      </div>
+      <div class="problem-text reveal-right">
+        <h2 class="section-title">The Box Paradox</h2>
+        <p>Every parent knows the truth: give a kid a fancy toy and they play with the box instead. But random shipping boxes are flimsy, dull, and fall apart in minutes.</p>
+        <p>Meanwhile, plastic playsets drain your wallet, hog closet space, and end up in a landfill. There has to be a better way to fuel a child's imagination.</p>
+        <ul class="pain-list">
+          <li>Shipping boxes are thin, boring, and collapse quickly</li>
+          <li>Plastic toys average $40+ and clutter every room</li>
+          <li>Playsets are hard to store and harder to recycle</li>
+          <li>Kids crave novelty but parents crave simplicity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="section-lg solution">
+  <div class="container">
+    <div class="solution-grid">
+      <div class="solution-text reveal-left">
+        <h2 class="section-title">Unbox a Whole World</h2>
+        <p>Little Big Box delivers themed sets of double-wall corrugated boxes, each one nesting inside the next like Russian dolls. The biggest becomes a skyscraper, the smallest a newspaper stand. Flip them over and every surface is a new scene.</p>
+        <p>Included stickers, Velcro connectors, and cut-out guides for doors and windows let kids customize each piece. QR codes unlock sound effects and AR characters through any phone. When playtime is done, everything stacks flat or goes straight into the recycling bin.</p>
+      </div>
+      <div class="solution-img reveal-right">
+        <img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?auto=format&fit=crop&w=800&q=80" alt="Colorful children's play area with creative toys" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip">
+  <div class="gallery-track">
+    <img src="https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?auto=format&fit=crop&w=500&q=80" alt="Kids playing creatively" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=500&q=80" alt="Happy child with colorful crafts" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=500&q=80" alt="Child crafting with cardboard" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&w=500&q=80" alt="Playful kids scene" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=500&q=80" alt="Children having fun together" loading="lazy">
+    <!-- Duplicate for seamless loop -->
+    <img src="https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?auto=format&fit=crop&w=500&q=80" alt="Kids playing creatively" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=500&q=80" alt="Happy child with colorful crafts" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=500&q=80" alt="Child crafting with cardboard" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&w=500&q=80" alt="Playful kids scene" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=500&q=80" alt="Children having fun together" loading="lazy">
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section-lg features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <h2 class="section-title">What's in the Box (in the Box, in the Box...)</h2>
+      <p class="section-sub mx-auto">Each kit is designed to spark hours of screen-free play, then clean up in seconds.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFBE0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/><rect x="6" y="10" width="12" height="8" rx="1"/><rect x="10" y="13" width="4" height="2" rx=".5"/>
+          </svg>
+        </div>
+        <h3>Nested Russian-Doll Design</h3>
+        <p>8 to 10 boxes per kit, from large to small, all fitting inside one outer box. Ships flat, stores flat, plays big.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3>Themed Scene Kits</h3>
+        <p>City, Farm, Safari, Space, Ocean, and seasonal collections. Artwork printed on all four sides of every box.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><circle cx="17.5" cy="17.5" r="3.5"/>
+          </svg>
+        </div>
+        <h3>QR-Powered Sound and AR</h3>
+        <p>Scan codes on each box to hear animal sounds, city noise, or unlock augmented reality characters with any phone.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <h3>Play Accessories Included</h3>
+        <p>Stickers, Velcro connectors, cut-out guides for doors and windows, plus a printed scene script with educational prompts.</p>
+      </div>
+    </div>
+    <div class="feature-img reveal" style="margin-top:40px">
+      <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=1200&q=80" alt="Kids playing with creative building toys" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="section-lg market">
+  <div class="container">
+    <div class="market-content">
+      <div class="market-text reveal-left">
+        <h2 class="section-title">A Big Market for Little Boxes</h2>
+        <p>Parents of children ages 2 to 8 are the primary audience, especially those seeking screen-free, imaginative play alternatives. The secondary market includes preschools, daycare centers, eco-conscious gift buyers, and grandparents looking for something different.</p>
+        <p>The U.S. toy market totals roughly $38 billion per year. Creative and educational toys represent about 15% of that. Within the eco-friendly, screen-free subcategory, the addressable market sits between $800 million and $1.2 billion.</p>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="num">$38B</div>
+            <div class="label">U.S. Toy Market</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">$1.2B</div>
+            <div class="label">Eco-Toy Segment</div>
+          </div>
+          <div class="stat-box">
+            <div class="num">73%</div>
+            <div class="label">Parents want less plastic</div>
+          </div>
+        </div>
+      </div>
+      <div class="market-img reveal-right">
+        <img src="https://images.unsplash.com/photo-1526634332515-d56c5fd16991?auto=format&fit=crop&w=800&q=80" alt="Family playing together" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="section-lg biz">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:56px">
+      <h2 class="section-title">The Business Plan</h2>
+      <p class="section-sub mx-auto">A lean, scalable model built on cheap materials, lightweight shipping, and repeat purchases.</p>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Revenue Model
+        </h3>
+        <p>Themed kits priced at $20 to $30 each via direct-to-consumer e-commerce. Premium AR-enabled kits at $35 to $40. Monthly subscription option at $22/month delivering a new theme each cycle. Bulk pricing for schools and daycares.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Go-to-Market Strategy
+        </h3>
+        <p>Launch on Kickstarter with a video showing kids unboxing and building a city scene. Use Instagram and TikTok parenting influencers to demonstrate the product in action. Follow up with an Amazon storefront and direct website sales.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Competitive Advantage
+        </h3>
+        <p>No direct competitor combines the nested-box format with themed artwork and digital AR overlays. The product is extremely cheap to manufacture, lightweight to ship, and fully recyclable, creating a pricing moat that plastic toy companies cannot match.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Year One Milestones
+        </h3>
+        <ul>
+          <li>Fully fund a Kickstarter campaign with at least 2,000 backers in the first 30 days</li>
+          <li>Launch 6 themed kits and one seasonal holiday collection in the first 9 months</li>
+          <li>Reach $500K in gross revenue by month 12 through DTC, Amazon, and wholesale channels</li>
+        </ul>
+      </div>
+      <div class="biz-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Startup Cost Estimate
+        </h3>
+        <p>$8,000 to $25,000 to reach MVP. Covers initial design work, a small production run from a cardboard manufacturer, product photography, Kickstarter video production, and initial inventory for 500 to 1,000 units.</p>
+      </div>
+      <div class="biz-card reveal">
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Key Risks
+        </h3>
+        <ul>
+          <li>Cardboard durability may not meet parent expectations for longevity compared to plastic toys</li>
+          <li>Low barriers to entry mean copycats could replicate the concept quickly</li>
+          <li>Shipping large but lightweight boxes may have unfavorable dimensional weight pricing from carriers</li>
+        </ul>
+      </div>
+    </div>
+    <div class="biz-img reveal">
+      <img src="https://images.unsplash.com/photo-1607453998774-d533f65dac99?auto=format&fit=crop&w=1200&q=80" alt="Colorful cardboard boxes" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>Little Big Box is a startup concept from the <a href="https://www.youtube.com/watch?v=6D7PFi8MGSY" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+    <p>This page is a concept exploration, not a real company. Built for dreamers and doers.</p>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered animations
+document.addEventListener('DOMContentLoaded', function() {
+  var targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(function(el) { observer.observe(el); });
+  } else {
+    targets.forEach(function(el) { el.classList.add('visible'); });
+  }
+});
+</script>
+
+</body>
+</html>

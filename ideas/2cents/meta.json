@@ -1,0 +1,34 @@
+{
+  "slug": "2cents",
+  "company_name": "2Cents",
+  "tagline": "Quick answers from real people, instantly.",
+  "elevator_pitch": "2Cents is a mobile app that instantly connects you with knowledgeable everyday people for quick, low-cost advice on cooking, home projects, travel, cars, and more. Think of it as an on-demand knowledge exchange where getting help takes 45 seconds, not 45 minutes of searching forums.",
+  "problem": "When you need a quick answer about seasoning a steak, choosing the right drill bit, or booking travel, your options are limited. You either sift through endless forum posts and videos hoping someone had your exact question, or you pay a premium for a professional consultant you do not really need. There is no fast, affordable way to get a quick human opinion from someone who actually knows what they are talking about.",
+  "solution": "2Cents is a mobile-first app that lets you type a quick question and instantly get matched with a real person who has relevant experience. AI keyword matching connects you with the right expert in seconds. The entire interaction takes under a minute: ask, connect, get your answer, rate, and tip. Advisors earn micro-payments for sharing their knowledge, creating a self-sustaining community of helpful people.",
+  "target_market": "Adults aged 25-55 who are homeowners, hobbyists, DIYers, home cooks, and travelers. People who are resourceful enough to try things themselves but want quick validation or guidance from someone with experience before committing.",
+  "revenue_model": "Per-question micro-transactions at $1 per question, with an optional unlimited subscription at $10-15/month for power users. Advisors earn 10-30 cents per answered question based on rating and certification level, plus optional tips. The platform takes a percentage of each transaction.",
+  "key_features": [
+    "Instant AI-powered matching that connects your question to the right advisor in seconds",
+    "45-second live voice or video calls for fast, real-time answers",
+    "Advisor certification system with tiered earnings based on expertise and ratings",
+    "Micro-tipping and gamified incentives that keep advisors engaged and helpful"
+  ],
+  "competitive_advantage": "Unlike JustAnswer, which targets expensive professional consultations, 2Cents democratizes advice by tapping into everyday expertise at micro-transaction prices. The low barrier to both asking and answering creates a network effect that professional-only platforms cannot replicate. The breadth of categories grows organically as existing advisors add new skills.",
+  "market_size_estimate": "The global online expert advice market is estimated at $5B+. With 130M+ US households making daily decisions about cooking, home improvement, travel, and hobbies, even capturing 1% of casual advice-seeking at $1/question represents a $500M+ opportunity.",
+  "go_to_market": "Launch focused on a single vertical: home improvement. Partner with DIY influencers and home project creators to seed the advisor pool with knowledgeable, engaged users. Once the home improvement community is thriving, expand into cooking, then auto, then travel, using surveys of existing advisors to identify which categories to unlock next.",
+  "risks": [
+    "Cold start problem: the app is only useful if enough advisors are online to answer quickly, requiring significant upfront investment in seeding the community",
+    "Quality control: ensuring advice is accurate and safe, especially for topics like home electrical or structural projects where bad advice could cause harm",
+    "Retention of advisors: micro-payments may not be enough motivation long-term without strong gamification and community features"
+  ],
+  "year_one_milestones": [
+    "Launch home improvement vertical with 500 seeded advisors and achieve sub-60-second average response times",
+    "Reach 50,000 monthly active users across home improvement and cooking categories",
+    "Hit $500K in annualized gross transaction volume with a 30% platform take rate"
+  ],
+  "startup_cost_range": "$150K - $400K",
+  "category": "Marketplace",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=kUYsSnA6Gzo",
+  "episode_number": 28
+}

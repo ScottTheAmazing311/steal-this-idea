@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitted - Complete Outfits. One Click. Done.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #f8f8f8;
+            --accent: #ff4d2e;
+            --accent-dark: #d93a1e;
+            --gray-100: #f2f2f2;
+            --gray-200: #e0e0e0;
+            --gray-400: #999;
+            --gray-600: #666;
+            --gray-800: #333;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+        }
+
+        /* Steal This Idea Badge */
+        .sti-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--black);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .sti-badge:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+        }
+
+        .sti-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent);
+            transition: fill 0.3s ease;
+        }
+
+        .sti-badge:hover svg {
+            fill: var(--white);
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1507680434567-5739c80be1ac?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            filter: brightness(0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            color: var(--white);
+            margin-bottom: 0.2em;
+            text-transform: uppercase;
+            animation: heroSlideIn 1s ease forwards;
+        }
+
+        @keyframes heroSlideIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: heroSlideIn 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-pitch {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            color: var(--gray-200);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+            animation: heroSlideIn 1s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.15em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: heroSlideIn 1s ease 0.7s forwards;
+            opacity: 0;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 77, 46, 0.4);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .hero-scroll svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gray-400);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 24px;
+        }
+
+        .section-dark {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .section-gray {
+            background: var(--gray-100);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .section-text {
+            font-size: 1.15rem;
+            font-weight: 300;
+            line-height: 1.8;
+            max-width: 650px;
+            color: var(--gray-600);
+        }
+
+        .section-dark .section-text {
+            color: var(--gray-400);
+        }
+
+        /* PROBLEM */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .problem-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .problem-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255, 77, 46, 0.06);
+            border-left: 3px solid var(--accent);
+            padding: 20px 24px;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+
+        /* SOLUTION */
+        .solution-hero-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            margin-top: 50px;
+            border-radius: 4px;
+        }
+
+        .solution-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            position: relative;
+            padding: 40px 30px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .step p {
+            font-weight: 300;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            min-height: 350px;
+            display: flex;
+            align-items: flex-end;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.02);
+        }
+
+        .feature-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .feature-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .feature-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.2) 60%);
+        }
+
+        .feature-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            color: var(--white);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--white);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .feature-card-content h3 {
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .feature-card-content p {
+            font-weight: 300;
+            color: var(--gray-200);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* MARKET */
+        .market-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .market-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .market-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .market-item {
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 24px;
+        }
+
+        .market-item:last-child {
+            border-bottom: none;
+        }
+
+        .market-item h3 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .market-item p {
+            font-weight: 300;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .audience-tag {
+            padding: 8px 20px;
+            border: 1px solid var(--gray-800);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--gray-800);
+            border-radius: 2px;
+        }
+
+        /* BUSINESS PLAN */
+        .biz-plan {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .biz-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .biz-card {
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .biz-card:hover {
+            border-color: var(--accent);
+        }
+
+        .biz-card-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+        }
+
+        .biz-card-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .biz-card h3 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .biz-card p, .biz-card li {
+            font-weight: 300;
+            color: var(--gray-400);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .biz-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .biz-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .biz-card ul li::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        .biz-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .biz-card .cost-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: var(--white);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.1em;
+            margin-top: 16px;
+            border-radius: 2px;
+        }
+
+        .milestones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .milestone {
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 4px;
+        }
+
+        .milestone-quarter {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .milestone p {
+            font-size: 0.9rem;
+        }
+
+        /* CTA BANNER */
+        .cta-banner {
+            position: relative;
+            padding: 120px 24px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cta-banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            filter: brightness(0.25);
+        }
+
+        .cta-banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--white);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .cta-banner p {
+            color: var(--gray-200);
+            font-size: 1.15rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 60px 24px;
+            background: var(--black);
+            color: var(--gray-400);
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--white);
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            margin: 24px auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .problem-grid,
+            .solution-steps,
+            .features-grid,
+            .market-split,
+            .biz-grid,
+            .milestones-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section {
+                padding: 70px 20px;
+            }
+
+            .biz-card.full-width {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .problem-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .sti-badge {
+                top: 12px;
+                left: 12px;
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Steal This Idea Badge -->
+    <a href="../index.html" class="sti-badge">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/>
+        </svg>
+        STEAL THIS IDEA
+    </a>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Kitted</h1>
+            <div class="hero-tagline">Complete outfits. One click. Done.</div>
+            <p class="hero-pitch">Stop piecing together shirts, pants, shoes, and accessories one by one. Kitted sells complete, professionally styled outfits that you can buy in a single click, delivered in your size, ready to wear.</p>
+            <a href="#problem" class="cta-btn">Get Kitted</a>
+        </div>
+        <div class="hero-scroll">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section id="problem" class="section section-gray">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">The Problem</div>
+                <h2 class="section-title">Shopping for clothes<br>shouldn't feel like a chore</h2>
+            </div>
+            <div class="problem-grid">
+                <div class="reveal-left">
+                    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=800&q=80" alt="Overwhelming clothing rack" class="problem-image">
+                </div>
+                <div class="reveal-right">
+                    <p class="section-text">
+                        Most people know what looks good when they see it. The hard part is recreating that look on their own. Traditional stores force you to piece together shirts, pants, belts, and shoes from scattered racks, hoping everything works together.
+                    </p>
+                    <br>
+                    <p class="section-text">
+                        Subscription boxes like Stitch Fix and Trunk Club promised to solve this, but they just send random items picked by algorithms. You fill out a survey, cross your fingers, and open a box of someone else's taste. That is not personal style.
+                    </p>
+                    <div class="problem-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">72%</div>
+                            <div class="stat-label">of men say they struggle to put outfits together</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">$2B+</div>
+                            <div class="stat-label">spent on styling subscriptions that miss the mark</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">40%</div>
+                            <div class="stat-label">return rate on subscription clothing boxes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">major brands selling complete outfits in one click</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">The Solution</div>
+                <h2 class="section-title">See it. Want it. Buy the whole thing.</h2>
+                <p class="section-text">Kitted is the first clothing store built entirely around complete outfits. Every product is a full look, styled by professionals, photographed on real people. Set your sizes once, then shop with confidence.</p>
+            </div>
+            <div class="reveal-scale">
+                <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1200&q=80" alt="Well-dressed man in styled outfit" class="solution-hero-img">
+            </div>
+            <div class="solution-steps">
+                <div class="step reveal">
+                    <div class="step-number">01</div>
+                    <h3>Set Your Profile</h3>
+                    <p>Enter your sizes once: shirt, pants, shoes, and preferences. Kitted remembers everything so you never re-enter a thing.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">02</div>
+                    <h3>Browse Full Looks</h3>
+                    <p>Every listing is a complete, styled outfit. No guesswork, no mixing and matching. If it looks good in the photo, it looks good on you.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">03</div>
+                    <h3>One Click Checkout</h3>
+                    <p>Add the outfit to your cart and check out. Everything ships together in one box. Your closet organized by complete looks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">Key Features</div>
+                <h2 class="section-title">Built for the way you<br>actually want to shop</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal-left">
+                    <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=800&q=80" alt="One click shopping">
+                    <div class="feature-card-overlay"></div>
+                    <div class="feature-card-content">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <h3>One-Click Outfits</h3>
+                        <p>Every outfit is a single product. One click adds the shirt, pants, shoes, belt, and accessories to your cart in your exact sizes.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal-right">
+                    <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=800&q=80" alt="Professional styling">
+                    <div class="feature-card-overlay"></div>
+                    <div class="feature-card-content">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        </div>
+                        <h3>Professionally Styled</h3>
+                        <p>Every outfit is curated by real stylists and photographed on real people. What you see is exactly what you get.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal-left">
+                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" alt="Smart cart technology">
+                    <div class="feature-card-overlay"></div>
+                    <div class="feature-card-content">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        </div>
+                        <h3>Smart Cart</h3>
+                        <p>Buying multiple outfits? The cart detects overlapping items. If two outfits share the same pants, you only pay once.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal-right">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Seasonal collections">
+                    <div class="feature-card-overlay"></div>
+                    <div class="feature-card-content">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        </div>
+                        <h3>Seasonal Drops</h3>
+                        <p>New curated collections drop every season. Limited-edition outfits keep your wardrobe fresh without the decision fatigue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKET -->
+    <section class="section section-gray">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">The Opportunity</div>
+                <h2 class="section-title">A $30 billion market<br>with a massive gap</h2>
+            </div>
+            <div class="market-split">
+                <div class="reveal-left">
+                    <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80" alt="Modern retail storefront" class="market-image">
+                </div>
+                <div class="reveal-right">
+                    <div class="market-numbers">
+                        <div class="market-item">
+                            <h3>$100B</h3>
+                            <p>Total U.S. men's apparel market. Online menswear alone accounts for $30 billion and continues to grow year over year.</p>
+                        </div>
+                        <div class="market-item">
+                            <h3>$2B+</h3>
+                            <p>Annual revenue from styling subscriptions like Stitch Fix, proving strong demand for curated clothing. But customers want more control.</p>
+                        </div>
+                        <div class="market-item">
+                            <h3>0.1% = $30M</h3>
+                            <p>Capturing even a fraction of online menswear represents a significant revenue opportunity for a focused, differentiated brand.</p>
+                        </div>
+                    </div>
+                    <div class="audience-tags">
+                        <span class="audience-tag">Young Professionals</span>
+                        <span class="audience-tag">Men 25 to 40</span>
+                        <span class="audience-tag">Style-Conscious</span>
+                        <span class="audience-tag">Time-Strapped</span>
+                        <span class="audience-tag">Urban Markets</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS PLAN -->
+    <section class="section biz-plan">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">Business Plan</div>
+                <h2 class="section-title">The blueprint for Kitted</h2>
+            </div>
+            <div class="biz-grid">
+                <div class="biz-card reveal">
+                    <div class="biz-card-icon">
+                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <h3>Revenue Model</h3>
+                    <p>Direct-to-consumer e-commerce with outfit bundles priced at $150 to $350 per kit. Margins of 40 to 60 percent on curated bundles. Additional revenue from seasonal limited-edition collections, influencer collaboration lines, and smart cart cross-selling that recommends mix-and-match pieces across outfits.</p>
+                </div>
+                <div class="biz-card reveal">
+                    <div class="biz-card-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </div>
+                    <h3>Go-to-Market Strategy</h3>
+                    <p>Launch with a capsule collection of 5 to 10 complete outfits for fall, targeting men 25 to 40 through Instagram and TikTok ads featuring styled lifestyle photography. Partner with mid-tier fashion influencers who can demonstrate the one-click concept. Start lean on Shopify and scale based on early traction and customer feedback.</p>
+                </div>
+                <div class="biz-card reveal">
+                    <div class="biz-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3>Competitive Advantage</h3>
+                    <p>Unlike Stitch Fix or Trunk Club, Kitted puts the customer in full control. No surprise boxes, no algorithms guessing your taste. You see exactly what you get before you buy. Unlike Buckle or traditional retailers, you never add items individually or re-enter sizes. The entire experience is purpose-built around complete outfits, not individual garments.</p>
+                </div>
+                <div class="biz-card reveal">
+                    <div class="biz-card-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <h3>Key Risks</h3>
+                    <ul>
+                        <li>Inventory complexity: stocking every item in multiple sizes across many outfits creates warehousing challenges that require careful planning</li>
+                        <li>Return rates: bundled outfits carry higher average order values, which may increase returns if fit is inconsistent across brands</li>
+                        <li>Customer acquisition: competing for attention in the crowded online menswear space demands significant and creative marketing investment</li>
+                    </ul>
+                </div>
+                <div class="biz-card full-width reveal">
+                    <div class="biz-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+                    </div>
+                    <h3>Year One Milestones</h3>
+                    <div class="milestones-grid">
+                        <div class="milestone">
+                            <div class="milestone-quarter">Q1 to Q2</div>
+                            <p>Launch with 10 curated outfits across 3 seasonal collections. Achieve 500 orders in the first quarter and validate product-market fit.</p>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-quarter">Q2 to Q3</div>
+                            <p>Build a community of 10,000 email subscribers and establish 5 influencer partnerships to drive organic growth and brand awareness.</p>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-quarter">Q3 to Q4</div>
+                            <p>Reach $500K in gross revenue and expand to 30 outfit options with mix-and-match recommendations powered by the smart cart.</p>
+                        </div>
+                    </div>
+                    <div class="cost-badge">Estimated Startup Cost: $50,000 to $150,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+        <div class="cta-banner-bg"></div>
+        <div class="cta-banner-content reveal-scale">
+            <h2>Ready to get kitted?</h2>
+            <p>Join the waitlist and be the first to shop complete outfits.</p>
+            <a href="#" class="cta-btn" style="opacity: 1; animation: none;">Join the Waitlist</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">Kitted</div>
+        <p>This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet). If you are inspired, go build it.</p>
+        <div class="footer-divider"></div>
+        <p>
+            <a href="https://www.youtube.com/watch?v=JuYJ1wxe_rM" target="_blank" rel="noopener">Watch the Episode</a>
+            &nbsp;&nbsp;/&nbsp;&nbsp;
+            <a href="../index.html">Browse All Ideas</a>
+        </p>
+    </footer>
+
+    <script>
+        // IntersectionObserver for scroll animations
+        document.addEventListener('DOMContentLoaded', function () {
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            var elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+            elements.forEach(function (el) {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

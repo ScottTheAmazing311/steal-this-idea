@@ -1,0 +1,34 @@
+{
+  "slug": "blender",
+  "company_name": "Blender",
+  "tagline": "Hit blend. Find your next adventure.",
+  "elevator_pitch": "Blender is a social activity discovery app that takes your group's budget, location, size, and available time, then serves up curated local experiences you never knew existed. Stop arguing about what to do and start doing it.",
+  "problem": "Every friend group hits the same wall: nobody knows what to do on a Friday night. The same five ideas get recycled, and existing event tools just list generic concerts and comedy shows. Great local experiences stay hidden inside personal networks, and group indecision kills plans before they start.",
+  "solution": "Blender lets your group input parameters like budget, travel distance, group size, and available time, then serves up a curated activity from a locally sourced database of hidden gems and real experiences. Everyone in the group votes yay or nay before the next suggestion appears, forcing decisions and ending the cycle of non-committal plan-making.",
+  "target_market": "Young adults (16 to 30), friend groups, couples, and families looking for things to do in their city. Initially focused on a single metro area (Salt Lake City) before expanding regionally.",
+  "revenue_model": "Promoted activity placements from local businesses (restaurants, venues, events). Businesses create special group offers (e.g., 'bring 4 friends, get free appetizers'). Secondary revenue from affiliate links and in-app ads for suggested free activities (game downloads, etc.).",
+  "key_features": [
+    "Smart parameter matching: input group size, budget, distance, and time to get tailored suggestions",
+    "Group voting system: everyone votes yay or nay before the next blend, ending indecision",
+    "Community-curated database: users submit and upvote hidden local gems alongside editorial picks",
+    "Business deals engine: local businesses create special group offers that surface when parameters match"
+  ],
+  "competitive_advantage": "Unlike event listing sites that just aggregate concerts and shows, Blender curates real, tested experiences (from gas station petting zoos to free holiday light displays) verified by locals. The group voting mechanic solves the core social friction of planning, not just discovery. Hyper-local focus means deep content quality in each market before expanding.",
+  "market_size_estimate": "The U.S. local experiences and activities market is estimated at $100B+. With 72M millennials and Gen Z adults spending an average of $200/month on entertainment and dining, even capturing 1% of a single metro area represents significant revenue potential. The local advertising market adds another layer at $150B nationally.",
+  "go_to_market": "Launch in a single metro area (Salt Lake City) with one intern curating the initial database of 500+ activities. Seed the app with college students and young professional groups through campus ambassadors and Instagram. Prove engagement metrics locally before expanding city by city.",
+  "risks": [
+    "Social planning apps have historically struggled to gain traction, with many failing to reach critical mass",
+    "Maintaining a high-quality, locally curated activity database requires ongoing effort and does not scale automatically",
+    "User-generated content quality may vary, and moderation at scale could become a challenge"
+  ],
+  "year_one_milestones": [
+    "Launch in Salt Lake City metro with 500+ curated activities and 5,000 active users",
+    "Onboard 50 local businesses running promoted placements and group deals",
+    "Achieve 30% monthly retention rate and expand to a second metro area"
+  ],
+  "startup_cost_range": "$30,000 to $75,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=UbFAlnfR2lE",
+  "episode_number": 21
+}

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supportive - Shop Your Values. Gift with Purpose.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF7F2;
+            --sage: #7A8B6F;
+            --sage-dark: #5A6B4F;
+            --sage-light: #B8C5AE;
+            --forest: #2D3A28;
+            --moss: #4A5E3E;
+            --warm-brown: #8B7355;
+            --terracotta: #C4775A;
+            --sand: #E8DFD0;
+            --off-white: #FDFCFA;
+            --text-dark: #2A2A2A;
+            --text-muted: #6B6B6B;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Badge */
+        .steal-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--forest);
+            color: var(--cream);
+            padding: 8px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Karla', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        .steal-badge:hover {
+            background: var(--sage-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .steal-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: #F5C842;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 900;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.06);
+            padding: 14px 40px;
+        }
+
+        nav a {
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--sage);
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(45, 58, 40, 0.85) 0%,
+                rgba(74, 94, 62, 0.7) 50%,
+                rgba(122, 139, 111, 0.5) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 40px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4rem;
+            color: var(--cream);
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.3rem;
+            color: var(--sage-light);
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-text .pitch {
+            font-size: 1.05rem;
+            color: rgba(250, 247, 242, 0.85);
+            line-height: 1.8;
+            margin-bottom: 36px;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--terracotta);
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-cta:hover {
+            background: #d4886b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 119, 90, 0.35);
+        }
+
+        .hero-cta svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        .hero-image-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            aspect-ratio: 4/3;
+        }
+
+        .hero-image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(45, 58, 40, 0.4));
+        }
+
+        /* Leaf decoration */
+        .leaf-divider {
+            display: flex;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .leaf-divider svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--sage);
+            opacity: 0.5;
+        }
+
+        /* ===== PROBLEM ===== */
+        .problem {
+            padding: 100px 40px;
+            background: var(--off-white);
+        }
+
+        .problem-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .problem-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        .problem-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .problem-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 120px;
+            height: 120px;
+            background: var(--sage-light);
+            opacity: 0.3;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .section-label {
+            font-family: 'Karla', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.5rem;
+            color: var(--forest);
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .section-text {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 40px;
+            margin-top: 36px;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.4rem;
+            color: var(--terracotta);
+            font-weight: 700;
+        }
+
+        .stat-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== SOLUTION ===== */
+        .solution {
+            padding: 100px 40px;
+            background: var(--forest);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(122, 139, 111, 0.15), transparent);
+            border-radius: 50%;
+        }
+
+        .solution-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .solution .section-label {
+            color: var(--sage-light);
+        }
+
+        .solution .section-title {
+            color: var(--cream);
+        }
+
+        .solution .section-text {
+            color: rgba(250, 247, 242, 0.75);
+        }
+
+        .solution-image {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .solution-points {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .solution-points li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: rgba(250, 247, 242, 0.85);
+            font-size: 1rem;
+        }
+
+        .solution-points li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--sage-light);
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 100px 40px;
+            background: var(--cream);
+        }
+
+        .features-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--off-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .feature-card:hover .feature-card-image img {
+            transform: scale(1.05);
+        }
+
+        .feature-card-body {
+            padding: 30px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--sage-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--forest);
+        }
+
+        .feature-card h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.25rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== MARKET ===== */
+        .market {
+            padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .market-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .market-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(250, 247, 242, 0.92), rgba(250, 247, 242, 0.96));
+        }
+
+        .market-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .market-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .market-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .market-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 36px 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(122, 139, 111, 0.1);
+        }
+
+        .market-card:hover {
+            border-color: var(--sage-light);
+            transform: translateY(-4px);
+        }
+
+        .market-card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .market-card-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--warm-brown);
+        }
+
+        .market-card h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.1rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+
+        .market-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .market-tam {
+            margin-top: 50px;
+            text-align: center;
+            background: var(--forest);
+            border-radius: 20px;
+            padding: 50px 40px;
+            color: var(--cream);
+        }
+
+        .market-tam h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .market-tam p {
+            font-size: 1rem;
+            color: rgba(250, 247, 242, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .market-tam .tam-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3.5rem;
+            color: var(--terracotta);
+            margin: 20px 0 10px;
+        }
+
+        /* ===== BUSINESS PLAN ===== */
+        .business-plan {
+            padding: 100px 40px;
+            background: var(--off-white);
+        }
+
+        .bp-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .bp-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .bp-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 36px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            border-left: 4px solid var(--sage);
+        }
+
+        .bp-card.wide {
+            grid-column: 1 / -1;
+        }
+
+        .bp-card h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.15rem;
+            color: var(--forest);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bp-card h3 svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--sage);
+            flex-shrink: 0;
+        }
+
+        .bp-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .bp-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bp-card ul li {
+            padding: 10px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .bp-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .bp-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--sage-light);
+        }
+
+        .bp-cost {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2rem;
+            color: var(--terracotta);
+            margin-bottom: 8px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .cta-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(45, 58, 40, 0.9), rgba(74, 94, 62, 0.85));
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-inner h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.5rem;
+            color: var(--cream);
+            margin-bottom: 20px;
+        }
+
+        .cta-inner p {
+            color: rgba(250, 247, 242, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 36px;
+            line-height: 1.8;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--terracotta);
+            color: #fff;
+            padding: 18px 42px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-btn:hover {
+            background: #d4886b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 119, 90, 0.35);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--forest);
+            color: rgba(250, 247, 242, 0.6);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        footer a {
+            color: var(--sage-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--cream);
+        }
+
+        footer .footer-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--sage);
+            margin: 24px auto;
+            opacity: 0.4;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 960px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 140px 24px 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-image-card {
+                max-width: 500px;
+            }
+
+            .problem-inner,
+            .solution-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .bp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bp-card.wide {
+                grid-column: auto;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav {
+                padding: 16px 24px;
+                gap: 16px;
+            }
+
+            .stat-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text .pitch {
+                font-size: 0.95rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .steal-badge {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+
+            .market-tam .tam-number {
+                font-size: 2.5rem;
+            }
+
+            .cta-inner h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Steal This Idea Badge -->
+    <a href="../index.html" class="steal-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+        Steal This Idea
+    </a>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#features">Features</a>
+        <a href="#market">Market</a>
+        <a href="#business-plan">Plan</a>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80" alt="Farmers market with natural produce" loading="eager">
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="section-label" style="color: var(--sage-light);">Conscious Commerce</div>
+                <h1>Supportive</h1>
+                <p class="tagline">Shop your values. Gift with purpose.</p>
+                <p class="pitch">Look up any brand and instantly see what causes it supports. Find products that align with your beliefs, discover meaningful gifts, and spend your money where it matters. Supportive turns every purchase into a statement of what you stand for.</p>
+                <a href="#features" class="hero-cta">
+                    Discover How It Works
+                    <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </a>
+            </div>
+            <div class="hero-image-card reveal-right">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Person shopping consciously on their phone" loading="eager">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROBLEM ===== -->
+    <section class="problem" id="problem">
+        <div class="problem-inner">
+            <div class="problem-image reveal-left">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" alt="Consumer overwhelmed by choices">
+            </div>
+            <div class="reveal-right">
+                <div class="section-label">The Problem</div>
+                <h2 class="section-title">Your money speaks louder than your voice. But do you know what it is saying?</h2>
+                <p class="section-text">Consumers increasingly want to support brands that align with their values, whether that means environmental conservation, cruelty-free products, or charitable giving. But finding out which brands actually back these causes takes hours of scattered research across dozens of websites.</p>
+                <p class="section-text">Gift givers face the same frustration. You want a present that carries deeper meaning, but you have no idea which companies donate to causes your friend cares about. And if someone in your life is vegan, keto, or non-GMO, finding compliant products feels like detective work.</p>
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <div class="stat-number">73%</div>
+                        <div class="stat-desc">of millennials pay more<br>for sustainable brands</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">$150B+</div>
+                        <div class="stat-desc">ethical consumer market<br>in the US alone</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOLUTION ===== -->
+    <section class="solution" id="solution">
+        <div class="solution-inner">
+            <div class="reveal-left">
+                <div class="section-label">The Solution</div>
+                <h2 class="section-title">One search. Every value. Complete clarity.</h2>
+                <p class="section-text">Supportive aggregates brand data on causes, certifications, donations, and lifestyle compatibility into a single searchable platform. Look up any brand. Filter by what matters to you. Discover companies you never knew existed.</p>
+                <ul class="solution-points">
+                    <li>Search any brand to see its causes, donations, and certifications</li>
+                    <li>Filter products by environmental, social, or lifestyle values</li>
+                    <li>Find gifts that carry real meaning for the people you love</li>
+                    <li>Navigate dietary and lifestyle needs with confidence</li>
+                </ul>
+            </div>
+            <div class="solution-image reveal-right">
+                <img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&w=800&q=80" alt="People sharing a gift with purpose">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+        <div class="features-header reveal">
+            <div class="section-label">Key Features</div>
+            <h2 class="section-title">Built for conscious consumers</h2>
+            <p class="section-text" style="text-align: center;">Every feature is designed to close the gap between what you believe and where you spend.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal stagger-1">
+                <div class="feature-card-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Data and brand research dashboard">
+                </div>
+                <div class="feature-card-body">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </div>
+                    <h3>Brand Values Lookup</h3>
+                    <p>Search any brand to instantly see its supported causes, certifications, and charitable giving history. Know exactly where your money goes before you spend it.</p>
+                </div>
+            </div>
+            <div class="feature-card reveal stagger-2">
+                <div class="feature-card-image">
+                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80" alt="Sustainability and environmental causes">
+                </div>
+                <div class="feature-card-body">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17.66 8L12 2.35 6.34 8A8.02 8.02 0 0 0 4 13.64c0 2 .78 4.11 2.34 5.67a7.99 7.99 0 0 0 11.32 0c1.56-1.56 2.34-3.67 2.34-5.67S19.22 9.56 17.66 8zM6 14c.01-2 .62-3.27 1.76-4.4L12 5.27l4.24 4.38C17.38 10.77 17.99 12 18 14H6z"/></svg>
+                    </div>
+                    <h3>Cause-Based Discovery</h3>
+                    <p>Filter products across every category by the movements and values you care about most. From environmental conservation to fair labor practices, find brands that walk the talk.</p>
+                </div>
+            </div>
+            <div class="feature-card reveal stagger-3">
+                <div class="feature-card-image">
+                    <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Gift giving with purpose">
+                </div>
+                <div class="feature-card-body">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+                    </div>
+                    <h3>Gift Finder</h3>
+                    <p>Shop by recipient values and interests, with price filters and curated gift guides for every occasion. Turn every gift into something that carries real meaning beyond the wrapping.</p>
+                </div>
+            </div>
+            <div class="feature-card reveal stagger-4">
+                <div class="feature-card-image">
+                    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=800&q=80" alt="Healthy lifestyle food choices">
+                </div>
+                <div class="feature-card-body">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <h3>Lifestyle Compatibility</h3>
+                    <p>Find products that match dietary and lifestyle needs like vegan, keto, non-GMO, or cruelty-free. No more guessing, no more label hunting, just quick, confident choices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MARKET ===== -->
+    <section class="market" id="market">
+        <div class="market-bg">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80" alt="Market background">
+        </div>
+        <div class="market-inner">
+            <div class="market-header reveal">
+                <div class="section-label">Market Opportunity</div>
+                <h2 class="section-title">A massive and growing audience</h2>
+                <p class="section-text" style="text-align: center;">Values-driven spending is no longer a niche. It is a fundamental shift in how consumers make decisions.</p>
+            </div>
+            <div class="market-cards">
+                <div class="market-card reveal stagger-1">
+                    <div class="market-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <h3>Values-Driven Shoppers</h3>
+                    <p>Millennials and Gen Z aged 22 to 45 who actively seek out brands aligned with their personal values and social causes.</p>
+                </div>
+                <div class="market-card reveal stagger-2">
+                    <div class="market-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+                    </div>
+                    <h3>Thoughtful Gift Givers</h3>
+                    <p>Shoppers looking for meaningful presents that go beyond the object itself, gifts that reflect the recipient's beliefs and passions.</p>
+                </div>
+                <div class="market-card reveal stagger-3">
+                    <div class="market-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <h3>Lifestyle Navigators</h3>
+                    <p>Individuals with dietary or lifestyle preferences (vegan, keto, non-GMO) who need easier and faster product discovery.</p>
+                </div>
+            </div>
+            <div class="market-tam reveal">
+                <h3>Total Addressable Market</h3>
+                <div class="tam-number">$150B+</div>
+                <p>The ethical consumer market in the US alone exceeds $150 billion, with 73% of millennials willing to pay more for sustainable brands. The affiliate marketing industry generates $8.2 billion annually. Even a small slice of values-driven purchase decisions represents a significant opportunity.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BUSINESS PLAN ===== -->
+    <section class="business-plan" id="business-plan">
+        <div class="bp-header reveal">
+            <div class="section-label">Business Plan</div>
+            <h2 class="section-title">The roadmap to launch</h2>
+            <p class="section-text" style="text-align: center;">A lean, practical plan to turn conscious consumerism into a sustainable business.</p>
+        </div>
+        <div class="bp-grid">
+            <div class="bp-card reveal stagger-1">
+                <h3>
+                    <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                    Revenue Model
+                </h3>
+                <p>Affiliate commissions on purchases made through the platform, starting with Amazon affiliate links. As the platform grows, revenue expands to brand partnership fees for featured placement, premium subscription tiers for curated gift guides and advanced filtering, and sponsored cause campaigns from nonprofits and mission-driven brands.</p>
+            </div>
+            <div class="bp-card reveal stagger-2">
+                <h3>
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                    Go-to-Market Strategy
+                </h3>
+                <p>Launch as a web portal with curated Amazon affiliate links across 10 popular cause categories (environmental, cruelty-free, US-made, charitable giving). Build traction through social media content highlighting surprising brand alignments and shareable gift guides. Partner with lifestyle influencers in sustainability, vegan, and conscious living spaces to drive organic growth.</p>
+            </div>
+            <div class="bp-card reveal stagger-3">
+                <h3>
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    Competitive Advantage
+                </h3>
+                <p>No single platform currently aggregates brand values, cause alignment, lifestyle compatibility, and gift-giving into one consumer-friendly experience. Supportive creates a unique data moat by combining public brand data with community contributions and direct brand partnerships, becoming the definitive resource for conscious consumers.</p>
+            </div>
+            <div class="bp-card reveal stagger-4">
+                <h3>
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    Estimated Startup Cost
+                </h3>
+                <div class="bp-cost">$15,000 - $40,000</div>
+                <p>Covers initial web development, brand data aggregation, content creation, and early marketing spend. The low-tech MVP with Amazon affiliate links can launch at the lower end of this range.</p>
+            </div>
+            <div class="bp-card reveal">
+                <h3>
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    Year One Milestones
+                </h3>
+                <ul>
+                    <li>Launch web platform with 500+ brands cataloged across 10 cause categories and generate first affiliate revenue</li>
+                    <li>Reach 50,000 monthly active users through social media content strategy and influencer partnerships</li>
+                    <li>Secure 10 direct brand partnerships for featured placement and begin building the mobile app</li>
+                </ul>
+            </div>
+            <div class="bp-card reveal">
+                <h3>
+                    <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    Key Risks
+                </h3>
+                <ul>
+                    <li>Data accuracy and keeping brand cause information current as companies change policies or face public controversies</li>
+                    <li>Navigating politically polarizing topics without alienating user segments or appearing to endorse specific positions</li>
+                    <li>Affiliate revenue margins may be thin at low scale, requiring significant traffic before the business becomes sustainable</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section">
+        <div class="cta-bg">
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1600&q=80" alt="Nature and growth">
+        </div>
+        <div class="cta-inner reveal">
+            <h2>Ready to shop with intention?</h2>
+            <p>Every dollar is a vote. Supportive helps you make sure yours counts for what you believe in.</p>
+            <a href="#" class="cta-btn">
+                Join the Waitlist
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-brand">Supportive</div>
+        <p>This is a concept from the <a href="https://www.youtube.com/watch?v=Srvt8lq8Ys8" target="_blank" rel="noopener">Steal This Idea</a> podcast. It is not a real company (yet). Built to inspire entrepreneurs to take action.</p>
+        <div class="footer-divider"></div>
+        <p style="font-size: 0.8rem; opacity: 0.6;">Concept by Diego, workshopped on the "Supportive" episode of Steal This Idea.</p>
+    </footer>
+
+    <!-- IntersectionObserver Scroll Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Nav scroll effect
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "slug": "scoreboard",
+  "company_name": "Scoreboard",
+  "tagline": "Turn your walls into a game.",
+  "elevator_pitch": "Scoreboard is a retro-inspired, wall-mounted digital scoreboard that lets families, couples, classrooms, and teams track points, goals, and friendly competitions in a visceral, physical way. Controlled from your phone, it brings the thrill of a pinball machine into your everyday life.",
+  "problem": "Keeping score at home, in classrooms, or at the office is either boring or invisible. Sticker charts fade into the background, apps feel lifeless on a screen, and there is no tangible, exciting way to gamify daily goals, chores, or friendly competitions.",
+  "solution": "Scoreboard is a beautifully designed, dartboard-sized LED display you mount on your wall. It connects to a simple phone app where you add players, set goals, and award points. When someone scores, the board lights up with retro LED animations and satisfying sound effects, making every point feel like a win.",
+  "target_market": "Parents with young kids who want to gamify chores and healthy habits, couples looking for playful accountability, teachers running classroom competitions, and small teams or offices that want a fun, physical way to track goals and celebrate wins.",
+  "revenue_model": "Direct-to-consumer hardware sales at $99 for the home model and $249 for the large classroom/office model, plus a companion app with a freemium tier. Premium app subscriptions at $4.99/month unlock advanced game templates, leaderboard history, and multi-board syncing.",
+  "key_features": [
+    "Retro LED display with satisfying sound effects and light-up animations when points are scored",
+    "Simple companion app to add players, set goals, and award points from your phone",
+    "Pre-loaded game templates for chores, fitness goals, classroom behavior, and party games",
+    "Wall-mountable design in two sizes: Home (dartboard-sized) and Pro (classroom/office scale)"
+  ],
+  "competitive_advantage": "Unlike apps or sticker charts, Scoreboard is a physical, always-visible presence in the room that creates real emotional engagement. The retro aesthetic and tactile feedback tap into the same appeal as Vestaboard and letterboards, but at a fraction of the price with interactive functionality.",
+  "market_size_estimate": "The U.S. home decor and smart home gadget market exceeds $40B. Letterboards and decorative displays alone represent a $500M+ niche. Targeting just 1% of households with kids (about 330K homes) at $100 per unit represents a $33M opportunity, before factoring in education and office segments.",
+  "go_to_market": "Launch on Kickstarter to validate demand and build a community of early adopters, then sell direct-to-consumer through Instagram and TikTok ads showcasing families and classrooms in action. Partner with parenting influencers and teacher communities to drive organic awareness.",
+  "risks": [
+    "Hardware manufacturing complexity and upfront tooling costs could delay launch and strain early capital",
+    "Consumer electronics returns and warranty claims can erode margins if quality is not tightly controlled",
+    "Larger competitors like Amazon or smart home brands could replicate the concept once proven"
+  ],
+  "year_one_milestones": [
+    "Successfully fund and fulfill a Kickstarter campaign with 2,000+ units sold",
+    "Launch the companion app on iOS and Android with 10+ pre-loaded game templates",
+    "Secure partnerships with 5 parenting or education influencers for sponsored content"
+  ],
+  "startup_cost_range": "$50,000 - $150,000",
+  "category": "Hardware",
+  "vibe": "retro",
+  "episode_url": "https://www.youtube.com/watch?v=QUcw_BdC3TM",
+  "episode_number": 110
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "glove-box",
+  "company_name": "GloveBox",
+  "tagline": "Your entire car, in one app.",
+  "elevator_pitch": "GloveBox is the all-in-one vehicle management app that stores your documents, tracks maintenance schedules, compares insurance rates, and connects you with service partners. It replaces the chaos of car ownership with a single, intelligent dashboard.",
+  "problem": "Car ownership involves dozens of disconnected tasks: oil changes, tire rotations, registration renewals, insurance shopping, recall notices, and parts ordering. Most people forget critical maintenance, overpay on insurance, and miss recall alerts buried in junk mail. Manufacturer apps are notoriously bad and only cover a fraction of what owners need.",
+  "solution": "GloveBox consolidates every aspect of vehicle ownership into one smart app. Scan and store your license, registration, and insurance. Get proactive maintenance reminders based on your car's make, model, and mileage. Compare insurance rates in real time. Receive instant recall notifications. Order compatible parts with one tap. Track your car's resale value live.",
+  "target_market": "The 280+ million registered vehicle owners in the United States, particularly non-enthusiast drivers aged 22 to 55 who want a simple, guided experience for managing their vehicles without becoming car experts.",
+  "revenue_model": "Affiliate commissions and referral fees from insurance providers, tire shops, oil change chains (Jiffy Lube, Discount Tire, AutoZone), and parts retailers. Premium tier subscription for advanced features like driving behavior analytics, multi-vehicle management, and priority partner discounts. Data-driven insurance marketplace takes a cut of each policy switch.",
+  "key_features": [
+    "Digital Glove Box: scan and store registration, insurance cards, and service records instantly accessible from your phone.",
+    "Smart Maintenance Alerts: proactive reminders for oil changes, tire rotations, filter replacements, and more, customized to your vehicle.",
+    "Insurance Marketplace: compare rates from top providers and switch policies without leaving the app.",
+    "Live Car Valuation: real-time Kelly Blue Book-style value tracker with a one-tap listing to sell your vehicle."
+  ],
+  "competitive_advantage": "No single app today unifies document storage, maintenance tracking, insurance comparison, recall alerts, parts ordering, and resale valuation. Manufacturer apps are fragmented and poorly built. GloveBox is brand-agnostic and partner-integrated, creating a network effect as service providers push data directly into the platform.",
+  "market_size_estimate": "With 280 million registered vehicles in the US, the auto aftermarket services industry exceeds $400 billion annually. Even capturing a small slice of insurance referrals ($300B+ market) and maintenance services represents a multi-billion dollar TAM.",
+  "go_to_market": "Launch a free MVP with document scanning, car valuation, and basic maintenance reminders. Partner with one national chain (Jiffy Lube or Discount Tire) to push service records into the app. Grow through word of mouth and content marketing targeting the pain of forgotten oil changes and expired registrations.",
+  "risks": [
+    "Established players like Progressive, Geico, or even Apple CarPlay could add similar features, leveraging their existing user bases.",
+    "Convincing fragmented service providers to integrate with a new platform requires significant business development effort.",
+    "User acquisition cost may be high in the crowded auto services advertising market."
+  ],
+  "year_one_milestones": [
+    "Launch iOS and Android apps with document storage, maintenance reminders, and car valuation features.",
+    "Secure two national service chain partnerships (e.g., Jiffy Lube, Discount Tire) for integrated service records.",
+    "Reach 100,000 active users and generate first revenue through insurance comparison referrals."
+  ],
+  "startup_cost_range": "$150,000 to $400,000",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=ug9NIcfnxqQ",
+  "episode_number": 125
+}

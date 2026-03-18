@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GloveBox - Your Entire Car, In One App</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --midnight: #0d1117;
+    --charcoal: #161b22;
+    --slate: #21262d;
+    --steel: #8b949e;
+    --silver: #c9d1d9;
+    --white: #f0f6fc;
+    --electric: #00e5ff;
+    --electric-dim: rgba(0,229,255,0.15);
+    --amber: #ffb627;
+    --coral: #ff6b6b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--midnight);
+    color: var(--silver);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--charcoal);
+    border: 1px solid var(--electric);
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 12px rgba(0,229,255,0.15);
+  }
+  .sti-badge:hover {
+    background: var(--slate);
+    box-shadow: 0 0 20px rgba(0,229,255,0.35);
+  }
+  .sti-badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .sti-badge span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--electric);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(13,17,23,0.82) 0%, rgba(13,17,23,0.95) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+  }
+  .hero-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: var(--electric-dim);
+    border: 2px solid var(--electric);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-icon svg { width: 40px; height: 40px; }
+  .hero h1 {
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .hero h1 .accent { color: var(--electric); }
+  .hero .tagline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    color: var(--electric);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+  }
+  .hero .pitch {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    color: var(--steel);
+    line-height: 1.8;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.14em;
+    color: var(--midnight);
+    background: var(--electric);
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 30px rgba(0,229,255,0.3);
+  }
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(0,229,255,0.45);
+  }
+  .cta-btn-outline {
+    background: transparent;
+    border: 2px solid var(--electric);
+    color: var(--electric);
+    box-shadow: none;
+    margin-left: 1rem;
+  }
+  .cta-btn-outline:hover {
+    background: var(--electric-dim);
+    box-shadow: 0 4px 20px rgba(0,229,255,0.2);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll svg { width: 28px; height: 28px; opacity: 0.5; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  /* Section base */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--electric);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .section-text {
+    font-size: 1.1rem;
+    color: var(--steel);
+    max-width: 650px;
+    line-height: 1.8;
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--charcoal);
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .problem-image {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .problem-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.8);
+  }
+  .problem-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 16px;
+    pointer-events: none;
+  }
+  .pain-points {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .pain-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1.05rem;
+    color: var(--silver);
+  }
+  .pain-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(255,107,107,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .pain-icon svg { width: 14px; height: 14px; }
+
+  /* SOLUTION */
+  .solution { position: relative; }
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .solution-image {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    order: 2;
+  }
+  .solution-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+  .solution-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,255,0.12) 0%, transparent 60%);
+    z-index: 1;
+    border-radius: 16px;
+  }
+  .solution-checks {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .solution-checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1.05rem;
+  }
+  .check-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(0,229,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .check-icon svg { width: 14px; height: 14px; }
+
+  /* FEATURES */
+  .features { background: var(--charcoal); }
+  .features-header { text-align: center; margin-bottom: 4rem; }
+  .features-header .section-text { margin: 0 auto; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .feature-card {
+    background: var(--midnight);
+    border: 1px solid var(--slate);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--electric);
+  }
+  .feature-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.7);
+    transition: filter 0.3s;
+  }
+  .feature-card:hover .feature-card-img { filter: brightness(0.85); }
+  .feature-card-body { padding: 1.8rem; }
+  .feature-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--electric);
+    margin-bottom: 0.5rem;
+  }
+  .feature-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.7rem;
+  }
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--steel);
+    line-height: 1.7;
+  }
+
+  /* MARKET */
+  .market { position: relative; }
+  .market-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .market-visual {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .market-visual img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+  }
+  .market-visual-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(transparent, rgba(13,17,23,0.95));
+  }
+  .stat-row {
+    display: flex;
+    gap: 2rem;
+  }
+  .stat-item .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--electric);
+    line-height: 1;
+  }
+  .stat-item .stat-desc {
+    font-size: 0.85rem;
+    color: var(--steel);
+    margin-top: 4px;
+  }
+  .market-content .section-text { margin-bottom: 2rem; }
+  .market-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .market-tag {
+    background: var(--slate);
+    color: var(--silver);
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* BUSINESS PLAN */
+  .business-plan { background: var(--charcoal); }
+  .business-plan-header { text-align: center; margin-bottom: 3.5rem; }
+  .business-plan-header .section-text { margin: 0 auto; }
+  .bp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .bp-card {
+    background: var(--midnight);
+    border: 1px solid var(--slate);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: border-color 0.3s;
+  }
+  .bp-card:hover { border-color: rgba(0,229,255,0.4); }
+  .bp-card-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--electric-dim);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+  .bp-card-icon svg { width: 22px; height: 22px; }
+  .bp-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+  .bp-card p, .bp-card ul {
+    font-size: 0.95rem;
+    color: var(--steel);
+    line-height: 1.75;
+  }
+  .bp-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .bp-card ul li {
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+  .bp-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 8px;
+    height: 8px;
+    background: var(--electric);
+    border-radius: 50%;
+  }
+  .bp-full {
+    grid-column: 1 / -1;
+  }
+  .bp-costs {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .bp-cost-range {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--amber);
+    line-height: 1;
+  }
+  .bp-cost-label {
+    font-size: 0.9rem;
+    color: var(--steel);
+  }
+
+  /* FOOTER */
+  .site-footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--slate);
+    position: relative;
+  }
+  .footer-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+  }
+  .footer-content { position: relative; z-index: 1; }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .footer-note {
+    font-size: 0.95rem;
+    color: var(--steel);
+    margin-bottom: 1.2rem;
+  }
+  .footer-note a {
+    color: var(--electric);
+    text-decoration: none;
+  }
+  .footer-note a:hover { text-decoration: underline; }
+  .footer-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--slate);
+    margin: 1.5rem auto;
+  }
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--slate);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .problem-grid,
+    .solution-grid,
+    .market-split {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .solution-image { order: 0; }
+    .features-grid,
+    .bp-grid {
+      grid-template-columns: 1fr;
+    }
+    .stat-row { flex-direction: column; gap: 1rem; }
+    .hero .cta-btn { display: block; margin: 0.5rem auto; }
+    .cta-btn-outline { margin-left: 0; }
+    .bp-costs { flex-direction: column; align-items: flex-start; }
+    section { padding: 4rem 1.25rem; }
+    .sti-badge span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18l6-6-6-6"/>
+    <circle cx="12" cy="12" r="10"/>
+  </svg>
+  <span>Steal This Idea</span>
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="3"/>
+        <path d="M8 4V2m8 2V2"/>
+        <path d="M7 12h2m6 0h2"/>
+        <path d="M12 9v6"/>
+      </svg>
+    </div>
+    <h1>Glove<span class="accent">Box</span></h1>
+    <p class="tagline">Your entire car, in one app.</p>
+    <p class="pitch">Registration, insurance, maintenance reminders, recall alerts, live car valuation, and parts ordering. Everything you need for your vehicle, all in one place. No more digging through your actual glove box.</p>
+    <div>
+      <a href="#features" class="cta-btn">Get Early Access</a>
+      <a href="#business-plan" class="cta-btn cta-btn-outline">See the Plan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round"><path d="M12 5v14m-6-6l6 6 6-6"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-title">Car Ownership Is a Mess of Forgotten Tasks</h2>
+        <p class="section-text">Your car needs constant attention, but nobody tells you when or what. Oil changes slip past their due date. Registrations expire. Recall notices arrive disguised as junk mail. Insurance rates quietly climb while better deals go unnoticed.</p>
+        <ul class="pain-points">
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#ff6b6b" stroke-width="2"><line x1="3" y1="3" x2="11" y2="11"/><line x1="11" y1="3" x2="3" y2="11"/></svg></span>
+            Missed oil changes, forgotten tire rotations, expired registrations
+          </li>
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#ff6b6b" stroke-width="2"><line x1="3" y1="3" x2="11" y2="11"/><line x1="11" y1="3" x2="3" y2="11"/></svg></span>
+            Recall notices buried in physical mail that never get opened
+          </li>
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#ff6b6b" stroke-width="2"><line x1="3" y1="3" x2="11" y2="11"/><line x1="11" y1="3" x2="3" y2="11"/></svg></span>
+            Overpaying on insurance because comparing rates is a chore
+          </li>
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#ff6b6b" stroke-width="2"><line x1="3" y1="3" x2="11" y2="11"/><line x1="11" y1="3" x2="3" y2="11"/></svg></span>
+            Manufacturer apps that are "comically bad" and never send push notifications
+          </li>
+        </ul>
+      </div>
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=800&q=80" alt="Cluttered glove compartment" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <div class="solution-grid">
+      <div class="reveal">
+        <p class="section-label">The Solution</p>
+        <h2 class="section-title">One App That Knows Your Car Better Than You Do</h2>
+        <p class="section-text">GloveBox replaces every sticker on your windshield, every postcard in your mailbox, and every forgotten login to a manufacturer portal. Enter your vehicle once. We handle the rest.</p>
+        <ul class="solution-checks">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#00e5ff" stroke-width="2"><polyline points="2 7 6 11 12 3"/></svg></span>
+            Scan your registration and insurance cards; they are always one tap away
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#00e5ff" stroke-width="2"><polyline points="2 7 6 11 12 3"/></svg></span>
+            Smart reminders for every maintenance milestone, customized to your car
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#00e5ff" stroke-width="2"><polyline points="2 7 6 11 12 3"/></svg></span>
+            Instant recall alerts pushed to your phone, not buried in junk mail
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 14 14" fill="none" stroke="#00e5ff" stroke-width="2"><polyline points="2 7 6 11 12 3"/></svg></span>
+            Compare insurance rates and switch policies without leaving the app
+          </li>
+        </ul>
+      </div>
+      <div class="solution-image reveal">
+        <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&fit=crop&w=800&q=80" alt="Person using phone in car" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <p class="section-label">Key Features</p>
+      <h2 class="section-title">Everything Your Car App Should Be</h2>
+      <p class="section-text">Four core pillars that turn GloveBox from a nice-to-have into a must-have for every vehicle owner.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80" alt="Car dashboard" loading="lazy">
+        <div class="feature-card-body">
+          <p class="feature-card-num">Feature 01</p>
+          <h3>Digital Glove Box</h3>
+          <p>Scan and store your registration, insurance cards, and service records. Everything is instantly accessible from your phone. No more rifling through papers when you get pulled over.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=80" alt="Mechanic working on car" loading="lazy">
+        <div class="feature-card-body">
+          <p class="feature-card-num">Feature 02</p>
+          <h3>Smart Maintenance Alerts</h3>
+          <p>Proactive reminders for oil changes, tire rotations, filter replacements, and more. Customized to your vehicle's make, model, and mileage. Never miss a service window again.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80" alt="Insurance documents" loading="lazy">
+        <div class="feature-card-body">
+          <p class="feature-card-num">Feature 03</p>
+          <h3>Insurance Marketplace</h3>
+          <p>Compare rates from top providers based on your actual driving habits and vehicle profile. Switch policies directly in the app. Stop overpaying because shopping around feels like a chore.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?auto=format&fit=crop&w=800&q=80" alt="Car keys and valuation" loading="lazy">
+        <div class="feature-card-body">
+          <p class="feature-card-num">Feature 04</p>
+          <h3>Live Car Valuation</h3>
+          <p>See your car's real-time market value the moment you open the app. When you are ready to sell, list it with one tap. GloveBox connects to major resale platforms so you get the best price.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="market-split">
+      <div class="market-visual reveal">
+        <img src="https://images.unsplash.com/photo-1449965408869-ebd3fee1f2f3?auto=format&fit=crop&w=800&q=80" alt="Cars on highway" loading="lazy">
+        <div class="market-visual-overlay">
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="stat-num">280M+</div>
+              <div class="stat-desc">Registered vehicles in the US</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">$400B+</div>
+              <div class="stat-desc">Auto aftermarket services TAM</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">$300B+</div>
+              <div class="stat-desc">US auto insurance market</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="market-content reveal">
+        <p class="section-label">Market Opportunity</p>
+        <h2 class="section-title">A Massive Market With No Central Hub</h2>
+        <p class="section-text">Every car owner in America needs maintenance, insurance, and document management. Yet no single app unifies these services today. Manufacturer apps are fragmented and poorly built. Insurance apps only care about their own policies. Parts retailers live on separate platforms entirely.</p>
+        <p class="section-text" style="margin-top: 1rem;">GloveBox sits at the center of this ecosystem, connecting owners to service providers through a single, brand-agnostic interface. The target: everyday drivers aged 22 to 55 who are not car enthusiasts but still need their vehicles to run smoothly.</p>
+        <div class="market-tags">
+          <span class="market-tag">Vehicle Owners 22-55</span>
+          <span class="market-tag">Non-Enthusiast Drivers</span>
+          <span class="market-tag">Multi-Car Households</span>
+          <span class="market-tag">Rideshare Drivers</span>
+          <span class="market-tag">New Car Buyers</span>
+          <span class="market-tag">Used Car Sellers</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan" id="business-plan">
+  <div class="container">
+    <div class="business-plan-header reveal">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-title">How GloveBox Makes Money and Grows</h2>
+      <p class="section-text">A real business model built on affiliate revenue, strategic partnerships, and a freemium upgrade path.</p>
+    </div>
+    <div class="bp-grid">
+      <!-- Revenue Model -->
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+        </div>
+        <h3>Revenue Model</h3>
+        <p>Affiliate commissions from insurance providers, tire shops, oil change chains, and parts retailers. Premium subscription tier for driving analytics, multi-vehicle management, and priority partner discounts. The insurance marketplace takes a cut of each policy switch.</p>
+      </div>
+
+      <!-- Go-to-Market -->
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch a free MVP with document scanning, car valuation, and basic maintenance reminders. Partner with one national chain (Jiffy Lube or Discount Tire) to push service records into the app automatically. Grow through word of mouth and content marketing targeting the universal pain of forgotten oil changes and expired registrations.</p>
+      </div>
+
+      <!-- Competitive Advantage -->
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Competitive Advantage</h3>
+        <p>No app unifies document storage, maintenance tracking, insurance comparison, recall alerts, parts ordering, and resale valuation in one place. Manufacturer apps are siloed and poorly built. GloveBox is brand-agnostic and creates a network effect as service providers push data directly into the platform.</p>
+      </div>
+
+      <!-- Year One Milestones -->
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3>Year One Milestones</h3>
+        <ul>
+          <li>Launch iOS and Android apps with document storage, maintenance reminders, and car valuation</li>
+          <li>Secure two national service chain partnerships for integrated service records</li>
+          <li>Reach 100,000 active users and generate first revenue through insurance referrals</li>
+        </ul>
+      </div>
+
+      <!-- Risks -->
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffb627" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h3>Key Risks</h3>
+        <ul>
+          <li>Established players like Progressive, Geico, or Apple CarPlay could add similar features using their existing user bases</li>
+          <li>Convincing fragmented service providers to integrate requires significant business development effort</li>
+          <li>User acquisition costs may be high in the crowded auto services advertising market</li>
+        </ul>
+      </div>
+
+      <!-- Startup Costs -->
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </div>
+        <h3>Startup Cost Estimate</h3>
+        <div class="bp-costs">
+          <div class="bp-cost-range">$150K - $400K</div>
+          <div class="bp-cost-label">Estimated range to build an MVP with iOS/Android apps, backend infrastructure, insurance API integrations, and initial partner onboarding.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section style="padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden;">
+  <img src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1600&q=80" alt="Road at sunset" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.12;">
+  <div class="reveal" style="position: relative; z-index: 1;">
+    <h2 class="section-title" style="margin-bottom: 1rem;">Ready to Rethink Car Ownership?</h2>
+    <p class="section-text" style="margin: 0 auto 2rem; text-align: center;">GloveBox is a concept waiting for a builder. If you see the opportunity, steal this idea and make it yours.</p>
+    <a href="#" class="cta-btn">Steal This Idea</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <img class="footer-img" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=80" alt="Car at night" loading="lazy">
+  <div class="footer-content">
+    <div class="footer-logo">GloveBox</div>
+    <p class="footer-note">This is a concept from the <a href="https://www.youtube.com/watch?v=ug9NIcfnxqQ" target="_blank" rel="noopener">Steal This Idea</a> podcast. It is not a real product (yet).</p>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">Concept page generated for educational and entertainment purposes.</p>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll-triggered reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+</body>
+</html>

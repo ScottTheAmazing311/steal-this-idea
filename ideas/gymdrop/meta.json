@@ -1,0 +1,34 @@
+{
+  "slug": "gymdrop",
+  "company_name": "GymDrop",
+  "tagline": "Your gym, delivered to work.",
+  "elevator_pitch": "GymDrop drops fully equipped, premium portable gyms right into office parking lots so employees can work out on their lunch break, before work, or on the way out. No commute, no excuses, just fitness where you already are.",
+  "problem": "Most people want to exercise but cannot find the time. Waking up early, driving to a gym after a long workday, or squeezing in a session during lunch all feel impossible. Corporate fitness centers are underfunded, poorly maintained, and rarely used.",
+  "solution": "GymDrop delivers custom-built, portable gym units directly to office parking lots and business parks. These self-contained units come stocked with premium equipment like Pelotons, squat racks, free weights, and treadmills. Employees badge in and work out steps from their desk, on their schedule.",
+  "target_market": "Mid-size to large companies in suburban office parks, business park property managers, school districts, and apartment complexes looking for convenient wellness amenities for their employees, tenants, or residents.",
+  "revenue_model": "B2B contracts with corporate HR and wellness departments who redirect existing gym reimbursement budgets. Additional revenue from individual memberships at $10-30/month, property management subsidies, and premium tiers with on-site personal trainers.",
+  "key_features": [
+    "Premium equipment in a portable, weather-ready unit",
+    "Badge-in access with 24/7 security monitoring",
+    "Zero commute: dropped right in your parking lot",
+    "Relocatable on demand if needs change"
+  ],
+  "competitive_advantage": "Unlike traditional gyms, GymDrop has no lease obligations and can relocate based on demand. Unlike corporate fitness rooms, the equipment is premium and professionally maintained. The portable model slashes startup costs compared to a brick-and-mortar gym while offering hyper-convenient placement.",
+  "market_size_estimate": "The U.S. corporate wellness market is valued at over $20 billion. With roughly 900,000 office buildings and millions of underserved suburban workers, even capturing a fraction of corporate gym reimbursement budgets represents a multi-billion dollar opportunity.",
+  "go_to_market": "Start with a single pilot unit in a high-density suburban business park, signing up 2-3 anchor corporate tenants. Use early traction and testimonials to expand to adjacent parks. Partner with commercial property managers who can bundle GymDrop into tenant amenities.",
+  "risks": [
+    "High upfront capital for custom units and premium gym equipment",
+    "Seasonal challenges in extreme climates may reduce usage",
+    "Parking lot permitting and property management negotiations could slow rollout"
+  ],
+  "year_one_milestones": [
+    "Deploy 3 pilot units across suburban business parks",
+    "Sign contracts with 10+ corporate wellness programs",
+    "Reach 500 active monthly members across all locations"
+  ],
+  "startup_cost_range": "$50,000 - $120,000 for first unit (container buildout, equipment, security, branding)",
+  "category": "Health",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=QJuZM-Bkn4s",
+  "episode_number": 105
+}

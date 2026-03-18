@@ -1,0 +1,34 @@
+{
+  "slug": "supportive",
+  "company_name": "Supportive",
+  "tagline": "Shop your values. Gift with purpose.",
+  "elevator_pitch": "Supportive is a consumer discovery app that lets you look up any brand or product and instantly see what causes, movements, and lifestyles it supports. Whether you are making everyday purchases, hunting for a meaningful gift, or navigating dietary needs like vegan or keto, Supportive helps you spend your money in alignment with what matters to you.",
+  "problem": "Consumers increasingly want to support brands that align with their values, whether that means environmental conservation, cruelty-free products, US-based manufacturing, or charitable giving. But finding out which brands actually back these causes takes hours of research. Gift givers face the same challenge when they want a present that carries deeper meaning, and people with dietary or lifestyle preferences struggle to find compliant products quickly.",
+  "solution": "Supportive aggregates brand data on causes, certifications, donations, and lifestyle compatibility into a single searchable platform. Users can look up any brand to see what it supports, filter products by cause or lifestyle, and discover new companies aligned with their beliefs. The gift-giving mode lets you shop by recipient values, turning any purchase into something more personal and thoughtful.",
+  "target_market": "Values-driven consumers aged 22 to 45, particularly millennials and Gen Z shoppers who prioritize ethical consumption. Secondary markets include gift shoppers looking for meaningful presents and individuals with dietary or lifestyle preferences (vegan, keto, non-GMO) who want easier product discovery.",
+  "revenue_model": "Affiliate commissions on purchases made through the platform (primarily Amazon affiliate links at launch), with expansion into brand partnership fees for featured placement, premium subscription tiers for curated gift guides and advanced filtering, and sponsored cause campaigns from nonprofits and mission-driven brands.",
+  "key_features": [
+    "Brand Values Lookup: Search any brand to instantly see its supported causes, certifications, and charitable giving history",
+    "Cause-Based Discovery: Filter products across categories by the movements and values you care about most",
+    "Gift Finder: Shop by recipient values and interests, with price filters and curated gift guides for every occasion",
+    "Lifestyle Compatibility: Find products that match dietary and lifestyle needs like vegan, keto, non-GMO, or cruelty-free"
+  ],
+  "competitive_advantage": "While scattered review sites and certification databases exist, no single platform aggregates brand values, cause alignment, lifestyle compatibility, and gift-giving into one consumer-friendly experience. Supportive creates a unique data moat by combining public brand data with community contributions and direct brand partnerships, making it the go-to resource for conscious consumers.",
+  "market_size_estimate": "The ethical consumer market is valued at over $150 billion in the US alone, with 73% of millennials willing to pay more for sustainable brands. The affiliate marketing industry generates $8.2 billion annually. Even capturing a small fraction of values-driven purchase decisions represents a substantial TAM.",
+  "go_to_market": "Launch as a web portal with curated Amazon affiliate links across 10 popular cause categories (environmental, cruelty-free, US-made, charitable giving, etc.). Build initial traction through social media content highlighting surprising brand alignments and shareable gift guides. Partner with lifestyle influencers in sustainability, vegan, and conscious living spaces to drive organic growth.",
+  "risks": [
+    "Data accuracy and keeping brand cause information current as companies change policies or face controversies",
+    "Navigating politically polarizing topics without alienating user segments or appearing to endorse specific positions",
+    "Affiliate revenue margins may be thin at low scale, requiring significant traffic before the business becomes sustainable"
+  ],
+  "year_one_milestones": [
+    "Launch web platform with 500+ brands cataloged across 10 cause categories and generate first affiliate revenue",
+    "Reach 50,000 monthly active users through social media content strategy and influencer partnerships",
+    "Secure 10 direct brand partnerships for featured placement and begin building the mobile app"
+  ],
+  "startup_cost_range": "$15,000 to $40,000",
+  "category": "Marketplace",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=Srvt8lq8Ys8",
+  "episode_number": 100
+}

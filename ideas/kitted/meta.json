@@ -1,0 +1,34 @@
+{
+  "slug": "kitted",
+  "company_name": "Kitted",
+  "tagline": "Complete outfits. One click. Done.",
+  "elevator_pitch": "Kitted is an online clothing store that sells only complete, styled outfits you can buy in a single click. No more piecing together shirts, pants, shoes, and accessories. See a look you love, hit buy, and get the whole thing delivered in your size.",
+  "problem": "Shopping for clothes is broken. Most people, especially busy professionals, struggle to put together outfits that look cohesive. Subscription boxes send random items chosen by algorithms, not taste. And traditional stores force you to piece everything together yourself, selecting sizes over and over again.",
+  "solution": "Kitted sells high-quality clothing exclusively as complete, pre-styled outfits. You set your sizes once in a profile, then browse curated looks photographed on real people. When you find one you love, you buy the entire outfit with one click. Everything arrives together, ready to wear.",
+  "target_market": "Men aged 25 to 40 who are young professionals. They care about looking good but lack the time, confidence, or interest in assembling outfits piece by piece. They have disposable income and are frustrated by subscription boxes that send random items.",
+  "revenue_model": "Direct-to-consumer e-commerce with outfit bundles priced at $150 to $350 per kit. Margins of 40 to 60 percent on curated bundles. Additional revenue from seasonal collections, influencer collaborations, and a smart cart that cross-sells mix-and-match pieces across outfits.",
+  "key_features": [
+    "One-click complete outfit purchasing with a single size profile",
+    "Professionally styled and photographed outfit bundles",
+    "Smart cart that detects duplicate items across multiple outfits",
+    "Seasonal collections with limited-edition curated looks"
+  ],
+  "competitive_advantage": "Unlike Stitch Fix or Trunk Club, Kitted puts the customer in control. No surprise boxes, no algorithms guessing your taste. You see exactly what you get before you buy. Unlike Buckle or traditional retailers, you never have to add items one by one or re-enter your sizes. The entire experience is built around complete outfits, not individual garments.",
+  "market_size_estimate": "The U.S. men's apparel market is roughly $100 billion annually. Online menswear is about $30 billion and growing. Even capturing 0.1% of online menswear would represent $30 million in revenue. The styling subscription market (Stitch Fix, Trunk Club) validated demand at over $2 billion, but left a gap for customers who want control over their choices.",
+  "go_to_market": "Launch with a small capsule collection of 5 to 10 complete outfits for fall, targeting men 25 to 40 through Instagram and TikTok ads featuring styled lifestyle photography. Partner with mid-tier fashion influencers who can showcase the one-click outfit concept. Start lean with a Shopify storefront and scale based on early traction.",
+  "risks": [
+    "Inventory complexity: stocking every item in multiple sizes across many outfits creates significant warehousing challenges",
+    "Return rates: bundled outfits mean higher average order values but also potentially higher return rates if fit is inconsistent",
+    "Customer acquisition cost: competing for attention in the crowded online menswear market requires significant marketing spend"
+  ],
+  "year_one_milestones": [
+    "Launch with 10 curated outfits across 3 seasonal collections and achieve 500 orders in the first quarter",
+    "Build a community of 10,000 email subscribers and establish 5 influencer partnerships",
+    "Reach $500K in gross revenue and expand to 30 outfit options with mix-and-match recommendations"
+  ],
+  "startup_cost_range": "$50,000 to $150,000",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=JuYJ1wxe_rM",
+  "episode_number": 11
+}

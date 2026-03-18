@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soft - Everything Here Is Soft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --sand: #F5F0EB;
+      --cream: #FDFBF7;
+      --charcoal: #2C2C2C;
+      --blush: #E8D5C4;
+      --rose: #C9A88C;
+      --gold: #B8956A;
+      --deep: #1A1614;
+      --lavender: #D4C5D9;
+    }
+    body { font-family: 'Lato', sans-serif; color: var(--charcoal); background: var(--cream); overflow-x: hidden; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Badge */
+    .badge { position: fixed; top: 20px; left: 20px; z-index: 1000; background: var(--deep); color: var(--sand); padding: 10px 18px; border-radius: 4px; text-decoration: none; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0,0,0,0.15); transition: transform 0.3s; display: flex; align-items: center; gap: 8px; }
+    .badge:hover { transform: scale(1.03); }
+    .badge svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; background: var(--sand); position: relative; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; width: 100%; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 60px; }
+    .hero-right { position: relative; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-right-overlay { position: absolute; inset: 0; background: linear-gradient(to right, var(--sand) 0%, transparent 30%); }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 10vw, 8rem); font-weight: 300; color: var(--charcoal); line-height: 0.95; letter-spacing: -2px; }
+    .hero .dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); margin-left: 4px; vertical-align: middle; }
+    .hero .tagline { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 400; font-style: italic; color: var(--gold); margin: 24px 0 20px; }
+    .hero .pitch { font-size: 1.05rem; line-height: 1.9; color: #666; max-width: 480px; font-weight: 300; }
+    .hero .cta-btn { display: inline-block; margin-top: 36px; background: var(--charcoal); color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; padding: 18px 48px; text-decoration: none; transition: all 0.3s; }
+    .hero .cta-btn:hover { background: var(--gold); color: white; }
+
+    /* Divider */
+    .texture-divider { height: 6px; background: linear-gradient(90deg, var(--blush), var(--lavender), var(--rose), var(--blush)); }
+
+    /* Problem */
+    .problem { padding: 120px 20px; background: var(--deep); color: white; }
+    .problem .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .problem .images { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .problem .images img { width: 100%; border-radius: 8px; height: 220px; object-fit: cover; }
+    .problem .images img:first-child { grid-column: 1 / -1; height: 260px; }
+    .section-eyebrow { font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .problem h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: white; margin-bottom: 24px; line-height: 1.2; }
+    .problem p { font-size: 1.05rem; line-height: 1.9; color: rgba(255,255,255,0.75); font-weight: 300; }
+
+    /* Solution */
+    .solution { padding: 120px 20px; background: var(--cream); }
+    .solution .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .solution img { width: 100%; border-radius: 8px; box-shadow: 0 30px 80px rgba(0,0,0,0.08); }
+    .solution h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--charcoal); margin-bottom: 24px; line-height: 1.2; }
+    .solution p { font-size: 1.05rem; line-height: 1.9; color: #666; font-weight: 300; }
+
+    /* Features */
+    .features { padding: 120px 20px; background: var(--sand); }
+    .features .container { max-width: 1200px; margin: 0 auto; }
+    .features h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400; text-align: center; color: var(--charcoal); margin-bottom: 16px; }
+    .features .subtitle { text-align: center; font-size: 1rem; color: var(--gold); font-style: italic; font-family: 'Cormorant Garamond', serif; margin-bottom: 60px; font-size: 1.2rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+    .feat-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.04); transition: transform 0.4s, box-shadow 0.4s; }
+    .feat-card:hover { transform: translateY(-6px); box-shadow: 0 16px 50px rgba(0,0,0,0.08); }
+    .feat-card img { width: 100%; height: 200px; object-fit: cover; }
+    .feat-card-body { padding: 28px; }
+    .feat-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
+    .feat-card p { font-size: 0.95rem; line-height: 1.7; color: #777; font-weight: 300; }
+    .feat-card .icon-bar { width: 40px; height: 3px; background: var(--gold); margin-bottom: 14px; border-radius: 2px; }
+
+    /* Market */
+    .market { padding: 120px 20px; background: var(--deep); color: white; position: relative; }
+    .market .container { max-width: 1100px; margin: 0 auto; }
+    .market-visual { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 60px; }
+    .market-visual img { width: 100%; height: 400px; object-fit: cover; display: block; filter: brightness(0.7); }
+    .market-visual-text { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 50px; background: linear-gradient(to top, rgba(26,22,20,0.9) 20%, transparent 70%); }
+    .market h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400; color: white; }
+    .market-numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; margin-top: 40px; }
+    .market-num { text-align: center; padding: 30px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+    .market-num .val { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--gold); }
+    .market-num .lbl { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; }
+    .market .desc { font-size: 1.05rem; line-height: 1.9; color: rgba(255,255,255,0.7); max-width: 700px; font-weight: 300; }
+
+    /* Business Plan */
+    .business-plan { padding: 120px 20px; background: var(--cream); }
+    .business-plan .container { max-width: 900px; margin: 0 auto; }
+    .business-plan h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400; text-align: center; color: var(--charcoal); margin-bottom: 8px; }
+    .business-plan .sub { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.15rem; margin-bottom: 60px; }
+    .bp-block { background: white; border-radius: 10px; padding: 36px 40px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border-left: 4px solid var(--gold); }
+    .bp-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--charcoal); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+    .bp-block h3 .bp-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--blush); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .bp-block h3 .bp-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 2; }
+    .bp-block p, .bp-block li { font-size: 1rem; line-height: 1.9; color: #666; font-weight: 300; }
+    .bp-block ul { padding-left: 18px; }
+    .bp-block li { margin-bottom: 6px; }
+    .bp-block .cost-pill { display: inline-block; background: var(--deep); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; letter-spacing: 1px; padding: 10px 28px; border-radius: 4px; margin-top: 8px; }
+
+    /* Footer */
+    footer { padding: 80px 20px; background: var(--deep); color: white; text-align: center; }
+    footer .logo { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: white; margin-bottom: 16px; }
+    footer p { font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.8; font-weight: 300; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-left { padding: 120px 30px 60px; }
+      .hero-right { height: 50vh; }
+      .problem .container, .solution .container { grid-template-columns: 1fr; gap: 40px; }
+      .problem .images { order: -1; }
+      .bp-block { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Badge -->
+  <a href="../index.html" class="badge">
+    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    STEAL THIS IDEA
+  </a>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <h1 class="reveal">soft<span class="dot"></span></h1>
+        <p class="tagline reveal">Everything here is soft. That is the rule.</p>
+        <p class="pitch reveal">A curated retail brand where every single product meets one criterion: it has to be impossibly soft. Blankets, pillows, loungewear, rugs, baby gifts, towels. If it is not soft, it does not belong here.</p>
+        <a href="#" class="cta-btn reveal">Explore the Collection</a>
+      </div>
+      <div class="hero-right">
+        <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1000&q=80" alt="Cozy soft blankets and pillows on a bed">
+        <div class="hero-right-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="texture-divider"></div>
+
+  <!-- Problem -->
+  <section class="problem">
+    <div class="container">
+      <div class="images reveal">
+        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=800&q=80" alt="Generic store shelves with packaged goods">
+        <img src="https://images.unsplash.com/photo-1616627561950-9f746e330187?auto=format&fit=crop&w=800&q=80" alt="Online shopping frustration">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80" alt="Pillow shopping confusion">
+      </div>
+      <div class="reveal">
+        <p class="section-eyebrow">The Problem</p>
+        <h2>Softness is the most desired quality. And the hardest to shop for.</h2>
+        <p>You order a blanket online and hope for the best. You squeeze a pillow through plastic packaging at a store and guess. You touch a rug sample and wonder if the full-size version will feel the same. Softness is one of the most universally wanted qualities in home goods, bedding, and clothing. Yet no retailer curates specifically for it. Bed Bath and Beyond is gone. The void it left behind is still waiting to be filled by something better.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-eyebrow">The Solution</p>
+        <h2>One store. One rule. Everything is soft.</h2>
+        <p>Soft is a retail experience, both in-store and online, where every product has been hand-selected for maximum softness. Walk in and touch everything. Feel the blankets, squeeze the pillows, run your hand across the rugs. Every listing on the website carries a verified softness standard. No guessing. No disappointing deliveries. No returns. Whether you are shopping for yourself, a baby shower, a wedding gift, or just because you deserve something cozy, Soft is your destination.</p>
+      </div>
+      <div class="reveal">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80" alt="Luxurious soft bedroom textiles">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2 class="reveal">The Soft Standard</h2>
+      <p class="subtitle reveal">What makes it into the collection, and why</p>
+      <div class="features-grid">
+        <div class="feat-card reveal">
+          <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=800&q=80" alt="Hands touching soft fabric">
+          <div class="feat-card-body">
+            <div class="icon-bar"></div>
+            <h3>Curated for Softness</h3>
+            <p>Every product passes a strict softness standard before it hits the shelf. If it does not meet the bar, it does not make the cut. Period.</p>
+          </div>
+        </div>
+        <div class="feat-card reveal">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="Beautiful retail store interior">
+          <div class="feat-card-body">
+            <div class="icon-bar"></div>
+            <h3>Tactile In-Store Experience</h3>
+            <p>A retail space designed for touching, feeling, and cozy discovery. Every aisle invites you to slow down and feel the difference.</p>
+          </div>
+        </div>
+        <div class="feat-card reveal">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Gift wrapped present">
+          <div class="feat-card-body">
+            <div class="icon-bar"></div>
+            <h3>Gift-Ready Collections</h3>
+            <p>Curated bundles for baby showers, weddings, housewarmings, and holidays. The perfect gift for anyone who values comfort.</p>
+          </div>
+        </div>
+        <div class="feat-card reveal">
+          <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=800&q=80" alt="Premium branded products">
+          <div class="feat-card-body">
+            <div class="icon-bar"></div>
+            <h3>Private-Label Soft Brand</h3>
+            <p>Premium materials at accessible prices, manufactured under the Soft name. The natural evolution from curation to creation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market -->
+  <section class="market">
+    <div class="container">
+      <div class="market-visual reveal">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80" alt="Modern living room with cozy textiles">
+        <div class="market-visual-text">
+          <p class="section-eyebrow">The Opportunity</p>
+          <h2>A $30 Billion Market with No One Owning "Soft"</h2>
+        </div>
+      </div>
+      <p class="desc reveal">The U.S. home textiles market exceeds $30 billion annually. Pillows, blankets, towels, and bedding alone represent a $15 billion segment. No retailer has claimed the "soft" positioning as a brand identity. By building around one sensory quality, Soft becomes the default destination for anyone shopping by feel.</p>
+      <div class="market-numbers reveal">
+        <div class="market-num">
+          <div class="val">$30B+</div>
+          <div class="lbl">Home Textiles Market</div>
+        </div>
+        <div class="market-num">
+          <div class="val">$15B</div>
+          <div class="lbl">Bedding and Blankets</div>
+        </div>
+        <div class="market-num">
+          <div class="val">0</div>
+          <div class="lbl">Brands Owning "Soft"</div>
+        </div>
+        <div class="market-num">
+          <div class="val">60-70%</div>
+          <div class="lbl">Private Label Margins</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Plan -->
+  <section class="business-plan">
+    <div class="container">
+      <h2 class="reveal">Business Plan</h2>
+      <p class="sub reveal">From curation to creation: the Soft playbook</p>
+
+      <div class="bp-block reveal">
+        <h3>
+          <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg></span>
+          Revenue Model
+        </h3>
+        <p>Phase one is a curation model: sourcing the softest products from partner brands and selling them at retail markup. Phase two introduces private-label Soft branded products, pushing margins to 60-70%. Gift bundles and subscription boxes create recurring revenue. Online sales expand reach beyond the flagship store footprint.</p>
+      </div>
+
+      <div class="bp-block reveal">
+        <h3>
+          <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+          Go-to-Market Strategy
+        </h3>
+        <p>Launch as a direct-to-consumer e-commerce brand with a curated selection of 50-100 products. Build an Instagram-first marketing strategy showcasing the tactile, cozy brand aesthetic. Open a single flagship retail location in a high-traffic shopping district to validate the in-store experience. Partner with influencers in home decor and lifestyle who align with the brand's sensory-first philosophy.</p>
+      </div>
+
+      <div class="bp-block reveal">
+        <h3>
+          <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          Competitive Advantage
+        </h3>
+        <p>No retailer owns the "soft" positioning. By building a brand entirely around one sensory quality, Soft becomes the default destination for anyone shopping by feel. The curation model starts lean, scales into private label, and the brand itself becomes the moat. Competitors sell products; Soft sells a feeling.</p>
+      </div>
+
+      <div class="bp-block reveal">
+        <h3>
+          <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          Year One Milestones
+        </h3>
+        <ul>
+          <li>Launch e-commerce store with 75+ curated products and achieve $500K in first-year revenue</li>
+          <li>Open one flagship retail location and validate the in-store soft experience concept</li>
+          <li>Introduce the first private-label Soft branded product line: blankets and pillows</li>
+        </ul>
+      </div>
+
+      <div class="bp-block reveal">
+        <h3>
+          <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+          Startup Cost Estimate
+        </h3>
+        <p>Soft can launch lean as an e-commerce curation brand, with costs scaling as retail locations come online.</p>
+        <span class="cost-pill">$100,000 - $300,000</span>
+      </div>
+
+      <div class="bp-block reveal">
+        <h3>
+          <span class="bp-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          Key Risks
+        </h3>
+        <ul>
+          <li>Softness is subjective; maintaining a consistent quality bar as the catalog grows is a real challenge</li>
+          <li>Competing with established home goods retailers like Target and Crate and Barrel on price and selection</li>
+          <li>Brick-and-mortar retail carries significant overhead, and the in-store experience is core to the brand promise</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="logo">soft<span style="color: var(--gold);">.</span></div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=_msfmD2S37U" target="_blank">Steal This Idea</a> podcast.</p>
+    <p>Not a real company (yet). Built for people who believe comfort should be easy to find.</p>
+    <p style="margin-top: 24px;"><a href="../index.html">Browse All Ideas</a></p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "slug": "chef-date",
+  "company_name": "ChefDate",
+  "tagline": "Your next great meal, made at home",
+  "elevator_pitch": "ChefDate is a gig economy marketplace that connects people with talented chefs for private, in-home dining experiences. Whether it is a romantic anniversary, a birthday dinner, or a casual cooking lesson, ChefDate makes it easy to browse, book, and customize your perfect culinary experience.",
+  "problem": "Hiring a private chef feels inaccessible, expensive, and confusing. There is no single trusted platform to discover, compare, and book in-home chefs. Existing options are limited to generic service marketplaces like Thumbtack, which lack filters for cuisine, experience level, or occasion type.",
+  "solution": "ChefDate creates an Airbnb-style marketplace specifically for private chefs. Customers can browse chef profiles with reviews, cuisine specialties, personality videos, and pricing tiers. The platform handles scheduling, ingredient logistics, insurance, and payments, making the entire process as seamless as booking a rideshare.",
+  "target_market": "Couples and families (ages 28 to 50) looking for memorable at-home dining experiences for special occasions like anniversaries, birthdays, and dinner parties. Secondary markets include vacation rental guests and corporate event planners.",
+  "revenue_model": "ChefDate takes a 15 to 20 percent service fee on each booking. Additional revenue comes from featured chef placements, premium profile upgrades for chefs, and potential partnership integrations with platforms like Airbnb for add-on experiences.",
+  "key_features": [
+    "Browse chefs by cuisine, price, personality, and availability with rich profiles featuring photos, videos, and reviews",
+    "Customize your experience: choose whether the chef brings ingredients, cookware, or uses yours, and set the vibe from interactive to hands-off",
+    "Built-in trust and safety with chef verification, insurance coverage, and a two-sided review system",
+    "Book cooking classes alongside meals for a hands-on culinary learning experience at home"
+  ],
+  "competitive_advantage": "ChefDate is purpose-built for private dining, unlike generic service marketplaces. The combination of personality-driven chef profiles, flexible experience customization, and built-in trust infrastructure creates a network effect: more chefs attract more customers, and vice versa. The range of price points, from passionate home cooks to executive chefs, makes private dining accessible to a broader market for the first time.",
+  "market_size_estimate": "The US personal chef services market is estimated at $5 to $8 billion, sitting at the intersection of the $900 billion restaurant industry and the $400 billion gig economy. With increasing demand for unique at-home experiences (accelerated post-pandemic), even capturing 1 percent of the addressable market represents a $50 to $80 million opportunity.",
+  "go_to_market": "Launch in one city (e.g., Denver or Austin) with 20 to 30 onboarded chefs spanning a range of cuisines and price points. Partner with local food bloggers and influencers for initial demand. Target recently displaced restaurant professionals as early supply-side adopters.",
+  "risks": [
+    "Building two-sided marketplace liquidity is difficult; without enough chefs, customers leave, and without enough customers, chefs leave",
+    "Safety and liability concerns around strangers entering private homes require robust vetting, insurance, and dispute resolution systems",
+    "Customer perception that private chefs are a luxury only for the wealthy could limit mass-market adoption despite lower price points"
+  ],
+  "year_one_milestones": [
+    "Onboard 50 chefs and complete 500 bookings in the launch city within the first 6 months",
+    "Achieve a 4.7 plus average rating across both chef and customer reviews, demonstrating platform trust",
+    "Expand to a second city and begin partnership conversations with vacation rental platforms like Airbnb or VRBO"
+  ],
+  "startup_cost_range": "$75,000 to $150,000",
+  "category": "Marketplace",
+  "vibe": "premium",
+  "episode_url": "https://www.youtube.com/watch?v=BtTIcgic6h0",
+  "episode_number": 124
+}

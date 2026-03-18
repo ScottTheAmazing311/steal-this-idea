@@ -1,0 +1,34 @@
+{
+  "slug": "iguides",
+  "company_name": "iGuides",
+  "tagline": "Your world, narrated by locals.",
+  "elevator_pitch": "iGuides is an Audible-style marketplace for self-guided audio tours. Local experts, history buffs, and passionate storytellers record GPS-triggered walking tours that travelers can download and experience at their own pace, from ancient ruins to neighborhood pizza crawls.",
+  "problem": "Traditional guided tours are rigid, overpriced, and one-size-fits-all. You are locked into someone else's schedule, forced to walk at a group's pace, and stuck with a single narrator's perspective. For many destinations, quality guided experiences simply do not exist.",
+  "solution": "iGuides lets anyone create and sell GPS-triggered audio tours on a marketplace platform. Travelers browse reviews, pick a tour length and theme that fits their style, and explore at their own pace while their phone automatically plays narration as they reach each point of interest.",
+  "target_market": "Independent travelers aged 25 to 55 who want enriched experiences without the constraints of group tours, plus local experts and storytellers looking to monetize their knowledge.",
+  "revenue_model": "Platform takes a 30% commission on tour sales (priced $0.99 to $30 depending on depth). Additional revenue from tipping, strategic partnerships with travel platforms like TripAdvisor and Expedia, and location-based merchant promotions.",
+  "key_features": [
+    "GPS-triggered narration that plays automatically as you walk to each point of interest",
+    "Creator marketplace where anyone can record, publish, and sell their own audio tours",
+    "Multiple tour lengths and perspectives for the same destination, from 10-minute highlights to deep dives",
+    "Ratings and reviews so the best storytellers rise to the top, not just whoever is available"
+  ],
+  "competitive_advantage": "Unlike Rick Steves or traditional tour companies, iGuides is a two-sided marketplace that scales through user-generated content. The network effect of more creators attracting more travelers (and vice versa) creates a defensible moat, while GPS-triggered playback and AR integration leverage smartphone capabilities that did not exist five years ago.",
+  "market_size_estimate": "The global guided tours market is valued at roughly $90 billion. Even capturing 1% of travelers who prefer self-guided digital experiences represents a $900 million opportunity, with strong tailwinds from the rise of independent travel and smartphone adoption.",
+  "go_to_market": "Launch in 3 to 5 high-traffic tourist cities (e.g., Washington DC, New York, Rome) by recruiting passionate local guides and history enthusiasts to seed the platform. Partner with travel bloggers and influencers for organic distribution, then pursue integrations with TripAdvisor and Expedia for the 'things to do' tab.",
+  "risks": [
+    "Cold start problem: need enough quality tours to attract travelers, and enough travelers to attract creators",
+    "Content quality control at scale as the platform opens to anyone",
+    "Competition from Google Maps and big tech adding similar audio guide features natively"
+  ],
+  "year_one_milestones": [
+    "Launch in 5 major tourist cities with 200+ curated audio tours",
+    "Reach 50,000 downloads and 10,000 paid tour purchases",
+    "Secure one strategic partnership with a major travel platform or airline"
+  ],
+  "startup_cost_range": "$150,000 to $400,000 for MVP with mobile apps, creator tools, and initial content seeding",
+  "category": "Marketplace",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=eGH5GpNt0_M",
+  "episode_number": 20
+}

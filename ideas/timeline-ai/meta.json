@@ -1,0 +1,34 @@
+{
+  "slug": "timeline-ai",
+  "company_name": "TimelineAI",
+  "tagline": "Predict project risk before it spirals",
+  "elevator_pitch": "TimelineAI is an AI-powered project management intelligence layer that scores project risk, flags unrealistic timelines, and identifies bottlenecks before they derail your delivery. It plugs into tools like Asana and Jira to give leaders the visibility they actually need.",
+  "problem": "Project managers rely on gut instinct and micromanagement to keep projects on track. They learn about risks too late, set unrealistic deadlines, and hire more PMs instead of using the data already sitting in their tools. The result: blown timelines, angry stakeholders, and ballooning budgets.",
+  "solution": "TimelineAI applies machine learning to your existing project management data to surface risk scores, flag overly ambitious timelines, and pinpoint recurring bottlenecks. It turns reactive firefighting into proactive decision-making, no extra headcount required.",
+  "target_market": "Mid-size to enterprise B2B companies with 50+ employees running multiple concurrent projects. Operations leaders, PMO directors, and department heads who manage portfolios of work across engineering, marketing, and professional services teams.",
+  "revenue_model": "SaaS subscription with per-seat pricing. Free tier for small teams (up to 10 users), Pro at $15/user/month for risk scoring and timeline intelligence, Enterprise at $35/user/month with custom ML models, SSO, and dedicated support. Additional revenue from integration marketplace and onboarding services.",
+  "key_features": [
+    "Risk Scoring Engine: Every project gets a dynamic risk score based on due date changes, task velocity, and team activity patterns",
+    "Timeline Intelligence: Flags unrealistic deadlines by comparing against historical project data and suggests adjusted dates",
+    "Bottleneck Detection: Identifies which teams or individuals consistently cause delays and recommends resource reallocation",
+    "Predictive Alerts: Notifies stakeholders weeks before a project is likely to slip, not after the damage is done"
+  ],
+  "competitive_advantage": "No existing PM tool offers true predictive intelligence. Current tools like Asana, Monday, and Jira track tasks but do not learn from patterns. TimelineAI is the first to apply ML specifically to project risk, timeline accuracy, and bottleneck analysis. Unlike AI sales tools, project management data is clean and internally controlled, making predictions far more reliable.",
+  "market_size_estimate": "The global project management software market is valued at roughly $7B and growing 10%+ annually. AI-augmented PM tools represent a greenfield opportunity within that space. Even capturing 1% of the market would represent $70M in annual revenue.",
+  "go_to_market": "Launch as a plug-in integration for Asana and Jira to tap into their existing user bases. Offer a free tier to attract small teams, then convert to paid plans as organizations scale. Target product-led growth through content marketing, PM community partnerships, and case studies from early adopters.",
+  "risks": [
+    "Platform dependency: Reliance on Asana/Jira APIs means changes to those platforms could break core functionality",
+    "Data cold start: New customers may not have enough historical project data for accurate ML predictions initially",
+    "Incumbents adding AI: Asana, Monday, or Jira could build similar features natively, shrinking the addressable market"
+  ],
+  "year_one_milestones": [
+    "Ship Asana and Jira integrations with risk scoring and timeline intelligence for 500 beta users",
+    "Reach $250K ARR with 50 paying teams across Pro and Enterprise tiers",
+    "Publish three case studies demonstrating measurable improvement in on-time project delivery rates"
+  ],
+  "startup_cost_range": "$150K - $350K to MVP (engineering team, cloud infrastructure, and initial go-to-market)",
+  "category": "AI/ML",
+  "vibe": "technical",
+  "episode_url": "https://www.youtube.com/watch?v=3kn5kAnQ7v8",
+  "episode_number": 7
+}

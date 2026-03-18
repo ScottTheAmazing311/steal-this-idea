@@ -1,0 +1,34 @@
+{
+  "slug": "toilet-trust",
+  "company_name": "ToiletTrust",
+  "tagline": "Your bathroom essentials, locked and sanitized.",
+  "elevator_pitch": "ToiletTrust is a sleek, lockable bathroom safe with built-in UV sanitization that keeps your toiletries organized, germ-free, and out of reach from curious kids. It combines countertop organization with real hygiene protection in one premium box.",
+  "problem": "Parents of young children constantly deal with kids getting into bathroom items like razors, expensive cosmetics, and toothbrushes. This leads to safety hazards, wasted products, and cross-contamination. Meanwhile, bathroom counters become cluttered messes with no elegant storage solution.",
+  "solution": "ToiletTrust is a compact, beautifully designed lockable box with a four-digit combination lock and built-in UV-C sanitization. It sits on your bathroom counter, keeps your razors, toothbrush, and personal care items safe from children, and actively kills bacteria while your items are stored.",
+  "target_market": "Parents with young children (ages 1 to 7) who want bathroom safety and organization, germaphobic individuals seeking UV sanitization for personal items, and anyone sharing a bathroom with roommates or family who value personal space.",
+  "revenue_model": "Direct-to-consumer e-commerce sales with a tiered product line: Basic plastic model at $65, wood-finish premium model at $99, and aluminum luxury model at $125. Additional revenue from accessory trays, replacement UV bulbs, and his-and-hers bundle packs.",
+  "key_features": [
+    "UV-C sanitization kills 99.9% of bacteria on toothbrushes, razors, and personal items",
+    "Four-digit combination lock plus key backup keeps kids and roommates out",
+    "Built-in rechargeable battery doubles as a portable charger for travel",
+    "Premium materials in three tiers: polymer, wood finish, and brushed aluminum"
+  ],
+  "competitive_advantage": "No existing product combines lockable bathroom storage with UV sanitization in a single countertop unit. Phone UV sanitizers exist, but nothing targets the full toiletry category with child safety as a primary feature. The dual value proposition of safety plus sanitation is unique.",
+  "market_size_estimate": "There are approximately 33 million US households with children under 7. At an average price point of $85 and a conservative 2% penetration, the addressable market is roughly $56 million annually. Expanding to the broader bathroom organization market ($3.2B globally) and germaphobic consumers increases the TAM significantly.",
+  "go_to_market": "Launch on Amazon and Kickstarter simultaneously, targeting parenting communities and mommy bloggers for initial traction. Run targeted Facebook and Instagram ads focused on the child safety angle with short video demos showing kids getting into bathroom items. Partner with pediatric dentists for referral marketing.",
+  "risks": [
+    "Manufacturing complexity of integrating UV-C, battery, and locking mechanism at a consumer-friendly price point",
+    "Consumer education hurdle: convincing buyers they need a lockable bathroom box when a high shelf seems like a free solution",
+    "Potential competition from established bathroom organizer brands who could add UV and lock features to existing products"
+  ],
+  "year_one_milestones": [
+    "Launch Kickstarter campaign and hit $100K funding goal within 30 days",
+    "Ship first 5,000 units through Amazon FBA and direct-to-consumer channels",
+    "Secure placement in two national retail chains (Target, Bed Bath & Beyond) for year two pipeline"
+  ],
+  "startup_cost_range": "$50,000 to $120,000 for tooling, first production run, certifications, and initial marketing",
+  "category": "Consumer",
+  "vibe": "premium",
+  "episode_url": "https://www.youtube.com/watch?v=1bUOfrtV320",
+  "episode_number": 8
+}

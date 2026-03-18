@@ -1,0 +1,34 @@
+{
+  "slug": "flightstop",
+  "company_name": "FlightStop",
+  "tagline": "Rent gear, upgrade your flight.",
+  "elevator_pitch": "FlightStop is an airport rental kiosk that lets travelers rent entertainment, comfort gear, baby essentials, and weather gear for their flight. No more unpredictable amenities, dead devices, or overstuffed suitcases.",
+  "problem": "Flying is an unpredictable, uncomfortable experience. You never know if your seat will have a power outlet or screen, suitcase space is limited, and traveling with kids or into bad weather makes it worse. Travelers are left at the mercy of whatever the airline provides.",
+  "solution": "FlightStop places rental kiosks in airports where travelers can grab exactly what they need: preloaded iPads, Nintendo Switches, noise-cancelling headphones, travel pillows, blankets, baby gear, rain ponchos, and more. Rent it on the way out, return it at your destination.",
+  "target_market": "Frequent flyers, business travelers, families with young children, and budget-conscious travelers who want a comfortable flight without packing heavy or buying overpriced airport goods.",
+  "revenue_model": "Per-item and bundled rental fees charged to travelers. Premium bundles (e.g. 'Relaxation Bundle' with blanket, pillow, headphones for $60) drive higher average order value. Revenue scales with kiosk count across airports. Additional revenue from snack and drink bundles at fair prices.",
+  "key_features": [
+    "Rent preloaded entertainment devices like iPads, Kindles, and Nintendo Switches",
+    "Comfort bundles with noise-cancelling headphones, blankets, and travel pillows",
+    "Baby and toddler gear rental: car seats, strollers, and pack-and-plays at your destination",
+    "Weather-ready apparel: rent coats, gloves, and ponchos when weather surprises you"
+  ],
+  "competitive_advantage": "No current competitor offers a comprehensive, multi-category rental kiosk at airports. The closest predecessors were single-category DVD player rentals that no longer exist. FlightStop bundles entertainment, comfort, baby gear, and weather items in one convenient stop, creating a defensible first-mover advantage in an underserved market.",
+  "market_size_estimate": "With over 900 million passengers flying in the US annually and an average rental spend of $15-$40, even capturing 1-2% of travelers at major hubs represents a TAM of $500M+ per year.",
+  "go_to_market": "Start with two high-traffic airports, focusing on pre-security kiosk space where rent is lower and competition is minimal. Partner with airport authorities and study the rollout playbook of companies like CLEAR to identify optimal expansion routes.",
+  "risks": [
+    "Airport real estate is expensive and competitive, with complex leasing agreements",
+    "Device theft or damage could erode margins despite credit card holds",
+    "Licensing restrictions on preloaded digital content (movies, books, games) may limit entertainment offerings"
+  ],
+  "year_one_milestones": [
+    "Launch kiosks in two major US airports with full entertainment and comfort inventory",
+    "Reach 5,000 rentals per month across both locations",
+    "Introduce bundled pricing and expand to baby gear and weather apparel categories"
+  ],
+  "startup_cost_range": "$150,000 - $400,000",
+  "category": "Services",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=XluPj2Bq8MI",
+  "episode_number": 17
+}

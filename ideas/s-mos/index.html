@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S'Mos - Gather Around. Reconnect Over Fire.</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ember: #D4572A;
+    --ember-glow: #F28C38;
+    --charcoal: #1C1714;
+    --bark: #2E2218;
+    --cream: #FAF5EE;
+    --warm-white: #FFF8F0;
+    --sage: #7A8B6F;
+    --smoke: #A39687;
+    --gold: #C9A84C;
+    --deep-brown: #3B2A1A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Karla', sans-serif;
+    color: var(--charcoal);
+    background: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.65;
+  }
+
+  /* ---- Badge ---- */
+  .sti-badge {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 1000;
+    background: var(--ember);
+    color: var(--warm-white);
+    text-decoration: none;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(212,87,42,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .sti-badge:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(212,87,42,0.5); }
+  .sti-badge svg { width: 16px; height: 16px; fill: var(--warm-white); }
+
+  /* ---- Scroll Animations ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    opacity: 0.45;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(28,23,20,0.5) 0%, rgba(28,23,20,0.85) 70%, rgba(28,23,20,0.98) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 24px;
+    max-width: 780px;
+  }
+  .hero-flame {
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+  .hero-flame svg {
+    width: 56px;
+    height: 56px;
+    fill: var(--ember-glow);
+    filter: drop-shadow(0 0 20px rgba(242,140,56,0.5));
+    animation: flicker 2s ease-in-out infinite alternate;
+  }
+  @keyframes flicker {
+    0% { filter: drop-shadow(0 0 20px rgba(242,140,56,0.5)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 30px rgba(242,140,56,0.7)); transform: scale(1.05); }
+    100% { filter: drop-shadow(0 0 18px rgba(242,140,56,0.4)); transform: scale(0.98); }
+  }
+  .hero h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    color: var(--warm-white);
+    line-height: 1.05;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+  }
+  .hero h1 span {
+    color: var(--ember-glow);
+    font-style: italic;
+  }
+  .hero .tagline {
+    font-family: 'Karla', sans-serif;
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    color: var(--ember-glow);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero .pitch {
+    font-family: 'Karla', sans-serif;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: rgba(250,245,238,0.75);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .btn-ember {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--ember), var(--ember-glow));
+    color: var(--warm-white);
+    font-family: 'Karla', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 44px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 6px 28px rgba(212,87,42,0.4);
+  }
+  .btn-ember:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 40px rgba(212,87,42,0.55); }
+
+  .btn-outline {
+    display: inline-block;
+    border: 2px solid var(--ember-glow);
+    color: var(--ember-glow);
+    font-family: 'Karla', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    background: transparent;
+    transition: background 0.3s, color 0.3s, transform 0.25s;
+    margin-left: 12px;
+  }
+  .btn-outline:hover { background: var(--ember-glow); color: var(--charcoal); transform: translateY(-2px); }
+
+  /* ---- Sections ---- */
+  .section { padding: 100px 24px; }
+  .section-dark { background: var(--charcoal); color: var(--cream); }
+  .section-bark { background: var(--bark); color: var(--cream); }
+  .section-cream { background: var(--cream); }
+  .section-warm { background: var(--warm-white); }
+  .container { max-width: 1080px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Karla', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 14px;
+  }
+  .section-dark .section-label,
+  .section-bark .section-label { color: var(--ember-glow); }
+
+  .section-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .section-dark .section-title,
+  .section-bark .section-title { color: var(--cream); }
+
+  /* ---- PROBLEM ---- */
+  .problem-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .problem-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .problem-images img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .problem-images img:first-child {
+    grid-column: 1 / -1;
+    height: 240px;
+  }
+  .problem-text p {
+    font-size: 1.05rem;
+    color: var(--smoke);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+  .problem-text p strong { color: var(--cream); font-weight: 600; }
+  .problem-points {
+    list-style: none;
+    margin-top: 28px;
+  }
+  .problem-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: var(--cream);
+  }
+  .point-dot {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--ember-glow);
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  /* ---- SOLUTION ---- */
+  .solution-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .solution-img {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+  .solution-img img { width: 100%; display: block; object-fit: cover; height: 480px; }
+  .solution-text p {
+    font-size: 1.05rem;
+    color: rgba(28,23,20,0.7);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+  .solution-pillars {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .pillar {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .pillar-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--ember), var(--ember-glow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pillar-icon svg { width: 22px; height: 22px; fill: var(--warm-white); }
+  .pillar h4 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.05rem;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+  .pillar p {
+    font-size: 0.9rem !important;
+    color: rgba(28,23,20,0.6) !important;
+    margin: 0 !important;
+  }
+
+  /* ---- FEATURES ---- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .feature-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 340px;
+    display: flex;
+    align-items: flex-end;
+    transition: transform 0.35s;
+  }
+  .feature-card:hover { transform: translateY(-6px); }
+  .feature-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s;
+  }
+  .feature-card:hover .feature-card-bg { transform: scale(1.06); }
+  .feature-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(28,23,20,0.95) 0%, rgba(28,23,20,0.2) 60%);
+  }
+  .feature-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 28px;
+  }
+  .feature-card-content h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.25rem;
+    color: var(--warm-white);
+    margin-bottom: 8px;
+  }
+  .feature-card-content p {
+    font-size: 0.9rem;
+    color: rgba(250,245,238,0.7);
+    line-height: 1.6;
+  }
+  .feature-card-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 3.5rem;
+    color: var(--ember-glow);
+    opacity: 0.3;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    z-index: 2;
+    font-style: italic;
+  }
+
+  /* ---- MARKET ---- */
+  .market-photo-strip {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+    margin-bottom: 48px;
+  }
+  .market-photo-strip img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  }
+  .market-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .stat-card {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--warm-white);
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-4px); }
+  .stat-number {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.5rem;
+    color: var(--ember);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--smoke);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .market-prose {
+    font-size: 1.05rem;
+    color: rgba(28,23,20,0.65);
+    max-width: 680px;
+    line-height: 1.8;
+  }
+  .market-segments {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 36px;
+  }
+  .segment {
+    padding: 24px;
+    background: var(--warm-white);
+    border-radius: 12px;
+    border-left: 4px solid var(--sage);
+  }
+  .segment h4 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: var(--deep-brown);
+  }
+  .segment p { font-size: 0.9rem; color: var(--smoke); line-height: 1.6; }
+
+  /* ---- BUSINESS PLAN ---- */
+  .biz-plan-card {
+    background: var(--bark);
+    border-radius: 20px;
+    padding: 56px 48px;
+    margin-top: 48px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .biz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .biz-block { margin-bottom: 8px; }
+  .biz-block h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.1rem;
+    color: var(--ember-glow);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .biz-block h3 svg { width: 18px; height: 18px; fill: var(--ember-glow); }
+  .biz-block p {
+    font-size: 0.95rem;
+    color: rgba(250,245,238,0.7);
+    line-height: 1.7;
+  }
+  .biz-block ul {
+    list-style: none;
+    padding: 0;
+  }
+  .biz-block ul li {
+    font-size: 0.95rem;
+    color: rgba(250,245,238,0.7);
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(250,245,238,0.08);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .biz-block ul li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--ember-glow);
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+  .biz-full { grid-column: 1 / -1; }
+  .cost-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--ember), var(--ember-glow));
+    color: var(--warm-white);
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.3rem;
+    padding: 12px 32px;
+    border-radius: 12px;
+    margin-top: 8px;
+  }
+
+  /* ---- CTA ---- */
+  .cta-section {
+    position: relative;
+    padding: 100px 24px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    opacity: 0.2;
+  }
+  .cta-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--charcoal) 0%, var(--bark) 100%);
+  }
+  .cta-content {
+    position: relative;
+    z-index: 2;
+  }
+  .cta-content h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .cta-content p {
+    font-size: 1.1rem;
+    color: rgba(250,245,238,0.65);
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: #0F0C0A;
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .footer p {
+    color: rgba(250,245,238,0.35);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .footer a {
+    color: var(--ember-glow);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer a:hover { color: var(--cream); }
+  .footer-divider {
+    width: 40px;
+    height: 2px;
+    background: rgba(250,245,238,0.1);
+    margin: 20px auto;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .problem-layout,
+    .solution-layout,
+    .features-grid,
+    .market-stats,
+    .market-segments,
+    .market-photo-strip,
+    .biz-grid {
+      grid-template-columns: 1fr;
+    }
+    .problem-images {
+      grid-template-columns: 1fr;
+    }
+    .problem-images img,
+    .problem-images img:first-child { height: 200px; }
+    .solution-img img { height: 300px; }
+    .feature-card { min-height: 280px; }
+    .biz-plan-card { padding: 32px 20px; }
+    .section { padding: 72px 20px; }
+    .btn-outline { margin-left: 0; margin-top: 12px; }
+    .market-photo-strip img { height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge" aria-label="Back to Steal This Idea">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- ======= HERO ======= -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-flame">
+      <svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+    </div>
+    <h1>S<span>'</span>Mos</h1>
+    <p class="tagline">Gather around. Reconnect over fire.</p>
+    <p class="pitch">A nostalgia-driven social lounge built around communal fire pits, craft s'mores, and cocktails. The warmth of a campfire gathering, right in the heart of the city.</p>
+    <a href="#features" class="btn-ember">Reserve a Fire Pit</a>
+  </div>
+</section>
+
+<!-- ======= PROBLEM ======= -->
+<section class="section section-dark" id="problem">
+  <div class="container">
+    <div class="section-label reveal">The Problem</div>
+    <h2 class="section-title reveal">We forgot how to be together.</h2>
+    <div class="problem-layout">
+      <div class="problem-images reveal">
+        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Crowded bar with people on phones" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1529566652340-2c41a1eb6d93?auto=format&fit=crop&w=400&q=80" alt="Person alone scrolling phone" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=400&q=80" alt="Empty city nightlife" loading="lazy">
+      </div>
+      <div class="problem-text reveal">
+        <p><strong>Urban adults crave real social connection</strong> but keep ending up at the same loud bars and overpriced restaurants. Everyone sits across a table staring at their phones.</p>
+        <p>The campfire, one of humanity's oldest gathering rituals, is completely absent from city life. Nostalgia for simpler times is everywhere, yet nobody has built a real experience around it.</p>
+        <ul class="problem-points">
+          <li><div class="point-dot"></div>87% of millennials say they value experiences over material goods</li>
+          <li><div class="point-dot"></div>Screen time is up, but meaningful in-person connection is down</li>
+          <li><div class="point-dot"></div>Experiential dining is booming, but most concepts feel gimmicky</li>
+          <li><div class="point-dot"></div>The nostalgia economy is worth billions, yet campfire culture has zero commercial presence in cities</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SOLUTION ======= -->
+<section class="section section-cream" id="solution">
+  <div class="container">
+    <div class="section-label reveal">The Solution</div>
+    <h2 class="section-title reveal">Fire pits. Craft s'mores. No phones allowed.</h2>
+    <div class="solution-layout">
+      <div class="solution-img reveal">
+        <img src="https://images.unsplash.com/photo-1526491109649-aa6600c65df5?auto=format&fit=crop&w=800&q=80" alt="People gathered around a fire pit at night" loading="lazy">
+      </div>
+      <div class="solution-text reveal">
+        <p>S'Mos is a social lounge centered around communal gas-powered fire pits where guests build gourmet s'mores, sip craft cocktails, and actually talk to each other.</p>
+        <p>A strict no-devices policy turns every visit into something rare: genuine human presence. The smell of toasted marshmallow, the crackle of flame, the warmth on your hands. It is simple. It is powerful. People remember it.</p>
+        <div class="solution-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+            </div>
+            <div>
+              <h4>Communal Fire Pits</h4>
+              <p>Indoor and patio gas-powered fire pits seating 4-12 guests each. Walk in solo or reserve a private pit for your group.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            </div>
+            <div>
+              <h4>Gourmet S'mores Bar</h4>
+              <p>30+ premium toppings, artisan marshmallows, craft chocolates, and seasonal specials. Build your own or try the chef's creations.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 16c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2s2 .9 2 2v8c0 1.1-.9 2-2 2z"/></svg>
+            </div>
+            <div>
+              <h4>Device-Free Zone</h4>
+              <p>Lock your phone in a pouch at the door. Reclaim your attention. This is the experience people never knew they needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FEATURES ======= -->
+<section class="section section-bark" id="features">
+  <div class="container">
+    <div class="section-label reveal">What We Serve</div>
+    <h2 class="section-title reveal">More than s'mores. It is a ritual.</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="feature-card-overlay"></div>
+        <div class="feature-card-num">01</div>
+        <div class="feature-card-content">
+          <h3>Build-Your-Own S'mores Bar</h3>
+          <p>Choose your graham (classic, cinnamon, chocolate), your marshmallow (vanilla bean, salted caramel, lavender), and your chocolate. Then toast it yourself over a real flame. Seasonal menus keep regulars coming back.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="feature-card-overlay"></div>
+        <div class="feature-card-num">02</div>
+        <div class="feature-card-content">
+          <h3>Fireside Cocktails and Boozy Hot Chocolate</h3>
+          <p>Signature drinks designed to complement the campfire vibe. Smoked old fashioneds, spiked ciders, and a hot chocolate menu that rivals any specialty coffee shop in town.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="feature-card-overlay"></div>
+        <div class="feature-card-num">03</div>
+        <div class="feature-card-content">
+          <h3>Private Fire Pit Reservations</h3>
+          <p>Book a pit for date night, a birthday celebration, or a team outing. Each private pit comes with a dedicated topping spread, a drink package, and blankets for the full outdoor lounge experience.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="feature-card-overlay"></div>
+        <div class="feature-card-num">04</div>
+        <div class="feature-card-content">
+          <h3>The No-Phone Promise</h3>
+          <p>Guests lock their devices in custom pouches at the entrance. It sounds extreme. It is the single most talked-about feature. People leave saying it was the best evening they have had in years.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= MARKET ======= -->
+<section class="section section-cream" id="market">
+  <div class="container">
+    <div class="section-label reveal">The Market</div>
+    <h2 class="section-title reveal">Experiential dining is a $77 billion industry.</h2>
+    <div class="market-photo-strip reveal">
+      <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80" alt="Friends gathering together at a social event" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Artisan food plating" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1486915309615-5e4408a3a5ac?auto=format&fit=crop&w=400&q=80" alt="Warm cozy venue atmosphere" loading="lazy">
+    </div>
+    <div class="market-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">$77B+</div>
+        <div class="stat-label">Experiential Dining Market</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">10%+</div>
+        <div class="stat-label">Annual Growth Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$2.5M</div>
+        <div class="stat-label">Target Annual Revenue Per Location</div>
+      </div>
+    </div>
+    <p class="market-prose reveal">Axe throwing, escape rooms, and paint-and-sip bars have all proven that consumers will gladly pay a premium for a unique social outing. S'Mos sits at the intersection of nostalgia, food, and genuine connection. Even one successful location grossing $1.5M to $2.5M annually validates the model for franchising across every major metro.</p>
+    <div class="market-segments reveal">
+      <div class="segment">
+        <h4>Millennial and Gen Z Social Groups</h4>
+        <p>Always searching for the next unique outing. They will drive across town for an experience worth posting about (right before they hand over their phone).</p>
+      </div>
+      <div class="segment">
+        <h4>Corporate Teams and Offsites</h4>
+        <p>Team-building budgets are growing. A fire pit gathering beats another bowling night. Private events drive premium revenue.</p>
+      </div>
+      <div class="segment">
+        <h4>Date Night Couples</h4>
+        <p>Toasting marshmallows by firelight, no phones to distract. It is the kind of evening people tell their friends about the next morning.</p>
+      </div>
+      <div class="segment">
+        <h4>Urban Families</h4>
+        <p>Parents who want to give their kids the campfire experience without the drive to the mountains. Weekend afternoon sessions are the sweet spot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= BUSINESS PLAN ======= -->
+<section class="section section-warm" id="business-plan">
+  <div class="container">
+    <div class="section-label reveal">Business Plan</div>
+    <h2 class="section-title reveal">Low food cost. High-margin drinks. Unforgettable experience.</h2>
+    <div class="biz-plan-card reveal">
+      <div class="biz-grid">
+        <div class="biz-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+            Revenue Model
+          </h3>
+          <p>Per-seat cover charge ($15-25) includes a base s'mores kit. Premium toppings and signature cocktails drive high-margin upsells. Private fire pit reservations run $150-300 per session. Corporate event packages and branded merchandise (marshmallow kits, mugs, candles) add recurring revenue streams both on-site and online.</p>
+        </div>
+        <div class="biz-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            Go-to-Market Strategy
+          </h3>
+          <p>Open the first location in a high-foot-traffic urban neighborhood like Austin, Nashville, or Denver. Build buzz with a pop-up series before committing to a permanent space. Partner with local influencers and corporate event planners from day one. Use the device-free policy as a PR hook to land earned media coverage.</p>
+        </div>
+        <div class="biz-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            Competitive Advantage
+          </h3>
+          <p>S'Mos is not a restaurant that serves s'mores as a menu item. It is an experience brand built on nostalgia, sensory design, and social connection. Low food costs (marshmallows, chocolate, graham crackers) paired with high-margin drinks create strong unit economics. The device-free policy generates organic word-of-mouth that money cannot buy.</p>
+        </div>
+        <div class="biz-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            Year One Milestones
+          </h3>
+          <ul>
+            <li>Open flagship location and achieve $120K+ monthly revenue within 6 months</li>
+            <li>Host 200+ corporate and private events in the first year</li>
+            <li>Build a waitlist of 5,000+ for the second location and explore franchising</li>
+          </ul>
+        </div>
+        <div class="biz-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+            Key Risks
+          </h3>
+          <ul>
+            <li>Seasonal demand may skew toward fall and winter, requiring creative warm-weather programming</li>
+            <li>Novelty factor could fade without evolving menus, themed events, and collaborations</li>
+            <li>Fire safety regulations and indoor ventilation requirements add complexity to buildout</li>
+          </ul>
+        </div>
+        <div class="biz-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+            Startup Cost Estimate
+          </h3>
+          <div class="cost-badge">$250K - $500K to First Location</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CTA ======= -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content reveal">
+    <h2>The fire is waiting.</h2>
+    <p>This idea is free. The nostalgia is real. Someone just needs to light the match.</p>
+    <a href="#" class="btn-ember">Join the Waitlist</a>
+    <a href="#" class="btn-outline">Host a Private Event</a>
+  </div>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer class="footer">
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p>It is not a real company (yet). Someone should build it.</p>
+  <div class="footer-divider"></div>
+  <p><a href="https://www.youtube.com/watch?v=rEhdRbwoIRA" target="_blank" rel="noopener">Watch the original episode</a></p>
+  <p style="margin-top:12px;"><a href="../index.html">Browse all ideas</a></p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('visible'); });
+    }
+  });
+</script>
+</body>
+</html>

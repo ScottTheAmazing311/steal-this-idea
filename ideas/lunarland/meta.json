@@ -1,0 +1,34 @@
+{
+  "slug": "lunarland",
+  "company_name": "LunarLand",
+  "tagline": "Space exploration for every generation.",
+  "elevator_pitch": "LunarLand is a franchisable, immersive space experience center that brings the wonder of the cosmos to communities everywhere. Think of it as the zoo or aquarium of outer space: interactive exhibits, simulated lunar environments, and hands-on STEM activities that inspire visitors of all ages.",
+  "problem": "There is no dedicated, accessible venue for people to experience the wonder of space exploration firsthand. Museums offer a small section, and space camps serve a narrow audience. Most families have nowhere local to engage deeply with space science in a fun, repeatable way.",
+  "solution": "LunarLand creates standalone space experience centers designed for repeat visits, similar to how families return to zoos and aquariums. Each location features rotating interactive exhibits, simulated low-gravity play zones, NASA partnership displays, and STEM workshops that make space tangible and exciting.",
+  "target_market": "Families with children ages 4 to 14, school field trip groups, space enthusiasts, and STEM-focused educators. Secondary audience includes date-night adults, corporate team-building groups, and tourists in metro areas.",
+  "revenue_model": "Revenue comes from general admission tickets ($15 to $30 per person), annual membership passes, school group packages, birthday party and event rentals, a themed gift shop, and a space-themed snack bar. Premium experiences like simulated spacewalks and VR missions offer upsell opportunities.",
+  "key_features": [
+    "Simulated lunar surface play zone with low-gravity bounce areas",
+    "Rotating NASA partnership exhibits with real mission artifacts",
+    "Hands-on STEM workshops for kids including rocket building and planetarium shows",
+    "VR space missions and interactive astronaut training simulators"
+  ],
+  "competitive_advantage": "Unlike static museum exhibits, LunarLand is purpose-built for repeat visits with rotating content and seasonal events. The franchise model allows rapid geographic expansion, and partnerships with NASA and private space companies provide exclusive content no competitor can replicate.",
+  "market_size_estimate": "The U.S. family entertainment center market is roughly $25 billion. Space-themed attractions represent a largely untapped niche. With 300+ metro areas, even capturing a fraction with 50 franchise locations at $3M annual revenue each yields a $150M opportunity.",
+  "go_to_market": "Launch a flagship location in a mid-size metro area with strong family demographics. Partner with local schools for field trip programs in the first semester, then expand through franchising once the model proves unit economics within 18 months.",
+  "risks": [
+    "High upfront build-out costs for immersive exhibits and simulated environments",
+    "Seasonal attendance fluctuations and competition from other family entertainment options",
+    "Difficulty securing and maintaining NASA or space agency partnerships at scale"
+  ],
+  "year_one_milestones": [
+    "Open flagship location and reach 100,000 visitors in the first 12 months",
+    "Launch annual membership program with 2,000 founding member families",
+    "Secure partnership agreement with at least one major space organization (NASA, SpaceX, or similar)"
+  ],
+  "startup_cost_range": "$2M to $5M for flagship location build-out, exhibits, and first-year operations",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=TKzbQ2EwTUo",
+  "episode_number": 18
+}

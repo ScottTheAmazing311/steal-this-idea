@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreadCrumbs - Drop a pin. Share the find.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --crumb-orange: #FF6B35;
+            --crumb-yellow: #FFC847;
+            --crumb-coral: #FF8C6B;
+            --crumb-teal: #2EC4B6;
+            --crumb-navy: #1A1A2E;
+            --crumb-cream: #FFF8F0;
+            --crumb-light: #FFF1E6;
+            --crumb-purple: #7B61FF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--crumb-navy);
+            background: var(--crumb-cream);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* STI Badge */
+        .sti-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--crumb-navy);
+            color: var(--crumb-yellow);
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .sti-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .sti-badge svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--crumb-yellow);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,107,53,0.92) 0%, rgba(255,200,71,0.88) 50%, rgba(46,196,182,0.85) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+            text-align: center;
+        }
+        .hero-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .hero-logo svg {
+            width: 56px;
+            height: 56px;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: #fff;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.15);
+            letter-spacing: -1px;
+        }
+        .hero .tagline {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 28px;
+            font-weight: 500;
+        }
+        .hero .pitch {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: #fff;
+            color: var(--crumb-orange);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            padding: 16px 44px;
+            border-radius: 60px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+        .cta-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2.5px solid rgba(255,255,255,0.7);
+            margin-left: 16px;
+        }
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+        .hero-scroll svg {
+            width: 32px;
+            height: 32px;
+            stroke: rgba(255,255,255,0.7);
+            fill: none;
+            stroke-width: 2;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Floating breadcrumb decorations */
+        .float-crumb {
+            position: absolute;
+            z-index: 1;
+            opacity: 0.25;
+            animation: floatUp 6s ease-in-out infinite;
+        }
+        .float-crumb:nth-child(2) { animation-delay: -2s; }
+        .float-crumb:nth-child(3) { animation-delay: -4s; }
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 100px 24px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--crumb-orange);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .section-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #555;
+            max-width: 650px;
+        }
+
+        /* ===== PROBLEM ===== */
+        .problem {
+            background: var(--crumb-navy);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .problem .section-label { color: var(--crumb-yellow); }
+        .problem .section-desc { color: rgba(255,255,255,0.75); }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .problem-img {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .problem-img img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .problem-points {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .problem-points li {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .problem-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255,200,71,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .problem-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--crumb-yellow);
+            fill: none;
+            stroke-width: 2;
+        }
+        .problem-points h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .problem-points p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.5;
+        }
+
+        /* ===== SOLUTION ===== */
+        .solution {
+            background: var(--crumb-cream);
+            position: relative;
+        }
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .solution-img {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .solution-img img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+        .solution-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--crumb-orange), var(--crumb-coral));
+            color: #fff;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step h4 {
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            color: var(--crumb-navy);
+        }
+        .step p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            background: linear-gradient(180deg, var(--crumb-light) 0%, var(--crumb-cream) 100%);
+        }
+        .features .section-title { text-align: center; }
+        .features .section-label { text-align: center; }
+        .features .section-desc { text-align: center; margin: 0 auto 50px; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.1);
+        }
+        .feature-card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .feature-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke-width: 2;
+            fill: none;
+        }
+        .fi-1 { background: rgba(255,107,53,0.12); }
+        .fi-1 svg { stroke: var(--crumb-orange); }
+        .fi-2 { background: rgba(46,196,182,0.12); }
+        .fi-2 svg { stroke: var(--crumb-teal); }
+        .fi-3 { background: rgba(123,97,255,0.12); }
+        .fi-3 svg { stroke: var(--crumb-purple); }
+        .fi-4 { background: rgba(255,200,71,0.15); }
+        .fi-4 svg { stroke: #E5A800; }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ===== MARKET ===== */
+        .market {
+            background: var(--crumb-cream);
+            position: relative;
+        }
+        .market-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .market-img-wrap {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .market-img-wrap img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+        .market-stat-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(26,26,46,0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            gap: 24px;
+        }
+        .market-stat {
+            text-align: center;
+            flex: 1;
+        }
+        .market-stat .num {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--crumb-yellow);
+        }
+        .market-stat .label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.65);
+            margin-top: 2px;
+        }
+        .market-text .section-desc { margin-bottom: 30px; }
+        .market-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .market-tag {
+            background: var(--crumb-light);
+            color: var(--crumb-orange);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 8px 18px;
+            border-radius: 50px;
+        }
+
+        /* ===== BUSINESS PLAN ===== */
+        .business-plan {
+            background: var(--crumb-navy);
+            color: #fff;
+        }
+        .business-plan .section-label { color: var(--crumb-yellow); }
+        .business-plan .section-title { color: #fff; }
+        .bp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 50px;
+        }
+        .bp-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 32px;
+            transition: background 0.3s ease;
+        }
+        .bp-card:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .bp-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .bp-card-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke-width: 2;
+        }
+        .bpi-1 { background: rgba(255,107,53,0.2); }
+        .bpi-1 svg { stroke: var(--crumb-orange); }
+        .bpi-2 { background: rgba(46,196,182,0.2); }
+        .bpi-2 svg { stroke: var(--crumb-teal); }
+        .bpi-3 { background: rgba(123,97,255,0.2); }
+        .bpi-3 svg { stroke: var(--crumb-purple); }
+        .bpi-4 { background: rgba(255,200,71,0.2); }
+        .bpi-4 svg { stroke: var(--crumb-yellow); }
+        .bpi-5 { background: rgba(255,140,107,0.2); }
+        .bpi-5 svg { stroke: var(--crumb-coral); }
+        .bpi-6 { background: rgba(255,107,53,0.2); }
+        .bpi-6 svg { stroke: var(--crumb-orange); }
+        .bp-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        .bp-card p, .bp-card li {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.65;
+        }
+        .bp-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bp-card ul li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .bp-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--crumb-yellow);
+        }
+        .bp-wide { grid-column: span 2; }
+        .milestones-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .milestone {
+            background: rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+        .milestone .m-num {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--crumb-yellow);
+            margin-bottom: 8px;
+        }
+        .milestone p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+        }
+        .cost-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--crumb-orange), var(--crumb-coral));
+            color: #fff;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 50px;
+            margin-top: 8px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #12121E;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 50px 24px;
+        }
+        footer p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        footer a {
+            color: var(--crumb-yellow);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+        .footer-logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 12px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .problem-grid,
+            .solution-grid,
+            .market-inner {
+                grid-template-columns: 1fr;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .bp-grid {
+                grid-template-columns: 1fr;
+            }
+            .bp-wide { grid-column: span 1; }
+            .milestones-row {
+                grid-template-columns: 1fr;
+            }
+            .cta-secondary {
+                margin-left: 0;
+                margin-top: 12px;
+            }
+            .hero-content { padding-top: 100px; }
+            .market-stat-overlay { flex-direction: column; gap: 12px; }
+            section { padding: 70px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STI Badge -->
+    <a href="../index.html" class="sti-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/></svg>
+        Steal This Idea
+    </a>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1662140246046-fc44f41e4362?auto=format&fit=crop&w=1200&q=80" alt="City aerial view" loading="eager">
+        </div>
+
+        <!-- Floating decorations -->
+        <svg class="float-crumb" style="top:15%;left:8%;width:40px;height:40px" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><circle cx="12" cy="12" r="5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/></svg>
+        <svg class="float-crumb" style="top:60%;right:10%;width:32px;height:32px" viewBox="0 0 24 24" fill="rgba(255,255,255,0.4)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3" fill="rgba(255,255,255,0.8)"/></svg>
+        <svg class="float-crumb" style="bottom:20%;left:15%;width:28px;height:28px" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><circle cx="12" cy="12" r="10"/></svg>
+
+        <div class="hero-content">
+            <div class="hero-logo">
+                <svg viewBox="0 0 56 56" fill="none">
+                    <circle cx="28" cy="28" r="28" fill="rgba(255,255,255,0.2)"/>
+                    <path d="M28 14c-5.5 0-10 4.5-10 10 0 7.5 10 18 10 18s10-10.5 10-18c0-5.5-4.5-10-10-10z" fill="#fff"/>
+                    <circle cx="28" cy="24" r="4" fill="var(--crumb-orange)"/>
+                </svg>
+            </div>
+            <h1>BreadCrumbs</h1>
+            <p class="tagline">Drop a pin. Share the find.</p>
+            <p class="pitch">A social geotagging app that lets you leave location-based tips, discoveries, and deals for others to find. Think of it as a crowdsourced layer of local knowledge on top of the real world.</p>
+            <div>
+                <a href="#features" class="cta-btn">Start Dropping Crumbs</a>
+                <a href="#how-it-works" class="cta-btn cta-secondary">See How It Works</a>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+    </section>
+
+    <!-- ===== PROBLEM ===== -->
+    <section class="problem">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">The Problem</p>
+                <h2 class="section-title">The best local finds stay hidden</h2>
+                <p class="section-desc">Free air at a gas station. A secret lookout with a perfect view. A flash sale on Paw Patrol toys at Walmart. These discoveries live and die in private texts, never reaching the people who need them most.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-img reveal">
+                    <img src="https://images.unsplash.com/photo-1623174891354-afea5ddadcad?auto=format&fit=crop&w=800&q=80" alt="Person searching on phone" loading="lazy">
+                </div>
+                <ul class="problem-points reveal">
+                    <li>
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div>
+                            <h4>Local gems are invisible</h4>
+                            <p>The coolest spots, free perks, and secret finds never make it to Yelp or Google Maps. They exist only in word of mouth.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <h4>Flash deals vanish instantly</h4>
+                            <p>Pop-up sales, the Red Bull truck, clearance racks: by the time you hear about them, they are already gone.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                        </div>
+                        <div>
+                            <h4>No tool for informal tips</h4>
+                            <p>There is a whole layer of useful, casual, hyper-local info that sits between "Yelp review" and "text your friend." Nothing serves that space.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOLUTION ===== -->
+    <section class="solution" id="how-it-works">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">The Solution</p>
+                <h2 class="section-title">Leave a trail for everyone</h2>
+                <p class="section-desc">BreadCrumbs puts a living, breathing layer of community knowledge on top of your map. Snap, tag, and share. It is that simple.</p>
+            </div>
+            <div class="solution-grid">
+                <div class="solution-steps reveal">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div>
+                            <h4>Find something worth sharing</h4>
+                            <p>Free air at the gas station, an amazing lookout, a killer clearance sale, a pop-up event. Anything that would make someone's day a little better.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div>
+                            <h4>Drop a breadcrumb</h4>
+                            <p>Snap a photo, tag it with a category, and choose if it is permanent or temporary. Post it right from the app, or just throw #breadcrumbs on your Instagram story.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div>
+                            <h4>The community benefits</h4>
+                            <p>Anyone nearby gets notified. Trending breadcrumbs grow on the map. Over time, every neighborhood fills with useful, fun, and surprising discoveries.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-img reveal">
+                    <img src="https://images.unsplash.com/photo-1759299710361-6a92c9e7696f?auto=format&fit=crop&w=800&q=80" alt="People sharing discoveries" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">Features</p>
+                <h2 class="section-title">Built for the curious</h2>
+                <p class="section-desc">Every feature is designed to make sharing and discovering local knowledge as frictionless as possible.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card reveal">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1700847304964-9fe563059742?auto=format&fit=crop&w=600&q=80" alt="Map pins" loading="lazy">
+                    <div class="feature-icon fi-1">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h3>Geo-tagged Photo Pins</h3>
+                    <p>Every breadcrumb lives on the map with a photo, a location, and a category. Mark it permanent for evergreen tips, or time-limited for flash deals and pop-ups.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1760995822332-0f95b74ea182?auto=format&fit=crop&w=600&q=80" alt="City streets to explore" loading="lazy">
+                    <div class="feature-icon fi-2">
+                        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3>Trending Smart Map</h3>
+                    <p>Breadcrumbs that get engagement grow bigger on the map. You can see at a glance what is hot in any neighborhood, right now.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1762275167395-e50462b6595c?auto=format&fit=crop&w=600&q=80" alt="Social sharing" loading="lazy">
+                    <div class="feature-icon fi-3">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+                    </div>
+                    <h3>Instagram Integration</h3>
+                    <p>Just post to your story with #breadcrumbs and the app pulls it in automatically. No extra steps, no separate login. Share how you already share.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <img class="feature-card-img" src="https://images.unsplash.com/photo-1761032451331-82f654670a6a?auto=format&fit=crop&w=600&q=80" alt="Notifications and discovery" loading="lazy">
+                    <div class="feature-icon fi-4">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                    </div>
+                    <h3>Proximity Alerts</h3>
+                    <p>Walk into a breadcrumb-rich zone and get a gentle nudge. "There are 12 crumbs nearby." Open the app and see what your neighbors have found.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MARKET ===== -->
+    <section class="market">
+        <div class="container">
+            <div class="market-inner">
+                <div class="market-img-wrap reveal">
+                    <img src="https://images.unsplash.com/photo-1765657699307-22817dad3241?auto=format&fit=crop&w=800&q=80" alt="Urban community" loading="lazy">
+                    <div class="market-stat-overlay">
+                        <div class="market-stat">
+                            <div class="num">$8B+</div>
+                            <div class="label">Location Ad Market</div>
+                        </div>
+                        <div class="market-stat">
+                            <div class="num">$500M</div>
+                            <div class="label">Hyper-local Segment</div>
+                        </div>
+                        <div class="market-stat">
+                            <div class="num">72%</div>
+                            <div class="label">Gen Z Use Maps Daily</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-text reveal">
+                    <p class="section-label">Market Opportunity</p>
+                    <h2 class="section-title">A map for the rest of us</h2>
+                    <p class="section-desc">Urban millennials and Gen Z (ages 18 to 35) already live on location-based apps like Waze, Yelp, and Instagram. BreadCrumbs captures the informal, ephemeral layer of local knowledge that no review platform covers.</p>
+                    <div class="market-tags">
+                        <span class="market-tag">College Students</span>
+                        <span class="market-tag">Urban Explorers</span>
+                        <span class="market-tag">Deal Hunters</span>
+                        <span class="market-tag">Foodies</span>
+                        <span class="market-tag">Local Creators</span>
+                        <span class="market-tag">Travelers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BUSINESS PLAN ===== -->
+    <section class="business-plan">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">Business Plan</p>
+                <h2 class="section-title">The path to crumb domination</h2>
+            </div>
+            <div class="bp-grid">
+                <!-- Revenue Model -->
+                <div class="bp-card reveal">
+                    <div class="bp-card-icon bpi-1">
+                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
+                    <h3>Revenue Model</h3>
+                    <p>Sponsored breadcrumbs from local businesses and national brands. In-app display advertising. Premium tier for power users with advanced filtering, saved collections, and early notifications on nearby drops.</p>
+                </div>
+                <!-- Go-to-Market -->
+                <div class="bp-card reveal">
+                    <div class="bp-card-icon bpi-2">
+                        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>Go-to-Market Strategy</h3>
+                    <p>Launch on a single college campus with 50 seed users who pre-populate the map. Grow virally through Instagram hashtag sharing and word of mouth. Expand city by city, targeting college towns and urban neighborhoods with high foot traffic.</p>
+                </div>
+                <!-- Competitive Advantage -->
+                <div class="bp-card reveal">
+                    <div class="bp-card-icon bpi-3">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Competitive Advantage</h3>
+                    <p>Unlike Yelp or Google Maps, BreadCrumbs captures the informal, ephemeral layer that no review platform covers: flash sales, free perks, scenic lookouts, pop-up events. Instagram integration lowers the barrier to contribution far below any competitor.</p>
+                </div>
+                <!-- Risks -->
+                <div class="bp-card reveal">
+                    <div class="bp-card-icon bpi-5">
+                        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <h3>Key Risks</h3>
+                    <ul>
+                        <li>Cold start problem: the map feels empty until a critical mass of users contribute content in each area</li>
+                        <li>Content moderation challenges with user-generated geo-tagged material that could include spam or inaccurate tips</li>
+                        <li>Platform dependency on Instagram API access, which could be restricted or deprecated</li>
+                    </ul>
+                </div>
+                <!-- Milestones -->
+                <div class="bp-card bp-wide reveal">
+                    <div class="bp-card-icon bpi-4">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Year One Milestones</h3>
+                    <div class="milestones-row">
+                        <div class="milestone">
+                            <div class="m-num">Q2</div>
+                            <p>Launch MVP on iOS and Android with 10,000 active users across 3 college campuses</p>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-num">Q3</div>
+                            <p>Reach 100,000 breadcrumbs posted with a 30-day retention rate above 25%</p>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-num">Q4</div>
+                            <p>Close first 10 sponsored breadcrumb partnerships with local businesses and one national brand pilot</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Startup Cost -->
+                <div class="bp-card bp-wide reveal" style="text-align:center;">
+                    <div class="bp-card-icon bpi-6" style="margin:0 auto 16px;">
+                        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    </div>
+                    <h3>Estimated Startup Cost</h3>
+                    <p style="margin-bottom: 16px;">From MVP development through initial campus launches, including app design, backend infrastructure, and seed marketing.</p>
+                    <div class="cost-badge">$50,000 - $150,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-logo">BreadCrumbs</div>
+        <p>This is a concept from the <a href="https://www.youtube.com/watch?v=rw-16Tem5uc" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+        <p style="margin-top:6px;">A startup idea, freely shared. Not a real company (yet).</p>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">Idea extracted and visualized for inspiration purposes.</p>
+    </footer>
+
+    <script>
+        // IntersectionObserver for scroll-triggered reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

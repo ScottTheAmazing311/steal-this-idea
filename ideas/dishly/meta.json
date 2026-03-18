@@ -1,0 +1,34 @@
+{
+  "slug": "dishly",
+  "company_name": "Dishly",
+  "tagline": "One dish. Ten seconds. Spotless.",
+  "elevator_pitch": "Dishly is a compact countertop appliance that washes a single dish, cup, or utensil in 10 seconds flat. Think of it as the microwave equivalent for dishwashing: instant, one item at a time, no more waiting for a full load.",
+  "problem": "Traditional dishwashers are batch systems designed for large families in the 1950s. Singles, couples, students, and office workers generate one or two dirty items at a time, leading to piled-up dishes, pre-rinsing rituals, and crusty food that bonds permanently to bowls left waiting for a full load.",
+  "solution": "Dishly is a countertop single-item dishwasher that uses high-pressure aerated water jets, UV sterilization, and compressed-air drying to clean and sanitize one dish in about 10 seconds. It recycles its own water through a filtration system, uses soap tablets (razor-blade model), and can even ship with custom-designed dishware optimized for a perfect clean every time.",
+  "target_market": "Singles and couples in apartments, college students, office breakrooms, co-working spaces, and small households who find traditional dishwashers wasteful and inconvenient for their lifestyle.",
+  "revenue_model": "Hardware sales at $189-$240 per unit, plus recurring revenue from proprietary cleaning tablets (razor-blade model). Premium tier includes custom-designed dishware sets optimized for the appliance. Commercial/office models at higher price points for B2B sales.",
+  "key_features": [
+    "10-second wash cycle with pressurized aerated water jets",
+    "UV sterilization and compressed-air drying built into every cycle",
+    "Self-contained water recycling with advanced filtration",
+    "Proprietary soap tablet system for effortless, mess-free cleaning"
+  ],
+  "competitive_advantage": "No product exists in the single-item rapid dishwashing category. Traditional dishwashers are batch-only and take 1-3 hours. Dishly creates an entirely new appliance category, similar to how the microwave redefined cooking alongside the oven. The razor-blade consumables model and optional custom dishware create strong recurring revenue and ecosystem lock-in.",
+  "market_size_estimate": "There are roughly 130 million US households, with 37 million single-person households and 35 million two-person households. Adding 5+ million office breakrooms and co-working spaces, the addressable market at $200 per unit is approximately $15 billion, with recurring tablet revenue adding $2-3 billion annually.",
+  "go_to_market": "Launch via crowdfunding (Kickstarter/Indiegogo) targeting minimalists, tiny-home enthusiasts, and office managers. Leverage viral product demo videos on TikTok and Instagram showing the 10-second wash. Partner with coworking spaces and university housing for bulk B2B orders.",
+  "risks": [
+    "Hardware development and manufacturing complexity could delay time to market and inflate costs",
+    "Consumer skepticism that a 10-second cycle can truly sanitize dishes",
+    "Established appliance giants (Samsung, Bosch, LG) could copy the concept with greater resources"
+  ],
+  "year_one_milestones": [
+    "Complete industrial design and working prototype validated by third-party hygiene testing",
+    "Raise $500K+ through crowdfunding campaign with 3,000+ pre-orders",
+    "Ship first production units and secure 5 B2B pilot programs with co-working spaces or universities"
+  ],
+  "startup_cost_range": "$150K - $350K to reach MVP and first production run",
+  "category": "Hardware",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=EckC1OfEL2o",
+  "episode_number": 94
+}

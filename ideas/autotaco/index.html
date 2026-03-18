@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoTaco - Tacos While You Wait for Your Oil Change</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --red: #E63946;
+      --yellow: #FFB703;
+      --dark: #1A1A2E;
+      --orange: #FB8500;
+      --cream: #FFF8F0;
+      --green: #2D6A4F;
+    }
+    body { font-family: 'Source Sans 3', sans-serif; color: var(--dark); background: var(--cream); overflow-x: hidden; }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Badge */
+    .badge { position: fixed; top: 20px; left: 20px; z-index: 1000; background: var(--yellow); color: var(--dark); padding: 8px 16px; border-radius: 30px; text-decoration: none; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s; display: flex; align-items: center; gap: 8px; }
+    .badge:hover { transform: scale(1.05); }
+    .badge svg { width: 18px; height: 18px; }
+
+    /* Hero */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,46,0.85), rgba(230,57,70,0.7)); }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 40px 20px; }
+    .hero-content h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 12vw, 10rem); color: var(--yellow); line-height: 0.9; letter-spacing: 4px; text-shadow: 3px 3px 0 var(--red); }
+    .hero-content .tagline { font-size: clamp(1.2rem, 3vw, 1.8rem); color: white; margin: 20px 0 10px; font-weight: 600; }
+    .hero-content .pitch { font-size: 1.1rem; color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto 30px; line-height: 1.7; }
+    .cta-btn { display: inline-block; background: var(--yellow); color: var(--dark); font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; padding: 16px 48px; border-radius: 50px; text-decoration: none; transition: all 0.3s; box-shadow: 0 6px 25px rgba(255,183,3,0.4); }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(255,183,3,0.5); background: var(--orange); }
+
+    /* Taco icon strip */
+    .icon-strip { background: var(--red); padding: 30px 0; overflow: hidden; }
+    .icon-strip-inner { display: flex; gap: 60px; animation: scroll-strip 20s linear infinite; white-space: nowrap; }
+    @keyframes scroll-strip { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .icon-strip-inner span { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--yellow); letter-spacing: 3px; display: flex; align-items: center; gap: 12px; }
+    .icon-strip-inner span svg { width: 28px; height: 28px; fill: var(--yellow); }
+
+    /* Problem */
+    .problem { padding: 100px 20px; background: var(--dark); color: white; }
+    .problem .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .problem img { width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .section-label { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 4px; color: var(--yellow); margin-bottom: 12px; }
+    .problem h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--red); margin-bottom: 20px; line-height: 1.1; }
+    .problem p { font-size: 1.15rem; line-height: 1.8; color: rgba(255,255,255,0.85); }
+
+    /* Solution */
+    .solution { padding: 100px 20px; background: var(--cream); position: relative; overflow: hidden; }
+    .solution .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .solution img { width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .solution h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--red); margin-bottom: 20px; line-height: 1.1; }
+    .solution .section-label { color: var(--orange); }
+    .solution p { font-size: 1.15rem; line-height: 1.8; color: var(--dark); }
+
+    /* Features */
+    .features { padding: 100px 20px; background: var(--red); color: white; }
+    .features .container { max-width: 1100px; margin: 0 auto; }
+    .features h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); text-align: center; margin-bottom: 60px; color: var(--yellow); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
+    .feature-card { background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 30px; text-align: center; transition: transform 0.3s, background 0.3s; overflow: hidden; }
+    .feature-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.18); }
+    .feature-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; }
+    .feature-card .icon-circle { width: 60px; height: 60px; border-radius: 50%; background: var(--yellow); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+    .feature-card .icon-circle svg { width: 28px; height: 28px; fill: var(--dark); }
+    .feature-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 10px; }
+    .feature-card p { font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.85); }
+
+    /* Market */
+    .market { padding: 100px 20px; background: var(--dark); color: white; position: relative; }
+    .market .container { max-width: 1100px; margin: 0 auto; }
+    .market-hero { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 50px; }
+    .market-hero img { width: 100%; height: 350px; object-fit: cover; display: block; }
+    .market-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--dark), transparent); display: flex; align-items: flex-end; padding: 40px; }
+    .market h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--yellow); }
+    .market-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
+    .stat-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; text-align: center; }
+    .stat-card .number { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--yellow); }
+    .stat-card .label { font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-top: 8px; }
+    .market p.description { font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.8); max-width: 700px; }
+
+    /* Business Plan */
+    .business-plan { padding: 100px 20px; background: var(--cream); }
+    .business-plan .container { max-width: 1000px; margin: 0 auto; }
+    .business-plan h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--dark); text-align: center; margin-bottom: 10px; }
+    .business-plan .subtitle { text-align: center; font-size: 1.1rem; color: var(--red); margin-bottom: 50px; }
+    .plan-section { background: white; border-radius: 16px; padding: 35px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-left: 5px solid var(--red); }
+    .plan-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--dark); letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .plan-section h3 svg { width: 22px; height: 22px; fill: var(--red); flex-shrink: 0; }
+    .plan-section p, .plan-section li { font-size: 1.05rem; line-height: 1.8; color: #555; }
+    .plan-section ul { padding-left: 20px; }
+    .plan-section li { margin-bottom: 8px; }
+    .plan-section .cost-badge { display: inline-block; background: var(--yellow); color: var(--dark); font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; padding: 8px 24px; border-radius: 8px; margin-top: 8px; }
+
+    /* Footer */
+    footer { padding: 60px 20px; background: var(--dark); color: white; text-align: center; }
+    footer p { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 10px; line-height: 1.7; }
+    footer a { color: var(--yellow); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--yellow); margin-bottom: 16px; }
+
+    @media (max-width: 768px) {
+      .problem .container, .solution .container { grid-template-columns: 1fr; }
+      .solution .container { direction: ltr; }
+      .problem img, .solution img { max-height: 300px; object-fit: cover; }
+      .hero-content h1 { font-size: 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Badge -->
+  <a href="../index.html" class="badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    STEAL THIS IDEA
+  </a>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>AutoTaco</h1>
+      <p class="tagline">Tacos while you wait for your oil change.</p>
+      <p class="pitch">AutoTaco pairs quick-service oil changes with a fresh taco counter, transforming the dreaded lube shop wait into a delicious experience. No more stale popcorn. No more Judge Judy. Just fresh carnitas and a clean car.</p>
+      <a href="#" class="cta-btn">Find a Location</a>
+    </div>
+  </section>
+
+  <!-- Scrolling Strip -->
+  <div class="icon-strip">
+    <div class="icon-strip-inner">
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> OIL CHANGE + TACOS</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> 20 MINUTE SERVICE</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> FRESH DAILY</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> COMBO DEALS</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> OIL CHANGE + TACOS</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> 20 MINUTE SERVICE</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> FRESH DAILY</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> COMBO DEALS</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> OIL CHANGE + TACOS</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> 20 MINUTE SERVICE</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> FRESH DAILY</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> COMBO DEALS</span>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <section class="problem">
+    <div class="container">
+      <div class="reveal">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Empty waiting room" style="display:none;">
+        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="Boring auto shop waiting room">
+      </div>
+      <div class="reveal">
+        <p class="section-label">THE PROBLEM</p>
+        <h2>Nobody enjoys getting an oil change.</h2>
+        <p>Getting an oil change is one of the most universally dreaded errands. The lobbies are dirty, the seating is uncomfortable, and the best you can hope for is stale popcorn and daytime TV reruns. You sit there for 30 minutes with nothing to do, surrounded by the smell of motor oil, wishing you were anywhere else. There is zero reason to choose one quick lube over another because they all offer the same miserable experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">THE SOLUTION</p>
+        <h2>Drop your keys. Grab some tacos.</h2>
+        <p>AutoTaco embeds a fast-casual taco counter right inside the oil change shop. Customers hand off their car, walk up to the counter, and order fresh tacos, chips, and guac from a simple, focused menu. By the time you finish eating, your car is ready. A streamlined menu keeps overhead low while giving customers a genuine reason to choose AutoTaco over every other lube shop in town. It is the Sports Clips model applied to auto service: just enough of a perk to make you a loyal customer for life.</p>
+      </div>
+      <div class="reveal">
+        <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=800&q=80" alt="Delicious street tacos">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2 class="reveal">What Makes AutoTaco Different</h2>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <img src="https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=800&q=80" alt="Fresh tacos on a plate">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>Fresh Taco Counter</h3>
+          <p>A streamlined menu of 3-4 proteins with classic toppings. Carne asada, carnitas, chicken, or veggie. Simple, fast, delicious.</p>
+        </div>
+        <div class="feature-card reveal">
+          <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=800&q=80" alt="Car engine maintenance">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>Express Oil Changes</h3>
+          <p>Done in 20-30 minutes, perfectly timed to your meal. Drop off, eat up, drive away.</p>
+        </div>
+        <div class="feature-card reveal">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Modern clean restaurant interior">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>Clean, Modern Space</h3>
+          <p>A waiting area that feels like a restaurant, not a garage. Bright, comfortable, and welcoming for everyone.</p>
+        </div>
+        <div class="feature-card reveal">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Great value deals">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>Combo Deals</h3>
+          <p>Two free tacos with every oil change. Bundles that make auto service something you actually look forward to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market -->
+  <section class="market">
+    <div class="container">
+      <div class="market-hero reveal">
+        <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1200&q=80" alt="Suburban strip mall landscape">
+        <div class="market-hero-overlay">
+          <h2>A Massive, Underserved Market</h2>
+        </div>
+      </div>
+      <p class="description reveal">The U.S. quick lube market is approximately $8 billion annually, spread across over 10,000 locations. Customer loyalty in this space is almost nonexistent. People go wherever is cheapest or closest. AutoTaco changes that equation by giving them a reason to drive past the competition.</p>
+      <div class="market-stats reveal">
+        <div class="stat-card">
+          <div class="number">$8B</div>
+          <div class="label">U.S. Quick Lube Market</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">10K+</div>
+          <div class="label">Quick Lube Locations Nationwide</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">0%</div>
+          <div class="label">Current Customer Loyalty</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">$60</div>
+          <div class="label">Average Ticket Per Visit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Plan -->
+  <section class="business-plan">
+    <div class="container">
+      <h2 class="reveal">The Business Plan</h2>
+      <p class="subtitle reveal">How AutoTaco drives revenue from two lanes at once</p>
+
+      <div class="plan-section reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+          Revenue Model
+        </h3>
+        <p>Dual revenue streams power AutoTaco. Automotive services (oil changes, fluid top-offs, filter replacements) provide the anchor, while the taco counter generates strong margins on a lean, focused menu. Promotional combos like "Two Free Tacos with Every Oil Change" drive traffic and build loyalty. The food side also captures walk-in revenue from nearby foot traffic, creating a standalone business within the business.</p>
+      </div>
+
+      <div class="plan-section reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+          Go-to-Market Strategy
+        </h3>
+        <p>Launch a flagship location in a car-heavy suburban market: think Texas, Arizona, or Southern California, where driving culture is strong and taco culture already thrives. Lead with bold, fun branding and a grand opening promotion offering free tacos with every oil change for the first month. Build social media buzz around the novelty factor and lean into the "why didn't someone think of this sooner" angle.</p>
+      </div>
+
+      <div class="plan-section reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          Competitive Advantage
+        </h3>
+        <p>No oil change chain offers a real food experience. The entire industry competes on price and speed, with zero differentiation in the customer experience. AutoTaco turns a commodity service into a destination. The taco counter builds emotional loyalty in a market where customers currently have zero allegiance to any brand. It also creates an additional profit center that pure auto service businesses cannot match.</p>
+      </div>
+
+      <div class="plan-section reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+          Year One Milestones
+        </h3>
+        <ul>
+          <li>Open flagship location and complete 5,000+ oil changes in the first year</li>
+          <li>Achieve a 40% attach rate on food purchases alongside auto services</li>
+          <li>Build a local following with 10,000+ social media followers and 4.5+ star reviews</li>
+        </ul>
+      </div>
+
+      <div class="plan-section reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          Startup Cost Estimate
+        </h3>
+        <p>Getting a flagship AutoTaco location off the ground requires investment in both auto service equipment and food service infrastructure.</p>
+        <span class="cost-badge">$350,000 - $750,000</span>
+      </div>
+
+      <div class="plan-section reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          Key Risks
+        </h3>
+        <ul>
+          <li>Operating two distinct businesses (auto service and food) under one roof increases complexity and staffing requirements</li>
+          <li>Health and safety regulations for combining food service with automotive work may vary by jurisdiction and add compliance overhead</li>
+          <li>Scaling requires finding real estate that works for both a garage bay layout and a restaurant setup, which limits site selection</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">AutoTaco</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=_msfmD2S37U" target="_blank">Steal This Idea</a> podcast.</p>
+    <p>Not a real company (yet). Built for dreamers, schemers, and taco lovers.</p>
+    <p style="margin-top: 20px;"><a href="../index.html">Browse All Ideas</a></p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

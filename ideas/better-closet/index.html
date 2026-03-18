@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Better Closet | Your Wardrobe, Finally Under Control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0e17;
+    --bg-secondary: #111827;
+    --bg-card: #1a2236;
+    --accent: #00e5a0;
+    --accent-dim: #00c98b;
+    --accent-glow: rgba(0, 229, 160, 0.15);
+    --text-primary: #e8ecf4;
+    --text-secondary: #8b95a8;
+    --text-muted: #5a6478;
+    --border: #1e2a3e;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Steal This Idea Badge */
+  .sti-badge {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1000;
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s, transform 0.3s;
+    backdrop-filter: blur(10px);
+  }
+  .sti-badge:hover {
+    background: var(--accent-glow);
+    transform: translateY(-1px);
+  }
+  .sti-badge svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--accent);
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 900;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    background: rgba(10, 14, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    filter: saturate(0.3);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10,14,23,0.95) 0%, rgba(10,14,23,0.7) 50%, rgba(0,229,160,0.08) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 120px 40px 80px;
+  }
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+  .cta-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 0 30px rgba(0, 229, 160, 0.2);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(0, 229, 160, 0.35);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* Terminal-style decoration */
+  .terminal-float {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .terminal-header {
+    padding: 10px 16px;
+    background: var(--bg-secondary);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .terminal-dot.red { background: #ff5f57; }
+  .terminal-dot.yellow { background: #ffbd2e; }
+  .terminal-dot.green { background: #28ca42; }
+  .terminal-body {
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 2;
+    color: var(--text-secondary);
+  }
+  .terminal-body .prompt { color: var(--accent); }
+  .terminal-body .output { color: var(--text-muted); }
+  .terminal-body .highlight { color: var(--accent); }
+
+  /* Section styles */
+  section {
+    padding: 100px 40px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    line-height: 1.8;
+  }
+
+  /* PROBLEM */
+  .problem-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+    align-items: center;
+  }
+  .problem-image {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+  }
+  .problem-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6);
+    transition: filter 0.5s;
+  }
+  .problem-image:hover img {
+    filter: saturate(1);
+  }
+  .problem-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .problem-stats {
+    display: grid;
+    gap: 28px;
+  }
+  .stat-card {
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stat-card:hover {
+    border-color: var(--accent);
+    transform: translateX(6px);
+  }
+  .stat-number {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  /* SOLUTION */
+  .solution-section {
+    position: relative;
+  }
+  .solution-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+    align-items: center;
+  }
+  .solution-steps {
+    display: grid;
+    gap: 24px;
+  }
+  .step {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+  .step:hover {
+    background: var(--accent-glow);
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+  .step h3 {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .step p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .solution-visual {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+  .solution-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.5) brightness(0.8);
+  }
+  .solution-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(10,14,23,0.8) 100%);
+  }
+  .solution-overlay-text {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    padding: 16px;
+    background: rgba(10,14,23,0.8);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  /* FEATURES */
+  .features-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+  .feature-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .feature-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .feature-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: saturate(0.4) brightness(0.7);
+    transition: filter 0.5s, transform 0.5s;
+  }
+  .feature-card:hover .feature-image {
+    filter: saturate(0.7) brightness(0.85);
+    transform: scale(1.03);
+  }
+  .feature-image-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .feature-image-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(transparent, var(--bg-card));
+  }
+  .feature-body {
+    padding: 24px;
+  }
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    background: var(--accent-glow);
+  }
+  .feature-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .feature-body h3 {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  .feature-body p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* MARKET */
+  .market-section {
+    position: relative;
+  }
+  .market-hero-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    filter: saturate(0.5) brightness(0.6);
+    border: 1px solid var(--border);
+  }
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .market-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .market-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .market-value {
+    font-family: var(--font-mono);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .market-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .market-narrative {
+    margin-top: 50px;
+    padding: 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* BUSINESS PLAN */
+  .bizplan-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .bizplan-doc {
+    margin-top: 50px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .bizplan-header {
+    padding: 24px 32px;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bizplan-header h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+  .bizplan-header span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .bizplan-body {
+    padding: 32px;
+  }
+  .bizplan-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .bizplan-row:last-child { border-bottom: none; }
+  .bizplan-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+  .bizplan-value {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .bizplan-value ul {
+    list-style: none;
+    padding: 0;
+  }
+  .bizplan-value ul li {
+    padding: 6px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .bizplan-value ul li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+  .bizplan-cost {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--accent-glow);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 40px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  footer a:hover { opacity: 0.8; }
+  .footer-logo {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .terminal-float { display: none; }
+    .problem-grid,
+    .solution-content { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .market-grid { grid-template-columns: 1fr; }
+    .bizplan-row { grid-template-columns: 1fr; }
+    section { padding: 60px 20px; }
+    nav { padding: 12px 20px; }
+    .hero-content { padding: 100px 20px 60px; }
+  }
+
+  @media (max-width: 600px) {
+    .cta-group { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    .sti-badge { font-size: 0.6rem; padding: 6px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- Navigation -->
+<nav>
+  <a href="#problem">Problem</a>
+  <a href="#solution">Solution</a>
+  <a href="#features">Features</a>
+  <a href="#market">Market</a>
+  <a href="#plan">Plan</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=1600&q=80" alt="Organized wardrobe">
+  </div>
+  <div class="hero-content">
+    <div class="hero-label reveal">Smart Wardrobe Technology</div>
+    <h1 class="reveal reveal-delay-1">Better Closet</h1>
+    <p class="reveal reveal-delay-2">Your wardrobe, finally under control. RFID-powered smart closet system that tracks every garment from hanger to hamper to wash and back, so you always know what's clean, what's dirty, and what you should get rid of.</p>
+    <div class="cta-group reveal reveal-delay-3">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Get Early Access
+      </a>
+      <a href="#solution" class="btn-secondary">
+        See How It Works
+      </a>
+    </div>
+  </div>
+  <div class="terminal-float">
+    <div class="terminal-header">
+      <span class="terminal-dot red"></span>
+      <span class="terminal-dot yellow"></span>
+      <span class="terminal-dot green"></span>
+    </div>
+    <div class="terminal-body">
+      <span class="prompt">$</span> better-closet scan --status<br>
+      <span class="output">Scanning RFID tags...</span><br>
+      <br>
+      <span class="highlight">CLOSET</span> <span class="output">24 items detected</span><br>
+      <span class="highlight">HAMPER</span> <span class="output">11 items detected</span><br>
+      <span class="highlight">WASHER</span> <span class="output">6 items detected</span><br>
+      <br>
+      <span class="prompt">$</span> better-closet suggest<br>
+      <span class="output">Your 3 favorite shirts are in the hamper.</span><br>
+      <span class="output">Rain forecasted Thursday.</span><br>
+      <span class="output">All hoodies are dirty. <span class="highlight">Do laundry today.</span></span><br>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section" id="problem">
+  <div class="container">
+    <div class="section-label reveal">The Problem</div>
+    <h2 class="section-title reveal reveal-delay-1">You own 30 shirts. You wear 7 of them.</h2>
+    <p class="section-subtitle reveal reveal-delay-2">Most people have no real visibility into their wardrobe. Clothes pile up in hampers, favorites stay dirty, and forgotten garments waste money and space for years.</p>
+    <div class="problem-grid">
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80" alt="Pile of clothes">
+      </div>
+      <div class="problem-stats">
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-number">82%</div>
+          <div class="stat-label">of people say they regularly forget to transfer laundry from washer to dryer</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-number">$1,700</div>
+          <div class="stat-label">average annual spend on clothing that rarely gets worn</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-number">65%</div>
+          <div class="stat-label">of closet space is taken by items worn fewer than twice per year</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution-section" id="solution">
+  <div class="container">
+    <div class="section-label reveal">The Solution</div>
+    <h2 class="section-title reveal reveal-delay-1">Tag it. Scan it. Forget about it.</h2>
+    <p class="section-subtitle reveal reveal-delay-2">Better Closet pairs penny-sized RFID stickers with three compact scanners to give you total visibility into your wardrobe without changing how you live.</p>
+    <div class="solution-content">
+      <div class="solution-steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Tag your wardrobe</h3>
+            <p>Stick a tiny, washable RFID tag on each garment. Takes about an hour for your whole closet. Snap a photo so the app knows what each item looks like.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Place three scanners</h3>
+            <p>Mount compact RFID scanners at your closet, hamper, and washer. They automatically detect tagged garments that pass nearby.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Live your life</h3>
+            <p>The app handles everything else. It tracks wear patterns, sends laundry reminders, suggests outfits based on weather, and flags items you should sell or donate.</p>
+          </div>
+        </div>
+      </div>
+      <div class="solution-visual reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" alt="Smart home technology">
+        <div class="solution-overlay-text">
+          > 3 scanners. 100 tags. One app.<br>
+          > Your entire wardrobe, mapped.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-label reveal">Key Features</div>
+    <h2 class="section-title reveal reveal-delay-1">Intelligence for every thread you own</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-image-wrap">
+          <img class="feature-image" src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=800&q=80" alt="Laundry">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Smart Laundry Alerts</h3>
+          <p>Know when your favorites are piling up in the hamper. Get a nudge before you run out of clean clothes you actually want to wear.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-image-wrap">
+          <img class="feature-image" src="https://images.unsplash.com/photo-1516274626895-055a99214f08?auto=format&fit=crop&w=800&q=80" alt="Organized closet">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M9 4v16M15 4v16M4 9h16M4 15h16"/></svg>
+          </div>
+          <h3>Real-Time Garment Tracking</h3>
+          <p>See exactly where every item is at any moment: hanging in the closet, sitting in the hamper, or tumbling in the wash. No guesswork.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-image-wrap">
+          <img class="feature-image" src="https://images.unsplash.com/photo-1601581875039-e899893d520c?auto=format&fit=crop&w=800&q=80" alt="Declutter">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Spring Cleaning Mode</h3>
+          <p>AI analyzes your wear patterns and surfaces items you never touch. See estimated resale value through integrations with ThredUp and Poshmark.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-image-wrap">
+          <img class="feature-image" src="https://images.unsplash.com/photo-1592328258096-7e587e4f8795?auto=format&fit=crop&w=800&q=80" alt="Weather and outdoors">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9z"/><path d="M9.5 19a4.5 4.5 0 1 1 0-9"/><line x1="2" y1="12" x2="4" y2="12"/></svg>
+          </div>
+          <h3>Weather-Aware Suggestions</h3>
+          <p>Rain on Thursday? All your hoodies in the hamper? Better Closet connects to weather data and flags conflicts before you get caught off guard.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market-section" id="market">
+  <div class="container">
+    <div class="section-label reveal">Market Opportunity</div>
+    <h2 class="section-title reveal reveal-delay-1">A wardrobe problem at massive scale</h2>
+    <img class="market-hero-image reveal reveal-delay-2" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80" alt="Retail fashion market">
+    <div class="market-grid">
+      <div class="market-card reveal">
+        <div class="market-value">$10B+</div>
+        <div class="market-desc">Global smart clothing and wearable tech market projected by 2028</div>
+      </div>
+      <div class="market-card reveal reveal-delay-1">
+        <div class="market-value">130M</div>
+        <div class="market-desc">US households, each with closets full of underutilized clothing</div>
+      </div>
+      <div class="market-card reveal reveal-delay-2">
+        <div class="market-value">$2B</div>
+        <div class="market-desc">Addressable market in wardrobe management apps and smart laundry tech</div>
+      </div>
+    </div>
+    <div class="market-narrative reveal">
+      <strong style="color: var(--text-primary);">Target customers:</strong> Fashion-conscious millennials and Gen-Z adults (ages 22 to 40) in urban apartments, busy parents juggling household laundry, and anyone who owns more clothes than they can reasonably track. The secondary market includes sustainability-focused consumers looking to reduce textile waste and maximize the value of what they already own.
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan-section" id="plan">
+  <div class="container">
+    <div class="section-label reveal">Business Plan</div>
+    <h2 class="section-title reveal reveal-delay-1">From concept to closet</h2>
+    <div class="bizplan-doc reveal reveal-delay-2">
+      <div class="bizplan-header">
+        <h3>Better Closet // Business Overview</h3>
+        <span>Confidential Draft</span>
+      </div>
+      <div class="bizplan-body">
+        <div class="bizplan-row">
+          <div class="bizplan-label">Revenue Model</div>
+          <div class="bizplan-value">Hardware starter kit sold at $99 to $149 (three RFID scanners plus 100 washable tags). Optional monthly subscription at $5 to $9/month for premium features: outfit planning, weather integration, resale marketplace connections, and AI wardrobe analytics. Additional affiliate revenue from recommending items on ThredUp and Poshmark.</div>
+        </div>
+        <div class="bizplan-row">
+          <div class="bizplan-label">Go-to-Market</div>
+          <div class="bizplan-value">Launch a Kickstarter campaign targeting minimalism, sustainability, and smart-home communities. Seed early adopters through lifestyle and home-organization influencers on Instagram and TikTok. Partner with one mid-tier clothing brand to pre-tag garments as a proof-of-concept co-marketing play.</div>
+        </div>
+        <div class="bizplan-row">
+          <div class="bizplan-label">Competitive Advantage</div>
+          <div class="bizplan-value">No competitor offers a full-loop garment tracking system from closet to hamper to wash and back. The combination of affordable RFID hardware with an intelligent software layer creates a data flywheel that improves with every wear cycle. Washable adhesive RFID tags remove the biggest friction point of inventory-based closet systems.</div>
+        </div>
+        <div class="bizplan-row">
+          <div class="bizplan-label">Year One Milestones</div>
+          <div class="bizplan-value">
+            <ul>
+              <li>Ship 5,000 hardware starter kits through a successful crowdfunding campaign</li>
+              <li>Reach 2,000 monthly active subscribers on the premium app tier</li>
+              <li>Secure one brand partnership for pre-tagged clothing integration</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bizplan-row">
+          <div class="bizplan-label">Startup Cost</div>
+          <div class="bizplan-value">
+            <div class="bizplan-cost">$75K to $200K</div>
+          </div>
+        </div>
+        <div class="bizplan-row">
+          <div class="bizplan-label">Key Risks</div>
+          <div class="bizplan-value">
+            <ul>
+              <li>Consumer friction during initial setup: tagging and scanning every garment requires real effort up front</li>
+              <li>RFID tag durability through repeated wash and dry cycles may frustrate users if tags fail</li>
+              <li>Competing with simpler low-tech habits: many people tolerate closet chaos rather than adopting new systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Better Closet</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=zNn9cuNzCO4" target="_blank">Steal This Idea</a> podcast.<br>
+    Not a real product. Built to inspire the next founder who will make it real.</p>
+    <p style="margin-top: 16px;"><a href="../index.html">Browse more ideas</a></p>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered animations
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>

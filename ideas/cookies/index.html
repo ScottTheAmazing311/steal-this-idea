@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies - Send Good Vibes, Not Just Cash</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --peach: #FF8C61;
+            --coral: #FF6B6B;
+            --warm-yellow: #FFD166;
+            --cream: #FFF8F0;
+            --soft-pink: #FFE0D6;
+            --plum: #5C374C;
+            --dark: #2D2235;
+            --mint: #88D9A8;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--dark);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Steal This Idea Badge */
+        .steal-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--plum);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(92, 55, 76, 0.3);
+        }
+
+        .steal-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(92, 55, 76, 0.4);
+        }
+
+        .steal-badge svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+        .reveal-delay-4 { transition-delay: 0.6s; }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            filter: brightness(0.35);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,107,107,0.5) 0%, rgba(92,55,76,0.7) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero-logo .dot {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: var(--warm-yellow);
+            border-radius: 50%;
+            margin-left: 4px;
+            vertical-align: super;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        .hero-tagline {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: var(--warm-yellow);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-pitch {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--coral);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(255,107,107,0.4);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--peach);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255,140,97,0.5);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.5);
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #fff;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: rgba(255,255,255,0.6);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(12px); }
+        }
+
+        /* SECTION STYLING */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--coral);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--plum);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-text {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 700px;
+            line-height: 1.8;
+        }
+
+        /* PROBLEM SECTION */
+        .problem {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .problem-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .problem-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .problem-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .problem-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateX(8px);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problem-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .problem-icon.red { background: #FFE0E0; }
+        .problem-icon.red svg { stroke: var(--coral); fill: none; stroke-width: 2; }
+
+        .problem-icon.orange { background: #FFE8D6; }
+        .problem-icon.orange svg { stroke: var(--peach); fill: none; stroke-width: 2; }
+
+        .problem-icon.purple { background: #EDE0F0; }
+        .problem-icon.purple svg { stroke: var(--plum); fill: none; stroke-width: 2; }
+
+        .problem-card h4 {
+            font-size: 1rem;
+            color: var(--plum);
+            margin-bottom: 0.25rem;
+        }
+
+        .problem-card p {
+            font-size: 0.9rem;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* SOLUTION SECTION */
+        .solution {
+            background: var(--plum);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution .section-label { color: var(--warm-yellow); }
+        .solution .section-title { color: #fff; }
+        .solution .section-text { color: rgba(255,255,255,0.8); }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .solution-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .solution-step {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 50%;
+            background: var(--coral);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .step-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .step-text p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .solution-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* FEATURES SECTION */
+        .features {
+            background: var(--cream);
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-header .section-text {
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.1);
+        }
+
+        .feature-card-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover .feature-card-image img {
+            transform: scale(1.05);
+        }
+
+        .feature-card-body {
+            padding: 1.75rem;
+        }
+
+        .feature-card-body h3 {
+            font-size: 1.2rem;
+            color: var(--plum);
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-card-body p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--soft-pink);
+            color: var(--coral);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+
+        /* MARKET SECTION */
+        .market {
+            background: #fff;
+            position: relative;
+        }
+
+        .market-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .market-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--soft-pink);
+            padding: 1.75rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--coral);
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--plum);
+            font-weight: 600;
+        }
+
+        .market-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+
+        .market-image img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .market-audience {
+            margin-top: 3rem;
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .market-audience h3 {
+            font-size: 1.4rem;
+            color: var(--plum);
+            margin-bottom: 1rem;
+        }
+
+        .market-audience p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* BUSINESS PLAN SECTION */
+        .business-plan {
+            background: var(--cream);
+        }
+
+        .business-plan .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .plan-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .plan-card h3 {
+            font-size: 1.15rem;
+            color: var(--plum);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .plan-card h3 .plan-icon {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 10px;
+            background: var(--soft-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plan-card h3 .plan-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--coral);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .plan-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .plan-card ul li {
+            font-size: 0.95rem;
+            color: #555;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .plan-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .list-bullet {
+            width: 8px;
+            height: 8px;
+            min-width: 8px;
+            border-radius: 50%;
+            background: var(--coral);
+            margin-top: 8px;
+        }
+
+        .plan-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .plan-highlight {
+            background: var(--plum);
+            color: #fff;
+        }
+
+        .plan-highlight h3 { color: #fff; }
+        .plan-highlight h3 .plan-icon { background: rgba(255,255,255,0.15); }
+        .plan-highlight h3 .plan-icon svg { stroke: var(--warm-yellow); }
+        .plan-highlight p { color: rgba(255,255,255,0.85); }
+        .plan-highlight ul li { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.1); }
+        .plan-highlight .list-bullet { background: var(--warm-yellow); }
+
+        .cost-badge {
+            display: inline-block;
+            background: var(--warm-yellow);
+            color: var(--dark);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 8px 20px;
+            border-radius: 12px;
+            margin-top: 0.75rem;
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            position: relative;
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,107,107,0.85) 0%, rgba(92,55,76,0.9) 100%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        footer a {
+            color: var(--warm-yellow);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--peach);
+        }
+
+        .footer-brand {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-logo { font-size: 3.5rem; }
+            .hero-tagline { font-size: 1.3rem; }
+            .section-title { font-size: 2.2rem; }
+
+            .problem-grid,
+            .solution-content,
+            .market-content,
+            .features-grid,
+            .plan-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .solution-image { order: -1; }
+
+            .market-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-logo { font-size: 2.5rem; }
+            .hero-tagline { font-size: 1.1rem; }
+            .section-title { font-size: 1.8rem; }
+            section { padding: 4rem 1.25rem; }
+
+            .steal-badge {
+                font-size: 0.75rem;
+                padding: 8px 14px;
+                top: 12px;
+                left: 12px;
+            }
+
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn-secondary { margin-left: 0; }
+
+            .market-stats { grid-template-columns: 1fr; }
+
+            .cta-content h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Steal This Idea Badge -->
+    <a href="../index.html" class="steal-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFD166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Steal This Idea
+    </a>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-logo">Cookies<span class="dot"></span></div>
+            <p class="hero-tagline">Send good vibes, not just cash.</p>
+            <p class="hero-pitch">A social gifting platform that lets you send thoughtful pick-me-ups to friends and family. From lunch credits to spa days, recipients redeem on their own terms. Think Venmo meets a wish list, where every gesture feels personal, not transactional.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary">Set Up Your Profile</a>
+                <a href="#features" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="rgba(255,255,255,0.6)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section class="problem">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">The Problem</span>
+                <h2 class="section-title">Good intentions, poor execution.</h2>
+                <p class="section-text">When someone you care about is going through something, your options feel limited. Send awkward cash? Guess at a gift they may not want? Or default to "let me know if you need anything" and never follow through. The result: missed connections and gestures that fall flat.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-image reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80" alt="Person looking at phone thoughtfully">
+                </div>
+                <div class="problem-cards">
+                    <div class="problem-card reveal reveal-delay-1">
+                        <div class="problem-icon red">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Cash feels impersonal</h4>
+                            <p>Sending $30 on Venmo says "I care" less than buying someone their favorite treat. But guessing wrong wastes money and misses the mark entirely.</p>
+                        </div>
+                    </div>
+                    <div class="problem-card reveal reveal-delay-2">
+                        <div class="problem-icon orange">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01"/></svg>
+                        </div>
+                        <div>
+                            <h4>Guessing goes wrong</h4>
+                            <p>You send cookies to someone on keto. You bring flowers when they wanted help with dinner. The thought counts, but the execution can backfire.</p>
+                        </div>
+                    </div>
+                    <div class="problem-card reveal reveal-delay-3">
+                        <div class="problem-icon purple">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                        </div>
+                        <div>
+                            <h4>We end up doing nothing</h4>
+                            <p>The uncertainty leads to inaction. People who genuinely want to help end up saying "let me know" and leaving it at that. Good intentions, zero follow-through.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section class="solution">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">The Solution</span>
+                <h2 class="section-title">Thoughtful gifting, zero guesswork.</h2>
+                <p class="section-text">Cookies gives everyone a personal profile where they list the things that brighten their day. Friends send credits toward those specific items, and recipients redeem whenever the moment feels right.</p>
+            </div>
+            <div class="solution-content">
+                <div class="solution-steps">
+                    <div class="solution-step reveal reveal-delay-1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">
+                            <h4>Create Your Profile</h4>
+                            <p>List the things that make your day: favorite restaurants, go-to coffee order, a spa you love, or experiences on your wish list.</p>
+                        </div>
+                    </div>
+                    <div class="solution-step reveal reveal-delay-2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            <h4>Friends Send Credits</h4>
+                            <p>When someone wants to brighten your day, they pick from your list and send credits. Anonymously or with a personal note. Multiple friends can even chip in together.</p>
+                        </div>
+                    </div>
+                    <div class="solution-step reveal reveal-delay-3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            <h4>Redeem on Your Terms</h4>
+                            <p>Use your credits whenever you want. Already had dinner? Transfer it to a different category. You are always in control of how and when to treat yourself.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-image reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Friends sharing a happy moment with food">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="features-header reveal">
+                <span class="section-label">Features</span>
+                <h2 class="section-title">Everything you need to spread the love.</h2>
+                <p class="section-text">Cookies combines wish lists, social gifting, and flexible credit into one joyful experience.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Beautiful food spread on a table">
+                    </div>
+                    <div class="feature-card-body">
+                        <span class="feature-tag">Profiles</span>
+                        <h3>Personal Wish Lists</h3>
+                        <p>Curate your favorite treats, experiences, and pick-me-ups. From your go-to coffee order to that spa day you have been dreaming about, let people know what makes you happy.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1556742393-d75f468bfcb0?auto=format&fit=crop&w=800&q=80" alt="People exchanging gifts">
+                    </div>
+                    <div class="feature-card-body">
+                        <span class="feature-tag">Flexibility</span>
+                        <h3>Transferable Credits</h3>
+                        <p>Got a spa credit but craving sushi tonight? Move funds between categories whenever you want. Your credits, your call. No restrictions, no expiration pressure.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" alt="Team of friends collaborating">
+                    </div>
+                    <div class="feature-card-body">
+                        <span class="feature-tag">Crowd-Gifting</span>
+                        <h3>Chip In Together</h3>
+                        <p>Pool contributions from multiple friends toward bigger experiences. One person starts it, others join in. Before you know it, your friend has a full car detail waiting for them.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-4">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80" alt="Person receiving a notification on phone">
+                    </div>
+                    <div class="feature-card-body">
+                        <span class="feature-tag">Connection</span>
+                        <h3>Warm Notifications</h3>
+                        <p>Recipients get a feel-good alert when someone sends them credit. Senders get notified when their gift is redeemed. Every interaction reinforces the bond between giver and receiver.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKET SECTION -->
+    <section class="market">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">The Opportunity</span>
+                <h2 class="section-title">A massive market, a wide-open lane.</h2>
+            </div>
+            <div class="market-content">
+                <div class="market-stats">
+                    <div class="stat-card reveal reveal-delay-1">
+                        <div class="stat-number">$28B</div>
+                        <div class="stat-label">U.S. Digital Gifting Market</div>
+                    </div>
+                    <div class="stat-card reveal reveal-delay-2">
+                        <div class="stat-number">$1T+</div>
+                        <div class="stat-label">Annual P2P Payments</div>
+                    </div>
+                    <div class="stat-card reveal reveal-delay-3">
+                        <div class="stat-number">22-40</div>
+                        <div class="stat-label">Target Age Range</div>
+                    </div>
+                    <div class="stat-card reveal reveal-delay-4">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">Millennials Prefer Digital Gifts</div>
+                    </div>
+                </div>
+                <div class="market-image reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=800&q=80" alt="Young professionals socializing">
+                </div>
+            </div>
+            <div class="market-audience reveal">
+                <h3>Who is this for?</h3>
+                <p>Millennials and Gen Z adults who are socially active, already use Venmo or Cash App regularly, and want a more personal way to show friends and family they care. Whether it is a new baby, a rough week at work, a death in the family, or simply wanting to say "I am thinking of you," Cookies fills a gap that cash transfers and generic gift cards cannot.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS PLAN SECTION -->
+    <section class="business-plan">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Business Plan</span>
+                <h2 class="section-title" style="text-align:center;">Built to scale, designed to delight.</h2>
+            </div>
+            <div class="plan-grid">
+                <div class="plan-card reveal reveal-delay-1">
+                    <h3>
+                        <span class="plan-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Revenue Model
+                    </h3>
+                    <p>Transaction fees on every credit exchange (1.5% to 2.5%), a freemium subscription at $1.99/month for premium profile features and an ad-free experience, plus advertising partnerships where restaurants and brands pay to appear as suggested gift options.</p>
+                </div>
+                <div class="plan-card reveal reveal-delay-2">
+                    <h3>
+                        <span class="plan-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Go-to-Market Strategy
+                    </h3>
+                    <p>Launch with a referral-driven campaign: "Set up your Cookies profile, get a free cookie credit." Partner with 2 to 3 popular chains like Crumbl Cookies or DoorDash for initial redemption options. Target new parents and college students first, since those communities naturally rally around gifting and support.</p>
+                </div>
+                <div class="plan-card plan-highlight reveal reveal-delay-1">
+                    <h3>
+                        <span class="plan-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Competitive Advantage
+                    </h3>
+                    <p>Unlike Venmo (pure cash transfer) or GoFundMe (crisis-driven fundraising), Cookies occupies a unique emotional space: thoughtful, everyday generosity. The curated wish list removes guesswork, the flexible credit system prevents waste, and the social layer makes giving feel rewarding for both sides.</p>
+                </div>
+                <div class="plan-card reveal reveal-delay-2">
+                    <h3>
+                        <span class="plan-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Year One Milestones
+                    </h3>
+                    <ul>
+                        <li><span class="list-bullet"></span>Launch MVP with 10 merchant partners and 50,000 registered users in the first 6 months</li>
+                        <li><span class="list-bullet"></span>Process $2 million in gifting credits by end of year one with a 2% average transaction fee</li>
+                        <li><span class="list-bullet"></span>Secure seed funding of $1.5M and establish partnerships with 2 national food or experience brands</li>
+                    </ul>
+                </div>
+                <div class="plan-card reveal reveal-delay-1">
+                    <h3>
+                        <span class="plan-icon"><svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Key Risks
+                    </h3>
+                    <ul>
+                        <li><span class="list-bullet"></span>User adoption requires both senders and recipients to have accounts, creating a chicken-and-egg problem that could slow early growth</li>
+                        <li><span class="list-bullet"></span>Competing with entrenched payment platforms like Venmo and Cash App, who could replicate the feature as an add-on</li>
+                        <li><span class="list-bullet"></span>Managing merchant partnerships and redemption logistics across many vendors adds operational complexity and cost</li>
+                    </ul>
+                </div>
+                <div class="plan-card reveal reveal-delay-2">
+                    <h3>
+                        <span class="plan-icon"><svg viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        Startup Cost Estimate
+                    </h3>
+                    <p>Estimated cost to reach MVP:</p>
+                    <div class="cost-badge">$75,000 - $200,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-content reveal">
+            <h2>Ready to spread some warmth?</h2>
+            <p>Set up your Cookies profile today and let the people who care about you know exactly how to brighten your day.</p>
+            <a href="#" class="btn-primary">Get Started Free</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-brand">Cookies<span style="color:var(--warm-yellow);">.</span></div>
+            <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+            <p>Discussed in the episode: <a href="https://www.youtube.com/watch?v=WtlLfsCJr80" target="_blank" rel="noopener">Watch on YouTube</a></p>
+            <p style="margin-top: 1.5rem; font-size: 0.8rem; opacity: 0.5;">This is a fictional startup concept. No real products or services are offered.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

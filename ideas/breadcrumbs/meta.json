@@ -1,0 +1,34 @@
+{
+  "slug": "breadcrumbs",
+  "company_name": "BreadCrumbs",
+  "tagline": "Drop a pin. Share the find.",
+  "elevator_pitch": "BreadCrumbs is a social geotagging app that lets you leave location-based tips, discoveries, and deals for others to find. Think of it as a crowdsourced layer of local knowledge on top of the real world, where every hidden gem, free perk, and flash sale gets pinned for the community.",
+  "problem": "The best local discoveries, whether it is free air at a gas station, a killer lookout point, or a flash clearance sale, live and die in private conversations and word of mouth. There is no easy, visual way to share and find these hyper-local tips with a wider community.",
+  "solution": "BreadCrumbs lets anyone geo-tag a discovery by snapping a photo and dropping a pin on the map. Tips can be permanent or temporary, categorized by type, and surfaced to nearby users via push notifications. Integration with Instagram hashtags makes contributing effortless, so the map fills itself over time.",
+  "target_market": "Urban millennials and Gen Z (ages 18-35) who are socially active, love finding deals and hidden spots, and already use location-based apps like Waze, Yelp, and Instagram daily.",
+  "revenue_model": "Sponsored breadcrumbs from local businesses and national brands (e.g. Wendy's promoting a special), in-app display advertising, and a premium tier for power users who want advanced filtering, saved collections, and early notifications on nearby drops.",
+  "key_features": [
+    "Geo-tagged photo pins with permanent or time-limited visibility",
+    "Smart map with trending breadcrumbs that grow based on engagement",
+    "Instagram hashtag integration for frictionless content creation",
+    "Push notifications when you enter an area rich with breadcrumbs"
+  ],
+  "competitive_advantage": "Unlike Yelp or Google Maps, BreadCrumbs captures the informal, ephemeral layer of local knowledge that no review platform covers: flash sales, free perks, scenic lookouts, pop-up events. Its Instagram integration lowers the barrier to contribution far below any competing app.",
+  "market_size_estimate": "$8B+ location-based advertising market, with a serviceable segment of $500M targeting hyper-local discovery and community-driven content platforms in the US alone.",
+  "go_to_market": "Launch on a single college campus (e.g. BYU) with 50 seed users who pre-populate the map. Grow virally through Instagram hashtag sharing and word of mouth. Expand city by city, targeting college towns and urban neighborhoods with high foot traffic.",
+  "risks": [
+    "Cold start problem: the map feels empty until a critical mass of users contribute content in each area",
+    "Content moderation challenges with user-generated geo-tagged content that could include spam, inappropriate material, or inaccurate tips",
+    "Platform dependency on Instagram API access, which could be restricted or deprecated at any time"
+  ],
+  "year_one_milestones": [
+    "Launch MVP on iOS and Android with 10,000 active users across 3 college campuses",
+    "Reach 100,000 breadcrumbs posted with a 30-day retention rate above 25%",
+    "Close first 10 sponsored breadcrumb partnerships with local businesses and one national brand pilot"
+  ],
+  "startup_cost_range": "$50,000 - $150,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=rw-16Tem5uc",
+  "episode_number": 35
+}

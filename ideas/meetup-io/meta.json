@@ -1,0 +1,34 @@
+{
+  "slug": "meetup-io",
+  "company_name": "Meet.io",
+  "tagline": "Quick organic meetups, zero awkwardness.",
+  "elevator_pitch": "Meet.io connects you with three strangers for structured, 10-minute video conversations sparked by fun icebreakers. It is the antidote to social isolation, turning screen time into genuine human connection.",
+  "problem": "Social distancing and remote work have left millions feeling isolated, stuck in loops of the same few faces and social media feeds. Existing platforms for meeting strangers online quickly devolve into toxic, unstructured chaos. There is no safe, structured way to organically meet new people through video.",
+  "solution": "Meet.io groups four people into a video call with a built-in icebreaker prompt. Each person gets 30 seconds to introduce themselves while others stay muted, then the group talks freely for 10 minutes. Social login prevents anonymity abuse, the four-person format discourages bad behavior, and a mutual 'tap' system lets you exchange socials with people you clicked with.",
+  "target_market": "Adults aged 20 to 35 experiencing social isolation, remote workers, college students, expats, and anyone who wants to expand their social circle beyond dating apps. Secondary market: corporate team-building facilitators looking for virtual icebreaker tools.",
+  "revenue_model": "Freemium model: free random meetups with ads between sessions. Pro tier ($5/month or $49/year) unlocks interest-based matching by keywords (e.g., rock climbing, gaming), local matching by region, unlimited daily taps to exchange socials, and priority queue. Additional revenue from sponsored conversation prompts and corporate team licenses.",
+  "key_features": [
+    "Structured icebreaker flow: everyone muted, one-by-one intros, then open conversation",
+    "Mutual tap system to exchange social profiles only when both parties agree",
+    "Interest keywords and local matching for Pro users",
+    "Anti-toxicity design: four-person groups, social login verification, skip cooldowns, community voting to flag bad actors"
+  ],
+  "competitive_advantage": "The four-person group format with structured icebreakers is a defensible UX innovation that solves the core problem of Omegle-style platforms: toxicity and chaos. Social login verification raises the barrier for bad actors. The combination of structure, safety, and serendipity does not exist anywhere else in the market.",
+  "market_size_estimate": "The global online dating market is $9B+ and the virtual events market is $15B+. Meet.io targets the social-but-not-dating niche. With 200M+ adults experiencing social isolation worldwide, even capturing 1% at $49/year yields a $980M TAM.",
+  "go_to_market": "Launch as a free web app during periods of high social isolation (remote work surges, winter months). Seed initial users through Reddit communities, TikTok demos, and university partnerships. Viral loop: every good session produces four potential evangelists.",
+  "risks": [
+    "Content moderation at scale: despite design safeguards, toxic users will test boundaries and real-time video moderation is technically challenging",
+    "Chicken-and-egg problem: the platform needs enough concurrent users to form groups quickly, or wait times kill the experience",
+    "User retention: novelty may wear off if conversation quality is inconsistent or if users exhaust the value of random matching"
+  ],
+  "year_one_milestones": [
+    "Launch MVP web app and reach 10,000 monthly active users within 3 months",
+    "Ship Pro tier with interest and location matching by month 6, targeting 5% conversion rate",
+    "Secure 50 corporate team-building contracts and reach $500K ARR by month 12"
+  ],
+  "startup_cost_range": "$50K to $150K for MVP (WebRTC infrastructure, web app development, moderation tooling, initial marketing)",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=a04SZxZu3ro",
+  "episode_number": 38
+}

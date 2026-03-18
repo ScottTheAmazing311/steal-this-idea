@@ -1,0 +1,34 @@
+{
+  "slug": "civic",
+  "company_name": "Civic",
+  "tagline": "Your civic duty, elevated.",
+  "elevator_pitch": "Civic is a mobile app that gives voters instant, unbiased access to every candidate and ballot measure in their local elections. By combining candidate profiles, community reviews, and plain-language bill summaries in one place, Civic turns uninformed party-line voting into educated civic participation.",
+  "problem": "Most Americans skip local elections entirely, and those who do vote often default to straight party-line choices because finding information on local candidates and ballot measures is scattered across dozens of websites. The result is that a tiny, highly partisan minority effectively chooses sheriffs, judges, city council members, and school board officials for everyone.",
+  "solution": "Civic aggregates every candidate and ballot measure for a voter's specific area into a single, clean mobile app. Users enter their zip code and instantly see candidate profiles with core platform positions, moderated community reviews (think Yelp for politicians), and plain-language summaries of bills and propositions. It is designed to be used in line at the polls or weeks before election day.",
+  "target_market": "Voters aged 18 to 45 who want to be informed but lack the time or motivation to research local elections on their own. Secondary audience includes first-time voters and people in rapidly growing communities where local governance decisions have outsized impact.",
+  "revenue_model": "Hyper-local advertising from small businesses targeting voters by zip code, premium candidate profile pages (enhanced micro-sites with video), and sponsored civic content. Revenue stays separate from editorial content to maintain trust and avoid pay-to-play perception.",
+  "key_features": [
+    "Zip code lookup that populates every race, candidate, and ballot measure for your area instantly",
+    "Moderated community review system where neighbors share informed opinions on candidates",
+    "Plain-language bill and proposition summaries so voters understand what they are actually approving",
+    "Election reminders with registration deadlines, polling locations, and required documents"
+  ],
+  "competitive_advantage": "While presidential election coverage is everywhere, local election information is fragmented across municipal websites, candidate Facebook pages, and obscure PDFs. Civic is the only platform that combines candidate data, community sentiment, and ballot breakdowns at the local level in a mobile-first experience designed for last-minute decision making.",
+  "market_size_estimate": "There are roughly 250 million eligible voters in the U.S. Even capturing 5% of voters who participate in midterm and local elections as monthly active users represents over 5 million users. With hyper-local ad CPMs in the $15 to $25 range, a modest ad load could generate $10M+ annually at scale.",
+  "go_to_market": "Launch in a single fast-growing metro area (like Lehi/Utah County) where local politics are contentious and information is hard to find. Run street-team campaigns at polling locations on election day, partner with nonpartisan voter registration orgs, and run social campaigns targeting the 'I should probably vote but I have no idea who these people are' crowd.",
+  "risks": [
+    "Maintaining true nonpartisanship while accepting political advertising revenue creates a trust problem that could alienate users on both sides",
+    "Seasonal usage pattern means the app may see heavy traffic only around elections, making it hard to sustain engagement and ad revenue year-round",
+    "Sourcing accurate, up-to-date local candidate and ballot data across thousands of jurisdictions requires significant ongoing editorial and data operations"
+  ],
+  "year_one_milestones": [
+    "Launch in 3 metro areas covering at least 500,000 eligible voters with full candidate and ballot data for upcoming elections",
+    "Reach 50,000 downloads and 20,000 monthly active users during the first election cycle on the platform",
+    "Secure partnerships with 5 nonpartisan civic organizations and onboard 200 local business advertisers"
+  ],
+  "startup_cost_range": "$50,000 - $300,000",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=uWQ5qJoi34o",
+  "episode_number": 9
+}

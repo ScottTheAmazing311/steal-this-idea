@@ -1,0 +1,34 @@
+{
+  "slug": "sky-rangers",
+  "company_name": "Sky Rangers",
+  "tagline": "Your drone. Your city. Your mission.",
+  "elevator_pitch": "Sky Rangers is a civic drone network that connects everyday drone owners with municipalities, news organizations, and first responders. When emergencies happen, Sky Rangers mobilizes a distributed fleet of community drones to deliver real-time aerial footage, reducing response times and saving lives.",
+  "problem": "When emergencies strike, first responders often arrive blind. A 911 call provides limited information, leading to over-dispatching of resources. Meanwhile, news organizations scramble expensive helicopters for aerial footage, and communities lack a structured way to contribute to public safety.",
+  "solution": "Sky Rangers builds a network of trained, vetted civilian drone operators who respond to local incidents on demand. The platform coordinates dispatch, streams live footage to first responders, and distributes content to news outlets and a public channel, all while rewarding operators through a gig-economy model.",
+  "target_market": "Municipal governments, fire departments, police departments, emergency management agencies, local news stations, and drone hobbyists looking to monetize their equipment and contribute to their communities.",
+  "revenue_model": "Three revenue streams: (1) Municipal contracts providing real-time aerial intel to first responders, (2) Licensed footage sales to news organizations, and (3) Advertising revenue from SkyRangers.tv, a live community content channel. An additional stream comes from drone lease-to-own programs subsidized by operator service hours.",
+  "key_features": [
+    "Real-time dispatch system that alerts nearby drone operators when incidents occur",
+    "Live HD video streaming directly to first responder command centers",
+    "Gamified badge and ranking system that rewards community contribution",
+    "Drone lease-to-own program that lowers the barrier to entry for new operators"
+  ],
+  "competitive_advantage": "Unlike police helicopter units or private security drones, Sky Rangers leverages a distributed network of community operators already embedded in neighborhoods. This means faster response times, broader coverage, dramatically lower costs, and a model that scales with community participation rather than capital expenditure.",
+  "market_size_estimate": "The U.S. public safety drone market is projected to exceed $8 billion by 2028. With over 19,000 municipal police departments, 27,000 fire departments, and hundreds of local news stations, even modest contract values of $5,000 to $50,000 per year represent a multi-billion dollar TAM.",
+  "go_to_market": "Launch in one mid-sized metro area with a pilot program partnering with the city fire department and a local news station. Recruit 50 to 100 drone operators through local hobbyist groups and offer free training certification. Use early success stories and footage to generate press coverage and expand to neighboring municipalities.",
+  "risks": [
+    "FAA regulations around drone flight in emergency zones and airspace restrictions could limit operations significantly",
+    "Privacy and surveillance concerns from communities worried about persistent aerial monitoring",
+    "Liability issues if a Sky Ranger drone interferes with emergency operations or causes property damage"
+  ],
+  "year_one_milestones": [
+    "Sign pilot contracts with 3 municipalities and 2 news organizations in a single metro area",
+    "Recruit and certify 200 active Sky Ranger drone operators",
+    "Launch SkyRangers.tv with consistent daily content and 10,000 monthly active viewers"
+  ],
+  "startup_cost_range": "$250,000 to $500,000 for MVP including app development, insurance, FAA compliance consulting, pilot program operations, and initial drone lease inventory",
+  "category": "Marketplace",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=SmYWeEN2DqM",
+  "episode_number": 101
+}

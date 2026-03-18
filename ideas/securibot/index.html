@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecuriBot | Your neighborhood never sleeps.</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --green: #00F0A0;
+  --green-dim: #00C080;
+  --blue: #00B4D8;
+  --dark-1: #0A0E17;
+  --dark-2: #111827;
+  --dark-3: #1A2332;
+  --dark-4: #243044;
+  --gray: #8892A4;
+  --white: #E8ECF2;
+  --red: #FF4757;
+  --amber: #FFB800;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--dark-1);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 { font-family: 'JetBrains Mono', monospace; }
+
+.badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--dark-3);
+  color: var(--green);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(0,240,160,0.2);
+  box-shadow: 0 0 20px rgba(0,240,160,0.05);
+  transition: border-color 0.3s ease;
+}
+.badge:hover { border-color: var(--green); }
+.badge svg { width: 16px; height: 16px; fill: var(--green); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1600&q=80') center/cover;
+  opacity: 0.06;
+}
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,240,160,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,160,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,240,160,0.08) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  text-align: center;
+}
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid rgba(0,240,160,0.3);
+  border-radius: 30px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--green);
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hero-status .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--gray);
+  margin-bottom: 28px;
+}
+.hero .pitch {
+  font-size: 1.1rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 16px 40px;
+  background: var(--green);
+  color: var(--dark-1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 0 30px rgba(0,240,160,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,240,160,0.35); }
+
+.hero-imgs {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+.hero-imgs img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--dark-4);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.hero-imgs img:hover { opacity: 1; }
+
+/* SECTIONS */
+section { padding: 100px 24px; }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--white);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.section-text {
+  font-size: 1.05rem;
+  color: var(--gray);
+  max-width: 640px;
+  line-height: 1.8;
+}
+
+/* PROBLEM */
+.problem {
+  background: var(--dark-2);
+  border-top: 1px solid var(--dark-4);
+  border-bottom: 1px solid var(--dark-4);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.problem-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--dark-4);
+}
+.problem-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 30px;
+}
+.problem-stat {
+  padding: 16px 20px;
+  background: var(--dark-3);
+  border-radius: 8px;
+  border: 1px solid var(--dark-4);
+}
+.problem-stat .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--red);
+}
+.problem-stat .label {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+/* SOLUTION */
+.solution {
+  background: var(--dark-1);
+  position: relative;
+}
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.solution-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--dark-4);
+}
+.solution-points {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.solution-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--dark-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--green);
+}
+.solution-point svg { width: 20px; height: 20px; fill: var(--green); flex-shrink: 0; margin-top: 2px; }
+.solution-point span { font-size: 0.95rem; color: var(--gray); }
+
+/* FEATURES */
+.features {
+  background: var(--dark-2);
+  border-top: 1px solid var(--dark-4);
+  border-bottom: 1px solid var(--dark-4);
+}
+.features-header { text-align: center; margin-bottom: 60px; }
+.features-header .section-text { margin: 0 auto; }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  background: var(--dark-3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--dark-4);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.feature-card:hover { border-color: rgba(0,240,160,0.3); transform: translateY(-4px); }
+.feature-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.feature-card:hover .feature-card-img { opacity: 0.9; }
+.feature-card-body { padding: 28px; }
+.feature-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(0,240,160,0.08);
+  border: 1px solid rgba(0,240,160,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.feature-card-icon svg { width: 22px; height: 22px; fill: var(--green); }
+.feature-card h3 {
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+/* MARKET */
+.market {
+  background: var(--dark-1);
+  position: relative;
+  overflow: hidden;
+}
+.market-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=80') center/cover;
+  opacity: 0.04;
+}
+.market .container { position: relative; z-index: 2; }
+.market-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.stat-card {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: 10px;
+  padding: 36px 28px;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+.stat-card:hover { border-color: rgba(0,240,160,0.3); }
+.stat-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+.market-img-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 50px;
+}
+.market-img-row img {
+  flex: 1;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--dark-4);
+  opacity: 0.5;
+}
+
+/* BUSINESS PLAN */
+.business-plan {
+  background: var(--dark-2);
+  border-top: 1px solid var(--dark-4);
+}
+.business-plan .container { max-width: 900px; }
+.bp-header { text-align: center; margin-bottom: 50px; }
+.bp-section {
+  margin-bottom: 28px;
+  padding: 28px;
+  background: var(--dark-3);
+  border-radius: 10px;
+  border: 1px solid var(--dark-4);
+  border-left: 3px solid var(--green);
+}
+.bp-section h3 {
+  font-size: 1.1rem;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.bp-section p, .bp-section li {
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.8;
+}
+.bp-section ul {
+  list-style: none;
+  padding: 0;
+}
+.bp-section ul li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+.bp-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 2px;
+}
+.bp-cost {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3rem;
+  color: var(--green);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--dark-1);
+  border-top: 1px solid var(--dark-4);
+  color: var(--gray);
+  text-align: center;
+  padding: 60px 24px;
+}
+.footer p { margin-bottom: 12px; font-size: 0.9rem; }
+.footer a { color: var(--green); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+.footer .brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scan line effect */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,240,160,0.01) 2px,
+    rgba(0,240,160,0.01) 4px
+  );
+  pointer-events: none;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .problem-grid, .solution-grid { grid-template-columns: 1fr; gap: 30px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .market-stats { grid-template-columns: 1fr; }
+  .market-img-row { flex-direction: column; }
+  .hero-imgs img { width: 120px; height: 80px; }
+  .problem-stats { flex-direction: column; }
+  section { padding: 70px 20px; }
+}
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-status">
+      <span class="dot"></span>
+      System Online
+    </div>
+    <h1>SecuriBot</h1>
+    <p class="tagline">// your neighborhood never sleeps</p>
+    <p class="pitch">An autonomous patrol robot equipped with 360-degree cameras and AI-powered threat detection. Shared among neighbors, it roams the streets at night, streaming live footage and deterring crime simply by being visible.</p>
+    <a href="#features" class="btn-primary">Learn More</a>
+    <div class="hero-imgs">
+      <img src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=400&q=80" alt="Suburban neighborhood at night">
+      <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=400&q=80" alt="Security technology">
+      <img src="https://images.unsplash.com/photo-1589254065909-b7086229d08c?auto=format&fit=crop&w=400&q=80" alt="Smart home security">
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid reveal">
+      <div>
+        <span class="section-label">// Problem</span>
+        <h2 class="section-title">Static cameras have blind spots. Criminals know it.</h2>
+        <p class="section-text">Break-ins and petty crime remain common even in safe-looking neighborhoods. Ring doorbells and static cameras cover fixed angles that are easy to avoid. They require homeowners to actively monitor alerts. Most neighborhoods have no coordinated security presence at all.</p>
+        <div class="problem-stats">
+          <div class="problem-stat">
+            <div class="num">2.5M</div>
+            <div class="label">Burglaries per year (US)</div>
+          </div>
+          <div class="problem-stat">
+            <div class="num">65%</div>
+            <div class="label">Occur in residential areas</div>
+          </div>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" alt="Suburban homes" class="problem-img">
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="container">
+    <div class="solution-grid reveal">
+      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="AI technology" class="solution-img">
+      <div>
+        <span class="section-label">// Solution</span>
+        <h2 class="section-title">A moving, watching, thinking patrol.</h2>
+        <p class="section-text">SecuriBot is a Roomba-style outdoor robot that autonomously patrols your neighborhood on a nightly schedule. Its 360-degree camera feeds live to a professional monitoring center, and AI flags suspicious activity in real time.</p>
+        <div class="solution-points">
+          <div class="solution-point">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Unpredictable patrol routes make it impossible for criminals to time their approach</span>
+          </div>
+          <div class="solution-point">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Visible physical presence acts as a powerful deterrent that static cameras cannot match</span>
+          </div>
+          <div class="solution-point">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span>Shared cost model splits the investment across 10 to 15 households</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">// Capabilities</span>
+      <h2 class="section-title">Built for the real world.</h2>
+      <p class="section-text">Every component of SecuriBot is engineered for outdoor durability, intelligent navigation, and community-level awareness.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=800&q=80" alt="AI navigation" class="feature-card-img">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg>
+          </div>
+          <h3>AI Path Planning</h3>
+          <p>Autonomous nightly patrol routes optimized by machine learning. The bot adapts to terrain, avoids obstacles, and randomizes its path so it is never predictable.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80" alt="Camera surveillance" class="feature-card-img">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </div>
+          <h3>360-Degree Night Vision</h3>
+          <p>Live-streaming cameras with infrared night vision and license plate recognition. Every angle covered, every moment recorded and backed up to the cloud.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80" alt="Charging dock" class="feature-card-img">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM13 18h-2v-2h2v2zm0-4h-2V9h2v5z"/></svg>
+          </div>
+          <h3>Self-Charging Dock</h3>
+          <p>Deploys at dusk, returns at dawn. The home-base dock charges the unit fully, uploads footage, and runs diagnostic checks for the next patrol cycle.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="Community network" class="feature-card-img">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <h3>Community Alerts</h3>
+          <p>When SecuriBot detects suspicious activity, every participating household gets an instant notification. A shared awareness network that keeps the whole neighborhood informed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="market-bg"></div>
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">// Market</span>
+      <h2 class="section-title">370,000 HOAs. 53 million homes.</h2>
+      <p class="section-text">The US has a massive installed base of homeowner associations and gated communities actively spending on security. SecuriBot offers a fraction of the cost of a private patrol service with superior coverage and consistency.</p>
+    </div>
+    <div class="market-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">370K</div>
+        <div class="stat-label">HOAs in the United States</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$370M</div>
+        <div class="stat-label">Hardware TAM at 1% penetration</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$90M</div>
+        <div class="stat-label">Recurring annual monitoring revenue</div>
+      </div>
+    </div>
+    <div class="market-img-row reveal">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Suburban community">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Residential neighborhood">
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan">
+  <div class="container">
+    <div class="bp-header reveal">
+      <span class="section-label">// Business Plan</span>
+      <h2 class="section-title">From prototype to patrol.</h2>
+    </div>
+
+    <div class="bp-section reveal">
+      <h3>Revenue Model</h3>
+      <p>Hardware sales at approximately $1,000 per unit, split among 10 to 15 participating households. Optional professional monitoring subscription at $20 per month per community. Premium AI analytics and incident reporting tiers available for larger communities.</p>
+    </div>
+
+    <div class="bp-section reveal">
+      <h3>Go-to-Market Strategy</h3>
+      <p>Partner directly with HOA management companies to bundle SecuriBot into community safety packages. Run pilot programs in 10 neighborhoods across different regions and publish crime-reduction data to drive word-of-mouth referrals and earn media coverage.</p>
+    </div>
+
+    <div class="bp-section reveal">
+      <h3>Competitive Advantage</h3>
+      <p>Unlike static Ring doorbells and security cameras, SecuriBot is mobile and unpredictable, covering entire neighborhoods rather than single doorsteps. Its shared-cost model makes professional-grade security accessible at a fraction of the price of hiring a human patrol service.</p>
+    </div>
+
+    <div class="bp-section reveal">
+      <h3>Year One Milestones</h3>
+      <ul>
+        <li>Complete hardware prototype and secure FCC certification for wireless components</li>
+        <li>Deploy pilot units in 10 HOA communities and collect 6 months of performance data</li>
+        <li>Reach 100 communities and establish a professional monitoring operations center</li>
+      </ul>
+    </div>
+
+    <div class="bp-section reveal">
+      <h3>Startup Cost Estimate</h3>
+      <p>Estimated investment through prototype and first production batch:</p>
+      <span class="bp-cost">$500,000 to $1,500,000</span>
+    </div>
+
+    <div class="bp-section reveal">
+      <h3>Key Risks</h3>
+      <ul>
+        <li>Local regulations and privacy laws may restrict autonomous surveillance robots on public or shared streets</li>
+        <li>Vandalism or theft of the robot itself, despite onboard cameras and live monitoring</li>
+        <li>Weather durability and reliability concerns for year-round outdoor operation in all climates</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="brand">SecuriBot</p>
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p>Hear the full episode: <a href="https://www.youtube.com/watch?v=_T1iGm70E5Q" target="_blank" rel="noopener">The College Pen and SecuriBot</a></p>
+  <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.4;">This is not a real product. It is a business concept explored on the podcast.</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

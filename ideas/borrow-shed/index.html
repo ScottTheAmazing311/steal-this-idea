@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Borrow - Your Neighborhood's Tool Shed, Shared</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --forest: #2D5016;
+  --sage: #7A9B6D;
+  --moss: #4A6741;
+  --cream: #FAF6F0;
+  --warm-white: #FFF9F2;
+  --bark: #5C3D2E;
+  --soil: #3E2723;
+  --gold: #C9A84C;
+  --light-sage: #D4E4CC;
+  --sand: #E8DFD0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Karla', sans-serif;
+  color: var(--soil);
+  background: var(--cream);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Libre Baskerville', serif;
+  line-height: 1.3;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* STI Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--forest);
+  color: var(--cream);
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.sti-badge:hover {
+  background: var(--moss);
+  transform: scale(1.05);
+}
+.sti-badge svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--gold);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, rgba(45,80,22,0.85) 0%, rgba(62,39,35,0.7) 100%),
+    url('https://images.unsplash.com/photo-1720074337831-cb277d1ed9f7?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+}
+.hero-logo {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+  letter-spacing: -2px;
+}
+.hero-logo span {
+  color: var(--gold);
+}
+.hero-tagline {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--light-sage);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero-pitch {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: rgba(250,246,240,0.9);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--soil);
+  padding: 16px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #d4b35a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,168,76,0.35);
+}
+.btn-secondary {
+  display: inline-block;
+  border: 2px solid var(--cream);
+  color: var(--cream);
+  padding: 14px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Karla', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  margin-left: 12px;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+  background: rgba(250,246,240,0.15);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+.hero-scroll svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--cream);
+  opacity: 0.6;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* SECTION BASE */
+.section {
+  padding: 6rem 2rem;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--forest);
+  margin-bottom: 1.5rem;
+}
+
+/* PROBLEM */
+.problem {
+  background: var(--soil);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.problem .section-label { color: var(--gold); }
+.problem .section-title { color: var(--cream); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+.problem-text p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: rgba(250,246,240,0.85);
+  margin-bottom: 1.5rem;
+}
+.problem-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.stat-card {
+  background: rgba(250,246,240,0.08);
+  border: 1px solid rgba(250,246,240,0.12);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2.2rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(250,246,240,0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.problem-image {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+.problem-image img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+/* SOLUTION */
+.solution {
+  background: var(--cream);
+  position: relative;
+}
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+.solution-image {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(45,80,22,0.15);
+}
+.solution-image img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+.solution-text p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--bark);
+  margin-bottom: 1.5rem;
+}
+.solution-steps {
+  margin-top: 2rem;
+}
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.step-content h4 {
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--forest);
+  margin-bottom: 0.25rem;
+}
+.step-content p {
+  font-size: 0.95rem;
+  color: var(--bark);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* FEATURES */
+.features {
+  background: var(--light-sage);
+  position: relative;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.feature-card {
+  background: var(--warm-white);
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(45,80,22,0.08);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(45,80,22,0.12);
+}
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--forest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+.feature-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.feature-card h3 {
+  font-size: 1.25rem;
+  color: var(--forest);
+  margin-bottom: 0.75rem;
+}
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--bark);
+  line-height: 1.7;
+}
+
+/* FEATURES IMAGE STRIP */
+.features-strip {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.features-strip img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+/* MARKET */
+.market {
+  background: var(--cream);
+  position: relative;
+}
+.market-hero-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 3rem;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+.market-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.market-text p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--bark);
+  margin-bottom: 1.5rem;
+}
+.market-highlight {
+  background: var(--forest);
+  color: var(--cream);
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+}
+.market-highlight .big-num {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 3.5rem;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.market-highlight p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(250,246,240,0.8);
+}
+.market-segments {
+  margin-top: 2rem;
+}
+.segment {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(45,80,22,0.1);
+}
+.segment:last-child { border-bottom: none; }
+.segment-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.segment-label {
+  font-weight: 600;
+  color: var(--forest);
+}
+
+/* BUSINESS PLAN */
+.business-plan {
+  background: var(--warm-white);
+  border-top: 4px solid var(--forest);
+}
+.bp-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.bp-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--sand);
+  transition: box-shadow 0.3s ease;
+}
+.bp-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+.bp-card-label {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bp-card-label svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--sage);
+  fill: none;
+  stroke-width: 2;
+}
+.bp-card h3 {
+  font-size: 1.15rem;
+  color: var(--forest);
+  margin-bottom: 0.75rem;
+}
+.bp-card p, .bp-card li {
+  font-size: 0.95rem;
+  color: var(--bark);
+  line-height: 1.7;
+}
+.bp-card ul {
+  list-style: none;
+  padding: 0;
+}
+.bp-card ul li {
+  padding: 0.5rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+}
+.bp-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.bp-full {
+  grid-column: 1 / -1;
+}
+.bp-cost {
+  background: var(--forest);
+  color: var(--cream);
+  border: none;
+}
+.bp-cost .bp-card-label { color: var(--gold); }
+.bp-cost .bp-card-label svg { stroke: var(--gold); }
+.bp-cost h3 { color: var(--cream); }
+.bp-cost p, .bp-cost li { color: rgba(250,246,240,0.85); }
+.bp-cost .cost-range {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2rem;
+  color: var(--gold);
+  display: block;
+  margin: 0.5rem 0;
+}
+
+/* FOOTER */
+footer {
+  background: var(--soil);
+  color: rgba(250,246,240,0.7);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+footer p {
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+footer a:hover { color: #d4b35a; }
+.footer-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--sage);
+  margin: 1.5rem auto;
+  opacity: 0.4;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .problem-grid,
+  .solution-grid,
+  .market-content {
+    grid-template-columns: 1fr;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .bp-grid {
+    grid-template-columns: 1fr;
+  }
+  .bp-full {
+    grid-column: 1;
+  }
+  .features-strip {
+    grid-template-columns: 1fr;
+  }
+  .features-strip img {
+    height: 180px;
+  }
+  .problem-image img,
+  .solution-image img {
+    height: 280px;
+  }
+  .hero-content {
+    padding: 2rem 1.5rem;
+  }
+  .section {
+    padding: 4rem 1.5rem;
+  }
+  .btn-secondary {
+    margin-left: 0;
+    margin-top: 12px;
+  }
+  .sti-badge {
+    top: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+  .problem-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stat-number { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- STI Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M9 21c0 0-1-1-1-3s2-4 2-6c0-2-1-3-1-3s3 1 3 5-3 7-3 7z"/>
+    <path d="M15 21c0 0-1-1-1-3s2-4 2-6c0-2-1-3-1-3s3 1 3 5-3 7-3 7z"/>
+    <circle cx="12" cy="5" r="3"/>
+  </svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1 class="hero-logo">Borrow<span>.</span></h1>
+    <p class="hero-tagline">Your neighborhood's tool shed, shared</p>
+    <p class="hero-pitch">Stop buying tools you will use once. Borrow places a fully stocked, app-managed shed in your neighborhood so every homeowner gets access to premium equipment for a low monthly fee.</p>
+    <div>
+      <a href="#features" class="btn-primary">Start a Borrow</a>
+      <a href="#business-plan" class="btn-secondary">See the Plan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M19 12l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem section">
+  <div class="section-inner reveal">
+    <span class="section-label">The Problem</span>
+    <h2 class="section-title">Every tool. One project. Then silence.</h2>
+    <div class="problem-grid">
+      <div class="problem-text">
+        <p>Homeownership comes with an endless parade of specialized tools. A sander for one dresser. A tiller for one garden bed. A leaf blower you researched for hours, only to realize you bought the corded version. Each purchase runs $100 to $500, and most of those tools sit idle for months or years after a single weekend of use.</p>
+        <p>Worse, the high cost of entry keeps homeowners from starting projects at all. You skip the laminate flooring because you do not own a cutter. You let the lawn go rough because a riding mower feels absurd for a quarter-acre lot. The tools exist, just not in your garage.</p>
+        <div class="problem-stats">
+          <div class="stat-card">
+            <span class="stat-number">$400+</span>
+            <span class="stat-label">Avg. annual tool spend</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">80%</span>
+            <span class="stat-label">Tools used less than twice</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">$7B</span>
+            <span class="stat-label">U.S. tool rental market</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">1 in 3</span>
+            <span class="stat-label">Skip projects for cost</span>
+          </div>
+        </div>
+      </div>
+      <div class="problem-image">
+        <img src="https://images.unsplash.com/photo-1563440205176-c565cd7302e4?auto=format&fit=crop&w=1200&q=80" alt="Collection of tools hanging unused" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution section">
+  <div class="section-inner reveal">
+    <span class="section-label">The Solution</span>
+    <h2 class="section-title">One shed. Your whole neighborhood. Every tool you need.</h2>
+    <div class="solution-grid">
+      <div class="solution-image">
+        <img src="https://images.unsplash.com/photo-1588032896227-261237a512d9?auto=format&fit=crop&w=1200&q=80" alt="Aerial view of a suburban neighborhood" loading="lazy">
+      </div>
+      <div class="solution-text">
+        <p>Borrow installs a shared, smart-locked tool shed right in your neighborhood. It is stocked with premium power tools, lawn equipment, and specialty gear, all managed through a simple app.</p>
+        <div class="solution-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>A neighbor hosts the shed</h4>
+              <p>Your local Borrow Manager volunteers their property and earns a revenue share for keeping the community running.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Members check out tools via the app</h4>
+              <p>Browse available inventory, scan the QR code, and the smart lock opens. Snap a photo of the tool's condition on the way out and on return.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>New gear arrives every quarter</h4>
+              <p>Borrow refreshes inventory regularly, partnering with brands who want real homeowners testing their latest products.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features section">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Key Features</span>
+      <h2 class="section-title">Built for the way neighborhoods actually work</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+        </div>
+        <h3>Smart-Lock Access</h3>
+        <p>Open the shed with a QR code on your phone. No keys, no scheduling calls, no awkward knocks on your neighbor's door. The app tracks every check-in and check-out automatically.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <h3>Photo Condition Tracking</h3>
+        <p>Snap a photo when you check out and again when you return. Both parties are protected, and the community stays accountable without finger-pointing.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Borrow Manager Program</h3>
+        <p>Host the shed on your property, recruit neighbors, and earn a cut of every membership. You are the local mayor of tools, and your free membership is just the beginning.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <h3>Curated, Rotating Inventory</h3>
+        <p>New tools arrive every quarter. Brand partners supply their latest products for real-world exposure. If you fall in love with something, you can buy it outright.</p>
+      </div>
+    </div>
+    <div class="features-strip reveal">
+      <img src="https://plus.unsplash.com/premium_photo-1677151140485-df90e1e2fbbd?auto=format&fit=crop&w=1200&q=80" alt="Person using a power sander on wood" loading="lazy">
+      <img src="https://plus.unsplash.com/premium_photo-1679444811073-0a66a4dca398?auto=format&fit=crop&w=1200&q=80" alt="Person riding a lawn mower on green grass" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1550819115-7a75ea88904e?auto=format&fit=crop&w=1200&q=80" alt="Rows of suburban homes in a neighborhood" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market section" id="market">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Market Opportunity</span>
+      <h2 class="section-title">80 million homeowners. One shared problem.</h2>
+    </div>
+    <img class="market-hero-img reveal" src="https://plus.unsplash.com/premium_photo-1678380374120-42d0938a11b6?auto=format&fit=crop&w=1200&q=80" alt="Beautiful green backyard garden lawn" loading="lazy">
+    <div class="market-content reveal">
+      <div class="market-text">
+        <p>The U.S. tool rental market sits at roughly $7 billion a year, and the average American homeowner spends over $400 annually on tools and equipment. Most of those purchases are single-use or close to it. Borrow targets the gap between expensive ownership and inconvenient big-box rental by putting tools within walking distance.</p>
+        <p>The initial market is suburban neighborhoods with strong community ties, HOAs looking for member perks, apartment complexes where residents share common needs, and community gardens that already operate on a cooperative model.</p>
+        <div class="market-segments">
+          <div class="segment"><div class="segment-dot"></div><span class="segment-label">Suburban homeowners (25 to 55) with yards and DIY ambitions</span></div>
+          <div class="segment"><div class="segment-dot"></div><span class="segment-label">HOAs seeking low-cost member benefits</span></div>
+          <div class="segment"><div class="segment-dot"></div><span class="segment-label">Apartment and condo complexes with shared spaces</span></div>
+          <div class="segment"><div class="segment-dot"></div><span class="segment-label">Community gardens and co-ops</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="market-highlight">
+          <span class="big-num">$2-5B</span>
+          <p>Estimated addressable market for hyperlocal, subscription-based tool sharing across suburban America.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan section" id="business-plan">
+  <div class="section-inner">
+    <div class="bp-header reveal">
+      <span class="section-label">The Business Plan</span>
+      <h2 class="section-title">From shed to scale</h2>
+    </div>
+    <div class="bp-grid">
+      <div class="bp-card reveal">
+        <div class="bp-card-label">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Revenue Model
+        </div>
+        <h3>Subscriptions, insurance, and brand deals</h3>
+        <p>Monthly memberships at $15 to $30 per household form the base. Optional $2 per-checkout rental insurance adds margin. Tool manufacturers pay to place products in sheds for real-world exposure, and a buy-to-own option lets members purchase tools they love.</p>
+      </div>
+      <div class="bp-card reveal">
+        <div class="bp-card-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          Go-to-Market
+        </div>
+        <h3>Launch local, grow through community</h3>
+        <p>Start in Salt Lake City metro where community ties, homeownership rates, and neighborhood culture are strong. Recruit the first 10 Borrow Managers from active neighborhood leaders, seed each shed with a standard tool kit, then expand through word of mouth and HOA partnerships.</p>
+      </div>
+      <div class="bp-card reveal">
+        <div class="bp-card-label">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Competitive Advantage
+        </div>
+        <h3>Hyper-local trust that big-box cannot replicate</h3>
+        <p>Home Depot rentals require a trip across town and hourly fees. Borrow is subscription-based and walking distance away. The Borrow Manager model creates a distributed sales force built on real neighborhood relationships, something no corporate chain can duplicate.</p>
+      </div>
+      <div class="bp-card reveal">
+        <div class="bp-card-label">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Year One Milestones
+        </div>
+        <h3>From pilot to proof of concept</h3>
+        <ul>
+          <li>Deploy 20 Borrow sheds across 3 suburban neighborhoods</li>
+          <li>Reach 400 paying subscribers with 70%+ retention</li>
+          <li>Secure 2 brand partnerships with major tool manufacturers</li>
+        </ul>
+      </div>
+      <div class="bp-card reveal">
+        <div class="bp-card-label">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Key Risks
+        </div>
+        <h3>What could go wrong</h3>
+        <ul>
+          <li>Tool damage, theft, or misuse driving up replacement costs</li>
+          <li>Difficulty reaching subscriber density per shed for profitability</li>
+          <li>Seasonal demand swings: lawn gear idles in winter months</li>
+        </ul>
+      </div>
+      <div class="bp-card bp-cost reveal">
+        <div class="bp-card-label">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Startup Cost
+        </div>
+        <h3>Estimated investment to MVP</h3>
+        <span class="cost-range">$150,000 - $300,000</span>
+        <p>Covers initial shed procurement and installation, tool inventory for 5 to 10 pilot locations, app development (smart-lock integration, inventory system, payment processing), and early marketing in the launch market.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p>Want the full story? <a href="https://www.youtube.com/watch?v=QqSDpFX5g9c" target="_blank" rel="noopener">Listen to the episode</a></p>
+  <div class="footer-divider"></div>
+  <p style="font-size:0.8rem; opacity:0.5;">Borrow is a concept only. No real product or service is offered here.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered reveals
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

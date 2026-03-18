@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Boardwalk - Your Favorite Restaurants, All Under One Roof</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --neon-orange: #FF6B2B;
+    --neon-pink: #FF2D7B;
+    --neon-yellow: #FFD600;
+    --dark: #0A0A0F;
+    --dark-card: #13131A;
+    --dark-surface: #1A1A24;
+    --light: #F5F5F7;
+    --gray: #9999AA;
+    --gradient: linear-gradient(135deg, var(--neon-orange), var(--neon-pink));
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--dark);
+    color: var(--light);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  /* STI Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--gradient);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(255, 107, 43, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .sti-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(255, 107, 43, 0.5);
+  }
+  .sti-badge svg { width: 16px; height: 16px; fill: #fff; }
+
+  /* Reveal Animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1676408577323-4dda604089f8?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    filter: brightness(0.3);
+    transform: scale(1.05);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,15,0.4) 0%, rgba(10,10,15,0.85) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+  }
+  .hero-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.35em;
+    color: var(--neon-orange);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+  .hero-tagline {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 300;
+    color: var(--light);
+    margin-bottom: 1.5rem;
+  }
+  .hero-pitch {
+    font-size: 1.05rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    background: var(--gradient);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 30px rgba(255, 107, 43, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(255, 107, 43, 0.55);
+  }
+
+  /* ========== SECTION COMMON ========== */
+  section { padding: 100px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    color: var(--neon-orange);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+    color: var(--light);
+  }
+  .section-text {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 680px;
+    line-height: 1.8;
+  }
+
+  /* ========== PROBLEM ========== */
+  .problem {
+    background: var(--dark);
+    position: relative;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .problem-img {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .problem-img img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+  }
+  .problem-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 107, 43, 0.2);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .stat-row {
+    display: flex;
+    gap: 30px;
+    margin-top: 2rem;
+  }
+  .stat-box {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,107,43,0.15);
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* ========== FULL-WIDTH IMAGE BREAK ========== */
+  .image-break {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+  }
+  .image-break img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .image-break-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--dark) 0%, transparent 30%, transparent 70%, var(--dark) 100%);
+  }
+
+  /* ========== SOLUTION ========== */
+  .solution {
+    background: var(--dark-surface);
+  }
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .solution-img {
+    border-radius: 12px;
+    overflow: hidden;
+    order: 2;
+  }
+  .solution-img img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+  }
+  .solution-steps {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .solution-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 32px;
+  }
+  .step-text {
+    color: var(--gray);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ========== FEATURES ========== */
+  .features {
+    background: var(--dark);
+    position: relative;
+  }
+  .features-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .features-header .section-text {
+    margin: 0 auto;
+  }
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,107,43,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,107,43,0.35);
+  }
+  .feature-card-img {
+    height: 200px;
+    overflow: hidden;
+  }
+  .feature-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .feature-card:hover .feature-card-img img {
+    transform: scale(1.05);
+  }
+  .feature-card-body {
+    padding: 28px;
+  }
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--gradient);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .feature-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+  }
+  .feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--light);
+  }
+  .feature-card p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ========== MARKET ========== */
+  .market {
+    background: var(--dark-surface);
+    position: relative;
+  }
+  .market-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .market-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 2rem;
+  }
+  .market-stat {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,107,43,0.15);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+  }
+  .market-stat .stat-num {
+    font-size: 2.2rem;
+  }
+  .market-img {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .market-img img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+  }
+
+  /* ========== BUSINESS PLAN ========== */
+  .biz-plan {
+    background: var(--dark);
+    padding-bottom: 60px;
+  }
+  .biz-plan-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .biz-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .biz-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,107,43,0.1);
+    border-radius: 12px;
+    padding: 36px;
+    transition: border-color 0.3s;
+  }
+  .biz-card:hover {
+    border-color: rgba(255,107,43,0.3);
+  }
+  .biz-card-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--neon-orange);
+    margin-bottom: 12px;
+  }
+  .biz-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: var(--light);
+  }
+  .biz-card p, .biz-card li {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .biz-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .biz-card ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .biz-card ul li:last-child { border-bottom: none; }
+  .biz-bullet {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background: var(--gradient);
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+
+  .biz-wide {
+    grid-column: 1 / -1;
+  }
+
+  .milestone-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .milestone {
+    background: var(--dark-surface);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    border-left: 3px solid var(--neon-orange);
+  }
+  .milestone-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: rgba(255,107,43,0.15);
+    position: absolute;
+    top: 10px;
+    right: 16px;
+  }
+  .milestone p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .cost-badge {
+    display: inline-block;
+    background: var(--gradient);
+    padding: 10px 32px;
+    border-radius: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: #fff;
+    margin-top: 12px;
+  }
+
+  .risk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    background: rgba(255,45,123,0.15);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .risk-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--neon-pink);
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--dark-card);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 60px 24px;
+    text-align: center;
+  }
+  footer p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  footer a {
+    color: var(--neon-orange);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--neon-pink); }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    section { padding: 60px 20px; }
+    .problem-grid,
+    .solution-grid,
+    .market-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .solution-img { order: 0; }
+    .feature-cards,
+    .biz-grid {
+      grid-template-columns: 1fr;
+    }
+    .milestone-row {
+      grid-template-columns: 1fr;
+    }
+    .stat-row { flex-direction: column; }
+    .problem-img img,
+    .solution-img img,
+    .market-img img {
+      height: 280px;
+    }
+    .image-break { height: 250px; }
+    .hero h1 { font-size: 3.2rem; }
+    .sti-badge { top: 12px; left: 12px; font-size: 0.8rem; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STI Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">A New Kind of Dining Destination</div>
+    <h1>The Boardwalk</h1>
+    <p class="hero-tagline">Your favorite restaurants, all under one roof.</p>
+    <p class="hero-pitch">The Boardwalk transforms vacant big-box retail spaces into vibrant multi-restaurant food halls where independent chefs share infrastructure, staff, and foot traffic. A curated dining experience meets restaurant incubator, with bars, lounges, and entertainment built in.</p>
+    <a href="#problem" class="cta-btn">Explore the Concept</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="problem-grid reveal">
+      <div>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Restaurants Are Risky. Retail Is Dying.</h2>
+        <p class="section-text">Starting a restaurant is one of the riskiest ventures in business. Owners face enormous upfront costs, the pressure to find a prime location, and the challenge of building a customer base from zero. One or two bad quarters can sink the entire operation. Meanwhile, thousands of prime retail spaces sit empty as big-box stores close their doors for good.</p>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num">60%</div>
+            <div class="stat-label">of restaurants fail within the first year</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">12,000+</div>
+            <div class="stat-label">big-box retail closures since 2020</div>
+          </div>
+        </div>
+      </div>
+      <div class="problem-img">
+        <img src="https://images.unsplash.com/photo-1758402277819-2517d9ab960b?auto=format&fit=crop&w=1200&q=80" alt="Empty retail storefront at night" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE BREAK -->
+<div class="image-break">
+  <img src="https://images.unsplash.com/photo-1751139778783-a8c6ac155bc5?auto=format&fit=crop&w=1200&q=80" alt="Bustling food hall with diners" loading="lazy">
+  <div class="image-break-overlay"></div>
+</div>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <div class="solution-grid reveal">
+      <div>
+        <div class="section-label">The Solution</div>
+        <h2 class="section-title">Diversify the Restaurant.</h2>
+        <p class="section-text">Just like a smart investor diversifies their portfolio, The Boardwalk diversifies the restaurant experience. We lease vacant big-box spaces and transform them into curated food destinations with multiple independent restaurants, a bar, and an entertainment venue.</p>
+        <div class="solution-steps">
+          <div class="solution-step">
+            <span class="step-num">01</span>
+            <span class="step-text">Lease a vacant big-box retail location in a high-traffic suburban area</span>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">02</span>
+            <span class="step-text">Build out shared kitchen infrastructure, service areas, and dining spaces</span>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">03</span>
+            <span class="step-text">Recruit independent restaurateurs with proven menus but limited capital</span>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">04</span>
+            <span class="step-text">Operate the bar, lounge, and events in-house for maximum revenue</span>
+          </div>
+        </div>
+      </div>
+      <div class="solution-img">
+        <img src="https://images.unsplash.com/photo-1760169799369-2b8574466735?auto=format&fit=crop&w=1200&q=80" alt="Chefs preparing food in a busy restaurant kitchen" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <div class="section-label">Key Features</div>
+      <h2 class="section-title">Everything a Restaurant Needs. Nothing It Doesn't.</h2>
+      <p class="section-text">The Boardwalk provides the infrastructure, marketing, and foot traffic. Chefs just bring their vision.</p>
+    </div>
+    <div class="feature-cards">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1760169799369-2b8574466735?auto=format&fit=crop&w=800&q=80" alt="Professional kitchen" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 21.99V21h15.03v.99c0 .55-.45 1-1 1H2c-.55 0-1-.45-1-1zm15.03-7c0-4.5-6.2-5-9.96-5.02L5.52 5.05H.98v2h3.68l.56 4.48c-2.98.54-4.22 2.14-4.22 3.46h15.03zm-9 5h7.97v-2H7.03v2z"/></svg>
+          </div>
+          <h3>Turnkey Restaurant Spaces</h3>
+          <p>Fully equipped kitchen infrastructure, shared service staff, and ready-to-go dining spaces. Walk in with your menu, walk out with a business.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1756713545237-7c97075b71da?auto=format&fit=crop&w=800&q=80" alt="Street food stall with neon signs" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+          </div>
+          <h3>Pop-Up Test Kitchen</h3>
+          <p>A rotating space for aspiring chefs to trial new concepts on a weekly basis. Prove your menu before committing to a permanent spot.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://plus.unsplash.com/premium_photo-1742946745277-d976f5022d4c?auto=format&fit=crop&w=800&q=80" alt="Cozy bar with ambient lighting" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 5V3H3v2l8 9v5H6v2h12v-2h-5v-5l8-9zM7.43 7L5.66 5h12.69l-1.78 2H7.43z"/></svg>
+          </div>
+          <h3>Bar, Lounge, and Events</h3>
+          <p>An on-site sports bar, jazz lounge, and event space for trivia nights, live music, and comedy. Give guests a reason to stay all evening.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80" alt="Friends dining together at a table" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Built-In Marketing Engine</h3>
+          <p>Social media polls, food competitions, and community events drive foot traffic for every tenant. Your audience is already here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE BREAK 2 -->
+<div class="image-break">
+  <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80" alt="Group of friends sharing a meal" loading="lazy">
+  <div class="image-break-overlay"></div>
+</div>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="market-content reveal">
+      <div>
+        <div class="section-label">The Opportunity</div>
+        <h2 class="section-title">A Trillion-Dollar Industry Meets Vacant Real Estate</h2>
+        <p class="section-text">The U.S. restaurant industry generates over $1 trillion annually. The food hall segment alone is estimated at $2.4 billion and growing at roughly 10% per year. With thousands of big-box retail closures creating available square footage in high-traffic locations, the addressable market is substantial.</p>
+        <div class="market-stats">
+          <div class="market-stat">
+            <div class="stat-num">$1T+</div>
+            <div class="stat-label">U.S. restaurant industry (annual)</div>
+          </div>
+          <div class="market-stat">
+            <div class="stat-num">$2.4B</div>
+            <div class="stat-label">Food hall market segment</div>
+          </div>
+          <div class="market-stat">
+            <div class="stat-num">10%</div>
+            <div class="stat-label">Annual food hall growth rate</div>
+          </div>
+          <div class="market-stat">
+            <div class="stat-num">12K+</div>
+            <div class="stat-label">Big-box closures since 2020</div>
+          </div>
+        </div>
+      </div>
+      <div class="market-img">
+        <img src="https://images.unsplash.com/photo-1676408577323-4dda604089f8?auto=format&fit=crop&w=1200&q=80" alt="Neon-lit restaurant at night" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="biz-plan" id="plan">
+  <div class="container">
+    <div class="biz-plan-header reveal">
+      <div class="section-label">Business Plan</div>
+      <h2 class="section-title">The Blueprint</h2>
+    </div>
+
+    <div class="biz-grid">
+      <!-- Revenue Model -->
+      <div class="biz-card reveal">
+        <div class="biz-card-label">Revenue Model</div>
+        <h3>Multiple Revenue Streams</h3>
+        <ul>
+          <li><span class="biz-bullet"></span><span>Revenue share with tenant restaurants (percentage of gross sales)</span></li>
+          <li><span class="biz-bullet"></span><span>Direct operation of the bar and entertainment lounge</span></li>
+          <li><span class="biz-bullet"></span><span>Short-term pop-up kitchen rental fees for test concepts</span></li>
+          <li><span class="biz-bullet"></span><span>Event hosting: trivia nights, live music, and comedy shows</span></li>
+          <li><span class="biz-bullet"></span><span>Ancillary revenue from merchandise and delivery partnerships</span></li>
+        </ul>
+      </div>
+
+      <!-- Go to Market -->
+      <div class="biz-card reveal">
+        <div class="biz-card-label">Go-To-Market Strategy</div>
+        <h3>Launch Local, Prove Fast</h3>
+        <p>Launch a flagship location in a suburban market with a recently vacated big-box space. Recruit 3 to 4 local restaurateurs with proven menus but limited capital, then operate the bar and lounge in-house. Generate buzz through a rotating pop-up chef series and aggressive local social media marketing, then expand to a second location within 18 months.</p>
+      </div>
+
+      <!-- Competitive Advantage -->
+      <div class="biz-card reveal">
+        <div class="biz-card-label">Competitive Advantage</div>
+        <h3>Incubation Creates Urgency</h3>
+        <p>Unlike traditional food courts tied to malls or purpose-built food halls requiring millions in construction, The Boardwalk repurposes existing big-box retail shells at a fraction of the cost. The incubator model creates a pipeline of graduating restaurants that drives constant novelty, consumer urgency, and word-of-mouth marketing that static food halls cannot replicate.</p>
+      </div>
+
+      <!-- Startup Cost -->
+      <div class="biz-card reveal">
+        <div class="biz-card-label">Startup Cost Estimate</div>
+        <h3>Getting to Launch</h3>
+        <p>Estimated investment to open the first flagship location, including lease, buildout, kitchen equipment, initial staffing, and six months of operating runway:</p>
+        <div class="cost-badge">$500K - $1.5M</div>
+      </div>
+
+      <!-- Milestones -->
+      <div class="biz-card biz-wide reveal">
+        <div class="biz-card-label">Year One Milestones</div>
+        <div class="milestone-row">
+          <div class="milestone">
+            <div class="milestone-num">01</div>
+            <p>Open flagship location with 3 restaurant tenants, 1 bar, and 1 lounge within 6 months of lease signing</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-num">02</div>
+            <p>Host 50+ events including trivia nights, live music, and pop-up chef series in the first year</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-num">03</div>
+            <p>Achieve 80% tenant occupancy and positive unit economics by month 10</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risks -->
+      <div class="biz-card biz-wide reveal">
+        <div class="biz-card-label">Key Risks</div>
+        <div class="risk-item">
+          <div class="risk-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <p>Negotiating favorable leases on big-box spaces and managing buildout costs could exceed projections, especially in high-demand markets.</p>
+        </div>
+        <div class="risk-item">
+          <div class="risk-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <p>Tenant restaurant quality and consistency is difficult to control across multiple independent operators with varying levels of experience.</p>
+        </div>
+        <div class="risk-item">
+          <div class="risk-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <p>Consumer foot traffic may take time to build in locations not traditionally associated with dining destinations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">The Boardwalk</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=yt_xKDyYDPM" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+    <p style="margin-top: 8px; font-size: 0.85rem;">A business idea, not a real company. Built for dreamers and doers.</p>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "slug": "groupie",
+  "company_name": "Groupie",
+  "tagline": "Better errands with better company.",
+  "elevator_pitch": "Groupie is a social coordination app that turns boring errands and chores into shared experiences with your friend group. By matching friends who need to do similar tasks and leveraging location awareness, Groupie makes everyday to-dos more fun while saving everyone time and trips.",
+  "problem": "Everyone has a never-ending list of errands and chores they dread doing alone: flu shots, oil changes, grocery runs, IKEA trips. These tasks pile up because they feel tedious in isolation. Meanwhile, your friends are doing the same things separately, missing the chance to combine efforts or simply enjoy each other's company.",
+  "solution": "Groupie lets friend groups share their to-do lists and automatically matches people with overlapping tasks or nearby locations. When two friends both need flu shots, Groupie suggests they go together. When someone is already at Target, friends get a notification and can request a quick pickup. A built-in favor economy with coin exchanges and Venmo integration keeps things fair and frictionless.",
+  "target_market": "Young adults (ages 20-35) living in close proximity to their friend groups, especially in suburban areas. Roommates, college friends who stayed local, young professionals, and tight-knit neighborhood communities who already text each other about errands informally.",
+  "revenue_model": "Freemium model: free tier for basic task sharing and group coordination. Premium tier ($4.99/month) unlocks advanced features like smart location-based notifications, Venmo/payment integration, spending thresholds, and analytics on your favor balance. Additional revenue from local business partnerships offering deals when groups visit together.",
+  "key_features": [
+    "Task matching that pairs friends with overlapping errands and suggests group outings",
+    "Location-aware notifications that alert your group when someone is near a useful store or restaurant",
+    "Favor coin system that tracks who has helped whom, keeping the give-and-take balanced",
+    "One-tap payment integration with Venmo and Apple Pay for instant reimbursements"
+  ],
+  "competitive_advantage": "Unlike generic group chat or calendar apps, Groupie is purpose-built for real-world coordination among close friend groups. The combination of task matching, location awareness, and a favor economy creates a unique social layer that no existing app replicates. Network effects within friend groups drive organic retention.",
+  "market_size_estimate": "The social planning and coordination app market sits within the broader social networking space ($150B+ globally). With 70M+ Americans aged 20-35 and an estimated 30% who regularly coordinate errands with friends, the addressable market at $5/month is roughly $1.2B annually in the US alone.",
+  "go_to_market": "Launch as a free app targeting college towns and dense suburban friend groups through TikTok and Instagram influencer campaigns. Seed initial groups by partnering with local businesses (coffee shops, gyms) who offer group discounts. Focus on one metro area first to build density before expanding.",
+  "risks": [
+    "Network effects require a critical mass of friends on the platform before it becomes useful, creating a cold-start problem",
+    "Users may default to existing group chats (iMessage, WhatsApp) for the same coordination, limiting switching incentives",
+    "Location tracking features may raise privacy concerns and require careful opt-in design to avoid feeling invasive"
+  ],
+  "year_one_milestones": [
+    "Launch MVP with task sharing, group matching, and basic notifications in 3 target metro areas",
+    "Reach 50,000 active users across 10,000 friend groups with 60%+ weekly retention",
+    "Secure partnerships with 200+ local businesses offering group visit perks"
+  ],
+  "startup_cost_range": "$150,000 - $350,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=Qwh_ys32_B4",
+  "episode_number": 112
+}

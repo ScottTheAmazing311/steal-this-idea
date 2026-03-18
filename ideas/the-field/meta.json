@@ -1,0 +1,34 @@
+{
+  "slug": "the-field",
+  "company_name": "The Field",
+  "tagline": "Your indoor park. Rain or shine.",
+  "elevator_pitch": "The Field transforms abandoned big-box retail spaces into year-round indoor community parks. With astroturf fields, walking tracks, playgrounds for every age group, and local food vendors, it solves the universal problem of having nowhere affordable and casual to gather, regardless of the weather.",
+  "problem": "Families, teens, and young adults are constantly searching for affordable, casual places to hang out. Outdoor parks are unusable in extreme heat or cold. Meanwhile, thousands of abandoned Walmarts and dead malls sit empty across the country, wasting valuable community space.",
+  "solution": "The Field repurposes vacant big-box retail buildings into vibrant indoor parks featuring astroturf areas, walking tracks, age-specific playgrounds, game rentals, and local food kiosks. It operates on a low-cost admission model with shifting programming throughout the day to serve families, teens, and adults alike.",
+  "target_market": "Families with young children seeking safe indoor play spaces, teenagers looking for inexpensive hangout spots, young adults wanting casual social gathering places, and communities in regions with extreme weather (hot summers, cold winters).",
+  "revenue_model": "Low admission fees ($5 per visit or monthly memberships), vendor booth rental for food kiosks and farmers market stalls, equipment and game rentals, event space bookings for birthday parties and community events, and corporate sponsorship naming rights from local and national brands.",
+  "key_features": [
+    "Year-round climate-controlled indoor park with astroturf fields and walking track",
+    "Age-zoned playgrounds for toddlers, kids, and teens with modern play structures",
+    "Local food vendor kiosks, farmers market stalls, and concession stands",
+    "Flexible day-part programming: family mornings, teen afternoons, adult evenings"
+  ],
+  "competitive_advantage": "No direct competitor occupies this niche between expensive indoor entertainment centers and free but weather-dependent outdoor parks. By repurposing existing vacant retail buildings, The Field dramatically reduces build-out costs and revitalizes dead commercial zones, creating goodwill with local governments and communities.",
+  "market_size_estimate": "There are over 11,000 vacant big-box retail stores in the US. The indoor recreation and entertainment market exceeds $30 billion annually. Even capturing a fraction of the family entertainment center market ($8B) with a lower-cost, community-focused model represents a multi-billion dollar TAM.",
+  "go_to_market": "Launch a pilot location in a mid-size city with an available vacant big-box store and extreme seasonal weather (e.g., Lehi, Utah or Boise, Idaho). Partner with a local corporate sponsor for naming rights to offset initial costs. Build a grassroots petition of local parents to demonstrate demand and secure municipal support.",
+  "risks": [
+    "Commercial real estate zoning restrictions may limit ability to convert retail spaces into recreational use",
+    "High ongoing costs for climate control, maintenance, insurance, and liability in a large indoor space",
+    "Difficulty maintaining a low price point while covering operational expenses without significant sponsorship revenue"
+  ],
+  "year_one_milestones": [
+    "Secure first vacant big-box location and complete indoor park buildout within 6 months",
+    "Reach 5,000 monthly visitors and sign 1,000 monthly memberships by end of year one",
+    "Onboard 10+ local food vendors and secure at least one major corporate naming sponsor"
+  ],
+  "startup_cost_range": "$500K - $1.5M (lease, renovation, astroturf installation, playground equipment, HVAC upgrades, insurance)",
+  "category": "Services",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=rIDjas6X6Sw",
+  "episode_number": 30
+}

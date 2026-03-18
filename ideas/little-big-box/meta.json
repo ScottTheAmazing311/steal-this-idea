@@ -1,0 +1,34 @@
+{
+  "slug": "little-big-box",
+  "company_name": "Little Big Box",
+  "tagline": "Nesting cardboard play worlds for kids.",
+  "elevator_pitch": "Little Big Box ships nested corrugated cardboard kits that unfold into entire play scenes: cities, farms, jungles, and more. Each set stacks like Russian dolls for easy storage, costs under $25, and recycles guilt-free when playtime is done.",
+  "problem": "Kids love playing with cardboard boxes, but random shipping boxes fall apart fast and lack any creative direction. Meanwhile, plastic playsets are expensive, bulky, hard to store, and terrible for the environment.",
+  "solution": "Little Big Box delivers themed sets of 8 to 10 nested corrugated boxes, each printed as a building, animal, or scene element. Thick double-wall cardboard stands up to real play. Included stickers, Velcro strips, and QR-activated sound effects turn simple boxes into immersive worlds.",
+  "target_market": "Parents of children ages 2 to 8 who value screen-free, imaginative play. Secondary markets include preschools, daycare centers, gift buyers, and eco-conscious families seeking recyclable toy alternatives.",
+  "revenue_model": "Direct-to-consumer e-commerce with themed kits priced at $20 to $30 each. Premium AR-enabled kits at $35 to $40. Subscription box option delivering a new theme monthly at $22/month. Bulk pricing for schools and daycares.",
+  "key_features": [
+    "Nested Russian-doll design: 8 to 10 boxes per kit, from large to small, all fitting inside one outer box for flat shipping and easy storage",
+    "Themed scene kits: City, Farm, Safari, Space, Ocean, and seasonal collections with printed artwork on all four sides",
+    "QR-powered sound and AR: scan codes on each box to hear animal sounds, city noise, or unlock augmented reality characters",
+    "Included play accessories: stickers, Velcro connectors, cut-out guides for doors and windows, and a printed scene script with educational prompts"
+  ],
+  "competitive_advantage": "No direct competitor combines the nested-box format with themed artwork and digital AR overlays. The product is extremely cheap to manufacture, lightweight to ship, and fully recyclable, creating a pricing moat that plastic toy companies cannot match.",
+  "market_size_estimate": "The U.S. toy market is roughly $38 billion annually. Creative and educational toys represent about 15% of that ($5.7B). Targeting eco-friendly, screen-free subcategories, the addressable market is approximately $800M to $1.2B.",
+  "go_to_market": "Launch on Kickstarter with a video showing kids unboxing and building a city scene. Use Instagram and TikTok parenting influencers to demonstrate the product in action. Follow up with an Amazon storefront and direct website sales.",
+  "risks": [
+    "Cardboard durability may not meet parent expectations for longevity compared to plastic toys",
+    "Low barriers to entry mean copycats could replicate the concept quickly",
+    "Shipping large but lightweight boxes may have unfavorable dimensional weight pricing from carriers"
+  ],
+  "year_one_milestones": [
+    "Fully fund a Kickstarter campaign with at least 2,000 backers in the first 30 days",
+    "Launch 6 themed kits and one seasonal holiday collection in the first 9 months",
+    "Reach $500K in gross revenue by month 12 through DTC, Amazon, and wholesale channels"
+  ],
+  "startup_cost_range": "$8,000 to $25,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=6D7PFi8MGSY",
+  "episode_number": 96
+}

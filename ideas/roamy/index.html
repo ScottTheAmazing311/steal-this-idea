@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roamy - Let Kids Roam. Stay in Range.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sunshine: #FFD166;
+  --coral: #FF6B6B;
+  --sky: #4ECDC4;
+  --navy: #2C3E6B;
+  --lavender: #A78BFA;
+  --cream: #FFF9F0;
+  --white: #FFFFFF;
+  --text: #2C3340;
+  --text-light: #5A6275;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--navy);
+  color: var(--sunshine);
+  padding: 8px 16px;
+  border-radius: 24px;
+  text-decoration: none;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(44,62,107,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sti-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44,62,107,0.4);
+}
+.sti-badge svg { width: 18px; height: 18px; fill: var(--sunshine); }
+
+/* Animations */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--sky) 0%, var(--lavender) 100%);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1400&q=80') center/cover;
+  opacity: 0.2;
+}
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+}
+.hero-circle:nth-child(1) { width: 400px; height: 400px; background: var(--sunshine); top: -100px; right: -100px; }
+.hero-circle:nth-child(2) { width: 250px; height: 250px; background: var(--coral); bottom: -50px; left: -80px; }
+.hero-circle:nth-child(3) { width: 180px; height: 180px; background: var(--white); top: 40%; left: 10%; }
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero-text h1 {
+  font-size: 4rem;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+.hero-tagline {
+  font-size: 1.5rem;
+  color: var(--sunshine);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.hero-pitch {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.9);
+  max-width: 500px;
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--sunshine);
+  color: var(--navy);
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255,209,102,0.4);
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 30px rgba(255,209,102,0.5);
+}
+.hero-image {
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.hero-image img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}
+.hero-image-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: var(--white);
+  padding: 12px 20px;
+  border-radius: 16px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Section base */
+.section {
+  padding: 100px 24px;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--sky);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: 2.8rem;
+  color: var(--navy);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-light);
+  max-width: 650px;
+  line-height: 1.8;
+}
+
+/* Problem */
+.problem {
+  background: var(--white);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 50px;
+}
+.problem-image {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+.problem-image img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+.problem-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.problem-card {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: 24px 28px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
+}
+.problem-card:hover { transform: translateX(8px); }
+.problem-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.problem-icon svg { width: 24px; height: 24px; }
+.problem-card h4 { font-size: 1.05rem; color: var(--navy); margin-bottom: 4px; }
+.problem-card p { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; }
+
+/* Solution */
+.solution {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a2847 100%);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.solution .section-label { color: var(--sunshine); }
+.solution .section-title { color: var(--white); }
+.solution .section-subtitle { color: rgba(255,255,255,0.75); }
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 50px;
+}
+.solution-visual {
+  position: relative;
+}
+.solution-image {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.solution-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.solution-float {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--sky);
+  color: var(--white);
+  padding: 16px 24px;
+  border-radius: 20px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 8px 30px rgba(78,205,196,0.4);
+}
+.solution-text p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 24px;
+}
+.solution-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sunshine);
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+}
+
+/* Features */
+.features {
+  background: var(--cream);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+.feature-card {
+  background: var(--white);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.1);
+}
+.feature-img {
+  height: 200px;
+  overflow: hidden;
+}
+.feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.feature-card:hover .feature-img img { transform: scale(1.08); }
+.feature-body {
+  padding: 28px;
+}
+.feature-icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.feature-icon-wrap svg { width: 26px; height: 26px; }
+.feature-body h3 {
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.feature-body p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* Market */
+.market {
+  background: var(--white);
+  position: relative;
+}
+.market-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 50px;
+}
+.market-image {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+.market-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.market-content h3 {
+  font-size: 1.6rem;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+.market-content p {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.market-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.market-metric {
+  background: linear-gradient(135deg, var(--sky), var(--lavender));
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  color: var(--white);
+}
+.market-metric-value {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.market-metric-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* Business Plan */
+.business-plan {
+  background: linear-gradient(135deg, #F8F4FF 0%, #FFF4E6 100%);
+}
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+.plan-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.plan-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.plan-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.plan-card-icon svg { width: 22px; height: 22px; }
+.plan-card h3 {
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.plan-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+}
+.plan-card ul li {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.6;
+}
+.plan-card ul li:last-child { border-bottom: none; }
+.plan-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.plan-full {
+  grid-column: 1 / -1;
+}
+
+/* Footer */
+.footer {
+  background: var(--navy);
+  color: var(--white);
+  padding: 60px 24px;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sunshine);
+  margin-bottom: 12px;
+}
+.footer p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+.footer a {
+  color: var(--sky);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+.footer a:hover { color: var(--sunshine); }
+.footer-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--lavender);
+  margin: 24px auto;
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-content, .problem-grid, .solution-grid, .market-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero-text h1 { font-size: 2.8rem; }
+  .section-title { font-size: 2.2rem; }
+  .features-grid, .plan-grid { grid-template-columns: 1fr; }
+  .plan-full { grid-column: auto; }
+  .hero-content { padding-top: 100px; }
+  .solution-float { right: 10px; bottom: -10px; }
+}
+
+@media (max-width: 600px) {
+  .hero-text h1 { font-size: 2.2rem; }
+  .section { padding: 70px 16px; }
+  .market-metrics, .solution-stats { grid-template-columns: 1fr; }
+  .sti-badge { top: 12px; left: 12px; font-size: 0.75rem; padding: 6px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-shapes">
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Roamy</h1>
+      <p class="hero-tagline">Let kids roam. Stay in range.</p>
+      <p class="hero-pitch">A slim GPS wristband that replaces bulky smartwatches with simple geofence technology. Parents set a safe zone, kids get freedom to explore, and everyone stays worry-free.</p>
+      <a href="#features" class="btn-primary">Explore Roamy</a>
+    </div>
+    <div class="hero-image reveal-right">
+      <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=800&q=80" alt="Kids playing outdoors">
+      <div class="hero-image-badge">
+        <svg style="width:16px;height:16px;vertical-align:middle;margin-right:6px;fill:#4ECDC4" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        Freedom within boundaries
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem Section -->
+<section class="problem section">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">Helicopter parenting is the new default</h2>
+      <p class="section-subtitle">Kids have lost the freedom to explore their neighborhoods. Parents are more anxious than ever, and existing solutions only feed the cycle of constant surveillance.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-image reveal-left">
+        <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&w=800&q=80" alt="Parent watching child on phone">
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card reveal-right" style="transition-delay:0.1s">
+          <div class="problem-icon" style="background:rgba(255,107,107,0.12)">
+            <svg viewBox="0 0 24 24" fill="#FF6B6B"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          </div>
+          <div>
+            <h4>Constant surveillance culture</h4>
+            <p>GPS watches with two-way calling reinforce the habit of checking in every few minutes, removing any sense of real independence.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal-right" style="transition-delay:0.2s">
+          <div class="problem-icon" style="background:rgba(167,139,250,0.12)">
+            <svg viewBox="0 0 24 24" fill="#A78BFA"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          </div>
+          <div>
+            <h4>Expensive monthly plans</h4>
+            <p>Most kids' GPS watches cost $200 upfront plus $10 to $15 per month for cellular service. That adds up fast with multiple children.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal-right" style="transition-delay:0.3s">
+          <div class="problem-icon" style="background:rgba(78,205,196,0.12)">
+            <svg viewBox="0 0 24 24" fill="#4ECDC4"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </div>
+          <div>
+            <h4>Bulky, distracting devices</h4>
+            <p>Kids' smartwatches are chunky gadgets loaded with features that distract from outdoor play. They feel more like electronic leashes than tools for freedom.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solution Section -->
+<section class="solution section">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">The Solution</p>
+      <h2 class="section-title">A wristband, not a leash</h2>
+      <p class="section-subtitle">Roamy flips the script on kids' safety tech. Instead of tracking every move, it sets boundaries and lets kids be kids.</p>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-visual reveal-left">
+        <div class="solution-image">
+          <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80" alt="Kids exploring nature">
+        </div>
+        <div class="solution-float">No monthly cell plan needed</div>
+      </div>
+      <div class="solution-text reveal-right">
+        <p>Parents draw a safe zone on a map using the Roamy app. It could be the neighborhood, the area around school, or a park. The slim wristband tracks your child's location via GPS and gently vibrates when they approach the boundary.</p>
+        <p>If they cross the line, an alert sounds. No two-way calling, no texting, no distractions. Just a simple, affordable tool that promotes real independence while giving parents genuine peace of mind.</p>
+        <div class="solution-stats">
+          <div class="stat-card">
+            <div class="stat-number">$49</div>
+            <div class="stat-label">Starting price</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$0</div>
+            <div class="stat-label">Monthly required fee</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">72hr</div>
+            <div class="stat-label">Battery life</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">15g</div>
+            <div class="stat-label">Lightweight design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center">
+      <p class="section-label">Key Features</p>
+      <h2 class="section-title">Built for freedom, designed for safety</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal" style="transition-delay:0.1s">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="Phone showing map app">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon-wrap" style="background:rgba(78,205,196,0.12)">
+            <svg viewBox="0 0 24 24" fill="#4ECDC4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          </div>
+          <h3>Custom Geofence Zones</h3>
+          <p>Draw safe zones directly on a map from your phone. Set different zones for home, school, the park, or grandma's house. Adjust the radius as your child earns more trust.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.2s">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=800&q=80" alt="Kid wearing a bracelet outdoors">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon-wrap" style="background:rgba(255,209,102,0.15)">
+            <svg viewBox="0 0 24 24" fill="#FFD166"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>Slim Wristband Design</h3>
+          <p>Inspired by Livestrong bracelets, Roamy is lightweight and comfortable. Kids actually want to wear it. No chunky screens, no buttons to fidget with, just a sleek band in fun colors.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.3s">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Group of kids together">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon-wrap" style="background:rgba(167,139,250,0.12)">
+            <svg viewBox="0 0 24 24" fill="#A78BFA"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Relay Network</h3>
+          <p>Like Tile, Roamy uses a mesh of nearby parents to extend coverage. As the network grows, so does precision. More Roamy users in your neighborhood means better tracking for everyone.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.4s">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80" alt="Family walking together">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon-wrap" style="background:rgba(255,107,107,0.12)">
+            <svg viewBox="0 0 24 24" fill="#FF6B6B"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <h3>No Cell Plan Required</h3>
+          <p>Core GPS and geofence alerts work without a monthly cellular subscription. Optional premium features are available for $3/month, but the essentials are always free.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Market Section -->
+<section class="market section">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Market Opportunity</p>
+      <h2 class="section-title">50 million reasons to build this</h2>
+    </div>
+    <div class="market-layout">
+      <div class="market-content reveal-left">
+        <h3>A growing market for kids' safety tech</h3>
+        <p>There are over 50 million US households with children under 13. The global kids GPS tracker market is valued at roughly $1.5 billion and growing at 15% annually. Parents are spending more on safety tech, but nobody has built a product that promotes independence over surveillance.</p>
+        <p>Even capturing 1% of this market at a $60 average selling price represents $30 million in revenue potential.</p>
+        <div class="market-metrics">
+          <div class="market-metric">
+            <div class="market-metric-value">$1.5B</div>
+            <div class="market-metric-label">Global GPS Tracker Market</div>
+          </div>
+          <div class="market-metric">
+            <div class="market-metric-value">15%</div>
+            <div class="market-metric-label">Annual Growth Rate</div>
+          </div>
+          <div class="market-metric">
+            <div class="market-metric-value">50M+</div>
+            <div class="market-metric-label">US Households with Kids</div>
+          </div>
+          <div class="market-metric">
+            <div class="market-metric-value">$30M</div>
+            <div class="market-metric-label">Revenue at 1% Penetration</div>
+          </div>
+        </div>
+      </div>
+      <div class="market-image reveal-right">
+        <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=800&q=80" alt="Children playing in neighborhood">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business Plan Section -->
+<section class="business-plan section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-title">The path from concept to market</h2>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-card reveal" style="transition-delay:0.1s">
+        <div class="plan-card-header">
+          <div class="plan-card-icon" style="background:rgba(78,205,196,0.12)">
+            <svg viewBox="0 0 24 24" fill="#4ECDC4"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          </div>
+          <h3>Revenue Model</h3>
+        </div>
+        <p>Direct-to-consumer hardware sales at $49 to $79 per band, with an optional premium app tier at $3/month for advanced features like relay network tracking, multi-child dashboards, and historical route data. No mandatory monthly subscription for core functionality.</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.2s">
+        <div class="plan-card-header">
+          <div class="plan-card-icon" style="background:rgba(255,209,102,0.15)">
+            <svg viewBox="0 0 24 24" fill="#FFD166"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+          </div>
+          <h3>Go-to-Market Strategy</h3>
+        </div>
+        <p>Launch on Kickstarter to validate demand and build a community of early-adopter parents. Partner with parenting influencers and mommy bloggers for organic reach. Sell direct-to-consumer via web store, then expand into Target and Amazon.</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.3s">
+        <div class="plan-card-header">
+          <div class="plan-card-icon" style="background:rgba(167,139,250,0.12)">
+            <svg viewBox="0 0 24 24" fill="#A78BFA"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          </div>
+          <h3>Competitive Advantage</h3>
+        </div>
+        <p>Unlike chunky kids' smartwatches that cost $200 plus $15/month in cell service, Roamy is affordable, minimal, and philosophically different. It promotes independence instead of surveillance, resonating with parents who remember the freedom of their own childhoods.</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.4s">
+        <div class="plan-card-header">
+          <div class="plan-card-icon" style="background:rgba(255,107,107,0.12)">
+            <svg viewBox="0 0 24 24" fill="#FF6B6B"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          </div>
+          <h3>Startup Cost Estimate</h3>
+        </div>
+        <p>Estimated $75,000 to $150,000 to reach MVP. Covers hardware prototyping, firmware development, companion app for iOS and Android, initial manufacturing run, and crowdfunding campaign setup.</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.5s">
+        <div class="plan-card-header">
+          <div class="plan-card-icon" style="background:rgba(78,205,196,0.12)">
+            <svg viewBox="0 0 24 24" fill="#4ECDC4"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+          </div>
+          <h3>Year One Milestones</h3>
+        </div>
+        <ul>
+          <li><span class="plan-dot" style="background:var(--sky)"></span>Launch crowdfunding campaign and sell 5,000 units in the first 90 days</li>
+          <li><span class="plan-dot" style="background:var(--sunshine)"></span>Ship version 1.0 hardware and companion app for iOS and Android</li>
+          <li><span class="plan-dot" style="background:var(--lavender)"></span>Establish relay network with 10,000 active users across 3 metro areas</li>
+        </ul>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.6s">
+        <div class="plan-card-header">
+          <div class="plan-card-icon" style="background:rgba(255,209,102,0.15)">
+            <svg viewBox="0 0 24 24" fill="#FFD166"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <h3>Key Risks</h3>
+        </div>
+        <ul>
+          <li><span class="plan-dot" style="background:var(--coral)"></span>Parents may prefer two-way calling features of existing smartwatches over a simpler device</li>
+          <li><span class="plan-dot" style="background:var(--coral)"></span>Large tech companies like Apple or Google could add geofencing features to their existing products</li>
+          <li><span class="plan-dot" style="background:var(--coral)"></span>Privacy concerns around GPS tracking children could create regulatory or PR challenges</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">Roamy</div>
+  <p>This is a concept from the Steal This Idea podcast. It is not a real company (yet). Think you could build it? Go ahead and steal it.</p>
+  <div class="footer-divider"></div>
+  <p>
+    <a href="https://www.youtube.com/watch?v=kSZKuDvSj_k" target="_blank">Listen to the episode</a>
+  </p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

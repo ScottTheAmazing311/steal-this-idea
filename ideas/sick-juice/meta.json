@@ -1,0 +1,34 @@
+{
+  "slug": "sick-juice",
+  "company_name": "Sick Juice",
+  "tagline": "Your 3-stage defense against getting sick",
+  "elevator_pitch": "Sick Juice is a color-coded, 3-stage remedy system that covers every phase of feeling unwell: prevention, fighting it off, and recovery. Think of it as the Pepto-Bismol of cold and flu season, but designed for a generation that wants simple, intuitive wellness products.",
+  "problem": "When you start feeling sick, there is no single go-to product. You rummage through kitchen cabinets, wander the overwhelming medicine aisle, and end up drinking Sprite because that is all you know. The over-the-counter market is fragmented, confusing, and treats specific symptoms rather than guiding you through the stages of being sick.",
+  "solution": "Sick Juice offers three clearly labeled, color-coded beverages: Stage 1 (a preventative gargle with apple cider vinegar and soothing ingredients), Stage 2 (a vitamin-packed immunity drink for when you feel it coming on), and Stage 3 (a hydration and recovery formula for when you are fully sick). Each one is intuitive, clinical feeling, and always stocked in your fridge.",
+  "target_market": "Health-conscious adults aged 22 to 45 who want proactive wellness solutions but find the traditional medicine aisle overwhelming. Especially parents, busy professionals, and people who already buy products like Emergen-C, kombucha, or functional beverages.",
+  "revenue_model": "Direct-to-consumer subscription boxes (3-packs and 6-packs), retail placement in grocery and convenience stores, and expansion into powder packets. Premium pricing at $8 to $12 per bottle or $20 to $30 per variety pack, with subscription discounts for recurring orders.",
+  "key_features": [
+    "3-stage color-coded system: prevent, fight, recover",
+    "Formulated with apple cider vinegar, electrolytes, vitamins, and natural ingredients",
+    "Fridge-ready bottles with extended shelf life",
+    "Available in both premixed bottles and powder packet formats"
+  ],
+  "competitive_advantage": "Unlike Emergen-C (single stage), Pedialyte (recovery only), or NyQuil (symptom masking), Sick Juice owns the entire sick journey. The 3-stage branding creates a simple, memorable framework that becomes your default when illness strikes, similar to how Pepto-Bismol owns stomach issues.",
+  "market_size_estimate": "The U.S. OTC cough, cold, and flu market is approximately $10 billion annually. The functional beverage market exceeds $50 billion. Sick Juice targets the intersection: a roughly $2 to $4 billion addressable market of wellness-oriented consumers seeking alternatives to traditional medicine.",
+  "go_to_market": "Launch direct-to-consumer via a Shopify store and social media marketing, targeting wellness influencers and health-focused content creators. Seed product with subscription boxes, then pursue retail placement in Whole Foods, Target, and convenience stores during flu season.",
+  "risks": [
+    "FDA regulatory scrutiny if health claims are too aggressive",
+    "Consumer skepticism about efficacy versus established OTC brands",
+    "Seasonal demand fluctuation outside of cold and flu season"
+  ],
+  "year_one_milestones": [
+    "Launch DTC store and sell 50,000 units in the first flu season",
+    "Secure placement in 200+ retail locations regionally",
+    "Build a subscriber base of 5,000 recurring customers"
+  ],
+  "startup_cost_range": "$75,000 to $200,000",
+  "category": "Health",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=DqE-IAk1t-U",
+  "episode_number": 40
+}

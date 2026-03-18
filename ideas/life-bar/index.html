@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeBar - Your Daily Supplements, Served Fresh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --forest: #2D6A4F;
+      --sage: #52B788;
+      --mint: #B7E4C7;
+      --cream: #FEFAE0;
+      --sand: #F4F1DE;
+      --bark: #3D2C2E;
+      --terracotta: #BC6C25;
+      --linen: #FAF9F6;
+      --deep-green: #1B4332;
+    }
+    body { font-family: 'Karla', sans-serif; color: var(--bark); background: var(--linen); overflow-x: hidden; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Badge */
+    .badge { position: fixed; top: 20px; left: 20px; z-index: 1000; background: var(--deep-green); color: var(--mint); padding: 10px 18px; border-radius: 30px; text-decoration: none; font-family: 'Karla', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0,0,0,0.15); transition: transform 0.3s; display: flex; align-items: center; gap: 8px; }
+    .badge:hover { transform: scale(1.03); }
+    .badge svg { width: 16px; height: 16px; stroke: var(--sage); fill: none; stroke-width: 2; }
+
+    /* Hero */
+    .hero { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; background: var(--deep-green); }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+    .hero-content { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 40px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; }
+    .hero-text h1 { font-family: 'Libre Baskerville', serif; font-size: clamp(3.5rem, 8vw, 6rem); color: white; line-height: 1.05; font-weight: 700; }
+    .hero-text h1 span { color: var(--sage); }
+    .hero-text .tagline { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 1.2rem; color: var(--mint); margin: 20px 0 16px; }
+    .hero-text .pitch { font-size: 1.05rem; line-height: 1.9; color: rgba(255,255,255,0.8); font-weight: 300; }
+    .hero-text .cta-btn { display: inline-block; margin-top: 32px; background: var(--sage); color: var(--deep-green); font-weight: 700; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; padding: 16px 40px; border-radius: 50px; text-decoration: none; transition: all 0.3s; }
+    .hero-text .cta-btn:hover { background: var(--mint); transform: translateY(-2px); }
+    .hero-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .hero-shots img { width: 100%; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .hero-shots img:first-child { grid-column: 1 / -1; }
+
+    /* Leaf divider */
+    .leaf-divider { background: var(--forest); padding: 20px 0; text-align: center; }
+    .leaf-divider svg { width: 40px; height: 40px; fill: var(--mint); opacity: 0.5; }
+
+    /* Problem */
+    .problem { padding: 120px 20px; background: var(--cream); }
+    .problem .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .problem img { width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+    .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--forest); margin-bottom: 14px; }
+    .problem h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--bark); margin-bottom: 20px; line-height: 1.3; }
+    .problem p { font-size: 1.05rem; line-height: 1.9; color: #666; font-weight: 300; }
+
+    /* Solution */
+    .solution { padding: 120px 20px; background: var(--deep-green); color: white; }
+    .solution .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .solution .images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .solution .images img { width: 100%; border-radius: 12px; height: 200px; object-fit: cover; }
+    .solution .images img:last-child { grid-column: 1 / -1; height: 220px; }
+    .solution h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: white; margin-bottom: 20px; line-height: 1.3; }
+    .solution .eyebrow { color: var(--sage); }
+    .solution p { font-size: 1.05rem; line-height: 1.9; color: rgba(255,255,255,0.8); font-weight: 300; }
+
+    /* Features */
+    .features { padding: 120px 20px; background: var(--sand); }
+    .features .container { max-width: 1200px; margin: 0 auto; }
+    .features h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2.5rem, 5vw, 3.2rem); text-align: center; color: var(--bark); margin-bottom: 12px; }
+    .features .sub { text-align: center; font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--forest); font-size: 1.1rem; margin-bottom: 60px; }
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+    .feat-item { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 30px rgba(0,0,0,0.05); transition: transform 0.4s; }
+    .feat-item:hover { transform: translateY(-5px); }
+    .feat-item img { width: 100%; height: 190px; object-fit: cover; }
+    .feat-item-body { padding: 24px; }
+    .feat-item-body .dot-line { display: flex; gap: 6px; margin-bottom: 14px; }
+    .feat-item-body .dot-line span { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); }
+    .feat-item h3 { font-family: 'Libre Baskerville', serif; font-size: 1.15rem; color: var(--bark); margin-bottom: 10px; }
+    .feat-item p { font-size: 0.92rem; line-height: 1.7; color: #777; font-weight: 300; }
+
+    /* Market */
+    .market { padding: 120px 20px; background: var(--forest); color: white; }
+    .market .container { max-width: 1100px; margin: 0 auto; }
+    .market-banner { position: relative; border-radius: 16px; overflow: hidden; margin-bottom: 50px; }
+    .market-banner img { width: 100%; height: 360px; object-fit: cover; display: block; }
+    .market-banner-text { position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,67,50,0.95) 30%, transparent 70%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; }
+    .market h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2.2rem, 5vw, 3rem); color: white; margin-bottom: 12px; }
+    .market .desc { font-size: 1.05rem; line-height: 1.9; color: rgba(255,255,255,0.75); max-width: 700px; font-weight: 300; }
+    .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px; }
+    .market-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 28px; text-align: center; }
+    .market-card .num { font-family: 'Libre Baskerville', serif; font-size: 2.5rem; color: var(--mint); font-weight: 700; }
+    .market-card .txt { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Business Plan */
+    .business-plan { padding: 120px 20px; background: var(--linen); }
+    .business-plan .container { max-width: 900px; margin: 0 auto; }
+    .business-plan h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2.5rem, 5vw, 3.2rem); text-align: center; color: var(--bark); margin-bottom: 8px; }
+    .business-plan .sub { text-align: center; font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--forest); font-size: 1.1rem; margin-bottom: 60px; }
+    .plan-card { background: white; border-radius: 14px; padding: 34px 38px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-left: 4px solid var(--sage); }
+    .plan-card h3 { font-family: 'Libre Baskerville', serif; font-size: 1.2rem; color: var(--bark); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+    .plan-card h3 .pc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+    .plan-card p, .plan-card li { font-size: 1rem; line-height: 1.9; color: #666; font-weight: 300; }
+    .plan-card ul { padding-left: 18px; }
+    .plan-card li { margin-bottom: 6px; }
+    .plan-card .cost-tag { display: inline-block; background: var(--deep-green); color: var(--mint); font-family: 'Karla', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; padding: 10px 28px; border-radius: 8px; margin-top: 10px; }
+
+    /* Footer */
+    footer { padding: 80px 20px; background: var(--deep-green); text-align: center; color: white; }
+    footer .logo { font-family: 'Libre Baskerville', serif; font-size: 2.2rem; font-weight: 700; color: var(--mint); margin-bottom: 16px; }
+    footer p { font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.8; font-weight: 300; }
+    footer a { color: var(--sage); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .hero-content { grid-template-columns: 1fr; padding: 120px 24px 60px; }
+      .hero-shots { display: none; }
+      .problem .container, .solution .container { grid-template-columns: 1fr; gap: 40px; }
+      .plan-card { padding: 26px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Badge -->
+  <a href="../index.html" class="badge">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    STEAL THIS IDEA
+  </a>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1600&q=80" alt="Fresh healthy ingredients">
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="reveal">Life<span>Bar</span></h1>
+        <p class="tagline reveal">Your daily supplements, served fresh.</p>
+        <p class="pitch reveal">A walk-in supplement bar where vitamins, minerals, and adaptogens are served as delicious, precisely dosed shots and drinks. Think of it as a coffee shop, but instead of caffeine, you are powering up with creatine, magnesium, omega-3s, and D3, all in forms that actually taste good.</p>
+        <a href="#" class="cta-btn reveal">Find Your Formula</a>
+      </div>
+      <div class="hero-shots reveal">
+        <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=800&q=80" alt="Colorful wellness shots in small glasses">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80" alt="Fresh healthy ingredients">
+        <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=800&q=80" alt="Wellness drinks being prepared">
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaf divider -->
+  <div class="leaf-divider">
+    <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+  </div>
+
+  <!-- Problem -->
+  <section class="problem">
+    <div class="container">
+      <div class="reveal">
+        <img src="https://images.unsplash.com/photo-1550572017-edd951aa8f72?auto=format&fit=crop&w=800&q=80" alt="Bottles of supplements and pills">
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">The Problem</p>
+        <h2>We know what we need. We just hate how we get it.</h2>
+        <p>Most people know they should be taking supplements like magnesium, vitamin D, omega-3s, and creatine. But the experience is terrible. Chalky powders you mix into water and force down. Horse-pill capsules that are hard to swallow. Confusing dosages on bottles with tiny print. And then there is the biggest problem of all: the bottles just sit in your cabinet, forgotten. People want to be healthier. The delivery mechanism is what is broken.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution">
+    <div class="container">
+      <div class="reveal">
+        <p class="eyebrow">The Solution</p>
+        <h2>Walk in. Power up. Feel incredible.</h2>
+        <p>LifeBar serves supplements as crafted, great-tasting shots and small drinks. Walk in, tell the bar staff your goals or health profile, and get a personalized flight of wellness shots. Each one is precisely dosed, flavor-optimized, and served fresh. Your creatine tastes like a citrus spritz. Your magnesium comes in a lavender-honey blend. Your omega-3 is a smooth mango shot. It is the ritual of a coffee shop combined with the function of a pharmacy, without the sterile clinical feel of either.</p>
+      </div>
+      <div class="images reveal">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80" alt="Colorful health drinks">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Cozy cafe interior">
+        <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=800&q=80" alt="Fresh ingredients being prepared at a bar">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2 class="reveal">What is on the Menu</h2>
+      <p class="sub reveal">Precision nutrition that actually tastes good</p>
+      <div class="feat-grid">
+        <div class="feat-item reveal">
+          <img src="https://images.unsplash.com/photo-1607532941433-304659e8198a?auto=format&fit=crop&w=800&q=80" alt="Wellness shots lined up">
+          <div class="feat-item-body">
+            <div class="dot-line"><span></span><span></span><span></span></div>
+            <h3>Precision Wellness Shots</h3>
+            <p>Creatine, magnesium, D3, zinc, omega-3, and more. Each shot is precisely dosed and crafted to taste genuinely good.</p>
+          </div>
+        </div>
+        <div class="feat-item reveal">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="Personalized health consultation">
+          <div class="feat-item-body">
+            <div class="dot-line"><span></span><span></span><span></span></div>
+            <h3>Personalized Profiles</h3>
+            <p>Tell us your age, goals, and health needs. We build a custom supplement profile and mix exactly what your body wants.</p>
+          </div>
+        </div>
+        <div class="feat-item reveal">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Flight of drinks served on a board">
+          <div class="feat-item-body">
+            <div class="dot-line"><span></span><span></span><span></span></div>
+            <h3>Flight-Style Service</h3>
+            <p>Order a tray of 3-5 shots for a complete daily wellness routine. Throw them back one by one. It is part ritual, part nutrition.</p>
+          </div>
+        </div>
+        <div class="feat-item reveal">
+          <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=800&q=80" alt="Packaged health products for delivery">
+          <div class="feat-item-body">
+            <div class="dot-line"><span></span><span></span><span></span></div>
+            <h3>Take-Home Packs</h3>
+            <p>Subscribe to your custom blend delivered weekly. Pre-mixed, refrigerated, and ready. Your supplement routine on autopilot.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market -->
+  <section class="market">
+    <div class="container">
+      <div class="market-banner reveal">
+        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1200&q=80" alt="Active health-conscious people in a city">
+        <div class="market-banner-text">
+          <p class="eyebrow" style="color: var(--sage);">The Opportunity</p>
+          <h2>A $55 Billion Market, Served Poorly</h2>
+        </div>
+      </div>
+      <p class="desc reveal">The U.S. dietary supplement market is valued at over $55 billion and growing 7% annually. The juice and smoothie bar market adds another $3 billion. LifeBar sits at the intersection, targeting the growing segment of consumers who want functional nutrition in a convenient, social format. There is also an underserved market for a "third place" that is not a coffee shop or a bar.</p>
+      <div class="market-grid reveal">
+        <div class="market-card">
+          <div class="num">$55B+</div>
+          <div class="txt">Supplement Market</div>
+        </div>
+        <div class="market-card">
+          <div class="num">7%</div>
+          <div class="txt">Annual Growth</div>
+        </div>
+        <div class="market-card">
+          <div class="num">$3B</div>
+          <div class="txt">Juice Bar Market</div>
+        </div>
+        <div class="market-card">
+          <div class="num">77%</div>
+          <div class="txt">Adults Take Supplements</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Plan -->
+  <section class="business-plan">
+    <div class="container">
+      <h2 class="reveal">Business Plan</h2>
+      <p class="sub reveal">From flagship bar to personalized wellness brand</p>
+
+      <div class="plan-card reveal">
+        <h3><span class="pc-dot"></span> Revenue Model</h3>
+        <p>Per-visit sales of individual shots ($4-8 each) and curated flights ($12-20). Subscription memberships for daily regulars at a discount. Branded take-home shot packs for weekly use. Custom supplement profiles with personalized formulations at a premium tier. The subscription model creates predictable recurring revenue once customers find their routine.</p>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3><span class="pc-dot"></span> Go-to-Market Strategy</h3>
+        <p>Open a flagship location in a health-forward urban market like Austin, Portland, Salt Lake City, or Brooklyn. Partner with local gyms and fitness studios for cross-promotions. Build a strong social media presence around the "shot flight" visual aesthetic, which is inherently shareable. Offer first-visit free tastings to drive trial and lower the barrier to entry for supplement newcomers.</p>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3><span class="pc-dot"></span> Competitive Advantage</h3>
+        <p>While juice bars and smoothie shops exist, none focus specifically on supplement delivery as the core product. LifeBar owns the intersection of precise nutrition and great taste. The personalization engine and subscription model create sticky, recurring customers that generic juice bars cannot match. The shot-based format is also novel and social-media friendly, driving organic awareness.</p>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3><span class="pc-dot"></span> Year One Milestones</h3>
+        <ul>
+          <li>Open flagship location and serve 200+ customers per day within six months</li>
+          <li>Launch subscription membership program with 500+ recurring members</li>
+          <li>Develop and release a branded take-home shot pack line in 10 formulations</li>
+        </ul>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3><span class="pc-dot"></span> Startup Cost Estimate</h3>
+        <p>A single flagship location with bar buildout, initial inventory, and branding.</p>
+        <span class="cost-tag">$150,000 - $400,000</span>
+      </div>
+
+      <div class="plan-card reveal">
+        <h3><span class="pc-dot"></span> Key Risks</h3>
+        <ul>
+          <li>Supplement bars and juice bars already exist in major coastal cities; differentiation must be clear and consistent</li>
+          <li>FDA regulations around supplement claims and food service add compliance complexity that requires legal guidance</li>
+          <li>Customer education is required to shift people from pill-based supplement habits to a walk-in bar format</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="logo">LifeBar</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=_msfmD2S37U" target="_blank">Steal This Idea</a> podcast.</p>
+    <p>Not a real company (yet). Built for people who believe wellness should taste as good as it feels.</p>
+    <p style="margin-top: 24px;"><a href="../index.html">Browse All Ideas</a></p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

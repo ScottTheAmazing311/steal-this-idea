@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Loft - Where Kids Play, Parents Stay</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #FF6B6B;
+  --sunshine: #FFD93D;
+  --sky: #6BCB77;
+  --ocean: #4D96FF;
+  --plum: #9B59B6;
+  --cream: #FFF8F0;
+  --dark: #2D3436;
+  --warm-white: #FFFDF7;
+  --soft-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  --card-radius: 20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--dark);
+  background: var(--warm-white);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--dark);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sti-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+}
+.sti-badge svg { width: 18px; height: 18px; fill: var(--sunshine); }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1566140967404-b8b3932483f5?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.35);
+}
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: float 8s ease-in-out infinite;
+}
+.shape-1 { width: 300px; height: 300px; background: var(--coral); top: -50px; right: -80px; animation-delay: 0s; }
+.shape-2 { width: 200px; height: 200px; background: var(--sunshine); bottom: 10%; left: -60px; animation-delay: 2s; }
+.shape-3 { width: 150px; height: 150px; background: var(--sky); top: 30%; right: 15%; animation-delay: 4s; }
+.shape-4 { width: 250px; height: 250px; background: var(--ocean); bottom: -80px; right: 30%; animation-delay: 1s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: 2rem;
+  max-width: 800px;
+}
+.hero-content h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+}
+.hero-content h1 span {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--coral), var(--sunshine));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-tagline {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: rgba(255,255,255,0.9);
+}
+.hero-pitch {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.8;
+}
+.btn-primary {
+  display: inline-block;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, var(--coral), #FF8E53);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 24px rgba(255,107,107,0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(255,107,107,0.5);
+}
+.btn-secondary {
+  display: inline-block;
+  padding: 14px 36px;
+  background: transparent;
+  color: var(--dark);
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 3px solid var(--dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+  background: var(--dark);
+  color: #fff;
+}
+
+.scroll-arrow {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s ease infinite;
+}
+.scroll-arrow svg { width: 32px; height: 32px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 2; }
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(12px); }
+}
+
+/* Section base */
+section { padding: 100px 24px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  display: inline-block;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding: 6px 16px;
+  border-radius: 30px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+/* Problem */
+.problem {
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.problem .section-label { background: #FFE8E8; color: var(--coral); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-top: 2rem;
+}
+.problem-text p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+.problem-img {
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: var(--soft-shadow);
+}
+.problem-img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.problem-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 2rem;
+}
+.stat-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+.stat-card .stat-num {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--coral);
+}
+.stat-card .stat-desc {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Solution */
+.solution {
+  background: #fff;
+  position: relative;
+}
+.solution .section-label { background: #E8F5E9; color: var(--sky); }
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-top: 2rem;
+}
+.solution-img {
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: var(--soft-shadow);
+  position: relative;
+}
+.solution-img img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+.solution-text p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1.2rem;
+}
+.solution-highlights {
+  list-style: none;
+  margin-top: 1.5rem;
+}
+.solution-highlights li {
+  padding: 10px 0;
+  padding-left: 36px;
+  position: relative;
+  font-weight: 600;
+  color: var(--dark);
+}
+.solution-highlights li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky), #45B649);
+}
+
+/* Features */
+.features {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.features .section-label { background: rgba(255,255,255,0.2); color: #fff; }
+.features .section-title { color: #fff; }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 3rem;
+}
+.feature-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--card-radius);
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+.feature-card-img {
+  height: 200px;
+  overflow: hidden;
+}
+.feature-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.feature-card:hover .feature-card-img img {
+  transform: scale(1.05);
+}
+.feature-card-body {
+  padding: 28px;
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.feature-icon svg { width: 24px; height: 24px; fill: #fff; }
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.feature-card p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+}
+
+/* Image break */
+.image-break {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+.image-break img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.image-break-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,107,107,0.7), rgba(255,217,61,0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+.image-break-overlay blockquote {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #fff;
+  max-width: 700px;
+  line-height: 1.4;
+}
+
+/* Market */
+.market {
+  background: var(--cream);
+}
+.market .section-label { background: #E3F2FD; color: var(--ocean); }
+.market-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 2rem;
+  align-items: start;
+}
+.market-text p {
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+.market-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.market-num-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--soft-shadow);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.market-num-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.market-num-icon svg { width: 28px; height: 28px; fill: #fff; }
+.market-num-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+.market-num-card p {
+  font-size: 0.9rem;
+  color: #888;
+}
+.market-img {
+  margin-top: 3rem;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: var(--soft-shadow);
+}
+.market-img img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Business Plan */
+.biz-plan {
+  background: #fff;
+  position: relative;
+}
+.biz-plan .section-label { background: #F3E5F5; color: var(--plum); }
+.biz-plan-wrapper {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: 48px;
+  margin-top: 2rem;
+  box-shadow: var(--soft-shadow);
+}
+.biz-plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.biz-section {
+  margin-bottom: 2rem;
+}
+.biz-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--plum);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.biz-section h3 .biz-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--plum);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.biz-section h3 .biz-icon svg { width: 16px; height: 16px; fill: #fff; }
+.biz-section p, .biz-section li {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.8;
+}
+.biz-section ul {
+  list-style: none;
+  padding: 0;
+}
+.biz-section ul li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+.biz-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--plum);
+  opacity: 0.4;
+}
+.cost-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--plum), #8E44AD);
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 14px;
+  margin-top: 8px;
+}
+.biz-plan-full { grid-column: 1 / -1; }
+
+/* Footer */
+.footer {
+  background: var(--dark);
+  color: #fff;
+  padding: 60px 24px;
+  text-align: center;
+}
+.footer p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 8px;
+}
+.footer a {
+  color: var(--sunshine);
+  text-decoration: none;
+  font-weight: 700;
+}
+.footer a:hover { text-decoration: underline; }
+.footer-brand {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--coral), var(--sunshine));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* CTA band */
+.cta-band {
+  background: linear-gradient(135deg, var(--coral), #FF8E53);
+  padding: 80px 24px;
+  text-align: center;
+}
+.cta-band h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.cta-band p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+.btn-white {
+  display: inline-block;
+  padding: 16px 40px;
+  background: #fff;
+  color: var(--coral);
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+}
+.btn-white:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-grid,
+  .solution-grid,
+  .market-content,
+  .biz-plan-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .problem-stats { grid-template-columns: 1fr 1fr; }
+  .solution-img { order: -1; }
+  .biz-plan-wrapper { padding: 28px; }
+  section { padding: 60px 20px; }
+  .sti-badge { top: 12px; left: 12px; font-size: 0.7rem; padding: 6px 12px; }
+}
+@media (max-width: 480px) {
+  .problem-stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+  </div>
+  <div class="hero-content">
+    <h1><span>The Loft</span></h1>
+    <p class="hero-tagline">Where kids play, parents stay.</p>
+    <p class="hero-pitch">A membership-based indoor play space built around interactive toy zones. Your kids discover new favorites. You enjoy a coffee. Everyone leaves happy.</p>
+    <a href="#problem" class="btn-primary">Explore the Concept</a>
+  </div>
+  <div class="scroll-arrow">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="problem" id="problem">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">Bored kids. Frustrated parents. Dusty toys.</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-text reveal">
+        <p>Finding quality indoor activities for young children is surprisingly difficult. In the summer, it is too hot. In the winter, options shrink to overpriced play centers or fast-food playgrounds with sticky surfaces and questionable hygiene.</p>
+        <p>Meanwhile, every toy store keeps products sealed in boxes. Parents spend $30 on a toy their child played with for ten minutes. Kids never get to try before the family buys. The result: closets full of forgotten toys and wallets full of regret.</p>
+        <div class="problem-stats">
+          <div class="stat-card">
+            <div class="stat-num">$580</div>
+            <div class="stat-desc">Average annual spend on toys per child in the U.S.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">6 min</div>
+            <div class="stat-desc">Average time a child plays with a new toy before losing interest</div>
+          </div>
+        </div>
+      </div>
+      <div class="problem-img reveal">
+        <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80" alt="Child overwhelmed in a toy aisle" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solution -->
+<section class="solution" id="solution">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The Solution</span>
+      <h2 class="section-title">Play first. Buy what they love.</h2>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-img reveal">
+        <img src="https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?auto=format&fit=crop&w=800&q=80" alt="Children playing with colorful toys in a bright space" loading="lazy">
+      </div>
+      <div class="solution-text reveal">
+        <p>The Loft is a clean, beautifully designed indoor space with themed play zones for children ages 2 to 8. Think of it as a try-before-you-buy toy experience, combined with a comfortable lounge for parents.</p>
+        <p>Kids roam freely between zones: building with Legos, racing Hot Wheels, creating in a pretend kitchen, or testing their aim at the Nerf range. When they fall in love with something, parents can purchase it on the spot.</p>
+        <ul class="solution-highlights">
+          <li>Membership gets unlimited visits, all year</li>
+          <li>On-site cafe for parents to relax and socialize</li>
+          <li>Clean, supervised, and screen-free environment</li>
+          <li>Buy the exact toys your child already loves</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image break -->
+<div class="image-break">
+  <img src="https://images.unsplash.com/photo-1571210862729-78a52d3779a2?auto=format&fit=crop&w=1600&q=80" alt="Bright colorful play space" loading="lazy">
+  <div class="image-break-overlay">
+    <blockquote class="reveal">"The toy store should be all interactive. Out on the floor, it should just be toys to play with."</blockquote>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Play Zones</span>
+      <h2 class="section-title">Built for imagination. Designed for parents.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=800&q=80" alt="Colorful toy blocks and building zone" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" style="background: var(--coral);">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H5V5h7v12z"/></svg>
+          </div>
+          <h3>Themed Play Zones</h3>
+          <p>From Lego and block building areas to doll stations, pretend kitchens, train tracks, and a Nerf shooting range. Every zone is curated by age and interest.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Parent enjoying coffee in a bright cafe" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" style="background: var(--sky);">
+            <svg viewBox="0 0 24 24"><path d="M2 21h18v-2H2v2zM20 8h-2V5h2v3zm0 2H4V8l8-5 8 5v2zm-6 4h-4v-4h4v4z"/></svg>
+          </div>
+          <h3>Parent Cafe Lounge</h3>
+          <p>Quality beverages, snacks, and comfortable seating. Chat with other parents, catch up on emails, or simply relax while your kids are supervised and entertained.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80" alt="Child discovering a new toy with excitement" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" style="background: var(--ocean);">
+            <svg viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2z"/></svg>
+          </div>
+          <h3>Buy What They Love</h3>
+          <p>When your child connects with a toy, walk up to the counter and purchase it. No guessing games. No buyer's remorse. Every purchase is already kid-tested and approved.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=800&q=80" alt="Sponsored toy spotlight display" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" style="background: var(--sunshine);">
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+          <h3>Featured Toy Spotlight</h3>
+          <p>Each month, toy brands sponsor a highlighted zone to showcase new products. Kids get early access to the latest toys. Brands get invaluable, real-world feedback from their target audience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Market -->
+<section class="market" id="market">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The Opportunity</span>
+      <h2 class="section-title">A market waiting to play.</h2>
+    </div>
+    <div class="market-content">
+      <div class="market-text reveal">
+        <p>The U.S. indoor recreation industry exceeds $35 billion per year, and the domestic toy market adds another $38 billion. Yet there is almost no overlap: places where kids can play with real toys in a comfortable, family-friendly setting.</p>
+        <p>With Toys "R" Us gone, families lost the closest thing to an interactive toy destination. Parents are looking for screen-free, climate-controlled spaces that keep kids entertained for hours. The Loft fills that gap with a membership model that builds loyalty and recurring revenue.</p>
+        <p>Roughly 20 million U.S. households have children under 8. Even a single suburban location capturing a fraction of local demand can produce strong, sustainable unit economics across three distinct revenue streams.</p>
+      </div>
+      <div class="market-numbers reveal">
+        <div class="market-num-card">
+          <div class="market-num-icon" style="background: linear-gradient(135deg, var(--coral), #FF8E53);">
+            <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+          </div>
+          <div>
+            <h4>$35B+</h4>
+            <p>U.S. indoor recreation industry (annual)</p>
+          </div>
+        </div>
+        <div class="market-num-card">
+          <div class="market-num-icon" style="background: linear-gradient(135deg, var(--ocean), #2196F3);">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <div>
+            <h4>$38B</h4>
+            <p>U.S. toy market (annual)</p>
+          </div>
+        </div>
+        <div class="market-num-card">
+          <div class="market-num-icon" style="background: linear-gradient(135deg, var(--sky), #45B649);">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <div>
+            <h4>20M</h4>
+            <p>U.S. households with children under 8</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business Plan -->
+<section class="biz-plan" id="plan">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Business Plan</span>
+      <h2 class="section-title">How The Loft becomes a business.</h2>
+    </div>
+    <div class="biz-plan-wrapper reveal">
+      <div class="biz-plan-grid">
+        <div class="biz-section">
+          <h3>
+            <span class="biz-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.94s4.18 1.36 4.18 3.85c0 1.89-1.44 2.98-3.12 3.19z"/></svg></span>
+            Revenue Model
+          </h3>
+          <ul>
+            <li>Monthly family memberships ($49 to $99/mo) for unlimited visits</li>
+            <li>Drop-in day passes ($15 to $20 per child) for casual visitors</li>
+            <li>Cafe revenue from beverages, snacks, and light meals</li>
+            <li>Retail markup on toy purchases made after in-store play</li>
+            <li>Toy brand sponsorships for Featured Toy zone placement</li>
+          </ul>
+        </div>
+        <div class="biz-section">
+          <h3>
+            <span class="biz-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span>
+            Go-to-Market Strategy
+          </h3>
+          <p>Launch a single flagship location in a high-traffic suburban strip mall, near family-oriented businesses like pediatric offices, dance studios, and family restaurants. Partner with local mom groups, parenting influencers, and pediatricians for word-of-mouth referrals. Offer a free first visit to every family to drive trial and convert walk-ins to monthly members.</p>
+        </div>
+        <div class="biz-section">
+          <h3>
+            <span class="biz-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></span>
+            Competitive Advantage
+          </h3>
+          <p>Unlike trampoline parks or generic play areas, The Loft merges play, discovery, and purchase into a single visit. Toy brands get direct access to their core demographic through real-world product testing. Parents get a clean, supervised space that replaces aimless toy aisle browsing with genuine try-before-you-buy experiences. With Toys "R" Us gone, no major player occupies this niche.</p>
+        </div>
+        <div class="biz-section">
+          <h3>
+            <span class="biz-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg></span>
+            Year One Milestones
+          </h3>
+          <ul>
+            <li>Open flagship location and reach 500 active monthly memberships within 6 months</li>
+            <li>Secure 3 to 5 toy brand sponsorship deals for the Featured Toy zone</li>
+            <li>Achieve break-even monthly revenue through combined membership, cafe, and retail sales</li>
+          </ul>
+        </div>
+        <div class="biz-section">
+          <h3>
+            <span class="biz-icon"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></span>
+            Key Risks
+          </h3>
+          <ul>
+            <li>Sanitation and illness concerns during cold and flu season could reduce foot traffic</li>
+            <li>High toy breakage and replacement costs may squeeze margins if not carefully managed</li>
+            <li>Lease and buildout costs for a large, well-located retail space require significant upfront capital</li>
+          </ul>
+        </div>
+        <div class="biz-section">
+          <h3>
+            <span class="biz-icon"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span>
+            Startup Cost Estimate
+          </h3>
+          <p>Estimated investment to reach MVP:</p>
+          <div class="cost-badge">$150,000 to $350,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Band -->
+<section class="cta-band">
+  <div class="reveal">
+    <h2>Ready to build The Loft?</h2>
+    <p>This idea is free for the taking. All it needs is someone who believes kids deserve better places to play.</p>
+    <a href="#" class="btn-white">Steal This Idea</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">The Loft</div>
+  <p>This is a concept from the <a href="https://www.youtube.com/watch?v=ua7ou6Dh5aQ" target="_blank" rel="noopener">Steal This Idea</a> podcast.</p>
+  <p>Not a real company. Just a really good idea looking for a founder.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

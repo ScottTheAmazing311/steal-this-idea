@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mountain Mike's - Premium Camping Without the Price Tag</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --forest: #2C4A2E;
+  --pine: #3D6B41;
+  --moss: #5A8F5E;
+  --sage: #8CB48F;
+  --cream: #F5F0E8;
+  --warm-cream: #FDF8F0;
+  --bark: #5C3D2E;
+  --campfire: #D4793A;
+  --golden: #E8A84C;
+  --stone: #8B8578;
+  --charcoal: #2B2B2B;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Karla', sans-serif;
+  color: var(--charcoal);
+  background: var(--warm-cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Libre Baskerville', serif;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--forest);
+  color: var(--cream);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sti-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+}
+.sti-badge svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--golden);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.4);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(170deg, rgba(44,74,46,0.6) 0%, rgba(43,43,43,0.7) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 40px 24px;
+}
+.hero-icon {
+  margin-bottom: 24px;
+}
+.hero-icon svg {
+  width: 64px;
+  height: 64px;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.hero .tagline {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--sage);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero .pitch {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  color: rgba(245,240,232,0.85);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--campfire);
+  color: #fff;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 16px 44px;
+  border-radius: 50px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(212,121,58,0.4);
+  cursor: pointer;
+  border: none;
+}
+.cta-btn:hover {
+  background: var(--golden);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232,168,76,0.5);
+}
+.cta-btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  border: 2px solid rgba(245,240,232,0.4);
+  margin-left: 16px;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.cta-btn-outline:hover {
+  border-color: var(--sage);
+  color: var(--sage);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+.hero-scroll svg {
+  width: 28px;
+  height: 28px;
+  stroke: rgba(245,240,232,0.5);
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* Section styling */
+section {
+  padding: 100px 24px;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: 'Karla', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--forest);
+  margin-bottom: 20px;
+  line-height: 1.25;
+}
+.section-text {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 680px;
+  line-height: 1.85;
+}
+
+/* Problem Section */
+.problem-section {
+  background: var(--forest);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.problem-section .section-label { color: var(--sage); }
+.problem-section .section-title { color: var(--cream); }
+.problem-section .section-text { color: rgba(245,240,232,0.8); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 48px;
+}
+.problem-image {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.problem-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.pain-points {
+  list-style: none;
+  margin-top: 28px;
+}
+.pain-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+  font-size: 1.05rem;
+  color: rgba(245,240,232,0.85);
+}
+.pain-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(212,121,58,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pain-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--campfire);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Solution Section */
+.solution-section {
+  background: var(--warm-cream);
+  position: relative;
+}
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 48px;
+}
+.solution-image {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+.solution-image img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+.solution-steps {
+  list-style: none;
+  counter-reset: steps;
+  margin-top: 24px;
+}
+.solution-steps li {
+  counter-increment: steps;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 26px;
+  font-size: 1.05rem;
+  color: #555;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--pine);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Features Section */
+.features-section {
+  background: var(--cream);
+}
+.features-section .section-inner {
+  text-align: center;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  text-align: left;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+}
+.feature-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.feature-card-body {
+  padding: 28px;
+}
+.feature-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--pine), var(--moss));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.feature-card-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+}
+.feature-card h3 {
+  font-size: 1.2rem;
+  color: var(--forest);
+  margin-bottom: 10px;
+}
+.feature-card p {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* Market Section */
+.market-section {
+  position: relative;
+  overflow: hidden;
+}
+.market-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1533873984035-25970ab07461?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.3);
+}
+.market-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(44,74,46,0.92), rgba(44,74,46,0.7));
+}
+.market-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.market-section .section-label { color: var(--golden); }
+.market-section .section-title { color: var(--cream); }
+.market-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--golden);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 0.95rem;
+  color: rgba(245,240,232,0.75);
+  line-height: 1.5;
+}
+.market-text {
+  margin-top: 40px;
+  font-size: 1.1rem;
+  color: rgba(245,240,232,0.8);
+  max-width: 700px;
+  line-height: 1.85;
+}
+.market-audience {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.audience-tag {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50px;
+  padding: 8px 20px;
+  color: var(--sage);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Business Plan Section */
+.bizplan-section {
+  background: var(--warm-cream);
+}
+.bizplan-section .section-inner {
+  max-width: 960px;
+}
+.bizplan-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 48px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.06);
+  margin-top: 40px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.bizplan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.bizplan-item {
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.bizplan-item:last-child, .bizplan-item:nth-last-child(2) {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.bizplan-item h3 {
+  font-size: 0.85rem;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--moss);
+  margin-bottom: 12px;
+}
+.bizplan-item p, .bizplan-item li {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+}
+.bizplan-item ul {
+  list-style: none;
+  padding: 0;
+}
+.bizplan-item ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+.bizplan-item ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--campfire);
+}
+.bizplan-full {
+  grid-column: 1 / -1;
+  padding-top: 28px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.cost-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--forest), var(--pine));
+  color: var(--cream);
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* CTA Banner */
+.cta-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 24px;
+  text-align: center;
+}
+.cta-banner-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1476041800959-2f6bb412c8ce?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.35);
+}
+.cta-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(92,61,46,0.7), rgba(44,74,46,0.8));
+}
+.cta-banner-content {
+  position: relative;
+  z-index: 2;
+}
+.cta-banner h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+.cta-banner p {
+  font-size: 1.15rem;
+  color: rgba(245,240,232,0.8);
+  max-width: 540px;
+  margin: 0 auto 32px;
+}
+
+/* Footer */
+footer {
+  background: var(--charcoal);
+  color: rgba(245,240,232,0.6);
+  padding: 48px 24px;
+  text-align: center;
+}
+footer .footer-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+footer .footer-brand {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+footer p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+footer a {
+  color: var(--sage);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+.footer-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--stone);
+  margin: 20px auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-grid,
+  .solution-grid,
+  .features-grid,
+  .market-stats,
+  .bizplan-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .cta-btn-outline {
+    margin-left: 0;
+  }
+  section {
+    padding: 72px 20px;
+  }
+  .bizplan-card {
+    padding: 28px;
+  }
+  .problem-image img,
+  .solution-image img {
+    height: 260px;
+  }
+  .feature-card-img {
+    height: 180px;
+  }
+  .sti-badge {
+    top: 12px;
+    left: 12px;
+    font-size: 0.7rem;
+    padding: 8px 12px;
+  }
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-7v4h4l-5 7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-icon">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 6L8 52h48L32 6z" stroke="#8CB48F" stroke-width="2.5" fill="none"/>
+        <path d="M32 20L18 48h28L32 20z" stroke="#D4793A" stroke-width="2" fill="none"/>
+        <circle cx="32" cy="38" r="4" fill="#E8A84C"/>
+      </svg>
+    </div>
+    <h1>Mountain Mike's</h1>
+    <p class="tagline">Premium camping without the price tag</p>
+    <p class="pitch">Rent fully stocked RVs and campers right at the trailhead. No towing, no hauling, no $50K investment. Just pull up, pick your rig, and head into the wild with everything you need.</p>
+    <div class="hero-ctas">
+      <a href="#features" class="cta-btn">Explore the Experience</a>
+      <a href="#bizplan" class="cta-btn-outline">View Business Plan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">Camping should be simple.<br>It is anything but.</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="reveal">
+        <p class="section-text">The best camping experiences require serious gear: an RV or camper ($20K to $50K), a truck to tow it ($25K+), and a garage full of equipment. For most people, that price tag turns a weekend in the woods into a pipe dream.</p>
+        <ul class="pain-points">
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke-linecap="round" transform="rotate(45 12 12)"/></svg></span>
+            <span>RVs and campers cost $20,000 to $50,000, plus a capable tow vehicle</span>
+          </li>
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6" stroke-linecap="round"/></svg></span>
+            <span>RV parks are crowded, often uninspiring, and feel like parking lots</span>
+          </li>
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18" stroke-linecap="round"/><path d="M7.5 7.5l9 9M16.5 7.5l-9 9" stroke-linecap="round"/></svg></span>
+            <span>Hauling gear across the country burns fuel, time, and patience</span>
+          </li>
+          <li>
+            <span class="pain-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg></span>
+            <span>Forgotten supplies mean frustrating trips back to town mid-adventure</span>
+          </li>
+        </ul>
+      </div>
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80" alt="Camping tent at dusk" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution-section">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">The Solution</p>
+      <h2 class="section-title">Your basecamp is already waiting.</h2>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-image reveal">
+        <img src="https://images.unsplash.com/photo-1596649299486-4cdea56fd59d?auto=format&fit=crop&w=800&q=80" alt="RV parked in nature" loading="lazy">
+      </div>
+      <div class="reveal">
+        <p class="section-text">Mountain Mike's stations a fleet of RVs and campers at the doorstep of national parks and top camping destinations. Drive up in any car. Pick your rig. Grab a gear package. We deliver you to a pre-scouted premium campsite.</p>
+        <ol class="solution-steps">
+          <li>
+            <span class="step-num">1</span>
+            <span><strong>Pull up in any vehicle.</strong> Drive your sedan, your Prius, whatever you have. No truck needed, no trailer hitch required.</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span><strong>Choose your setup.</strong> Pick from a fleet of RVs and campers, then add a gear package: basic firewood and s'mores, or the full adventure bundle with fishing poles and sleeping bags.</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span><strong>Head to your pre-scouted site.</strong> Lakeside, deep in the pines, or near the mountains. We know all the best spots, and we will drive you there if you like.</span>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <span><strong>End with hot showers and ice cream.</strong> When you are done, return the rig, rinse off, and grab a double scoop before heading home.</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">What You Get</p>
+      <h2 class="section-title">Everything for the perfect trip. Nothing to haul.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?auto=format&fit=crop&w=800&q=80" alt="Fleet of camper vehicles in nature" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M3 12h18"/></svg>
+          </div>
+          <h3>On-Site Fleet</h3>
+          <p>A full range of RVs and campers available right at the destination. Pick the size and style that fits your crew, from cozy two-person campers to spacious family rigs.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80" alt="Campfire and outdoor gear" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+          </div>
+          <h3>Tiered Gear Packages</h3>
+          <p>From the "bring your own" tier to the fully loaded adventure bundle: firewood, camp chairs, sleeping bags, fishing equipment, cooking gear, and gourmet camp food.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=800&q=80" alt="Scenic lakeside campsite" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 6 10H3z" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Pre-Scouted Campsites</h3>
+          <p>No more guessing where to park. Choose from curated spots: the lakefront, the pine grove, the mountain overlook. Each one vetted and ready for your arrival.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="People enjoying outdoor adventure" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7 4 7-4M5 16l7-4 7 4"/></svg>
+          </div>
+          <h3>Hot Showers and Ice Cream</h3>
+          <p>The perfect ending to any trip. Return your rig, step into a hot shower, and grab a double scoop from our camp store before you head home refreshed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market-section">
+  <div class="market-bg"></div>
+  <div class="market-overlay"></div>
+  <div class="market-content reveal">
+    <p class="section-label">The Opportunity</p>
+    <h2 class="section-title">A massive market that is only growing.</h2>
+    <div class="market-stats">
+      <div class="stat-card">
+        <div class="stat-number">$862B</div>
+        <div class="stat-label">U.S. outdoor recreation economy, annually</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">48M</div>
+        <div class="stat-label">U.S. households that go camping each year</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">7%</div>
+        <div class="stat-label">Year-over-year growth in RV rentals</div>
+      </div>
+    </div>
+    <p class="market-text">Families, friend groups, and adventure seekers aged 25 to 55 who love the outdoors but lack the equipment and expertise for premium camping. The secondary market includes current RV renters who want a simpler, destination-based experience without the hassle of driving a rig across the highway.</p>
+    <div class="market-audience">
+      <span class="audience-tag">Families with kids</span>
+      <span class="audience-tag">Friend groups (20s and 30s)</span>
+      <span class="audience-tag">Weekend warriors</span>
+      <span class="audience-tag">National park visitors</span>
+      <span class="audience-tag">Current RV renters</span>
+      <span class="audience-tag">Corporate retreats</span>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan-section" id="bizplan">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-title">Built for the wild. Backed by numbers.</h2>
+    </div>
+    <div class="bizplan-card reveal">
+      <div class="bizplan-grid">
+        <div class="bizplan-item">
+          <h3>Revenue Model</h3>
+          <p>Per-trip RV and camper rentals ($150 to $400 per night), tiered add-on gear packages ($50 to $200), guided experience upsells (fly fishing, hiking tours), on-site retail (camp store, ice cream shop, hot showers), and franchise fees from new locations.</p>
+        </div>
+        <div class="bizplan-item">
+          <h3>Go-to-Market Strategy</h3>
+          <p>Launch a flagship location adjacent to one high-traffic national park (Yellowstone or Glacier) with 8 to 12 RVs. Build brand awareness through outdoor influencer partnerships, targeted search ads for camping and national park queries, and affiliate deals with travel booking platforms. Validate unit economics over two seasons before franchising.</p>
+        </div>
+        <div class="bizplan-item">
+          <h3>Competitive Advantage</h3>
+          <p>Unlike traditional RV rental companies, Mountain Mike's positions inventory at the destination. This eliminates the need for towing capability, dramatically reduces vehicle wear, and creates a curated, premium experience (pre-scouted sites, gear bundles, guided tours) that pure rental companies cannot replicate.</p>
+        </div>
+        <div class="bizplan-item">
+          <h3>Year One Milestones</h3>
+          <ul>
+            <li>Open flagship with 10 RVs, achieve 70% occupancy during peak season (May through September)</li>
+            <li>Generate $500K in gross revenue with positive unit economics by end of first season</li>
+            <li>Secure letters of intent from 3 franchise candidates for Year 2 expansion</li>
+          </ul>
+        </div>
+        <div class="bizplan-item">
+          <h3>Key Risks</h3>
+          <ul>
+            <li>Seasonality limits revenue to 5 to 7 months per year in many regions, requiring strong peak-season margins</li>
+            <li>Securing permits and land leases near national parks involves complex government approval processes</li>
+            <li>High upfront capital for RV fleet and site development before revenue begins</li>
+          </ul>
+        </div>
+        <div class="bizplan-item">
+          <h3>Startup Cost Estimate</h3>
+          <p>Single flagship location including RV fleet, site improvements, gear inventory, and operating capital:</p>
+          <div class="cost-badge">$250K to $500K</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+  <div class="cta-banner-bg"></div>
+  <div class="cta-banner-overlay"></div>
+  <div class="cta-banner-content reveal">
+    <h2>Ready to build Mountain Mike's?</h2>
+    <p>This idea is free. The opportunity is real. All it needs is someone with the drive to make it happen.</p>
+    <a href="#" class="cta-btn">Start Your Franchise</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-brand">Mountain Mike's</p>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet).</p>
+    <div class="footer-divider"></div>
+    <p>Inspired by <a href="https://www.youtube.com/watch?v=uISMwXW7wvw" target="_blank" rel="noopener">Episode: Mountain Mike's</a></p>
+    <p style="margin-top: 12px; font-size: 0.8rem; opacity: 0.5;">A concept page generated for educational and entertainment purposes.</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(function(el) { observer.observe(el); });
+});
+</script>
+
+</body>
+</html>

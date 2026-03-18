@@ -1,0 +1,34 @@
+{
+  "slug": "cookies",
+  "company_name": "Cookies",
+  "tagline": "Send good vibes, not just cash.",
+  "elevator_pitch": "Cookies is a social gifting platform that lets you send thoughtful pick-me-ups to friends and family, from lunch credits to spa days, redeemable on their own terms. Think Venmo meets a wish list, where every gesture feels personal, not transactional.",
+  "problem": "When someone you care about is having a rough day, celebrating a milestone, or going through a life event, your options are limited: send awkward cash, guess at a gift they may not want, or say 'let me know if you need anything' and never follow through. The result is missed connections and gestures that fall flat.",
+  "solution": "Cookies gives every user a public profile where they list the things that brighten their day, from favorite restaurants to experiences they love. Friends can send credits toward those specific items, anonymously or publicly, and recipients redeem them whenever the moment feels right. No more wasted gifts, no more guessing.",
+  "target_market": "Millennials and Gen Z adults (ages 22-40) who are socially active, use Venmo or Cash App regularly, and want a more personal way to show friends and family they care during life events, tough days, or just because.",
+  "revenue_model": "Transaction fees on every credit exchange (1.5-2.5%), a freemium subscription ($1.99/month for ad-free experience and premium profile features), and advertising partnerships where restaurants and brands pay to appear as suggested gift options on user profiles.",
+  "key_features": [
+    "Personal wish list profiles where users curate their favorite treats, experiences, and pick-me-ups",
+    "Flexible credit system that lets recipients transfer funds between categories and redeem on their own schedule",
+    "Crowdfunding-style gifting where multiple friends can chip in toward bigger experiences like spa days or car details",
+    "Smart notifications that alert senders to nearby redemption options and let recipients know someone is thinking of them"
+  ],
+  "competitive_advantage": "Unlike Venmo (pure cash transfer) or GoFundMe (crisis-driven fundraising), Cookies occupies a unique emotional space: thoughtful, everyday generosity. The curated wish list removes guesswork, the flexible credit system prevents waste, and the social layer makes giving feel rewarding for both sides.",
+  "market_size_estimate": "The U.S. digital gifting market is valued at roughly $28 billion, with peer-to-peer payments exceeding $1 trillion annually. Even capturing a small slice of the intersection between social gifting and P2P payments represents a multi-billion dollar opportunity.",
+  "go_to_market": "Launch with a referral-driven campaign: 'Set up your Cookies profile, get a free cookie credit.' Partner with 2-3 popular chains (like Crumbl Cookies or DoorDash) for initial redemption options. Target new parents and college students first, since those communities naturally rally around gifting and support.",
+  "risks": [
+    "User adoption requires both senders and recipients to have accounts, creating a chicken-and-egg problem that could slow early growth",
+    "Competing with deeply entrenched payment platforms like Venmo, Cash App, and PayPal who could replicate the feature as an add-on",
+    "Managing merchant partnerships and redemption logistics across many vendors adds operational complexity and cost"
+  ],
+  "year_one_milestones": [
+    "Launch MVP with 10 merchant partners and 50,000 registered users in the first 6 months",
+    "Process $2 million in gifting credits by end of year one with a 2% average transaction fee",
+    "Secure seed funding of $1.5M and establish partnerships with 2 national food or experience brands"
+  ],
+  "startup_cost_range": "$75,000 - $200,000",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=WtlLfsCJr80",
+  "episode_number": 131
+}

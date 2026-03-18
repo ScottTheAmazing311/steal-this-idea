@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2Cents - Quick Answers from Real People, Instantly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #00E5A0;
+      --primary-dark: #00C98A;
+      --accent: #FF6B35;
+      --dark: #0A0E17;
+      --dark-mid: #131929;
+      --dark-light: #1C2333;
+      --text: #E8ECF4;
+      --text-muted: #8A93A6;
+      --gradient: linear-gradient(135deg, #00E5A0, #00B4D8);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    /* Steal This Idea Badge */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: var(--dark-mid);
+      border: 1px solid rgba(0, 229, 160, 0.3);
+      border-radius: 40px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+    .sti-badge:hover {
+      background: var(--primary);
+      color: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 229, 160, 0.25);
+    }
+    .sti-badge svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Section base */
+    section { position: relative; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: #fff;
+      margin-bottom: 24px;
+    }
+
+    .section-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.8;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,14,23,0.4) 0%, var(--dark) 95%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 0 80px;
+    }
+    .hero-eyebrow {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0,229,160,0.08);
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 1px solid rgba(0,229,160,0.15);
+    }
+    .hero h1 {
+      font-size: clamp(4rem, 12vw, 10rem);
+      color: #fff;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 40%, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-tagline {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    .hero-pitch {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient);
+      color: var(--dark);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 24px rgba(0, 229, 160, 0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 229, 160, 0.4);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      padding: 16px 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 60px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+    .hero-stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* Floating phone mockup */
+    .hero-visual {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 420px;
+      height: 560px;
+      z-index: 1;
+      opacity: 0.12;
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    /* ========== PROBLEM ========== */
+    .problem {
+      padding: 120px 0;
+      background: var(--dark-mid);
+      position: relative;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 60px;
+    }
+    .problem-image {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .problem-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .problem-image:hover img {
+      transform: scale(1.05);
+    }
+    .problem-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,229,160,0.1), transparent);
+      pointer-events: none;
+    }
+    .problem-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .problem-card {
+      background: var(--dark);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+    }
+    .problem-card:hover {
+      border-color: rgba(0,229,160,0.2);
+      transform: translateX(8px);
+    }
+    .problem-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 107, 53, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .problem-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent);
+    }
+    .problem-card h4 {
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .problem-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ========== SOLUTION ========== */
+    .solution {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .solution-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .solution-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.08;
+    }
+    .solution-content {
+      position: relative;
+      z-index: 1;
+    }
+    .solution-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .solution-step {
+      background: rgba(28, 35, 51, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px 32px;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .solution-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .solution-step:hover::before { opacity: 1; }
+    .solution-step:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0,229,160,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .step-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--primary);
+      opacity: 0.2;
+      margin-bottom: 8px;
+    }
+    .solution-step h3 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .solution-step p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .solution-image-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .solution-img {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+    .solution-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .solution-img:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ========== FEATURES ========== */
+    .features {
+      padding: 120px 0;
+      background: var(--dark-mid);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .feature-card {
+      background: var(--dark);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(0,229,160,0.06), transparent 70%);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+    .feature-card:hover::after { opacity: 1; }
+    .feature-card:hover {
+      border-color: rgba(0,229,160,0.15);
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(0, 229, 160, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .feature-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .feature-card h3 {
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .feature-card-large {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .feature-card-large-img {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+    }
+    .feature-card-large-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ========== MARKET ========== */
+    .market {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .market-hero-img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .market-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.1;
+    }
+    .market-hero-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--dark) 0%, transparent 30%, transparent 70%, var(--dark) 100%);
+    }
+    .market-content {
+      position: relative;
+      z-index: 1;
+    }
+    .market-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 60px;
+      align-items: start;
+    }
+    .market-stat-card {
+      background: rgba(28, 35, 51, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .market-stat-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .market-stat-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .market-stat-desc {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    .market-personas {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .persona {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      background: rgba(28, 35, 51, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    .persona:hover {
+      border-color: rgba(0,229,160,0.2);
+      transform: translateX(8px);
+    }
+    .persona-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--dark);
+    }
+    .persona h4 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .persona p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ========== BUSINESS PLAN ========== */
+    .business-plan {
+      padding: 120px 0;
+      background: var(--dark-mid);
+    }
+    .bp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .bp-card {
+      background: var(--dark);
+      border-radius: 20px;
+      padding: 36px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .bp-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .bp-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0, 229, 160, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .bp-card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .bp-card h3 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .bp-card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    .bp-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .bp-card ul li {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .bp-card ul li:last-child { border-bottom: none; }
+    .bp-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0,229,160,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .bp-check svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+    }
+    .bp-card-full {
+      grid-column: span 2;
+    }
+    .bp-risk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .bp-risk {
+      background: rgba(255, 107, 53, 0.05);
+      border: 1px solid rgba(255, 107, 53, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .bp-risk h4 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .bp-risk p {
+      font-size: 0.9rem;
+    }
+    .bp-cost {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 8px;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+    .footer a:hover { opacity: 0.7; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .problem-grid,
+      .solution-steps,
+      .features-grid,
+      .market-grid,
+      .bp-grid {
+        grid-template-columns: 1fr;
+      }
+      .feature-card-large {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+      }
+      .bp-card-full { grid-column: span 1; }
+      .bp-risk-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 24px; }
+      .hero-visual { display: none; }
+      .solution-image-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .sti-badge span { display: none; }
+      .sti-badge { padding: 10px; border-radius: 50%; }
+      .hero h1 { font-size: 3.5rem; }
+      .section-title { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Steal This Idea Badge -->
+  <a href="../index.html" class="sti-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z"/>
+      <path d="M9 21h6M10 17v1M14 17v1"/>
+    </svg>
+    <span>Steal This Idea</span>
+  </a>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80" alt="People collaborating">
+    </div>
+    <div class="container hero-content">
+      <div class="hero-eyebrow reveal">Instant Knowledge Exchange</div>
+      <h1 class="reveal">2Cents</h1>
+      <p class="hero-tagline reveal">Quick answers from real people, instantly.</p>
+      <p class="hero-pitch reveal">
+        Stop scrolling through endless forum posts. 2Cents connects you with knowledgeable everyday people for fast, affordable advice on cooking, home projects, travel, and more. The entire interaction takes under a minute.
+      </p>
+      <div class="hero-ctas reveal">
+        <a href="#" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Ask a Question
+        </a>
+        <a href="#features" class="btn-secondary">See How It Works</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div>
+          <div class="hero-stat-number">45s</div>
+          <div class="hero-stat-label">Average interaction time</div>
+        </div>
+        <div>
+          <div class="hero-stat-number">$1</div>
+          <div class="hero-stat-label">Per question</div>
+        </div>
+        <div>
+          <div class="hero-stat-number">130M+</div>
+          <div class="hero-stat-label">US households making daily decisions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROBLEM ========== -->
+  <section class="problem">
+    <div class="container">
+      <div class="section-label reveal">The Problem</div>
+      <h2 class="section-title reveal">Getting Quick Advice<br>Shouldn't Be This Hard</h2>
+      <p class="section-desc reveal">
+        You just need a quick answer. Instead, you get a 45-minute deep dive into forums, contradictory Reddit threads, and YouTube videos with 3 minutes of content buried in a 20-minute intro.
+      </p>
+      <div class="problem-grid">
+        <div class="problem-image reveal-left">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80" alt="Person frustrated while cooking">
+        </div>
+        <div class="problem-cards">
+          <div class="problem-card reveal-right" style="transition-delay: 0.1s">
+            <div class="problem-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div>
+              <h4>Endless Searching</h4>
+              <p>Sifting through Quora, Reddit, and old blog posts hoping someone asked your exact question. Most of the time, nobody did.</p>
+            </div>
+          </div>
+          <div class="problem-card reveal-right" style="transition-delay: 0.2s">
+            <div class="problem-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <div>
+              <h4>Overpriced Consultants</h4>
+              <p>Professional advice platforms charge $10+ per question for expertise you do not always need. Sometimes you just want a quick sanity check.</p>
+            </div>
+          </div>
+          <div class="problem-card reveal-right" style="transition-delay: 0.3s">
+            <div class="problem-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <div>
+              <h4>Wasted Time</h4>
+              <p>By the time you find your answer, the moment has passed. Your steak is overcooked, the hardware store is closed, or your project stalled.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SOLUTION ========== -->
+  <section class="solution">
+    <div class="solution-bg">
+      <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=80" alt="People connecting">
+    </div>
+    <div class="container solution-content">
+      <div class="section-label reveal">The Solution</div>
+      <h2 class="section-title reveal">Ask. Connect. Done.</h2>
+      <p class="section-desc reveal">
+        2Cents puts a knowledgeable person in your pocket. Type your question, get matched instantly by AI, and talk to someone who actually knows the answer. The whole thing takes less than a minute.
+      </p>
+
+      <div class="solution-steps">
+        <div class="solution-step reveal" style="transition-delay: 0.1s">
+          <div class="step-number">01</div>
+          <h3>Ask Your Question</h3>
+          <p>Type what you need help with. Our AI reads the context and keywords to understand exactly what kind of expertise you need.</p>
+        </div>
+        <div class="solution-step reveal" style="transition-delay: 0.2s">
+          <div class="step-number">02</div>
+          <h3>Get Matched Instantly</h3>
+          <p>Within seconds, available advisors with relevant experience get a ping. They accept, and you are connected through a live voice or video call.</p>
+        </div>
+        <div class="solution-step reveal" style="transition-delay: 0.3s">
+          <div class="step-number">03</div>
+          <h3>Rate and Tip</h3>
+          <p>Got your answer? Rate your advisor and optionally tip. The entire transaction costs $1 or less, and your advisor earns for sharing their knowledge.</p>
+        </div>
+      </div>
+
+      <div class="solution-image-row">
+        <div class="solution-img reveal-left">
+          <img src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?auto=format&fit=crop&w=800&q=80" alt="Home improvement project">
+        </div>
+        <div class="solution-img reveal-right">
+          <img src="https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&w=800&q=80" alt="Person cooking in kitchen">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-label reveal">Key Features</div>
+      <h2 class="section-title reveal">Built for Speed<br>and Simplicity</h2>
+
+      <div class="features-grid">
+        <div class="feature-card reveal" style="transition-delay: 0.1s">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>AI-Powered Matching</h3>
+          <p>Our matching engine reads keywords, context, and advisor profiles to connect you with the most relevant person available. No browsing, no waiting, no guessing.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.2s">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <h3>45-Second Live Calls</h3>
+          <p>Quick voice or video calls designed for fast answers. No scheduling, no appointments. Just instant, real-time human connection when you need it.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.3s">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 15l-2-2m0 0l2-2m-2 2h4m5 2a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Advisor Certification</h3>
+          <p>Advisors build credibility through ratings, in-app quizzes, and verified expertise. Higher-tier advisors earn more per interaction, creating a quality-driven community.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay: 0.4s">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 3a2 2 0 11-2 2 2 2 0 012-2zm3 12H9v-1a3 3 0 013-3h0a3 3 0 013 3z"/></svg>
+          </div>
+          <h3>Micro-Tipping</h3>
+          <p>Show appreciation with easy micro-tips. Advisors who go above and beyond get rewarded, keeping the community motivated and the advice consistently great.</p>
+        </div>
+
+        <div class="feature-card feature-card-large reveal">
+          <div>
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <h3>Growing Category Network</h3>
+            <p>Starting with home improvement and cooking, 2Cents expands into new categories organically. Existing advisors list their other skills, and the platform unlocks new verticals based on real supply. Travel, cars, gardening, tech setup, and more follow naturally as the community grows.</p>
+          </div>
+          <div class="feature-card-large-img">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" alt="Home improvement tools and workspace">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARKET ========== -->
+  <section class="market">
+    <div class="market-hero-img">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80" alt="Diverse group of people">
+    </div>
+    <div class="container market-content">
+      <div class="section-label reveal">Market Opportunity</div>
+      <h2 class="section-title reveal">A Massive, Untapped<br>Knowledge Economy</h2>
+
+      <div class="market-grid">
+        <div>
+          <div class="market-stat-card reveal" style="margin-bottom: 24px;">
+            <div class="market-stat-big">$5B+</div>
+            <div class="market-stat-title">Global Online Expert Advice Market</div>
+            <div class="market-stat-desc">The online advice and consultation market continues to grow as people seek faster, more accessible expertise. 2Cents captures the long tail of casual, everyday advice that existing platforms ignore.</div>
+          </div>
+          <div class="market-stat-card reveal">
+            <div class="market-stat-big">130M+</div>
+            <div class="market-stat-title">US Households</div>
+            <div class="market-stat-desc">Making daily decisions about cooking, home improvement, travel, and hobbies. Even capturing 1% of casual advice-seeking at $1 per question represents a $500M+ annual opportunity.</div>
+          </div>
+        </div>
+
+        <div class="market-personas">
+          <h3 class="reveal" style="font-size: 1.8rem; color: #fff; margin-bottom: 8px;">Who Uses 2Cents?</h3>
+          <div class="persona reveal" style="transition-delay: 0.1s">
+            <div class="persona-avatar">DY</div>
+            <div>
+              <h4>The Weekend DIYer</h4>
+              <p>Homeowner tackling projects with more ambition than experience. Needs a quick gut check before drilling into what might be a load-bearing wall.</p>
+            </div>
+          </div>
+          <div class="persona reveal" style="transition-delay: 0.2s">
+            <div class="persona-avatar">HC</div>
+            <div>
+              <h4>The Home Cook</h4>
+              <p>Trying new recipes and techniques. Wants to know if rosemary or marjoram works better for steak, without watching a 20-minute cooking video.</p>
+            </div>
+          </div>
+          <div class="persona reveal" style="transition-delay: 0.3s">
+            <div class="persona-avatar">TP</div>
+            <div>
+              <h4>The Travel Planner</h4>
+              <p>Booking a trip and wondering if it is the right season, the right price, or the right neighborhood. Wants a local perspective, not a sponsored blog post.</p>
+            </div>
+          </div>
+          <div class="persona reveal" style="transition-delay: 0.4s">
+            <div class="persona-avatar">HE</div>
+            <div>
+              <h4>The Hobby Explorer</h4>
+              <p>Diving into a new interest and wants gear recommendations, starter tips, and honest opinions from someone who has been there.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BUSINESS PLAN ========== -->
+  <section class="business-plan">
+    <div class="container">
+      <div class="section-label reveal">Business Plan</div>
+      <h2 class="section-title reveal">The Roadmap to<br>Building 2Cents</h2>
+
+      <div class="bp-grid">
+        <!-- Revenue Model -->
+        <div class="bp-card reveal" style="transition-delay: 0.1s">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <h3>Revenue Model</h3>
+          </div>
+          <p>Per-question micro-transactions at $1 each, with an optional unlimited plan at $10-15/month for power users. The platform takes a percentage of each transaction. Advisors earn 10-30 cents per answered question based on their rating and certification level, plus optional tips from satisfied users.</p>
+        </div>
+
+        <!-- Go-to-Market -->
+        <div class="bp-card reveal" style="transition-delay: 0.2s">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </div>
+            <h3>Go-to-Market Strategy</h3>
+          </div>
+          <p>Launch with a single vertical: home improvement. Partner with DIY influencers and home project creators to seed the advisor pool. Once the home improvement community is thriving, expand into cooking, then auto, then travel. Survey existing advisors to identify which categories to unlock next, growing supply organically.</p>
+        </div>
+
+        <!-- Competitive Advantage -->
+        <div class="bp-card reveal" style="transition-delay: 0.3s">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Competitive Advantage</h3>
+          </div>
+          <p>Unlike JustAnswer, which targets expensive professional consultations, 2Cents democratizes advice by tapping into everyday expertise at micro-transaction prices. The low barrier to both asking and answering creates a network effect that professional-only platforms cannot replicate. Categories grow organically as advisors add their skills.</p>
+        </div>
+
+        <!-- Year One Milestones -->
+        <div class="bp-card reveal" style="transition-delay: 0.4s">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            </div>
+            <h3>Year One Milestones</h3>
+          </div>
+          <ul>
+            <li>
+              <div class="bp-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+              Launch home improvement vertical with 500 seeded advisors and achieve sub-60-second average response times
+            </li>
+            <li>
+              <div class="bp-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+              Reach 50,000 monthly active users across home improvement and cooking categories
+            </li>
+            <li>
+              <div class="bp-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+              Hit $500K in annualized gross transaction volume with a 30% platform take rate
+            </li>
+          </ul>
+        </div>
+
+        <!-- Risks -->
+        <div class="bp-card bp-card-full reveal">
+          <div class="bp-card-header">
+            <div class="bp-card-icon" style="background: rgba(255,107,53,0.08);">
+              <svg viewBox="0 0 24 24" style="stroke: var(--accent);"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+            </div>
+            <h3>Key Risks</h3>
+          </div>
+          <div class="bp-risk-grid">
+            <div class="bp-risk">
+              <h4>Cold Start Problem</h4>
+              <p>The app is only useful if enough advisors are online to answer quickly, requiring significant upfront investment in seeding the community.</p>
+            </div>
+            <div class="bp-risk">
+              <h4>Quality Control</h4>
+              <p>Ensuring advice is accurate and safe, especially for topics like home electrical or structural projects where bad advice could cause real harm.</p>
+            </div>
+            <div class="bp-risk">
+              <h4>Advisor Retention</h4>
+              <p>Micro-payments may not sustain motivation long-term without strong gamification, community features, and a rewarding user experience.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Startup Cost -->
+        <div class="bp-card bp-card-full reveal" style="text-align: center; padding: 48px;">
+          <div class="section-label" style="justify-content: center;">Estimated Startup Cost</div>
+          <div class="bp-cost">$150K - $400K</div>
+          <p style="margin-top: 12px;">To build the MVP, seed the initial advisor community, and launch the first vertical with marketing support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">2Cents</div>
+      <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+      <p>Not a real product. Built to inspire entrepreneurs to build it.</p>
+      <p style="margin-top: 16px;">
+        <a href="https://www.youtube.com/watch?v=kUYsSnA6Gzo" target="_blank" rel="noopener">Watch the original episode</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // IntersectionObserver for scroll-triggered animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

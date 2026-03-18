@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civic - Your Civic Duty, Elevated</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0A1628;
+      --accent: #00E5A0;
+      --accent-alt: #3B82F6;
+      --white: #FFFFFF;
+      --light-gray: #F0F4F8;
+      --mid-gray: #94A3B8;
+      --dark-text: #0F172A;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--dark-text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.03em;
+    }
+
+    /* Steal This Idea Badge */
+    .steal-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: var(--accent);
+      color: var(--primary);
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0, 229, 160, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .steal-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(0, 229, 160, 0.45);
+    }
+
+    .steal-badge svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--primary);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      opacity: 0.3;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(10,22,40,0.7) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 860px;
+      padding: 40px 24px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      padding: 6px 18px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.8s ease forwards;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 12vw, 9rem);
+      color: var(--white);
+      line-height: 0.9;
+      margin-bottom: 16px;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      color: var(--accent);
+      font-weight: 300;
+      margin-bottom: 28px;
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .hero-pitch {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto 40px;
+      animation: fadeInUp 0.8s ease 0.6s forwards;
+      opacity: 0;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.1em;
+      padding: 16px 48px;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.8s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 229, 160, 0.4);
+    }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+
+    .hero-scroll-indicator svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--accent);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-12px); }
+      60% { transform: translateX(-50%) translateY(-6px); }
+    }
+
+    /* Section Shared */
+    section {
+      padding: 100px 24px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: var(--dark-text);
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .section-title.light {
+      color: var(--white);
+    }
+
+    .section-text {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: #475569;
+      max-width: 680px;
+    }
+
+    .section-text.light {
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* PROBLEM */
+    .problem {
+      background: var(--light-gray);
+      position: relative;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .problem-image {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    .problem-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .problem-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--accent-alt);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--mid-gray);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* SOLUTION */
+    .solution {
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      opacity: 0.08;
+    }
+
+    .solution .section-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .solution-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .solution-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .solution-step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--primary);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .step-text strong {
+      color: var(--white);
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .solution-phone {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .solution-phone img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* FEATURES */
+    .features {
+      background: var(--white);
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .features-header .section-text {
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .feature-card {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--light-gray);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    }
+
+    .feature-card-image {
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .feature-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .feature-card:hover .feature-card-image img {
+      transform: scale(1.05);
+    }
+
+    .feature-card-body {
+      padding: 28px;
+    }
+
+    .feature-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .feature-card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--dark-text);
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #64748B;
+    }
+
+    /* MARKET */
+    .market {
+      background: var(--light-gray);
+      position: relative;
+    }
+
+    .market-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .market-image {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .market-image img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .market-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .market-stat-big {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .market-stat-big .stat-number {
+      font-size: 3.5rem;
+      color: var(--accent);
+    }
+
+    .market-stat-big .stat-label {
+      font-size: 1rem;
+      color: #475569;
+      margin-top: 8px;
+    }
+
+    .market-audience {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .market-audience h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--dark-text);
+    }
+
+    .market-audience p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #475569;
+    }
+
+    /* BUSINESS PLAN */
+    .business-plan {
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .business-plan-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      opacity: 0.06;
+    }
+
+    .business-plan .section-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .bp-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .bp-header .section-text {
+      margin: 0 auto;
+    }
+
+    .bp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .bp-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 32px;
+      backdrop-filter: blur(8px);
+      transition: background 0.3s ease;
+    }
+
+    .bp-card:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .bp-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(0, 229, 160, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .bp-card-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .bp-card h3 {
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .bp-card p, .bp-card li {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .bp-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .bp-card ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .bp-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .bp-bullet {
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 8px;
+    }
+
+    .bp-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .bp-cost-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      padding: 8px 24px;
+      border-radius: 4px;
+      margin-top: 12px;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #060D18;
+      text-align: center;
+      padding: 60px 24px;
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer p {
+      color: var(--mid-gray);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer a:hover {
+      opacity: 0.8;
+    }
+
+    .footer-divider {
+      width: 60px;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      margin: 24px auto;
+    }
+
+    .footer-small {
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .problem-grid,
+      .solution-content,
+      .market-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bp-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-image img,
+      .solution-phone img,
+      .market-image img {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 70px 16px;
+      }
+
+      .hero-content {
+        padding: 30px 16px;
+      }
+
+      .problem-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .steal-badge {
+        top: 12px;
+        left: 12px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+
+      .feature-card-image {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Steal This Idea Badge -->
+  <a href="../index.html" class="steal-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+    STEAL THIS IDEA
+  </a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-label">THE FUTURE OF LOCAL DEMOCRACY</div>
+      <h1>CIVIC</h1>
+      <p class="hero-tagline">Your civic duty, elevated.</p>
+      <p class="hero-pitch">Civic is a mobile app that gives voters instant, unbiased access to every candidate and ballot measure in their local elections. By combining candidate profiles, community reviews, and plain-language bill summaries in one place, Civic turns uninformed party-line voting into educated civic participation.</p>
+      <a href="#problem" class="hero-cta">Learn How It Works</a>
+    </div>
+    <div class="hero-scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 13l5 5 5-5"/>
+        <path d="M7 6l5 5 5-5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="section-inner">
+      <span class="section-label reveal">The Problem</span>
+      <h2 class="section-title reveal reveal-delay-1">Local Elections Are Broken</h2>
+      <p class="section-text reveal reveal-delay-2">Most Americans skip local elections entirely, and those who do vote often default to straight party-line choices because finding information on local candidates and ballot measures is scattered across dozens of websites. The result is that a tiny, highly partisan minority effectively chooses sheriffs, judges, city council members, and school board officials for everyone.</p>
+
+      <div class="problem-grid">
+        <div class="problem-image reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1494172961521-33799ddd43a5?auto=format&fit=crop&w=800&q=80" alt="Empty voting booth representing low local election turnout">
+        </div>
+        <div class="reveal reveal-delay-3">
+          <div class="problem-stats">
+            <div class="stat-card">
+              <div class="stat-number">73%</div>
+              <div class="stat-label">of eligible voters skip local elections</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">21%</div>
+              <div class="stat-label">turnout in typical municipal races</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">60+</div>
+              <div class="stat-label">websites to research one local ballot</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">5 min</div>
+              <div class="stat-label">average time spent deciding on local races</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution">
+    <div class="solution-bg"></div>
+    <div class="section-inner">
+      <span class="section-label reveal">The Solution</span>
+      <h2 class="section-title light reveal reveal-delay-1">One App. Every Answer.</h2>
+      <p class="section-text light reveal reveal-delay-2">Civic aggregates every candidate and ballot measure for a voter's specific area into a single, clean mobile app. Users enter their zip code and instantly see candidate profiles with core platform positions, moderated community reviews, and plain-language summaries of bills and propositions. It works in line at the polls or weeks before election day.</p>
+
+      <div class="solution-content">
+        <div class="solution-steps reveal reveal-delay-2">
+          <div class="solution-step">
+            <div class="step-number">1</div>
+            <div class="step-text">
+              <strong>Enter Your Zip Code</strong>
+              Civic instantly pulls every race, candidate, and measure on your specific ballot.
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-number">2</div>
+            <div class="step-text">
+              <strong>Review Candidates and Issues</strong>
+              Read unbiased summaries, compare positions side by side, and see what your neighbors think.
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-number">3</div>
+            <div class="step-text">
+              <strong>Vote With Confidence</strong>
+              Walk into the booth informed on every single line of your ballot, not just the top of the ticket.
+            </div>
+          </div>
+        </div>
+        <div class="solution-phone reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" alt="Person using mobile app for civic information">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-inner">
+      <div class="features-header">
+        <span class="section-label reveal">Features</span>
+        <h2 class="section-title reveal reveal-delay-1">Everything You Need to Vote Smart</h2>
+        <p class="section-text reveal reveal-delay-2">Four core tools designed to make informed voting effortless, whether you have five minutes or five weeks.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-card-image">
+            <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=800&q=80" alt="Location search on phone">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h3>Instant Ballot Lookup</h3>
+            <p>Enter your zip code and see every race, candidate, and ballot measure for your specific area. No more guessing what you will actually be voting on.</p>
+          </div>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-card-image">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Community discussion and reviews">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Community Reviews</h3>
+            <p>A moderated review system where neighbors share informed opinions on candidates. Think of it as a trusted local recommendation engine for your democracy.</p>
+          </div>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-card-image">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80" alt="Documents and summaries">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <h3>Plain-Language Summaries</h3>
+            <p>Complex ballot measures and propositions broken down into clear, readable language so you actually understand what you are approving or rejecting.</p>
+          </div>
+        </div>
+
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-card-image">
+            <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80" alt="Calendar reminders and notifications">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h3>Election Reminders</h3>
+            <p>Never miss a registration deadline, early voting window, or election day again. Get timely alerts with your polling location and required documents.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="market">
+    <div class="section-inner">
+      <span class="section-label reveal">Market Opportunity</span>
+      <h2 class="section-title reveal reveal-delay-1">A Massive, Underserved Audience</h2>
+
+      <div class="market-content">
+        <div class="market-details reveal reveal-delay-2">
+          <div class="market-stat-big">
+            <div class="stat-number">250M+</div>
+            <div class="stat-label">eligible voters in the United States, with the vast majority lacking any reliable tool for local election research</div>
+          </div>
+          <div class="market-stat-big">
+            <div class="stat-number">$10M+</div>
+            <div class="stat-label">annual revenue potential at scale with hyper-local ad CPMs in the $15 to $25 range</div>
+          </div>
+          <div class="market-audience">
+            <h3>Target Audience</h3>
+            <p>Voters aged 18 to 45 who want to be informed but lack the time or motivation to research local elections on their own. First-time voters and residents of rapidly growing communities where local governance has outsized impact are a strong secondary audience.</p>
+          </div>
+        </div>
+        <div class="market-image reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=800&q=80" alt="Diverse crowd representing American voters">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS PLAN -->
+  <section class="business-plan">
+    <div class="business-plan-bg"></div>
+    <div class="section-inner">
+      <div class="bp-header">
+        <span class="section-label reveal">Business Plan</span>
+        <h2 class="section-title light reveal reveal-delay-1">The Road to Scale</h2>
+        <p class="section-text light reveal reveal-delay-2">A clear, actionable plan for turning informed citizenship into a sustainable business.</p>
+      </div>
+
+      <div class="bp-grid">
+        <!-- Revenue Model -->
+        <div class="bp-card reveal">
+          <div class="bp-card-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Revenue Model</h3>
+          <p>Hyper-local advertising from small businesses targeting voters by zip code, premium candidate profile pages with enhanced micro-sites and video, and sponsored civic content. Revenue stays separate from editorial content to maintain trust.</p>
+        </div>
+
+        <!-- Go-to-Market -->
+        <div class="bp-card reveal reveal-delay-1">
+          <div class="bp-card-icon">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Go-to-Market Strategy</h3>
+          <p>Launch in a single fast-growing metro area where local politics are contentious and information is hard to find. Run street-team campaigns at polling locations, partner with nonpartisan voter registration organizations, and target the "I should vote but I have no idea who these people are" audience on social media.</p>
+        </div>
+
+        <!-- Competitive Advantage -->
+        <div class="bp-card reveal reveal-delay-2">
+          <div class="bp-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Competitive Advantage</h3>
+          <p>While presidential election coverage is everywhere, local election information is fragmented across municipal websites, candidate Facebook pages, and obscure PDFs. Civic is the only platform combining candidate data, community sentiment, and ballot breakdowns at the local level in a mobile-first experience built for last-minute decision making.</p>
+        </div>
+
+        <!-- Startup Cost -->
+        <div class="bp-card reveal reveal-delay-3">
+          <div class="bp-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Startup Cost Estimate</h3>
+          <p>Building an MVP covering initial metro areas, with data sourcing infrastructure, moderation tools, and core mobile apps.</p>
+          <div class="bp-cost-badge">$50,000 - $300,000</div>
+        </div>
+
+        <!-- Year One Milestones -->
+        <div class="bp-card reveal">
+          <div class="bp-card-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Year One Milestones</h3>
+          <ul>
+            <li><span class="bp-bullet"></span><span>Launch in 3 metro areas covering at least 500,000 eligible voters with full candidate and ballot data</span></li>
+            <li><span class="bp-bullet"></span><span>Reach 50,000 downloads and 20,000 monthly active users during the first election cycle</span></li>
+            <li><span class="bp-bullet"></span><span>Secure partnerships with 5 nonpartisan civic organizations and onboard 200 local business advertisers</span></li>
+          </ul>
+        </div>
+
+        <!-- Key Risks -->
+        <div class="bp-card reveal reveal-delay-1">
+          <div class="bp-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3>Key Risks</h3>
+          <ul>
+            <li><span class="bp-bullet"></span><span>Maintaining true nonpartisanship while accepting political advertising revenue creates a trust problem that could alienate users on both sides</span></li>
+            <li><span class="bp-bullet"></span><span>Seasonal usage means heavy traffic only around elections, making it hard to sustain engagement and ad revenue year-round</span></li>
+            <li><span class="bp-bullet"></span><span>Sourcing accurate, up-to-date local candidate and ballot data across thousands of jurisdictions requires significant ongoing editorial and data operations</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">CIVIC</div>
+      <p>This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet). Think you could build it? Go ahead.</p>
+      <a href="https://www.youtube.com/watch?v=uWQ5qJoi34o" target="_blank" rel="noopener">Watch the Episode</a>
+      <div class="footer-divider"></div>
+      <p class="footer-small">Concept extracted and visualized by Steal This Idea. All stock photography via Unsplash.</p>
+    </div>
+  </footer>
+
+  <script>
+    // IntersectionObserver for scroll-triggered reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

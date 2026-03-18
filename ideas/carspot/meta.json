@@ -1,0 +1,34 @@
+{
+  "slug": "carspot",
+  "company_name": "CarSpot",
+  "tagline": "Test drive here. Delivered to your door.",
+  "elevator_pitch": "CarSpot reinvents the car dealership by replacing massive lots with compact, street-level showrooms that carry just two of each model for test drives. Once you choose your car, it ships from a central distribution center to your driveway within 48 hours, saving you thousands in overhead costs passed on as savings.",
+  "problem": "Traditional car dealerships occupy enormous lots with hundreds of vehicles baking in the sun, creating massive overhead costs for land, security, maintenance, and staffing. These costs get passed directly to consumers, inflating the price of every new car sold. Meanwhile, most buyers already know what they want before they ever step on the lot.",
+  "solution": "CarSpot operates compact showrooms in high-traffic locations like malls and downtown storefronts, stocking only two of each model for test drives. All inventory lives in a single climate-controlled distribution center. After a test drive, customers configure and purchase their vehicle, which is delivered to their home within two days. Lower overhead means lower prices for buyers.",
+  "target_market": "New car buyers aged 25 to 50 who research vehicles online before purchasing, value convenience over the traditional dealership experience, and are price-sensitive enough to appreciate savings from reduced overhead.",
+  "revenue_model": "Revenue comes from per-vehicle sales margins, which remain competitive despite lower prices because overhead is drastically reduced. Additional revenue from financing partnerships, trade-in processing fees, and extended warranty packages. The model can also license the showroom concept to existing dealership groups as a franchise or partnership.",
+  "key_features": [
+    "Compact urban showrooms in malls and high-foot-traffic areas with just two of each model on display",
+    "Central climate-controlled distribution center housing all inventory for a metro region",
+    "Home delivery within 48 hours of purchase, including full vehicle setup and walkthrough",
+    "Dramatically lower overhead translating to $1,000 or more in savings per vehicle for the buyer"
+  ],
+  "competitive_advantage": "By decoupling the test drive experience from inventory storage, CarSpot can place showrooms in premium retail locations that traditional dealerships could never afford, capturing walk-in traffic and impulse interest. The centralized inventory model also eliminates the costly shell game of transferring cars between lots and reduces damage, theft, and weather exposure.",
+  "market_size_estimate": "The US new car market generates roughly $900 billion in annual revenue. Even capturing 0.5% of that market in the first five years would represent $4.5 billion in sales, with margins improved by the lower-cost operating model.",
+  "go_to_market": "Partner with an established dealership group to pilot the concept with a single brand in one metro area. Open two to three compact showrooms in high-traffic retail locations while operating one shared distribution center. Use the pilot data to prove unit economics before expanding to additional brands and cities.",
+  "risks": [
+    "Franchise laws in many US states restrict how new cars can be sold and may require navigating complex dealer agreement regulations",
+    "Established dealership networks have deep political connections and may lobby against or resist the model",
+    "Customers may still want to see exact color and trim options in person before committing to a purchase"
+  ],
+  "year_one_milestones": [
+    "Secure a dealership partnership and open the first three compact showrooms in one metro area",
+    "Achieve 500 vehicle sales through the new model with a measurable cost-per-sale reduction versus traditional lots",
+    "Demonstrate a net promoter score above 70 from buyers using the test-drive-and-deliver experience"
+  ],
+  "startup_cost_range": "$2M - $5M",
+  "category": "Marketplace",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=AyZn0SD6wEI",
+  "episode_number": 37
+}

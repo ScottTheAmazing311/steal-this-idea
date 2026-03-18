@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minipost - Social Media Microservices for Small Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #FF6B6B;
+  --peach: #FFEAA7;
+  --mint: #00B894;
+  --sky: #74B9FF;
+  --purple: #A29BFE;
+  --dark: #2D3436;
+  --warm-white: #FEFEFE;
+  --soft-gray: #636E72;
+  --light-bg: #FFF9F0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--dark);
+  background: var(--warm-white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--dark);
+  color: var(--peach);
+  padding: 10px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sti-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+}
+.sti-badge svg { width: 18px; height: 18px; }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FF6B6B 0%, #A29BFE 50%, #74B9FF 100%);
+}
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=80') center/cover;
+  opacity: 0.15;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  text-align: center;
+  color: #fff;
+}
+.hero-pill {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.15);
+}
+.hero .tagline {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 500;
+  opacity: 0.95;
+  margin-bottom: 20px;
+}
+.hero .pitch {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  opacity: 0.9;
+  line-height: 1.8;
+}
+.btn-primary {
+  display: inline-block;
+  background: #fff;
+  color: var(--coral);
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+.btn-secondary {
+  display: inline-block;
+  background: var(--coral);
+  color: #fff;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255,107,107,0.3);
+  cursor: pointer;
+  border: none;
+}
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(255,107,107,0.4);
+}
+
+/* Floating shapes */
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  background: #fff;
+}
+.shape-1 { width: 300px; height: 300px; top: -50px; right: -80px; animation: float 8s ease-in-out infinite; }
+.shape-2 { width: 200px; height: 200px; bottom: 10%; left: -60px; animation: float 10s ease-in-out infinite reverse; }
+.shape-3 { width: 150px; height: 150px; top: 40%; right: 10%; animation: float 6s ease-in-out infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+/* Section base */
+.section {
+  padding: 100px 24px;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  display: inline-block;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--coral);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--soft-gray);
+  max-width: 650px;
+  line-height: 1.8;
+}
+
+/* Problem Section */
+.problem {
+  background: var(--light-bg);
+  position: relative;
+  overflow: hidden;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 50px;
+}
+.problem-image {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  aspect-ratio: 4/3;
+}
+.problem-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.problem-points {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.problem-point {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.problem-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--coral);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.problem-icon svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.problem-point h4 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+.problem-point p {
+  color: var(--soft-gray);
+  font-size: 0.95rem;
+}
+
+/* Solution Section */
+.solution {
+  background: var(--dark);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.solution .section-label { color: var(--peach); }
+.solution .section-subtitle { color: rgba(255,255,255,0.7); }
+.solution-visual {
+  margin-top: 60px;
+  position: relative;
+}
+.solution-image-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.solution-image-row img {
+  width: 100%;
+  border-radius: 20px;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.solution-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 50px;
+}
+.solution-step {
+  text-align: center;
+  padding: 36px 24px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.solution-step:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.08);
+}
+.step-number {
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.step-1 .step-number { background: var(--coral); }
+.step-2 .step-number { background: var(--purple); }
+.step-3 .step-number { background: var(--mint); }
+.solution-step h4 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+.solution-step p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.95rem;
+}
+
+/* Features */
+.features {
+  background: #fff;
+  position: relative;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 60px;
+}
+.feature-card {
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--light-bg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+.feature-card-image {
+  height: 200px;
+  overflow: hidden;
+}
+.feature-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.feature-card:hover .feature-card-image img {
+  transform: scale(1.05);
+}
+.feature-card-body {
+  padding: 32px;
+}
+.feature-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.feature-icon-wrap svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.fi-coral { background: var(--coral); }
+.fi-purple { background: var(--purple); }
+.fi-mint { background: var(--mint); }
+.fi-sky { background: var(--sky); }
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.feature-card p {
+  color: var(--soft-gray);
+  font-size: 0.95rem;
+}
+
+/* Market */
+.market {
+  background: linear-gradient(135deg, #A29BFE 0%, #74B9FF 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.market .section-label { color: rgba(255,255,255,0.8); }
+.market-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 50px;
+}
+.market-image {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.market-image img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+.market-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.market-description {
+  grid-column: 1 / -1;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  opacity: 0.9;
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Business Plan */
+.biz-plan {
+  background: var(--light-bg);
+}
+.biz-plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 60px;
+}
+.biz-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.3s ease;
+}
+.biz-card:hover { transform: translateY(-4px); }
+.biz-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.biz-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.biz-card-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.biz-card h3 {
+  font-size: 1.1rem;
+}
+.biz-card p, .biz-card li {
+  color: var(--soft-gray);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+.biz-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.biz-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.biz-card li::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--coral);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.biz-full { grid-column: 1 / -1; }
+.cost-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--coral), var(--purple));
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 12px;
+}
+
+/* CTA Band */
+.cta-band {
+  background: linear-gradient(135deg, var(--coral) 0%, #ee5a24 100%);
+  color: #fff;
+  text-align: center;
+  padding: 80px 24px;
+}
+.cta-band h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 16px;
+}
+.cta-band p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-band .btn-primary { color: var(--coral); }
+
+/* Footer */
+.footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 50px 24px;
+}
+.footer p { font-size: 0.95rem; margin-bottom: 10px; }
+.footer a { color: var(--peach); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-grid,
+  .solution-image-row,
+  .features-grid,
+  .market-content,
+  .biz-plan-grid { grid-template-columns: 1fr; }
+
+  .solution-steps { grid-template-columns: 1fr; }
+  .market-stats { grid-template-columns: 1fr 1fr; }
+
+  .section { padding: 70px 20px; }
+
+  .sti-badge {
+    top: 12px;
+    left: 12px;
+    font-size: 0.75rem;
+    padding: 8px 14px;
+  }
+
+  .hero-content { padding: 100px 20px 60px; }
+  .biz-full { grid-column: auto; }
+}
+
+@media (max-width: 480px) {
+  .market-stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18l6-6-6-6"/>
+  </svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-image"></div>
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-pill">Social Media Microservices</div>
+    <h1>Minipost</h1>
+    <p class="tagline">Social media microservices for small business</p>
+    <p class="pitch">Post a quick gig. Get tweets, graphics, and posts delivered by freelance creators. Approve and publish to all your channels from one dashboard. No agencies, no headaches, no credential sharing.</p>
+    <a href="#features" class="btn-primary">Get Early Access</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem section">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">Social media is a full-time job.<br>You already have one.</h2>
+      <p class="section-subtitle">Small businesses know they need to post. But between the writing, the graphics, the scheduling, and the platform juggling, it never gets done.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80" alt="Stressed business owner at desk" loading="lazy">
+      </div>
+      <div class="problem-points reveal">
+        <div class="problem-point">
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <h4>The Context Switch Tax</h4>
+            <p>Jumping from running your business to writing clever tweets and designing banners in Canva eats up hours you do not have.</p>
+          </div>
+        </div>
+        <div class="problem-point">
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <h4>Agencies Cost Too Much</h4>
+            <p>Social media agencies charge thousands per month. For a local coffee shop or indie podcast, that math simply does not work.</p>
+          </div>
+        </div>
+        <div class="problem-point">
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h4>Hiring Is Overkill</h4>
+            <p>You do not need a dedicated social media manager. You just need someone to crank out a handful of posts each week.</p>
+          </div>
+        </div>
+        <div class="problem-point">
+          <div class="problem-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <h4>Credential Chaos</h4>
+            <p>Sharing your social logins with freelancers you found on Upwork feels risky and messy. There has to be a better way.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution section">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The Solution</span>
+      <h2 class="section-title">Your social media, handled in bites.</h2>
+      <p class="section-subtitle">Minipost is a marketplace plus publishing portal built for small, fast social media tasks. Request content, review it, and post it. All in one place.</p>
+    </div>
+    <div class="solution-visual reveal">
+      <div class="solution-image-row">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Creative team collaborating" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80" alt="Social media on phone" loading="lazy">
+      </div>
+    </div>
+    <div class="solution-steps reveal">
+      <div class="solution-step step-1">
+        <div class="step-number">1</div>
+        <h4>Post a Micro-Gig</h4>
+        <p>Need 10 tweets? A Facebook banner? 5 Instagram captions? Just describe what you need and set your budget.</p>
+      </div>
+      <div class="solution-step step-2">
+        <div class="step-number">2</div>
+        <h4>Creators Deliver</h4>
+        <p>Vetted freelancers pick up your task, reference your brand profile, and deliver content right inside the portal.</p>
+      </div>
+      <div class="solution-step step-3">
+        <div class="step-number">3</div>
+        <h4>Review and Publish</h4>
+        <p>Approve or tweak the content, drag it onto your calendar, and publish directly to every platform. Done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Everything you need. Nothing you don't.</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Built for speed, simplicity, and small budgets. Here is what makes Minipost different.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Dashboard analytics" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon-wrap fi-coral">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Micro-Gig Marketplace</h3>
+          <p>Post bite-sized tasks for tweets, posts, banners, and short-form videos. Freelancers pick them up and deliver fast.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=800&q=80" alt="Calendar planning" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon-wrap fi-purple">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>Drag-and-Drop Calendar</h3>
+          <p>Once content is approved, drag it right onto your publishing calendar. Schedule for the week, the month, or the quarter.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=800&q=80" alt="Brand identity design" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon-wrap fi-mint">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Brand Profile Portal</h3>
+          <p>Upload your colors, logos, tone guidelines, and current promotions. Every freelancer sees your brand DNA before they start writing.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Performance analytics" loading="lazy">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon-wrap fi-sky">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Performance Tipping</h3>
+          <p>When a post crushes it, creators get automatically rewarded. Engagement bonuses incentivize quality over quantity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <span class="section-label">Market Opportunity</span>
+      <h2 class="section-title">33 million small businesses.<br>Most have zero social strategy.</h2>
+    </div>
+    <div class="market-content">
+      <div class="market-image reveal">
+        <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=800&q=80" alt="Small business storefront" loading="lazy">
+      </div>
+      <div class="market-stats reveal">
+        <div class="stat-card">
+          <span class="stat-number">33M+</span>
+          <span class="stat-label">Small businesses in the US</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">$40B+</span>
+          <span class="stat-label">Social media mgmt market</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">73%</span>
+          <span class="stat-label">SMBs say social is important</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">58%</span>
+          <span class="stat-label">Lack a consistent strategy</span>
+        </div>
+      </div>
+      <p class="market-description reveal">The gap between knowing social media matters and actually doing it consistently is massive. Minipost lives right in that gap: affordable enough for a food truck, powerful enough for a growing brand. Podcasters, salons, tutors, restaurants, freelancers, and local service companies all need this.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="biz-plan section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <span class="section-label">Business Plan</span>
+      <h2 class="section-title">How Minipost becomes a real company</h2>
+      <p class="section-subtitle" style="margin:0 auto;">A clear path from idea to revenue. Here is the playbook.</p>
+    </div>
+    <div class="biz-plan-grid">
+      <div class="biz-card reveal">
+        <div class="biz-card-header">
+          <div class="biz-card-icon" style="background:var(--coral);">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Revenue Model</h3>
+        </div>
+        <p>Tiered monthly subscriptions for businesses: $10/month for single-channel access, $30/month for three channels, and $50/month for unlimited channels plus analytics. Freelancers join free. Transaction fees stay at processing cost only, so creators keep nearly all of their earnings. The platform monetizes through business subscriptions, not by taxing gig payouts.</p>
+      </div>
+      <div class="biz-card reveal">
+        <div class="biz-card-header">
+          <div class="biz-card-icon" style="background:var(--mint);">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <h3>Go-to-Market Strategy</h3>
+        </div>
+        <p>Launch with podcasters and indie content creators as the beachhead market. Partner with podcast hosting platforms like Buzzsprout and Anchor to reach creators who already struggle with social promotion. Expand into local businesses through targeted Instagram and Facebook ads. Offer a free trial month to lower the barrier to entry and drive word-of-mouth referrals.</p>
+      </div>
+      <div class="biz-card reveal">
+        <div class="biz-card-header">
+          <div class="biz-card-icon" style="background:var(--purple);">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>Competitive Advantage</h3>
+        </div>
+        <p>Unlike Upwork or Fiverr, Minipost is purpose-built for social media micro-tasks with integrated publishing. Unlike Buffer or Hootsuite, it includes a marketplace of creators. The combination of content marketplace plus scheduling portal keeps both sides engaged and makes it hard to go off-platform.</p>
+      </div>
+      <div class="biz-card reveal">
+        <div class="biz-card-header">
+          <div class="biz-card-icon" style="background:var(--sky);">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Year One Milestones</h3>
+        </div>
+        <ul>
+          <li>Launch MVP with Twitter, Instagram, and Facebook integration; onboard 500 businesses and 1,000 freelancers</li>
+          <li>Reach $25K monthly recurring revenue through platform subscriptions</li>
+          <li>Expand to TikTok and YouTube Shorts with video micro-gig support</li>
+        </ul>
+      </div>
+      <div class="biz-card reveal">
+        <div class="biz-card-header">
+          <div class="biz-card-icon" style="background:var(--coral);">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3>Key Risks</h3>
+        </div>
+        <ul>
+          <li>Quality control at scale: ensuring freelancer output meets business expectations when tasks are small and fast</li>
+          <li>Marketplace liquidity: building enough supply of freelancers and demand from businesses simultaneously in the early stages</li>
+          <li>AI content tools like ChatGPT and Canva AI may reduce perceived need for human social media creators</li>
+        </ul>
+      </div>
+      <div class="biz-card biz-full reveal" style="text-align:center;">
+        <div class="biz-card-header" style="justify-content:center;">
+          <div class="biz-card-icon" style="background:linear-gradient(135deg, var(--coral), var(--purple));">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3>Estimated Startup Cost</h3>
+        </div>
+        <p>MVP development, initial marketing, and early operations</p>
+        <div class="cost-badge">$75,000 - $150,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Band -->
+<section class="cta-band">
+  <div class="reveal">
+    <h2>Ready to steal this idea?</h2>
+    <p>Minipost is a concept waiting for a builder. If this sounds like your next startup, go make it happen.</p>
+    <a href="#" class="btn-primary">Join the Waitlist</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+  <p><a href="https://www.youtube.com/watch?v=Q6eQi3i2mT4">Watch the original episode</a></p>
+  <p style="margin-top:20px; font-size:0.85rem; opacity:0.5;">Built for dreamers, schemers, and people who actually ship things.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach((el) => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "slug": "andres-kitchen",
+  "company_name": "Andre's Kitchen",
+  "tagline": "Dinner, prepped. Just pop it in.",
+  "elevator_pitch": "Andre's Kitchen is a drive-through storefront where you pick up fully prepped sheet pan meals ready to bake at home. Call ahead, preheat your oven, grab your meal, and have a hot home-cooked dinner on the table in 30 minutes—no grocery runs, no meal kits, no fast food guilt.",
+  "problem": "By 6 PM, busy families face an impossible choice: expensive sit-down restaurants with long waits, unhealthy fast food, or the exhausting process of grocery shopping and cooking from scratch. Meal kit services like Blue Apron still require significant prep time and come with excessive packaging and shipping delays.",
+  "solution": "Andre's Kitchen operates small, efficient storefronts where fresh sheet pan meals are prepped all day. Customers call ahead, preheat their oven on the way, pick up a ready-to-bake tray with protein, vegetables, and sides, and have dinner ready minutes after walking in the door. No cooking skill required.",
+  "target_market": "Busy suburban families, dual-income households, and parents who want home-cooked quality without the time investment. Secondary market: health-conscious professionals tired of takeout.",
+  "revenue_model": "Per-meal pricing at $25-40 per family tray (beating restaurant prices while maintaining healthy margins on bulk-prepped ingredients). Rotating weekly menus with 4 protein options drive repeat visits. Potential for multi-meal bundles and loyalty programs.",
+  "key_features": [
+    "Fully prepped sheet pan meals ready to bake in 20-30 minutes",
+    "Rotating weekly menu with 4 proteins, 2 veggie options, and sides",
+    "Drive-through pickup with call-ahead ordering",
+    "Locally sourced, fresh ingredients—no vacuum sealing or shipping"
+  ],
+  "competitive_advantage": "Unlike meal kits, there's zero prep work and ingredients are fresh (not shipped). Unlike fast food, the meals are healthy and home-baked. The Papa Murphy's model proves consumers will pick up food to finish at home, and the tiny storefront footprint keeps overhead extremely low.",
+  "market_size_estimate": "The U.S. meal kit market is $10B+ and the fast-casual dining market exceeds $50B. Andre's Kitchen sits at the intersection, targeting the massive underserved segment of families who want convenience AND quality. Even capturing 0.1% of this combined market represents $60M+ in revenue.",
+  "go_to_market": "Launch a single storefront in a suburban area with high family density near commuter routes. Start with dinner-only service to keep operations lean. Build word-of-mouth through local social media, partnerships with neighborhood Facebook groups, and a weekly menu reveal that creates anticipation.",
+  "risks": [
+    "Finding the right price point that feels fair versus grocery store or takeout alternatives",
+    "Food safety compliance for selling uncooked/partially prepared proteins to consumers",
+    "Building habitual behavior—getting customers to think of Andre's Kitchen before defaulting to fast food"
+  ],
+  "year_one_milestones": [
+    "Open first location and reach 100 meals sold per day within 6 months",
+    "Achieve a 40% repeat customer rate through the rotating menu model",
+    "Validate unit economics and begin scouting second location by month 10"
+  ],
+  "startup_cost_range": "$80,000 - $150,000 (small commercial kitchen lease, prep equipment, initial inventory, branding)",
+  "category": "Services",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=5KywRRYLe0g",
+  "episode_number": 1
+}

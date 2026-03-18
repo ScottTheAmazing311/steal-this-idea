@@ -1,0 +1,34 @@
+{
+  "slug": "care-ai",
+  "company_name": "CareAI",
+  "tagline": "Your skin's progress, measured by AI",
+  "elevator_pitch": "CareAI is an AI-powered skincare tracking app that scans your face to objectively measure skin health over time. It replaces guesswork with data, showing you exactly how your products are performing and recommending what to try next.",
+  "problem": "Skincare is expensive and slow to show results. People spend months using products without any objective way to know if they are actually working. Most resort to daily selfies or the placebo effect, never truly understanding what makes a difference.",
+  "solution": "CareAI uses computer vision to analyze your skin each day, scoring metrics like texture, tone, wrinkles, dark circles, and acne. It benchmarks your progress over time and correlates improvements with the products you log, so you finally know what works and what to cut.",
+  "target_market": "Adults aged 25-45 who invest in skincare routines but lack objective feedback on product effectiveness, particularly millennials and Gen Z consumers who are data-driven and already use health tracking apps.",
+  "revenue_model": "Freemium subscription model. Free tier includes basic skin scoring and weekly scans. Premium tier ($9.99/month or $59.99/year) unlocks daily tracking, product recommendations, detailed analytics, and personalized routine suggestions. Additional revenue from affiliate partnerships with skincare brands for recommended products.",
+  "key_features": [
+    "AI Face Scan that rates skin quality across texture, tone, wrinkles, dark circles, and hydration",
+    "Progress Dashboard showing improvement percentages over days, weeks, and months",
+    "Product Tracker that correlates specific products with measurable skin changes",
+    "Personalized Recommendations powered by your skin data, demographics, and goals"
+  ],
+  "competitive_advantage": "Unlike generic skincare apps that offer tips or routines, CareAI provides objective, data-driven skin analysis that removes the guesswork. The longer users stay, the more personalized and accurate their data becomes, creating a strong retention loop and a defensible dataset of skin-product correlations.",
+  "market_size_estimate": "The global skincare market is valued at over $180 billion, and the beauty tech segment is growing rapidly. With 60%+ of skincare consumers saying they struggle to evaluate product effectiveness, even capturing 0.1% of the addressable market represents a $180M opportunity.",
+  "go_to_market": "Launch with a free AI skin scoring tool that goes viral on TikTok and Instagram through influencer partnerships and before/after content. Target skincare communities on Reddit (r/SkincareAddiction) and beauty YouTube. Convert free users to premium with gated analytics and personalized recommendations.",
+  "risks": [
+    "Regulatory challenges around making health or dermatological claims with an AI tool, requiring careful legal positioning as a wellness product rather than a medical device",
+    "Accuracy and consistency of phone camera-based skin analysis across different lighting conditions, devices, and skin tones could undermine user trust",
+    "User retention may be difficult if results feel too slow or if the AI scores do not align with users' self-perception of their skin"
+  ],
+  "year_one_milestones": [
+    "Launch MVP app on iOS with core AI scanning, scoring, and product logging within 4 months",
+    "Reach 100,000 free users and 5,000 premium subscribers within 9 months through influencer-led social media campaigns",
+    "Secure 3-5 affiliate partnerships with mid-tier skincare brands and launch the product recommendation engine by month 12"
+  ],
+  "startup_cost_range": "$150,000 - $350,000",
+  "category": "AI/ML",
+  "vibe": "premium",
+  "episode_url": "https://www.youtube.com/watch?v=BjzwucD8uCc",
+  "episode_number": 127
+}

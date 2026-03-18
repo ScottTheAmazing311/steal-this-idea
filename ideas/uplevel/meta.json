@@ -1,0 +1,34 @@
+{
+  "slug": "uplevel",
+  "company_name": "UpLevel",
+  "tagline": "Try five. Keep the best.",
+  "elevator_pitch": "UpLevel sends you a curated box of five top-rated products in any category so you can try them all at home and keep only the one you love. Think Warby Parker, but for wallets, headphones, and every everyday essential you wish you could test before committing.",
+  "problem": "Shopping for everyday essentials like wallets, headphones, and sunglasses is paralyzed by too many choices. Online reviews contradict each other, YouTube reviewers have sponsorship deals, and you can never truly know what works for you without holding it in your hands. People end up buying multiple options on Amazon and returning most of them, wasting time and money.",
+  "solution": "UpLevel curates the five best products in a given category, vetted by a panel of independent experts, and ships them directly to your door. You try them all at home, keep the one that fits your life, and send back the rest with a prepaid label. One purchase, zero guesswork.",
+  "target_market": "Millennial and Gen-Z consumers (ages 22-40) who value quality products but suffer from analysis paralysis when shopping online. These are people who watch review videos, read comparison articles, and still feel unsure. Secondary market includes gift-givers looking for a unique, high-quality present.",
+  "revenue_model": "Revenue comes from three streams: (1) product markup on the item customers keep, (2) a flat trial fee of $15 per box covering shipping and curation costs, and (3) a premium membership program where loyal customers receive periodic curated boxes in new categories at a discount. Bulk purchasing from manufacturers at wholesale prices supports healthy margins.",
+  "key_features": [
+    "Expert-curated boxes of five top products per category",
+    "Try at home with free returns on items you don't keep",
+    "Membership program with surprise category drops and discounts",
+    "Expanding catalog from wallets and headphones to dozens of everyday categories"
+  ],
+  "competitive_advantage": "Unlike Amazon, where you sift through thousands of listings and contradictory reviews, UpLevel does the research for you with a trusted editorial team. Unlike Warby Parker, UpLevel is not locked to one product category. The try-before-you-commit model drastically reduces buyer's remorse and builds deep customer trust.",
+  "market_size_estimate": "The U.S. consumer electronics and accessories market alone exceeds $400B annually. The direct-to-consumer subscription box market is projected at $65B. UpLevel targets the overlap: high-consideration everyday purchases where try-before-you-buy removes friction. Estimated initial TAM of $5B across launch categories (wallets, headphones, sunglasses, key organizers).",
+  "go_to_market": "Launch with two to three hero categories (over-ear headphones, slim wallets, and sunglasses) where analysis paralysis is highest and product size makes shipping feasible. Partner with micro-influencers in the EDC (everyday carry) and tech review communities for authentic, trusted promotion. Offer a first-box discount to drive trial and collect early customer data.",
+  "risks": [
+    "High return logistics costs if most users send back four out of five items without purchasing",
+    "Difficulty negotiating wholesale terms with premium brands before achieving scale",
+    "Customer churn if people treat the service as a try-then-buy-cheaper-on-Amazon pipeline"
+  ],
+  "year_one_milestones": [
+    "Launch three product categories and ship 10,000 curated boxes",
+    "Achieve a 60%+ keep rate per box to validate unit economics",
+    "Build a membership base of 2,000 recurring subscribers"
+  ],
+  "startup_cost_range": "$150K - $350K",
+  "category": "Marketplace",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=0to6RtiBuWU",
+  "episode_number": 29
+}

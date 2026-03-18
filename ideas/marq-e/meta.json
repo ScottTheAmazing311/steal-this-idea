@@ -1,0 +1,34 @@
+{
+  "slug": "marq-e",
+  "company_name": "Marq-E",
+  "tagline": "Your door has something to say.",
+  "elevator_pitch": "Marq-E is a smart e-ink display that mounts to your front door, letting you communicate with anyone who approaches—from delivery drivers to dinner guests. Control it from your phone with one tap, set it with your voice through Alexa, and never worry about missed packages, sleeping babies, or hard-to-find house numbers again.",
+  "problem": "Your front door is the most important communication point of your home, yet it's completely dumb. Delivery drivers can't find your house number at night. The doorbell wakes the baby. Guests don't know to come around back. You're stuck leaving paper notes that blow away or shouting instructions from inside the house.",
+  "solution": "Marq-E is a weatherproof, Bluetooth-enabled e-ink display that mounts to your door or window. Preload messages in the app, push one button to display them with an auto-revert timer, and your door becomes a smart communication hub. Voice control through Alexa means you can update it without even reaching for your phone.",
+  "target_market": "Suburban homeowners with families (especially those with young kids), smart home enthusiasts, and frequent online shoppers frustrated with delivery communication. Secondary: small business storefronts wanting dynamic signage.",
+  "revenue_model": "Hardware sales at $39-49 per unit with healthy margins on simple e-ink display + Bluetooth module. Optional premium app subscription ($2.99/mo) for advanced features like scheduling, custom designs, and smart home integrations. Gift market potential is enormous—easy housewarming, holiday, or new-parent gift.",
+  "key_features": [
+    "One-tap preset messages with auto-revert timers",
+    "Illuminated house number display visible from the street at night",
+    "Alexa and Google Home voice control integration",
+    "Weatherproof e-ink display with weeks-long battery life"
+  ],
+  "competitive_advantage": "Ring solved the 'who's at my door' problem; Marq-E solves the 'what should my door tell them' problem. At under $50, it's cheaper than a Ring doorbell and serves a complementary purpose. The e-ink technology means exceptional battery life and daylight readability, and the gift-ability factor creates organic growth.",
+  "market_size_estimate": "The smart home device market exceeds $80B globally. With 140M+ U.S. households and Ring doorbells in 20M+ of them, a complementary $49 product has a realistic addressable market of $500M+. Even 1% penetration = $5M in first-wave revenue.",
+  "go_to_market": "Launch on Kickstarter to validate demand and build an early adopter community. Target the 'new parent' and 'new homeowner' gift market through social media. Partner with Ring/Nest communities and smart home influencers. Retail placement at Target and Home Depot as an impulse-buy smart home accessory.",
+  "risks": [
+    "Battery life and weatherproofing must be bulletproof or returns will kill the brand",
+    "Smart home fatigue—consumers may see it as yet another gadget they don't need",
+    "Large players (Ring, Google) could easily add a display feature to existing doorbells"
+  ],
+  "year_one_milestones": [
+    "Successfully fund Kickstarter campaign and ship first 5,000 units",
+    "Achieve 4.5+ star average rating to build word-of-mouth credibility",
+    "Secure retail placement in one major chain (Target, Home Depot, or Best Buy)"
+  ],
+  "startup_cost_range": "$50,000 - $120,000 (hardware prototyping, app development, initial manufacturing run, Kickstarter campaign)",
+  "category": "Hardware",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=O_Lc5TOkT-I",
+  "episode_number": 2
+}

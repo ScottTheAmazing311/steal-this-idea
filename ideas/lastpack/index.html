@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LastPack - The Last Backpack You Will Ever Buy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #f5f5f5;
+  --accent: #00e676;
+  --accent-dark: #00c853;
+  --gray-900: #141414;
+  --gray-800: #1e1e1e;
+  --gray-700: #2a2a2a;
+  --gray-400: #888;
+  --gray-300: #aaa;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--accent);
+  color: var(--black);
+  text-decoration: none;
+  padding: 8px 16px;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0,230,118,0.3);
+}
+.sti-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0,230,118,0.5);
+}
+.sti-badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.25);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,230,118,0.08) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 2rem;
+}
+.hero-content h1 {
+  font-size: clamp(4rem, 12vw, 10rem);
+  color: var(--white);
+  margin-bottom: 0.2em;
+  text-shadow: 0 0 60px rgba(0,230,118,0.3);
+}
+.hero-content h1 span {
+  color: var(--accent);
+}
+.hero-tagline {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--gray-300);
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+}
+.hero-pitch {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--gray-300);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+.btn-primary {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--accent);
+  color: var(--black);
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,230,118,0.4);
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+.btn-primary:hover::after { left: 100%; }
+
+.btn-outline {
+  display: inline-block;
+  padding: 14px 40px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--black);
+}
+
+/* Sections */
+section {
+  padding: 6rem 2rem;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: 1.5rem;
+}
+
+/* Problem */
+.problem-section {
+  background: var(--gray-900);
+  position: relative;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.problem-text p {
+  font-size: 1.1rem;
+  color: var(--gray-300);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+.problem-img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-left: 4px solid var(--accent);
+}
+.problem-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.problem-card {
+  background: var(--gray-800);
+  padding: 2rem 1.5rem;
+  border-top: 3px solid var(--accent);
+  position: relative;
+}
+.problem-card-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+}
+.problem-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.problem-card p {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+  font-weight: 300;
+}
+
+/* Solution */
+.solution-section {
+  position: relative;
+  overflow: hidden;
+}
+.solution-hero-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  margin-bottom: 3rem;
+  filter: brightness(0.8);
+  border-bottom: 4px solid var(--accent);
+}
+.solution-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.solution-content p {
+  font-size: 1.1rem;
+  color: var(--gray-300);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+}
+.solution-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.solution-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  color: var(--black);
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-text h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+.step-text p {
+  font-size: 0.95rem;
+  color: var(--gray-400);
+  font-weight: 300;
+}
+
+/* Features */
+.features-section {
+  background: var(--gray-900);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--gray-800);
+  display: flex;
+  flex-direction: column;
+}
+.feature-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.feature-card:hover .feature-card-img {
+  transform: scale(1.05);
+}
+.feature-card-body {
+  padding: 2rem;
+}
+.feature-card-body h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+.feature-card-body p {
+  font-size: 0.95rem;
+  color: var(--gray-400);
+  font-weight: 300;
+  line-height: 1.6;
+}
+.feature-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+}
+
+/* Market */
+.market-section {
+  position: relative;
+}
+.market-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.15);
+}
+.market-inner {
+  position: relative;
+  z-index: 2;
+}
+.market-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.stat-box {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid var(--gray-700);
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(8px);
+}
+.stat-num {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3.5rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+  font-weight: 300;
+}
+.market-text {
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  color: var(--gray-300);
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 750px;
+}
+
+/* Business Plan */
+.bizplan-section {
+  background: var(--gray-900);
+}
+.bizplan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.bizplan-card {
+  background: var(--gray-800);
+  padding: 2.5rem;
+  border-left: 3px solid var(--accent);
+}
+.bizplan-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+.bizplan-card p, .bizplan-card li {
+  font-size: 0.95rem;
+  color: var(--gray-300);
+  font-weight: 300;
+  line-height: 1.7;
+}
+.bizplan-card ul {
+  list-style: none;
+  padding: 0;
+}
+.bizplan-card ul li {
+  padding: 0.4rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.bizplan-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+.bizplan-full {
+  grid-column: 1 / -1;
+}
+.cost-badge {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 10px 24px;
+  background: rgba(0,230,118,0.1);
+  border: 1px solid var(--accent);
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1519682577862-22b62b24e493?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.18);
+}
+.cta-inner {
+  position: relative;
+  z-index: 2;
+}
+.cta-section h2 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  margin-bottom: 1rem;
+}
+.cta-section p {
+  font-size: 1.15rem;
+  color: var(--gray-300);
+  font-weight: 300;
+  max-width: 550px;
+  margin: 0 auto 2rem;
+}
+
+/* Footer */
+footer {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: var(--gray-900);
+  border-top: 1px solid var(--gray-700);
+}
+footer p {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+  font-weight: 300;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .problem-grid,
+  .solution-content,
+  .features-grid,
+  .bizplan-grid { grid-template-columns: 1fr; }
+  .problem-cards { grid-template-columns: 1fr; }
+  .market-stats { grid-template-columns: 1fr; }
+  .problem-img {
+    height: 280px;
+    border-left: none;
+    border-top: 4px solid var(--accent);
+  }
+  .sti-badge {
+    top: 12px;
+    left: 12px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18l6-6-6-6"/>
+  </svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>LAST<span>PACK</span></h1>
+    <p class="hero-tagline">The last backpack you will ever buy.</p>
+    <p class="hero-pitch">A modular backpack system that lets you snap in only the compartments you actually use. Choose your frame. Pick your modules. Build a bag that fits your life, not someone else's.</p>
+    <a href="#features" class="btn-primary">BUILD YOUR PACK</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="container">
+    <div class="problem-grid reveal">
+      <div class="problem-text">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-title">Backpacks Are Broken</h2>
+        <p>You carry a backpack every single day. It is one of the most-used objects in your life. And yet, most people grab whatever is cheapest at the store, inherit a leftover college bag, or buy an overengineered travel pack with fifteen compartments they will never touch.</p>
+        <p>The working professional has been completely ignored. There are great hiking packs, great travel packs, great camera bags. But nobody is designing a thoughtful daily carry for the person who just needs their laptop, lunch, sunglasses, and keys organized without the clutter.</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=800&q=80" alt="Cluttered backpack compartments" class="problem-img">
+    </div>
+    <div class="problem-cards reveal">
+      <div class="problem-card">
+        <svg class="problem-card-icon" viewBox="0 0 48 48" fill="none" stroke="#00e676" stroke-width="2">
+          <rect x="6" y="10" width="36" height="30" rx="3"/>
+          <line x1="6" y1="20" x2="42" y2="20"/>
+          <line x1="6" y1="30" x2="42" y2="30"/>
+          <line x1="18" y1="10" x2="18" y2="40"/>
+          <line x1="30" y1="10" x2="30" y2="40"/>
+        </svg>
+        <h4>The Over-Builder</h4>
+        <p>Locking zippers, four water bottle slots, two sunglasses pockets, a shoe compartment. Built for a trip you are never taking.</p>
+      </div>
+      <div class="problem-card">
+        <svg class="problem-card-icon" viewBox="0 0 48 48" fill="none" stroke="#00e676" stroke-width="2">
+          <rect x="10" y="6" width="28" height="36" rx="4"/>
+          <line x1="10" y1="14" x2="38" y2="14"/>
+          <circle cx="24" cy="28" r="6"/>
+        </svg>
+        <h4>The Try-Hard</h4>
+        <p>All-leather, zero compartments, looks like a briefcase strapped to your back. Costs $400 and holds almost nothing.</p>
+      </div>
+      <div class="problem-card">
+        <svg class="problem-card-icon" viewBox="0 0 48 48" fill="none" stroke="#00e676" stroke-width="2">
+          <path d="M14 42V12h20v30"/>
+          <path d="M14 12C14 8 18 6 24 6s10 2 10 6"/>
+          <line x1="20" y1="22" x2="28" y2="22"/>
+        </svg>
+        <h4>The Afterthought</h4>
+        <p>Free conference swag, a ten-year-old JanSport, or a generic Best Buy special. Functional, barely. Thoughtful, never.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution-section">
+  <div class="container">
+    <img src="https://images.unsplash.com/photo-1622260614153-03223fb72052?auto=format&fit=crop&w=1600&q=80" alt="Clean modular design concept" class="solution-hero-img reveal">
+    <div class="solution-content reveal">
+      <div>
+        <p class="section-label">The Solution</p>
+        <h2 class="section-title">Your Pack. Your Rules.</h2>
+        <p>LastPack is a platform, not just a product. Every backpack starts with a frame: pick your exterior style, from minimal canvas rollup to structured urban shell. Inside, a universal grid rail system lets you snap in modules wherever you want them.</p>
+        <p>Need a cooled lunch compartment? Snap it in. Prefer a dedicated charger pocket instead? Swap it out. Your backpack evolves alongside your routine, your job, your season. No more dead compartments. No more compromise.</p>
+      </div>
+      <div class="solution-steps">
+        <div class="solution-step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h4>Choose Your Frame</h4>
+            <p>Select from 10 distinctive outer shells designed for different styles and professions.</p>
+          </div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h4>Pick Your Modules</h4>
+            <p>Browse 15+ snap-in compartments: lunch, sunglasses, camera, keys, charger, water bottle, and more.</p>
+          </div>
+        </div>
+        <div class="solution-step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h4>Click and Carry</h4>
+            <p>Modules lock onto the internal grid rail. Rearrange, swap, or remove anytime in seconds.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="container">
+    <p class="section-label reveal">Features</p>
+    <h2 class="section-title reveal">Built Different. On Purpose.</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=800&q=80" alt="Modular grid components" class="feature-card-img">
+        <div class="feature-card-body">
+          <svg class="feature-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="14" height="14" rx="2"/>
+            <rect x="20" y="2" width="14" height="14" rx="2"/>
+            <rect x="2" y="20" width="14" height="14" rx="2"/>
+            <rect x="20" y="20" width="14" height="14" rx="2"/>
+          </svg>
+          <h3>Modular Grid System</h3>
+          <p>Snap-in compartments lock onto a standardized rail. Build from 15+ modules to create the exact internal layout you need. Reconfigure in under a minute.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1509762774605-f07235a08f1f?auto=format&fit=crop&w=800&q=80" alt="Stylish backpack options" class="feature-card-img">
+        <div class="feature-card-body">
+          <svg class="feature-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="18" r="15"/>
+            <path d="M18 3c4 6 6 10 6 15s-2 9-6 15"/>
+            <path d="M18 3c-4 6-6 10-6 15s2 9 6 15"/>
+            <line x1="3" y1="18" x2="33" y2="18"/>
+          </svg>
+          <h3>Multiple Frame Styles</h3>
+          <p>From minimal canvas rollups to structured urban shells to premium leather fronts. Same internal platform, completely different look. Your style, your call.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80" alt="Comfortable shoulder straps" class="feature-card-img">
+        <div class="feature-card-body">
+          <svg class="feature-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 4v28"/>
+            <path d="M28 4v28"/>
+            <path d="M8 10h20"/>
+            <path d="M8 22h20"/>
+            <circle cx="18" cy="16" r="4"/>
+          </svg>
+          <h3>Swappable Straps</h3>
+          <p>Detachable strap system with multiple comfort levels. Choose slim minimal straps for short commutes or cushioned ergonomic straps for heavier loads.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Laptop in a sleeve" class="feature-card-img">
+        <div class="feature-card-body">
+          <svg class="feature-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="6" width="28" height="20" rx="2"/>
+            <line x1="2" y1="30" x2="34" y2="30"/>
+            <polyline points="14 16 18 20 26 12"/>
+          </svg>
+          <h3>Universal Laptop Sleeve</h3>
+          <p>Every frame includes a dedicated padded laptop compartment against your back. Fits 13 to 16 inch devices with a secure magnetic closure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market-section">
+  <div class="market-bg"></div>
+  <div class="container market-inner">
+    <p class="section-label reveal">Market Opportunity</p>
+    <h2 class="section-title reveal">A $24 Billion Market, Ripe for Disruption</h2>
+    <div class="market-stats reveal">
+      <div class="stat-box">
+        <div class="stat-num">$24B</div>
+        <div class="stat-label">Global Backpack Market</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">6%</div>
+        <div class="stat-label">Annual Growth in Commuter Segment</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">$2-3B</div>
+        <div class="stat-label">U.S. Professional Commuter TAM</div>
+      </div>
+    </div>
+    <p class="market-text reveal">Kickstarter alone has seen hundreds of backpack campaigns, but nearly all target travelers and photographers. The daily commuter, the person who carries a backpack to work five days a week, remains underserved. LastPack targets working professionals aged 22 to 45 who are willing to invest in a quality everyday carry that actually fits their routine.</p>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="bizplan-section">
+  <div class="container">
+    <p class="section-label reveal">Business Plan</p>
+    <h2 class="section-title reveal">The Blueprint</h2>
+    <div class="bizplan-grid">
+      <div class="bizplan-card reveal">
+        <h3>Revenue Model</h3>
+        <p>Direct-to-consumer e-commerce. Base frames priced at $129 to $189 depending on style. Individual modules from $15 to $45. Starter bundles (frame + 4 to 6 modules) at $199 to $279. Recurring revenue through seasonal module drops and limited-edition frame collaborations.</p>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch on Kickstarter with three signature frame styles and 12 initial modules. Partner with productivity YouTubers and commuter lifestyle bloggers for early buzz. Follow up with a DTC Shopify store and pop-up activations in co-working spaces across major metro areas.</p>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Competitive Advantage</h3>
+        <p>While competitors like Away and Timbuk2 offer surface-level customization (colors, flaps), LastPack is the only system where the internal architecture is fully reconfigurable. The standardized grid rail creates a platform ecosystem, driving repeat module purchases and deep brand loyalty.</p>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Year One Milestones</h3>
+        <ul>
+          <li>Raise $250K+ on Kickstarter and deliver first 2,000 units within 6 months</li>
+          <li>Launch DTC store with 3 frame styles and 15 module SKUs</li>
+          <li>Secure placement in 2 to 3 retail partners (e.g., REI, The Container Store)</li>
+        </ul>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Key Risks</h3>
+        <ul>
+          <li>Engineering a durable yet lightweight modular rail system at a consumer-friendly price</li>
+          <li>High competition and crowdfunding fatigue in the backpack category</li>
+          <li>Educating buyers on the modular concept when most people impulse-buy backpacks</li>
+        </ul>
+      </div>
+      <div class="bizplan-card reveal">
+        <h3>Startup Cost Estimate</h3>
+        <p>Estimated investment to reach MVP and first production run:</p>
+        <div class="cost-badge">$80,000 to $200,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner container reveal">
+    <h2>Ready to Build<br>Your Last Pack?</h2>
+    <p>Join the waitlist and be the first to configure a backpack that actually works for your daily life.</p>
+    <a href="#" class="btn-primary" style="margin-right:1rem;">JOIN THE WAITLIST</a>
+    <a href="#features" class="btn-outline">SEE FEATURES</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>This is a concept from the <strong>Steal This Idea</strong> podcast. Not a real product (yet).</p>
+  <p style="margin-top:0.5rem;">Watch the episode: <a href="https://www.youtube.com/watch?v=GX6Y4zFg9aU" target="_blank" rel="noopener">LastPack on YouTube</a></p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LunarLand - Space Exploration for Every Generation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --deep-space:#0a0e1a;
+  --nebula:#1a1040;
+  --star-white:#f0f0f8;
+  --lunar-gold:#f4c542;
+  --cosmic-blue:#4a9eff;
+  --mars-red:#e8553a;
+  --aurora:#00e5a0;
+  --text-dim:rgba(240,240,248,0.7);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Source Sans 3',sans-serif;
+  background:var(--deep-space);
+  color:var(--star-white);
+  overflow-x:hidden;
+  line-height:1.6;
+}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em;line-height:1.1}
+
+/* Badge */
+.badge{
+  position:fixed;top:20px;left:20px;z-index:1000;
+  background:rgba(244,197,66,0.15);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(244,197,66,0.4);
+  border-radius:40px;
+  padding:8px 18px;
+  text-decoration:none;
+  color:var(--lunar-gold);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.95rem;
+  letter-spacing:0.06em;
+  display:flex;align-items:center;gap:8px;
+  transition:all 0.3s;
+}
+.badge:hover{background:rgba(244,197,66,0.3);transform:scale(1.05)}
+.badge svg{width:18px;height:18px;fill:var(--lunar-gold)}
+
+/* Scroll animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-50px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(50px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(0.9);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,14,26,0.6) 0%,rgba(26,16,64,0.85) 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:800px;padding:2rem}
+.hero-content h1{
+  font-size:clamp(4rem,12vw,9rem);
+  background:linear-gradient(135deg,var(--star-white),var(--lunar-gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:0.2em;
+  animation:heroFade 1.2s ease forwards;
+}
+.hero-content .tagline{
+  font-size:clamp(1.2rem,3vw,1.8rem);
+  font-weight:300;
+  color:var(--text-dim);
+  margin-bottom:1.5rem;
+  animation:heroFade 1.2s 0.3s ease both;
+}
+.hero-content .pitch{
+  font-size:1.1rem;
+  max-width:600px;margin:0 auto 2rem;
+  color:var(--text-dim);
+  animation:heroFade 1.2s 0.5s ease both;
+}
+@keyframes heroFade{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+.cta-btn{
+  display:inline-block;
+  padding:16px 48px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;
+  letter-spacing:0.1em;
+  color:var(--deep-space);
+  background:linear-gradient(135deg,var(--lunar-gold),#ffd96a);
+  border:none;border-radius:60px;
+  cursor:pointer;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 4px 30px rgba(244,197,66,0.3);
+  animation:heroFade 1.2s 0.7s ease both;
+}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 40px rgba(244,197,66,0.5)}
+
+/* Stars animation */
+.stars{position:absolute;inset:0;z-index:1;overflow:hidden}
+.stars span{
+  position:absolute;
+  width:2px;height:2px;
+  background:white;border-radius:50%;
+  animation:twinkle 3s infinite alternate;
+}
+@keyframes twinkle{0%{opacity:0.2}100%{opacity:1}}
+
+/* Section base */
+section{padding:6rem 2rem;position:relative}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.85rem;letter-spacing:0.3em;
+  color:var(--lunar-gold);
+  text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.section-title{
+  font-size:clamp(2.2rem,5vw,3.5rem);
+  margin-bottom:1.5rem;
+}
+
+/* PROBLEM */
+.problem{
+  background:linear-gradient(180deg,var(--deep-space),var(--nebula));
+  position:relative;overflow:hidden;
+}
+.problem-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
+}
+.problem-img{
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.problem-img img{width:100%;height:400px;object-fit:cover;display:block}
+.problem-text p{color:var(--text-dim);font-size:1.1rem;margin-bottom:1rem}
+.problem-stats{
+  display:flex;gap:2rem;margin-top:2rem;
+}
+.stat{text-align:center}
+.stat .num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  color:var(--lunar-gold);
+}
+.stat .label{font-size:0.85rem;color:var(--text-dim)}
+
+/* SOLUTION */
+.solution{background:var(--nebula);overflow:hidden}
+.solution-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
+}
+.solution-img{border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.solution-img img{width:100%;height:420px;object-fit:cover;display:block}
+.solution-text p{color:var(--text-dim);font-size:1.1rem;margin-bottom:1rem}
+.solution-highlights{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:1.5rem;
+}
+.highlight-tag{
+  background:rgba(74,158,255,0.15);
+  border:1px solid rgba(74,158,255,0.3);
+  color:var(--cosmic-blue);
+  padding:6px 16px;border-radius:30px;
+  font-size:0.85rem;font-weight:600;
+}
+
+/* FEATURES */
+.features{
+  background:linear-gradient(180deg,var(--nebula),var(--deep-space));
+  overflow:hidden;
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;
+  margin-top:3rem;
+}
+.feature-card{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  min-height:340px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.feature-card img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s;
+}
+.feature-card:hover img{transform:scale(1.05)}
+.feature-card .overlay{
+  position:relative;z-index:2;
+  background:linear-gradient(0deg,rgba(10,14,26,0.95) 0%,rgba(10,14,26,0.4) 60%,transparent 100%);
+  padding:2rem;
+}
+.feature-card .feature-icon{
+  width:48px;height:48px;
+  background:rgba(244,197,66,0.2);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1rem;
+}
+.feature-card .feature-icon svg{width:24px;height:24px;fill:var(--lunar-gold)}
+.feature-card h3{font-size:1.5rem;margin-bottom:0.5rem}
+.feature-card p{color:var(--text-dim);font-size:0.95rem}
+
+/* Panoramic image break */
+.image-break{
+  width:100%;height:400px;
+  position:relative;overflow:hidden;
+}
+.image-break img{width:100%;height:100%;object-fit:cover;display:block}
+.image-break .caption-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(10,14,26,0.8) 0%,transparent 50%);
+  display:flex;align-items:flex-end;
+  padding:3rem;
+}
+.image-break .caption-overlay p{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.5rem,4vw,2.5rem);
+  color:var(--star-white);
+  max-width:700px;
+}
+
+/* MARKET */
+.market{background:var(--deep-space);overflow:hidden}
+.market-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;
+  margin-top:2rem;
+}
+.market-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  padding:2.5rem;
+}
+.market-card h3{font-size:1.6rem;margin-bottom:1rem;color:var(--lunar-gold)}
+.market-card p{color:var(--text-dim);margin-bottom:1rem}
+.market-card ul{list-style:none;padding:0}
+.market-card ul li{
+  padding:0.6rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  color:var(--text-dim);
+  display:flex;align-items:center;gap:10px;
+}
+.market-card ul li:last-child{border-bottom:none}
+.market-card ul li .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--cosmic-blue);flex-shrink:0;
+}
+.market-img{border-radius:20px;overflow:hidden}
+.market-img img{width:100%;height:100%;min-height:400px;object-fit:cover;display:block}
+.tam-number{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.5rem;
+  background:linear-gradient(135deg,var(--lunar-gold),var(--mars-red));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:0.5rem;
+}
+
+/* BUSINESS PLAN */
+.business-plan{
+  background:linear-gradient(180deg,var(--deep-space),var(--nebula));
+  overflow:hidden;
+}
+.plan-document{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:3rem;
+  margin-top:2rem;
+}
+.plan-section{margin-bottom:3rem}
+.plan-section:last-child{margin-bottom:0}
+.plan-section h3{
+  font-size:1.4rem;
+  color:var(--lunar-gold);
+  margin-bottom:1rem;
+  padding-bottom:0.5rem;
+  border-bottom:1px solid rgba(244,197,66,0.2);
+}
+.plan-section p{color:var(--text-dim);font-size:1.05rem}
+.plan-two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.milestone{
+  display:flex;gap:1rem;align-items:flex-start;
+  margin-bottom:1rem;
+}
+.milestone-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  color:var(--cosmic-blue);
+  line-height:1;
+  flex-shrink:0;
+  width:40px;
+}
+.milestone p{color:var(--text-dim)}
+.risk-item{
+  background:rgba(232,85,58,0.1);
+  border-left:3px solid var(--mars-red);
+  padding:1rem 1.5rem;
+  border-radius:0 12px 12px 0;
+  margin-bottom:1rem;
+  color:var(--text-dim);
+}
+.cost-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(0,229,160,0.15),rgba(74,158,255,0.15));
+  border:1px solid rgba(0,229,160,0.3);
+  border-radius:16px;
+  padding:1.5rem 2.5rem;
+  margin-top:1rem;
+}
+.cost-badge .amount{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  color:var(--aurora);
+}
+.cost-badge .label{font-size:0.85rem;color:var(--text-dim)}
+
+/* FOOTER */
+footer{
+  background:var(--nebula);
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:4rem 2rem;
+  text-align:center;
+}
+footer p{color:var(--text-dim);margin-bottom:0.5rem}
+footer a{color:var(--lunar-gold);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.footer-divider{
+  width:60px;height:2px;
+  background:var(--lunar-gold);
+  margin:1.5rem auto;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .problem-grid,.solution-grid,.features-grid,.market-layout,.plan-two-col{
+    grid-template-columns:1fr;
+  }
+  .solution-grid .solution-img{order:-1}
+  section{padding:4rem 1.5rem}
+  .plan-document{padding:2rem 1.5rem}
+  .problem-stats{flex-direction:column;gap:1rem;align-items:flex-start}
+  .badge{top:12px;left:12px;padding:6px 14px;font-size:0.8rem}
+  .image-break{height:260px}
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="hero-content">
+    <h1>LunarLand</h1>
+    <p class="tagline">Space exploration for every generation.</p>
+    <p class="pitch">The zoo has land. The aquarium has sea. Now there is a place for the final frontier. LunarLand is an immersive, franchise-ready space experience center that brings the cosmos to your community.</p>
+    <a href="#features" class="cta-btn">Explore the Mission</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="problem-text reveal-left">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-title">Space Is Everywhere, Yet Nowhere to Experience</h2>
+        <p>Children grow up dreaming about stars, planets, and astronauts. Adults marvel at rocket launches and Mars rovers. Yet for most people, the closest they can get to space is a small corner of a natural history museum or a once-in-a-lifetime trip to a space camp.</p>
+        <p>There is no dedicated, repeatable venue for space exploration. No place families can visit season after season, the way they return to zoos, aquariums, and botanical gardens. The fascination is universal; the access is not.</p>
+        <div class="problem-stats">
+          <div class="stat">
+            <div class="num">76%</div>
+            <div class="label">of kids say space is their<br>favorite science topic</div>
+          </div>
+          <div class="stat">
+            <div class="num">0</div>
+            <div class="label">dedicated franchise-scale<br>space experience centers</div>
+          </div>
+          <div class="stat">
+            <div class="num">$25B</div>
+            <div class="label">U.S. family entertainment<br>market today</div>
+          </div>
+        </div>
+      </div>
+      <div class="problem-img reveal-right">
+        <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&fit=crop&w=800&q=80" alt="Astronaut floating in space" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="container">
+    <div class="solution-grid">
+      <div class="solution-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&w=800&q=80" alt="Futuristic space exhibit" loading="lazy">
+      </div>
+      <div class="solution-text reveal-right">
+        <p class="section-label">The Solution</p>
+        <h2 class="section-title">A Space Experience Center Built for Repeat Visits</h2>
+        <p>LunarLand is a standalone venue purpose-built for the wonder of space. Imagine walking through a simulated lunar surface, launching model rockets, watching a live planetarium show, and training like an astronaut, all in one afternoon.</p>
+        <p>With rotating seasonal exhibits and partnerships with NASA and private space companies, there is always a reason to come back. Memberships, school programs, and birthday parties ensure a steady revenue stream while building a community of young explorers.</p>
+        <div class="solution-highlights">
+          <span class="highlight-tag">Rotating Exhibits</span>
+          <span class="highlight-tag">NASA Partnerships</span>
+          <span class="highlight-tag">Annual Memberships</span>
+          <span class="highlight-tag">Franchise Model</span>
+          <span class="highlight-tag">STEM Curriculum</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <p class="section-label">Key Features</p>
+      <h2 class="section-title">Four Pillars of the LunarLand Experience</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal-scale">
+        <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=800&q=80" alt="Lunar surface simulation" loading="lazy">
+        <div class="overlay">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5" style="stroke:var(--lunar-gold)"/><circle cx="8" cy="10" r="2" /><circle cx="15" cy="8" r="1.5"/><circle cx="13" cy="15" r="2.5"/></svg>
+          </div>
+          <h3>Lunar Surface Play Zone</h3>
+          <p>A simulated moon environment with low-gravity bounce areas, crater exploration, and interactive terrain where visitors walk, jump, and play on a recreated lunar landscape.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal-scale">
+        <img src="https://images.unsplash.com/photo-1457364559154-aa2644600ebb?auto=format&fit=crop&w=800&q=80" alt="Space artifacts exhibit" loading="lazy">
+        <div class="overlay">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>NASA Partnership Exhibits</h3>
+          <p>Rotating displays featuring real mission artifacts, astronaut gear, and behind-the-scenes content from active space programs. New installations every quarter keep visitors returning.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal-scale">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="STEM workshop for kids" loading="lazy">
+        <div class="overlay">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>STEM Workshops</h3>
+          <p>Hands-on sessions where kids build model rockets, program rovers, learn about orbital mechanics, and watch immersive planetarium shows. Curriculum-aligned for school field trips.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal-scale">
+        <img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?auto=format&fit=crop&w=800&q=80" alt="VR space mission experience" loading="lazy">
+        <div class="overlay">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v4l-1.5 4.5h3L12 14l1.5 3.5h3L15 13V9c2-.17 4.14-.5 6-1l-.5-2z"/><circle cx="12" cy="3.5" r="1.5"/></svg>
+          </div>
+          <h3>VR Space Missions</h3>
+          <p>Step inside a virtual spacecraft for astronaut training simulations, spacewalk experiences, and guided tours of the International Space Station. Premium upsell with high replay value.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image Break -->
+<div class="image-break reveal-scale">
+  <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1600&q=80" alt="Nebula in deep space" loading="lazy">
+  <div class="caption-overlay">
+    <p>We have zoos for land. Aquariums for sea. It is time for a place dedicated to the final frontier.</p>
+  </div>
+</div>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2rem" class="reveal">
+      <p class="section-label">Market Opportunity</p>
+      <h2 class="section-title">A Galaxy-Sized Opportunity</h2>
+    </div>
+    <div class="market-layout">
+      <div class="market-card reveal-left">
+        <h3>Target Audience</h3>
+        <ul>
+          <li><span class="dot"></span> Families with children ages 4 to 14</li>
+          <li><span class="dot"></span> School field trip coordinators and educators</li>
+          <li><span class="dot"></span> Space enthusiasts and science hobbyists</li>
+          <li><span class="dot"></span> Date-night couples seeking unique experiences</li>
+          <li><span class="dot"></span> Corporate team-building organizers</li>
+          <li><span class="dot"></span> Tourists visiting metro areas</li>
+        </ul>
+        <div style="margin-top:2rem">
+          <h3>Market Size</h3>
+          <div class="tam-number">$150M+</div>
+          <p>Addressable opportunity across 50 franchise locations at $3M annual revenue each, within a $25B U.S. family entertainment market.</p>
+        </div>
+      </div>
+      <div class="market-img reveal-right">
+        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80" alt="Family exploring together" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-title">The Mission Briefing</h2>
+    </div>
+    <div class="plan-document reveal">
+      <div class="plan-two-col">
+        <div class="plan-section">
+          <h3>Revenue Model</h3>
+          <p>General admission tickets ($15 to $30 per person), annual membership passes, school group packages, birthday party and event rentals, a themed gift shop, and a space-themed snack bar. Premium VR experiences and simulated spacewalks provide high-margin upsell opportunities.</p>
+        </div>
+        <div class="plan-section">
+          <h3>Go-to-Market Strategy</h3>
+          <p>Launch a flagship location in a mid-size metro area with strong family demographics. Partner with local schools for field trip programs during the first semester. Validate unit economics over 18 months, then expand through franchising to additional metro areas.</p>
+        </div>
+      </div>
+      <div class="plan-section">
+        <h3>Competitive Advantage</h3>
+        <p>Unlike static museum exhibits, LunarLand is purpose-built for repeat visits with rotating content and seasonal events. The franchise model allows rapid geographic expansion, while partnerships with NASA and private space companies (SpaceX, Blue Origin) provide exclusive content no competitor can replicate. There is currently no franchise-scale space experience center in the market.</p>
+      </div>
+      <div class="plan-section">
+        <h3>Year One Milestones</h3>
+        <div class="milestone">
+          <div class="milestone-num">01</div>
+          <p>Open flagship location and reach 100,000 visitors in the first 12 months.</p>
+        </div>
+        <div class="milestone">
+          <div class="milestone-num">02</div>
+          <p>Launch annual membership program with 2,000 founding member families.</p>
+        </div>
+        <div class="milestone">
+          <div class="milestone-num">03</div>
+          <p>Secure partnership agreement with at least one major space organization (NASA, SpaceX, or similar).</p>
+        </div>
+      </div>
+      <div class="plan-two-col">
+        <div class="plan-section">
+          <h3>Startup Cost Estimate</h3>
+          <div class="cost-badge">
+            <div class="amount">$2M to $5M</div>
+            <div class="label">Flagship location build-out, exhibits, and first-year operations</div>
+          </div>
+        </div>
+        <div class="plan-section">
+          <h3>Key Risks</h3>
+          <div class="risk-item">High upfront build-out costs for immersive exhibits and simulated environments.</div>
+          <div class="risk-item">Seasonal attendance fluctuations and competition from other family entertainment options.</div>
+          <div class="risk-item">Difficulty securing and maintaining NASA or space agency partnerships at scale.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--star-white);margin-bottom:0.5rem">LunarLand</p>
+    <div class="footer-divider"></div>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+    <p>Not a real company. Built from an idea discussed on air.</p>
+    <p style="margin-top:1rem"><a href="https://www.youtube.com/watch?v=TKzbQ2EwTUo" target="_blank" rel="noopener">Watch the episode</a></p>
+  </div>
+</footer>
+
+<script>
+// Stars
+(function(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('span');
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*3+'s';
+    s.style.width=s.style.height=Math.random()*2+1+'px';
+    c.appendChild(s);
+  }
+})();
+
+// IntersectionObserver for scroll animations
+(function(){
+  const els=document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
+  if(!els.length)return;
+  const obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){obs.observe(el)});
+})();
+</script>
+
+</body>
+</html>

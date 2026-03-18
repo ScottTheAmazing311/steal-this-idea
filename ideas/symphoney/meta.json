@@ -1,0 +1,34 @@
+{
+  "slug": "symphoney",
+  "company_name": "SymPhoney",
+  "tagline": "Only the notifications that matter.",
+  "elevator_pitch": "SymPhoney is an AI-powered notification filter that learns which messages, calls, emails, and Slacks actually matter to you, then silences everything else. It gives professionals the freedom to unplug without missing anything critical.",
+  "problem": "Modern professionals are buried under a constant stream of notifications from email, Slack, text, and phone calls. They want to disconnect and be present, but they cannot risk missing something urgent from their boss, spouse, or a critical work thread. Existing solutions force an all-or-nothing choice between total connectivity and going completely off-grid.",
+  "solution": "SymPhoney connects to all your communication channels and uses machine learning to identify which notifications are truly important. It learns from your behavior: who you reply to fastest, which keywords trigger action, and which threads you ignore. Then it delivers only the critical alerts to your device of choice, whether that is a smartwatch, a simple phone, or a daily digest.",
+  "target_market": "Working professionals aged 25 to 45 who juggle multiple communication tools (Slack, email, phone, text) and feel overwhelmed by notification fatigue but cannot afford to miss urgent messages from managers, clients, or family.",
+  "revenue_model": "Freemium SaaS subscription. Free tier covers one communication channel with basic rules. Pro tier at $9.99/month covers unlimited channels with full AI learning. Team tier at $7.99/user/month lets companies deploy it across their workforce with admin controls and analytics.",
+  "key_features": [
+    "AI-powered priority scoring that learns from your reply speed, frequency, and patterns across all channels",
+    "Universal inbox integration with Slack, email, SMS, phone calls, and more through a single secure hub",
+    "Smart digest mode that batches low-priority notifications into a calm daily or hourly summary",
+    "Quick-reply relay that lets you respond to any channel from a simple text message or smartwatch tap"
+  ],
+  "competitive_advantage": "Unlike basic Do Not Disturb modes or manual notification rules, SymPhoney builds a living model of what matters to each user. It gets smarter over time without requiring manual configuration, and it works across every communication platform rather than being locked to one ecosystem.",
+  "market_size_estimate": "The global digital wellness and productivity software market is projected at over $80 billion. Notification management sits at the intersection of productivity tools and mental wellness apps, representing a serviceable addressable market of roughly $2 to $4 billion among knowledge workers alone.",
+  "go_to_market": "Launch with a browser extension and mobile app targeting remote workers and tech professionals on Product Hunt and Hacker News. Partner with corporate wellness programs to offer team deployments. Use content marketing around digital wellness and productivity to build organic traffic.",
+  "risks": [
+    "Users may be uncomfortable granting broad access to all their communication channels, creating a significant privacy and trust barrier",
+    "Platform API restrictions from Slack, Gmail, or Apple could limit integration depth or break functionality without warning",
+    "Large incumbents like Apple, Google, or Microsoft could build similar AI notification filtering directly into their operating systems"
+  ],
+  "year_one_milestones": [
+    "Launch beta with Slack, Gmail, and SMS integration; acquire 5,000 beta users within 3 months",
+    "Reach 1,000 paying Pro subscribers and secure 10 team-tier company accounts by month 8",
+    "Achieve 85% accuracy on priority scoring and release v2 with smartwatch relay and quick-reply features by month 12"
+  ],
+  "startup_cost_range": "$50,000 to $150,000",
+  "category": "AI/ML",
+  "vibe": "technical",
+  "episode_url": "https://www.youtube.com/watch?v=jX-GIO-s2L0",
+  "episode_number": 36
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "balcony-box",
+  "company_name": "Balcony Box",
+  "tagline": "Your perfect balcony garden, delivered ready.",
+  "elevator_pitch": "Balcony Box is an all-in-one garden kit shipped directly to apartment dwellers. You tell us your location, balcony orientation, and style preference, and we send a planter box with mounting hardware, soil, and regionally appropriate plants, all ready to install in minutes.",
+  "problem": "Apartment dwellers want a beautiful balcony garden but face a frustrating maze of separate purchases: the right planter, compatible mounting hardware, suitable soil, and plants that will actually survive their specific climate and sun exposure. Most people lack the gardening knowledge to make these choices, so the project stalls or fails.",
+  "solution": "Balcony Box bundles everything into one curated shipment. Customers answer a few simple questions about their location, balcony direction, and maintenance preference. We handle the rest: a stylish planter box, pre-fitted mount, soil, and regionally matched plants arrive at their door, ready to install with no guesswork.",
+  "target_market": "Urban apartment renters aged 25 to 40 who want to beautify their balconies but lack gardening experience, tools, or time to research what works in their climate and sun exposure.",
+  "revenue_model": "Direct-to-consumer e-commerce with tiered pricing for different planter sizes and plant selections (starting around $79 for a basic herb box up to $149 for a premium flowering arrangement). Seasonal subscription add-ons for replacement plants and soil refreshes generate recurring revenue.",
+  "key_features": [
+    "Climate-matched plant selection based on your ZIP code and balcony orientation",
+    "All-in-one kit with planter, mounting hardware, soil, and live plants",
+    "Modern designer planter styles that complement apartment aesthetics",
+    "Seasonal subscription option for plant refreshes and care supplies"
+  ],
+  "competitive_advantage": "Unlike buying components separately from Home Depot or Wayfair, Balcony Box removes all guesswork by combining horticultural expertise with a curated, design-forward product. The regional plant matching and complete bundling create an experience no general retailer can replicate.",
+  "market_size_estimate": "There are roughly 44 million renter households in the US, with a growing share in urban apartments. Even capturing 0.1% of balcony-equipped units at an average order of $100 represents a $44M addressable market, with expansion into seasonal refills and gifting.",
+  "go_to_market": "Launch with Instagram and TikTok ads targeting urban apartment lifestyle accounts. Partner with apartment complexes for move-in welcome packages. Seed product with lifestyle influencers to generate unboxing content and organic word of mouth.",
+  "risks": [
+    "Live plant shipping is logistically challenging; damage, wilting, and seasonal shipping windows limit fulfillment reliability.",
+    "Customer expectations may be high for plant survival; poor outcomes lead to negative reviews and costly replacements.",
+    "Low barrier to entry allows competitors or big-box retailers to launch similar bundles quickly."
+  ],
+  "year_one_milestones": [
+    "Launch e-commerce site with three planter styles covering 10 regional plant zones, achieving 2,000 orders in the first six months.",
+    "Reach $200K in revenue with a 40% gross margin by optimizing nursery partnerships and shipping logistics.",
+    "Launch seasonal subscription program with a 25% conversion rate among first-time buyers."
+  ],
+  "startup_cost_range": "$30K - $75K",
+  "category": "Consumer",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=_qYDBkmobBY",
+  "episode_number": 88
+}

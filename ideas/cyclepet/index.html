@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyclePet - Pedal More. Play More. Feel Better.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sunshine: #FFD93D;
+            --sky: #6EC6FF;
+            --grass: #4CAF50;
+            --cloud: #F5F5F5;
+            --night: #2C3E50;
+            --coral: #FF6B6B;
+            --lavender: #B39DDB;
+            --peach: #FFAB91;
+            --white: #FFFFFF;
+            --text-dark: #2C3040;
+            --text-mid: #5A5E6B;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Steal This Idea Badge */
+        .sti-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 10px 18px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sti-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+        }
+
+        .sti-badge svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            filter: brightness(0.35);
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(110, 198, 255, 0.6) 0%, rgba(179, 157, 219, 0.6) 50%, rgba(255, 171, 145, 0.5) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 40px 24px;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: var(--sunshine);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 8px 30px rgba(255, 217, 61, 0.4);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero-icon svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--white);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--sunshine);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero .pitch {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            max-width: 620px;
+            margin: 0 auto 40px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--sunshine);
+            color: var(--text-dark);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 217, 61, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 217, 61, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--white);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 2px solid rgba(255,255,255,0.4);
+            cursor: pointer;
+            margin-left: 16px;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.7);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 24px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--sky);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-mid);
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        /* PROBLEM */
+        .problem {
+            background: linear-gradient(180deg, #F8F9FE 0%, var(--white) 100%);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .problem-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .problem-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .problem-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--coral);
+        }
+
+        .problem-text p {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .stat-box .label {
+            font-size: 0.85rem;
+            color: var(--text-mid);
+            margin-top: 4px;
+        }
+
+        /* SOLUTION */
+        .solution {
+            background: var(--night);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution .section-label {
+            color: var(--sunshine);
+        }
+
+        .solution .section-subtitle {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .solution-visual {
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .solution-image-wrap {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .solution-image-wrap img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .solution-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(44,62,80,0.8) 0%, transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+        }
+
+        .solution-image-overlay p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        .solution-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .solution-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .solution-card:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .solution-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .solution-card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .solution-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .solution-card p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+        }
+
+        .icon-sun { background: rgba(255, 217, 61, 0.2); }
+        .icon-cloud { background: rgba(110, 198, 255, 0.2); }
+        .icon-heart { background: rgba(255, 107, 107, 0.2); }
+
+        /* FEATURES */
+        .features {
+            background: linear-gradient(180deg, var(--white) 0%, #FFF9E8 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.1);
+        }
+
+        .feature-card-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover .feature-card-image img {
+            transform: scale(1.05);
+        }
+
+        .feature-card-body {
+            padding: 28px;
+        }
+
+        .feature-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--sunshine);
+            border-radius: 50%;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-card-body h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card-body p {
+            font-size: 0.95rem;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        /* MARKET */
+        .market {
+            background: var(--white);
+            position: relative;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .market-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .market-image img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .market-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .market-content p {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .market-tag {
+            display: inline-block;
+            background: #E3F2FD;
+            color: #1565C0;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 8px 18px;
+            border-radius: 50px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tam-highlight {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--sky), var(--lavender));
+            border-radius: 20px;
+            padding: 28px;
+            color: var(--white);
+        }
+
+        .tam-highlight .tam-number {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .tam-highlight .tam-label {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        /* BUSINESS PLAN */
+        .business-plan {
+            background: #F8F9FE;
+        }
+
+        .bp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .bp-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+            border: 1px solid #EEF0F5;
+        }
+
+        .bp-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .bp-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bp-card-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .bp-card h3 {
+            font-size: 1.15rem;
+        }
+
+        .bp-card p {
+            font-size: 0.95rem;
+            color: var(--text-mid);
+            line-height: 1.75;
+        }
+
+        .bp-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bp-card ul li {
+            font-size: 0.95rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+            padding: 10px 0;
+            border-bottom: 1px solid #F0F1F5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .bp-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .bp-bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        .bp-bullet-green { background: var(--grass); }
+        .bp-bullet-yellow { background: var(--sunshine); }
+        .bp-bullet-red { background: var(--coral); }
+        .bp-bullet-blue { background: var(--sky); }
+
+        .bp-cost-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--grass), #66BB6A);
+            color: var(--white);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            padding: 14px 28px;
+            border-radius: 16px;
+            margin-top: 8px;
+        }
+
+        .icon-revenue { background: rgba(76, 175, 80, 0.12); }
+        .icon-gtm { background: rgba(110, 198, 255, 0.15); }
+        .icon-advantage { background: rgba(255, 217, 61, 0.15); }
+        .icon-milestones { background: rgba(179, 157, 219, 0.15); }
+        .icon-cost { background: rgba(255, 171, 145, 0.15); }
+        .icon-risks { background: rgba(255, 107, 107, 0.12); }
+
+        /* FOOTER */
+        footer {
+            background: var(--night);
+            color: var(--white);
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        footer .footer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50px;
+            padding: 12px 24px;
+            margin-bottom: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        footer .footer-badge svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        footer a {
+            color: var(--sunshine);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content { padding: 100px 20px 40px; }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 12px;
+            }
+
+            .problem-grid,
+            .market-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .solution-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-row {
+                gap: 16px;
+            }
+
+            .sti-badge {
+                top: 12px;
+                left: 12px;
+                font-size: 0.75rem;
+                padding: 8px 14px;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Steal This Idea Badge -->
+    <a href="../index.html" class="sti-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+        </svg>
+        Steal This Idea
+    </a>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="20" r="8" fill="#2C3040" opacity="0.9"/>
+                    <circle cx="21" cy="18" r="1.5" fill="#FFF"/>
+                    <circle cx="27" cy="18" r="1.5" fill="#FFF"/>
+                    <path d="M20 22 Q24 26 28 22" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    <path d="M16 14 Q14 8 18 10" stroke="#2C3040" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M32 14 Q34 8 30 10" stroke="#2C3040" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="24" cy="38" rx="10" ry="4" fill="#2C3040" opacity="0.15"/>
+                    <rect x="18" y="28" width="12" height="8" rx="3" fill="#2C3040" opacity="0.7"/>
+                </svg>
+            </div>
+            <h1>CyclePet</h1>
+            <div class="tagline">Pedal More. Play More. Feel Better.</div>
+            <p class="pitch">An under-desk pedal exerciser paired with a virtual pet Chrome extension. Your pedaling powers your pet's world: sunshine, food, happiness. Stop pedaling, and the rain rolls in.</p>
+            <div>
+                <a href="#" class="btn-primary">Join the Waitlist</a>
+                <a href="#features" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">The Problem</div>
+                <h2 class="section-title">Sitting Is the New Smoking</h2>
+                <p class="section-subtitle">Remote work freed us from the commute, but chained us to the chair. Under-desk pedals exist, but nobody sticks with them.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-image reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=800&q=80" alt="Person sitting at desk for long hours" loading="lazy">
+                </div>
+                <div class="problem-text reveal reveal-delay-2">
+                    <h3>No Motivation to Keep Going</h3>
+                    <p>You buy an under-desk exerciser. You use it for a week. Then it collects dust. The problem is not the hardware. The problem is that there is zero reason to keep pedaling once the novelty wears off.</p>
+                    <p>Fitness trackers give you numbers, but numbers alone do not create habit loops. You need something that makes you care, something that makes you feel a tiny pang of guilt when you stop.</p>
+                    <div class="stat-row">
+                        <div class="stat-box">
+                            <div class="number">8.5h</div>
+                            <div class="label">Avg. daily sitting time</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">80%</div>
+                            <div class="label">Quit desk exercise in 2 weeks</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">$0</div>
+                            <div class="label">Engagement from basic pedals</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="solution">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">The Solution</div>
+                <h2 class="section-title">Your Pet Needs You to Pedal</h2>
+                <p class="section-subtitle">CyclePet turns desk exercise into a charming game you never want to stop playing.</p>
+            </div>
+            <div class="solution-visual reveal reveal-delay-1">
+                <div class="solution-image-wrap">
+                    <img src="https://images.unsplash.com/photo-1625225233840-695456021cde?auto=format&fit=crop&w=1200&q=80" alt="Person working at home desk with pet" loading="lazy">
+                    <div class="solution-image-overlay">
+                        <p>A Bluetooth pedal device syncs to a Chrome extension with a virtual pet whose whole world depends on your movement. Pedal and the sun shines. Stop and the clouds roll in.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="solution-cards">
+                <div class="solution-card reveal reveal-delay-1">
+                    <div class="solution-card-icon icon-sun">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#FFD93D" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </div>
+                    <h4>Pedal = Sunshine</h4>
+                    <p>Your movement powers the sun in your pet's world. The faster you go, the brighter it shines and the happier your pet becomes.</p>
+                </div>
+                <div class="solution-card reveal reveal-delay-2">
+                    <div class="solution-card-icon icon-cloud">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#6EC6FF" stroke-width="2" stroke-linecap="round"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+                    </div>
+                    <h4>Stop = Storm Clouds</h4>
+                    <p>Take a break and clouds gather. Rain starts. Your pet looks at you with big sad eyes. You will start pedaling again.</p>
+                </div>
+                <div class="solution-card reveal reveal-delay-3">
+                    <div class="solution-card-icon icon-heart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    </div>
+                    <h4>Consistency = Growth</h4>
+                    <p>Keep pedaling daily and your pet's garden grows. Unlock new pets, new environments, and seasonal events throughout the year.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">Key Features</div>
+                <h2 class="section-title">Everything You Need to Stay Moving</h2>
+                <p class="section-subtitle">From the hardware under your desk to the virtual world on your screen, CyclePet makes the whole day more active and a lot more fun.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80" alt="Bluetooth technology connected device" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-number">1</div>
+                        <h3>Bluetooth Pedal Sync</h3>
+                        <p>A whisper-quiet under-desk elliptical with built-in Bluetooth that streams your pedal cadence and speed directly to your browser in real time.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=800&q=80" alt="Cute virtual pet game on screen" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-number">2</div>
+                        <h3>Virtual Pet World</h3>
+                        <p>A Tamagotchi-style Chrome extension where pedaling controls weather, food growth, and your pet's mood. Choose from 50+ collectible pets.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?auto=format&fit=crop&w=800&q=80" alt="Daily streak calendar and achievements" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-number">3</div>
+                        <h3>Streaks and Unlockables</h3>
+                        <p>Daily streaks, seasonal environments, and themed events keep the experience fresh. The longer your streak, the rarer the rewards.</p>
+                    </div>
+                </div>
+                <div class="feature-card reveal reveal-delay-4">
+                    <div class="feature-card-image">
+                        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80" alt="Productivity timer and break tracking" loading="lazy">
+                    </div>
+                    <div class="feature-card-body">
+                        <div class="feature-number">4</div>
+                        <h3>Earned Break Time</h3>
+                        <p>Productivity mode converts your pedal minutes into guilt-free screen break credits. Pedal for 30 minutes, earn 5 minutes of YouTube time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKET -->
+    <section class="market">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">Market Opportunity</div>
+                <h2 class="section-title">Built for the Way We Work Now</h2>
+            </div>
+            <div class="market-grid">
+                <div class="market-content reveal reveal-delay-1">
+                    <h3>Desk Workers Who Want to Move</h3>
+                    <p>Remote workers, hybrid employees, and office professionals aged 25 to 45 who spend long hours at a desk and want a fun, unobtrusive way to stay active throughout the workday.</p>
+                    <div>
+                        <span class="market-tag">Remote Workers</span>
+                        <span class="market-tag">Hybrid Employees</span>
+                        <span class="market-tag">Office Professionals</span>
+                        <span class="market-tag">Gamers</span>
+                        <span class="market-tag">Wellness Enthusiasts</span>
+                    </div>
+                    <div class="tam-highlight">
+                        <div class="tam-number">$2.4B</div>
+                        <div class="tam-label">Total Addressable Market at the intersection of under-desk fitness equipment ($400M+) and casual gaming ($20B+)</div>
+                    </div>
+                </div>
+                <div class="market-image reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Modern remote workers in home office" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS PLAN -->
+    <section class="business-plan">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">Business Plan</div>
+                <h2 class="section-title">How CyclePet Becomes a Business</h2>
+                <p class="section-subtitle">A clear path from Kickstarter launch to sustainable growth, combining hardware sales with recurring digital revenue.</p>
+            </div>
+            <div class="bp-grid">
+                <!-- Revenue Model -->
+                <div class="bp-card reveal reveal-delay-1">
+                    <div class="bp-card-header">
+                        <div class="bp-card-icon icon-revenue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                        </div>
+                        <h3>Revenue Model</h3>
+                    </div>
+                    <p>Hardware sales of the branded CyclePet pedal device at $149 to $199 per unit, plus a freemium Chrome extension. Premium pet packs, environments, and seasonal content available through a $4.99/month subscription or $2.99 one-time expansion packs.</p>
+                </div>
+
+                <!-- Go-to-Market -->
+                <div class="bp-card reveal reveal-delay-2">
+                    <div class="bp-card-header">
+                        <div class="bp-card-icon icon-gtm">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#6EC6FF" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        </div>
+                        <h3>Go-to-Market Strategy</h3>
+                    </div>
+                    <p>Launch on Kickstarter with a playful campaign video showing office workers bonding over their virtual pets. Seed early units to productivity YouTubers and work-from-home influencers. Follow up with DTC sales and a free-tier Chrome extension to build viral word of mouth.</p>
+                </div>
+
+                <!-- Competitive Advantage -->
+                <div class="bp-card reveal reveal-delay-3">
+                    <div class="bp-card-header">
+                        <div class="bp-card-icon icon-advantage">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#FFD93D" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <h3>Competitive Advantage</h3>
+                    </div>
+                    <p>Existing under-desk exercisers are hardware-only products with no engagement layer. CyclePet is the first to combine casual desk fitness with a charming virtual pet game loop, creating an emotional reason to keep pedaling that pure fitness tracking cannot match.</p>
+                </div>
+
+                <!-- Year One Milestones -->
+                <div class="bp-card reveal reveal-delay-4">
+                    <div class="bp-card-header">
+                        <div class="bp-card-icon icon-milestones">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#B39DDB" stroke-width="2" stroke-linecap="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                        </div>
+                        <h3>Year One Milestones</h3>
+                    </div>
+                    <ul>
+                        <li><span class="bp-bullet bp-bullet-green"></span>Launch Kickstarter campaign and ship 5,000 units to early backers within 6 months</li>
+                        <li><span class="bp-bullet bp-bullet-yellow"></span>Release Chrome extension with 10 unlockable pets and 4 seasonal environments</li>
+                        <li><span class="bp-bullet bp-bullet-blue"></span>Reach 15,000 active daily users and establish partnerships with 3 corporate wellness programs</li>
+                    </ul>
+                </div>
+
+                <!-- Startup Cost -->
+                <div class="bp-card reveal reveal-delay-1">
+                    <div class="bp-card-header">
+                        <div class="bp-card-icon icon-cost">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#FFAB91" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                        </div>
+                        <h3>Startup Cost Estimate</h3>
+                    </div>
+                    <p>Estimated investment to reach MVP and first production run:</p>
+                    <div class="bp-cost-badge">$80,000 - $200,000</div>
+                </div>
+
+                <!-- Key Risks -->
+                <div class="bp-card reveal reveal-delay-2">
+                    <div class="bp-card-header">
+                        <div class="bp-card-icon icon-risks">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <h3>Key Risks</h3>
+                    </div>
+                    <ul>
+                        <li><span class="bp-bullet bp-bullet-red"></span>Hardware manufacturing and logistics are capital-intensive and introduce supply chain risk for a startup</li>
+                        <li><span class="bp-bullet bp-bullet-red"></span>User novelty may wear off after the initial excitement, requiring constant content updates to retain engagement</li>
+                        <li><span class="bp-bullet bp-bullet-red"></span>Larger fitness brands like Peloton or Cubii could replicate the gamification layer and bundle it with superior hardware</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            Steal This Idea
+        </div>
+        <p>This is a concept from the <strong>Steal This Idea</strong> podcast. Not a real company (yet). <br><a href="https://www.youtube.com/watch?v=BAY-3KO0lXg" target="_blank" rel="noopener">Watch the original episode</a></p>
+    </footer>
+
+    <script>
+        // IntersectionObserver for scroll-triggered animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

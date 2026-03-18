@@ -1,0 +1,34 @@
+{
+  "slug": "primetime",
+  "company_name": "PrimeTime",
+  "tagline": "Watch Together. Like It Was Meant To Be.",
+  "elevator_pitch": "PrimeTime is a membership-based entertainment venue that transforms old movie theaters into social screening lounges with a full restaurant and bar. Members get access to dedicated zones for sports, event TV, classic film marathons, and reservable private rooms for gaming nights and watch parties.",
+  "problem": "Streaming fragmentation means people pay $200/month across services yet still watch alone on the couch. The communal magic of event television, sports watch parties, and movie marathons has no dedicated home. Hosting at your place means cleaning, cooking, and hoping everyone can make it.",
+  "solution": "PrimeTime converts underused movie theaters into four distinct social viewing zones: a cinema room for classic and pre-release film marathons, a sports arena for live games, an event TV lounge for weekly shows like The Bachelor or the latest prestige drama, and reservable private rooms for gaming, birthdays, and friend groups. A full bar and restaurant menu means nobody has to host or cook.",
+  "target_market": "Millennials and Gen Z entertainment enthusiasts aged 21 to 40 who already frequent sports bars, escape rooms, and barcades. Secondary audiences include couples seeking date-night variety, friend groups tired of the 'whose house?' debate, and families looking for weekend activity options.",
+  "revenue_model": "Monthly memberships ($15 to $25/month) grant unlimited venue access. Additional revenue from food and beverage sales (the primary margin driver), private room reservations at a premium hourly rate, special event tickets (pay-per-view fights, premiere screenings), corporate event packages, and branded merchandise.",
+  "key_features": [
+    "Four themed zones: Cinema, Sports Arena, Event TV Lounge, and Private Rooms",
+    "Full restaurant and craft bar with in-seat ordering via phone or app",
+    "Weekly curated programming calendar sent to all members",
+    "Reservable private rooms with gaming consoles, karaoke, and big screens"
+  ],
+  "competitive_advantage": "Unlike sports bars that only serve one audience, PrimeTime captures every kind of shared viewing occasion under one roof. The membership model creates recurring revenue and a loyal community. By repurposing cheap dollar-theater real estate, buildout costs stay low while the multi-zone format drives higher per-visit spend than a traditional bar.",
+  "market_size_estimate": "The U.S. bar and nightlife industry generates over $30B annually. The movie theater industry adds another $12B. PrimeTime targets the overlap: social entertainment spending. Even capturing a small slice of metro-area entertainment budgets, a single location could generate $2M to $4M in annual revenue. With 50 locations nationally, the addressable opportunity exceeds $150M.",
+  "go_to_market": "Launch a single flagship location in a mid-size metro by acquiring or leasing a closing dollar theater. Build buzz with a founding-member presale at a discounted annual rate. Partner with local influencers and podcasters for opening-week programming events (watch parties, gaming tournaments) to create social proof and earned media.",
+  "risks": [
+    "Content licensing for streaming services in public venues is legally uncharted and could require costly negotiations or workarounds",
+    "High upfront capital for lease, buildout, and A/V equipment in a business model that depends on sustained membership retention",
+    "Seasonal attendance fluctuations: summer months with fewer prestige TV premieres and sports may reduce foot traffic"
+  ],
+  "year_one_milestones": [
+    "Secure venue lease and complete buildout within 6 months; achieve 1,000 founding members before doors open",
+    "Reach average nightly attendance of 150+ guests and food/bev revenue of $8,000/night by month 9",
+    "Host 50+ special events (premiere nights, tournaments, watch parties) and hit $1.5M total revenue by end of year one"
+  ],
+  "startup_cost_range": "$350,000 to $750,000",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=aXLgzaD673w",
+  "episode_number": 31
+}

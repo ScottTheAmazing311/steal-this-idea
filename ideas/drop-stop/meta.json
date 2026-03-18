@@ -1,0 +1,34 @@
+{
+  "slug": "drop-stop",
+  "company_name": "Drop Stop",
+  "tagline": "Drop your bags. Explore the city.",
+  "elevator_pitch": "Drop Stop is a network of secure luggage lockers placed at the heart of tourist hotspots in major cities. Travelers with hours to kill between hotel checkout and their flight can stash their bags, explore freely, and catch a shuttle straight to the airport.",
+  "problem": "Every frequent traveler knows the pain: your hotel checkout is at 11 AM but your flight leaves at 3 PM. You are stuck hauling luggage around a city you want to enjoy, or paying for multiple Uber rides just to stash your bags somewhere inconvenient.",
+  "solution": "Drop Stop places smart locker stations right where the action is, in the busiest tourist corridors of major cities. Travelers drop their bags in a secure, self-service locker, explore the city hands-free, and then catch a Drop Stop airport shuttle when it is time to fly.",
+  "target_market": "Frequent business and leisure travelers, especially those visiting major US tourist cities like Nashville, New York, San Francisco, and Las Vegas. Secondary market includes corporate travel departments and tour operators.",
+  "revenue_model": "Hybrid membership and per-use model. A monthly membership at $10/month gives access to all Drop Stop locations nationwide. One-time users pay $20-25 per use. Airport shuttle service is included or offered as a premium add-on. Additional revenue from advertising partnerships with nearby restaurants and attractions, and referral partnerships with hotels.",
+  "key_features": [
+    "Smart self-service luggage lockers with digital codes and payment screens",
+    "Frequent airport shuttle service departing every 30 minutes",
+    "Strategic placement at the epicenter of tourist activity in each city",
+    "Partnerships with hotels for guest shuttle service to Drop Stop locations"
+  ],
+  "competitive_advantage": "Unlike checking bags at random hotels (which feels awkward and unreliable), Drop Stop is a branded, trusted service located exactly where travelers want to be. The combination of secure storage plus airport shuttle in one service creates a unique value proposition no hotel bell desk can match.",
+  "market_size_estimate": "The US travel and tourism industry generates over $1.1 trillion annually. With 2.3 billion domestic person-trips per year and an estimated 30% experiencing the checkout-to-flight gap, the addressable market for luggage storage and transit services is substantial, potentially $500M+ annually.",
+  "go_to_market": "Launch in one high-traffic tourist city (Nashville) with a single Drop Stop location on Broadway. Partner with 2-3 nearby hotels to offer shuttle service to the Drop Stop. Validate demand and unit economics before expanding to additional cities.",
+  "risks": [
+    "Hotels already offer free bag check, limiting willingness to pay for a separate service",
+    "Securing prime real estate in tourist corridors may be expensive or difficult to negotiate",
+    "Liability concerns around lost, stolen, or damaged luggage in unmanned locker facilities"
+  ],
+  "year_one_milestones": [
+    "Launch pilot location in Nashville with 50+ locker capacity and airport shuttle route",
+    "Reach 500 monthly members and 2,000 one-time users within the first year",
+    "Secure partnership agreements with 5+ hotels for shuttle referral program"
+  ],
+  "startup_cost_range": "$15,000 - $40,000",
+  "category": "Services",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=J44ikec_zO8",
+  "episode_number": 143
+}

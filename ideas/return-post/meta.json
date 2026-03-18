@@ -1,0 +1,34 @@
+{
+  "slug": "return-post",
+  "company_name": "Return Post",
+  "tagline": "All your returns. One quick stop.",
+  "elevator_pitch": "Return Post is a one-stop retail return center where customers can bring back items from multiple stores in a single trip. You drop off your returns, get gift cards back, and leave in under three minutes. Stores save on staffing, keep the money in their ecosystem, and eliminate return-line headaches.",
+  "problem": "Returning purchases is a painful, time-consuming process. Items pile up in cars and closets for months because nobody wants to visit five different stores, wait in long customer service lines, and argue about receipts. Many returns never happen at all, costing consumers real money.",
+  "solution": "Return Post partners with major retailers to accept returns for multiple brands under one roof. Customers walk in, drop off items, and receive gift cards to the original store. The entire process takes under three minutes. Stores benefit because gift cards keep the money in their brand, and roughly one-third of gift card value goes unspent.",
+  "target_market": "Busy parents and frequent shoppers, especially women ages 25 to 45 who regularly purchase from multiple retailers. Secondary market includes anyone who hates the return process enough to let items sit unreturned for months.",
+  "revenue_model": "Return Post takes a small percentage (2 to 5%) of each return transaction value. Additional revenue from brand partnership fees, where retailers pay for placement and customer data insights. Volume-based model that scales with transactions processed per location.",
+  "key_features": [
+    "Multi-brand returns accepted at a single location with 3-minute guaranteed turnaround",
+    "Customer profiles that store payment info and return history for a frictionless drop-off",
+    "Gift card issuance keeps revenue within partner retailers' ecosystems",
+    "Bulk return logistics that consolidate items back to partner stores efficiently"
+  ],
+  "competitive_advantage": "While Amazon has proven the model works through Kohl's partnerships, nobody has built a brand-agnostic, multi-retailer return hub. Return Post removes friction for consumers while offering retailers a way to keep revenue in-house through gift cards rather than losing it to cash refunds.",
+  "market_size_estimate": "US retail returns total over $800 billion annually. Even capturing a tiny fraction of this volume, say $500 million in processed returns at a 3% take rate, yields $15 million in annual revenue. The addressable market of frustrated returners is massive and largely underserved.",
+  "go_to_market": "Open a pilot location in a high-traffic suburban strip mall. Partner with 5 to 10 major retailers (Target, Walmart, Nordstrom, Best Buy) to prove the concept. Use speed and convenience as the core marketing message. Expand through franchise or company-owned locations in top metro areas.",
+  "risks": [
+    "Major retailers may refuse to partner or create their own consolidated return solutions",
+    "Customers who expect cash back may resist the gift-card-only return model",
+    "Logistics of processing and routing returns to multiple retailers could be operationally complex"
+  ],
+  "year_one_milestones": [
+    "Secure partnerships with at least 5 major retail brands for pilot program",
+    "Open first Return Post location and process 1,000 returns in first month",
+    "Achieve a 90% or higher customer satisfaction rating and sub-3-minute average return time"
+  ],
+  "startup_cost_range": "$150,000 to $350,000",
+  "category": "Services",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=kSZKuDvSj_k",
+  "episode_number": 97
+}

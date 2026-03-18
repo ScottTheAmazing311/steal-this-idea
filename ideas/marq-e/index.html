@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marq-E — Your Door Has Something to Say</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sun: #FFD23F;
+  --sun-light: #FFF0B3;
+  --orange: #FF8C42;
+  --orange-deep: #E8601C;
+  --teal: #2EC4B6;
+  --teal-dark: #1A9E92;
+  --teal-light: #D6F5F2;
+  --white: #FFFFFF;
+  --off-white: #FFF9F0;
+  --cream: #FFF5E6;
+  --dark: #2B2D42;
+  --gray: #6B7280;
+  --gray-light: #F3F4F6;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --shadow: 0 4px 24px rgba(43, 45, 66, 0.08);
+  --shadow-lg: 0 12px 48px rgba(43, 45, 66, 0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--dark);
+  background: var(--off-white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; line-height: 1.2; }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* Inline SVG icons */
+.svg-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+.svg-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Steal This Idea badge ── */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--white);
+  border: 2px solid var(--sun);
+  border-radius: 40px;
+  padding: 8px 18px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--dark);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sti-badge:hover { transform: translateY(-2px) scale(1.04); box-shadow: var(--shadow-lg); }
+.sti-badge .badge-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+}
+.sti-badge .badge-icon svg { width: 100%; height: 100%; }
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--sun-light) 0%, var(--off-white) 40%, var(--teal-light) 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 100px 24px 80px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 210, 63, 0.25) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(46, 196, 182, 0.15) 0%, transparent 70%);
+  bottom: -80px;
+  left: -80px;
+  border-radius: 50%;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text { max-width: 540px; }
+
+.hero-label {
+  display: inline-block;
+  background: var(--sun);
+  color: var(--dark);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.hero h1 .accent { color: var(--teal); }
+
+.hero .tagline {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  font-weight: 500;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+
+.hero .pitch {
+  font-size: 1.1rem;
+  color: var(--gray);
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn:hover { transform: translateY(-3px); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 100%);
+  color: var(--white);
+  box-shadow: 0 6px 24px rgba(255, 140, 66, 0.35);
+}
+.btn-primary:hover { box-shadow: 0 10px 32px rgba(255, 140, 66, 0.45); }
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--teal-dark);
+  border: 2px solid var(--teal);
+  box-shadow: var(--shadow);
+}
+.btn-secondary:hover { box-shadow: var(--shadow-lg); }
+
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-price {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+.hero-price strong {
+  color: var(--teal-dark);
+  font-size: 1.3rem;
+}
+
+/* Hero image column */
+.hero-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+.hero-image {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.hero-image img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Door mockup ── */
+.door-mockup {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.door {
+  width: 240px;
+  height: 420px;
+  background: linear-gradient(180deg, #A0785A 0%, #8B6344 100%);
+  border-radius: 12px 12px 4px 4px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.door::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #D4AF37 30%, #B8952E 100%);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.door-screen {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 110px;
+  background: var(--white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.door-screen-content {
+  text-align: center;
+  padding: 12px;
+  animation: cycleMessages 12s infinite;
+}
+.door-screen-content .msg-icon {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.door-screen-content .msg-icon svg { width: 28px; height: 28px; }
+.door-screen-content .msg-text {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.3;
+}
+
+@keyframes cycleMessages {
+  0%, 20%   { opacity: 1; }
+  22%, 24%  { opacity: 0; }
+  26%, 45%  { opacity: 1; }
+  47%, 49%  { opacity: 0; }
+  51%, 70%  { opacity: 1; }
+  72%, 74%  { opacity: 0; }
+  76%, 95%  { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+/* Floating message bubbles around the door */
+.door-bubble {
+  position: absolute;
+  background: var(--white);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--dark);
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+  animation: floatBubble 4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.door-bubble::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--white);
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+.door-bubble .bubble-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.bubble-1 { top: 20px; right: -40px; border-left: 3px solid var(--sun); animation-delay: 0s; }
+.bubble-1::after { bottom: -5px; left: 20px; }
+.bubble-1 .bubble-dot { background: var(--sun); }
+.bubble-2 { top: 200px; left: -60px; border-left: 3px solid var(--teal); animation-delay: 1.5s; }
+.bubble-2::after { right: -5px; top: 12px; }
+.bubble-2 .bubble-dot { background: var(--teal); }
+.bubble-3 { bottom: 40px; right: -50px; border-left: 3px solid var(--orange); animation-delay: 0.8s; }
+.bubble-3::after { top: -5px; left: 16px; }
+.bubble-3 .bubble-dot { background: var(--orange); }
+
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── Section styling ── */
+section { padding: 100px 0; }
+
+.section-label {
+  display: inline-block;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 40px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--gray);
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+.section-subtitle.centered { margin-left: auto; margin-right: auto; text-align: center; }
+
+.text-center { text-align: center; }
+
+/* ── Full-width image break ── */
+.image-break {
+  width: 100%;
+  overflow: hidden;
+  max-height: 400px;
+}
+.image-break img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Section images ── */
+.section-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 48px;
+}
+.section-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── PROBLEM ── */
+.problem { background: var(--white); }
+.problem .section-label { background: #FEE2E2; color: #B91C1C; }
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.problem-card {
+  background: var(--off-white);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  border: 1px solid #F3E8D8;
+  transition: transform 0.3s;
+}
+.problem-card:hover { transform: translateY(-4px); }
+.problem-card .icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.problem-card .icon svg { width: 24px; height: 24px; }
+.icon-sleep { background: #EDE9FE; }
+.icon-package { background: #FEF3C7; }
+.icon-search { background: #DBEAFE; }
+.icon-question { background: #FCE7F3; }
+
+.problem-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.problem-card p { font-size: 0.95rem; color: var(--gray); }
+
+/* ── SOLUTION ── */
+.solution { background: linear-gradient(180deg, var(--off-white) 0%, var(--teal-light) 100%); }
+.solution .section-label { background: var(--teal-light); color: var(--teal-dark); }
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.solution-steps { display: flex; flex-direction: column; gap: 28px; }
+
+.step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--white);
+}
+
+.step h4 { font-size: 1.1rem; margin-bottom: 4px; }
+.step p { font-size: 0.95rem; color: var(--gray); }
+
+/* Phone mockup */
+.phone-mockup {
+  display: flex;
+  justify-content: center;
+}
+
+.phone {
+  width: 220px;
+  height: 420px;
+  background: var(--dark);
+  border-radius: 32px;
+  padding: 12px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 6px;
+  background: #1a1b2e;
+  border-radius: 4px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--white);
+  border-radius: 22px;
+  padding: 36px 16px 16px;
+  overflow: hidden;
+}
+
+.phone-header {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.phone-msg-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: default;
+  transition: transform 0.2s;
+}
+.phone-msg-btn:hover { transform: scale(1.03); }
+
+.pmb-1 { background: #FEF3C7; color: #92400E; }
+.pmb-2 { background: #D1FAE5; color: #065F46; }
+.pmb-3 { background: #DBEAFE; color: #1E40AF; }
+.pmb-4 { background: #FCE7F3; color: #9D174D; }
+.pmb-5 { background: #F3E8FF; color: #6B21A8; }
+
+.phone-msg-btn .btn-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+.phone-msg-btn .btn-icon svg { width: 100%; height: 100%; }
+
+/* ── FEATURES ── */
+.features { background: var(--white); }
+.features .section-label { background: var(--sun-light); color: #92400E; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.feature-card {
+  background: var(--off-white);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid transparent;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--sun-light);
+}
+
+.feature-card .feature-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.feature-card .feature-icon svg { width: 28px; height: 28px; }
+
+.fi-1 { background: linear-gradient(135deg, var(--sun-light), #FFE082); }
+.fi-2 { background: linear-gradient(135deg, #C4B5FD, #A78BFA); }
+.fi-3 { background: linear-gradient(135deg, var(--teal-light), #81E6D9); }
+.fi-4 { background: linear-gradient(135deg, #FECACA, #FCA5A5); }
+
+.feature-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+.feature-card p { font-size: 0.95rem; color: var(--gray); line-height: 1.6; }
+
+/* ── MARKET ── */
+.market { background: linear-gradient(180deg, var(--off-white) 0%, var(--cream) 100%); }
+.market .section-label { background: #DBEAFE; color: #1E40AF; }
+
+.market-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 48px;
+}
+
+.market-audiences { display: flex; flex-direction: column; gap: 20px; }
+
+.audience {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.audience .aud-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.audience .aud-icon svg { width: 22px; height: 22px; }
+.aud-family { background: #FEF3C7; }
+.aud-home { background: #D1FAE5; }
+.aud-shop { background: #DBEAFE; }
+.aud-store { background: #F3E8FF; }
+
+.audience h4 { font-size: 1.05rem; margin-bottom: 4px; }
+.audience p { font-size: 0.9rem; color: var(--gray); }
+
+.market-stats {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow);
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--gray-light);
+}
+.stat-row:last-child { border-bottom: none; }
+
+.stat-value {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--teal-dark);
+}
+.stat-label { font-size: 0.95rem; color: var(--gray); max-width: 200px; }
+
+/* ── BUSINESS PLAN ── */
+.business {
+  background: var(--white);
+  padding: 100px 0 120px;
+}
+.business .section-label { background: #F3E8FF; color: #6B21A8; }
+
+.biz-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.biz-card {
+  background: var(--off-white);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  border: 1px solid #F3E8D8;
+  position: relative;
+}
+
+.biz-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.biz-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.biz-card h3 .biz-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.biz-card h3 .biz-icon svg { width: 18px; height: 18px; }
+
+.bi-revenue { background: #D1FAE5; }
+.bi-gtm { background: #DBEAFE; }
+.bi-compete { background: #FEF3C7; }
+.bi-milestones { background: #FCE7F3; }
+.bi-cost { background: #F3E8FF; }
+.bi-risks { background: #FECACA; }
+
+.biz-card p {
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+.biz-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.biz-list li {
+  font-size: 0.95rem;
+  color: var(--gray);
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.6;
+}
+.biz-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.milestone-list li::before { background: #FBCFE8; }
+.risk-list li::before { background: #FECACA; }
+
+.biz-cost-tag {
+  display: inline-block;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--teal-dark);
+  margin-bottom: 8px;
+}
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.cta-banner h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.cta-banner p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-white {
+  background: var(--white);
+  color: var(--teal-dark);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+}
+.btn-white:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.2); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.6);
+  padding: 48px 24px;
+  text-align: center;
+}
+footer .footer-logo {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+footer p { font-size: 0.95rem; margin-bottom: 8px; line-height: 1.6; }
+footer a { color: var(--sun); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--orange); }
+footer .footer-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--teal);
+  margin: 20px auto;
+  border-radius: 3px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+  .hero-text { max-width: 100%; }
+  .hero .pitch { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .solution-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: 1fr; }
+  .biz-grid { grid-template-columns: 1fr; }
+  .biz-card.full-width { grid-column: auto; }
+  .door-bubble { display: none; }
+}
+
+@media (max-width: 480px) {
+  section { padding: 64px 0; }
+  .hero { padding: 80px 16px 60px; }
+  .sti-badge { top: 12px; left: 12px; font-size: 0.75rem; padding: 6px 12px; }
+  .door { width: 180px; height: 320px; }
+  .door-screen { top: 40px; width: 120px; height: 85px; }
+  .phone { width: 180px; height: 350px; }
+  .image-break { max-height: 240px; }
+  .image-break img { height: 240px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">Steal This Idea</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text reveal">
+      <span class="hero-label">Smart Home / Hardware</span>
+      <h1>Marq-<span class="accent">E</span></h1>
+      <p class="tagline">Your door has something to say.</p>
+      <p class="pitch">A smart e-ink display that mounts to your front door, letting you communicate with anyone who approaches, from delivery drivers to dinner guests. One tap. One message. Zero missed moments.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-primary" onclick="return false;">Pre-Order Now</a>
+        <a href="#features" class="btn btn-secondary">See Features</a>
+      </div>
+      <p class="hero-price">Starting at <strong>$39</strong>, less than a Ring doorbell</p>
+    </div>
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1714836982299-7a3b6930e2f5?auto=format&fit=crop&w=1200&q=80" alt="House with porch and front door" loading="lazy">
+      </div>
+      <div class="door-mockup">
+        <div class="door-bubble bubble-1"><span class="bubble-dot"></span> Baby sleeping, don't ring!</div>
+        <div class="door-bubble bubble-2"><span class="bubble-dot"></span> Leave packages by the gate</div>
+        <div class="door-bubble bubble-3"><span class="bubble-dot"></span> Come on in, we're in the backyard!</div>
+        <div class="door">
+          <div class="door-screen">
+            <div class="door-screen-content" id="screenMsg">
+              <div class="msg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <div class="msg-text">The Johnsons<br>1247</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image Break: Packages -->
+<div class="image-break">
+  <img src="https://plus.unsplash.com/premium_photo-1681433412602-db329923c7e3?auto=format&fit=crop&w=1200&q=80" alt="Parcels delivered at doorstep" loading="lazy">
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label reveal">The Problem</span>
+      <h2 class="section-title reveal">Your front door is completely dumb.</h2>
+      <p class="section-subtitle centered reveal">It's the most important communication point of your home, and it can't say a single thing.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal reveal-delay-1">
+        <div class="icon icon-sleep">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+        </div>
+        <h4>Doorbell wakes the baby</h4>
+        <p>You finally got them down for a nap. The delivery driver doesn't know. Ring ring. Game over.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <div class="icon icon-package">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <h4>Missed delivery instructions</h4>
+        <p>Your handwritten note blew away. The driver left your package in the rain. Again.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-3">
+        <div class="icon icon-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1E40AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h4>Invisible house numbers</h4>
+        <p>Guests circle the block twice because they can't see your house number after dark.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-4">
+        <div class="icon icon-question">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9D174D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h4>No way to say "come around back"</h4>
+        <p>You're in the backyard and can't hear the doorbell. Your guests stand there awkwardly for 10 minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <span class="section-label reveal">The Solution</span>
+    <h2 class="section-title reveal">Your door, now brilliant.</h2>
+    <p class="section-subtitle reveal">Marq-E is a weatherproof, Bluetooth-enabled e-ink display that turns your front door into a smart communication hub.</p>
+    <div class="section-image reveal">
+      <img src="https://plus.unsplash.com/premium_photo-1663040451691-0c89005ce5cc?auto=format&fit=crop&w=1200&q=80" alt="Person using smartphone" loading="lazy">
+    </div>
+    <div class="solution-grid">
+      <div class="solution-steps">
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Mount it</h4>
+            <p>Stick Marq-E to your door, window, or wall. Weatherproof and sleek, it looks like it belongs there.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Load your messages</h4>
+            <p>Choose from presets or write your own. "Baby sleeping," delivery instructions, your house number, whatever you need.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Tap or say it</h4>
+            <p>One tap in the app, or just say "Alexa, tell Marq-E I'm busy." The display updates instantly.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-4">
+          <div class="step-num">4</div>
+          <div>
+            <h4>Auto-revert</h4>
+            <p>Set a timer and Marq-E automatically switches back to your default display. Set it and forget it.</p>
+          </div>
+        </div>
+      </div>
+      <div class="phone-mockup reveal reveal-delay-2">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-header">Marq-E</div>
+            <button class="phone-msg-btn pmb-1"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg></span>Baby sleeping, don't ring</button>
+            <button class="phone-msg-btn pmb-2"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Come in, we're in the backyard</button>
+            <button class="phone-msg-btn pmb-3"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>Leave packages at side door</button>
+            <button class="phone-msg-btn pmb-4"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>Please take your shoes off</button>
+            <button class="phone-msg-btn pmb-5"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Party! Come around to the back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label reveal">Key Features</span>
+      <h2 class="section-title reveal">Simple tech. Surprisingly powerful.</h2>
+      <p class="section-subtitle centered reveal">Everything you need to make your front door the smartest part of your home.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon fi-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>One-Tap Presets</h3>
+        <p>Load your favorite messages and activate them with a single tap. Auto-revert timers mean you never forget to switch back to your default display.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon fi-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4C1D95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+        </div>
+        <h3>Illuminated House Numbers</h3>
+        <p>Your house number, beautifully lit and visible from the street at night. No more circling the block; guests and drivers find you instantly.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon fi-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <h3>Voice Control</h3>
+        <p>"Alexa, tell Marq-E I'm busy." Works with Alexa and Google Home so you can update your door without lifting a finger.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-4">
+        <div class="feature-icon fi-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2" ry="2"/><line x1="23" y1="13" x2="23" y2="11"/></svg>
+        </div>
+        <h3>Weeks of Battery Life</h3>
+        <p>E-ink technology means exceptional battery life and perfect readability in direct sunlight. Fully weatherproof: rain, snow, or shine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image Break: Phone usage -->
+<div class="image-break">
+  <img src="https://plus.unsplash.com/premium_photo-1663040451691-0c89005ce5cc?auto=format&fit=crop&w=1200&q=80" alt="Person using smartphone" loading="lazy">
+</div>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label reveal">Market Opportunity</span>
+      <h2 class="section-title reveal">A massive market nobody's talking to.</h2>
+      <p class="section-subtitle centered reveal">Every home has a front door. None of them can communicate. That's our opportunity.</p>
+    </div>
+    <div class="market-grid">
+      <div class="market-audiences">
+        <div class="audience reveal reveal-delay-1">
+          <div class="aud-icon aud-family">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h4>Families with Young Kids</h4>
+            <p>New parents desperate to stop the doorbell from waking the baby. Green/yellow/red availability displays for kids' play schedules.</p>
+          </div>
+        </div>
+        <div class="audience reveal reveal-delay-2">
+          <div class="aud-icon aud-home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <h4>Smart Home Enthusiasts</h4>
+            <p>Early adopters who already have Ring, Nest, and Alexa, and love adding the next clever device to their setup.</p>
+          </div>
+        </div>
+        <div class="audience reveal reveal-delay-3">
+          <div class="aud-icon aud-shop">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1E40AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div>
+            <h4>Online Shoppers</h4>
+            <p>Frequent delivery recipients frustrated with missed packages, wrong drop-off spots, and zero communication with drivers.</p>
+          </div>
+        </div>
+        <div class="audience reveal reveal-delay-4">
+          <div class="aud-icon aud-store">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <div>
+            <h4>Small Business Storefronts</h4>
+            <p>Shops, studios, and offices wanting dynamic signage they can update from their phone in seconds.</p>
+          </div>
+        </div>
+      </div>
+      <div class="market-stats reveal reveal-delay-2">
+        <h3 style="font-size:1.15rem; margin-bottom:8px;">Market by the Numbers</h3>
+        <div class="stat-row">
+          <div>
+            <div class="stat-value">$80B+</div>
+          </div>
+          <div class="stat-label">Global smart home device market</div>
+        </div>
+        <div class="stat-row">
+          <div>
+            <div class="stat-value">140M+</div>
+          </div>
+          <div class="stat-label">U.S. households with a front door to upgrade</div>
+        </div>
+        <div class="stat-row">
+          <div>
+            <div class="stat-value">20M+</div>
+          </div>
+          <div class="stat-label">Ring doorbell owners, our ideal first customers</div>
+        </div>
+        <div class="stat-row">
+          <div>
+            <div class="stat-value">$500M+</div>
+          </div>
+          <div class="stat-label">Realistic addressable market for Marq-E</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business" id="business">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label reveal">Business Plan</span>
+      <h2 class="section-title reveal">How Marq-E becomes a business.</h2>
+      <p class="section-subtitle centered reveal">A clear path from concept to product to revenue.</p>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card reveal reveal-delay-1">
+        <h3><span class="biz-icon bi-revenue"><svg viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span> Revenue Model</h3>
+        <p>Hardware sales at <strong>$39&ndash;49 per unit</strong> with healthy margins on a simple e-ink + Bluetooth module. Optional premium app subscription at <strong>$2.99/month</strong> for scheduling, custom designs, and smart home integrations. The gift market is enormous; perfect for housewarmings, holidays, and new parents.</p>
+      </div>
+      <div class="biz-card reveal reveal-delay-2">
+        <h3><span class="biz-icon bi-gtm"><svg viewBox="0 0 24 24" fill="none" stroke="#1E40AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span> Go-to-Market</h3>
+        <p>Launch on <strong>Kickstarter</strong> to validate demand and build community. Target the new-parent and new-homeowner gift market through social media. Partner with Ring/Nest communities and smart home influencers. Scale to retail placement at <strong>Target</strong> and <strong>Home Depot</strong> as an impulse-buy smart home accessory.</p>
+      </div>
+      <div class="biz-card reveal reveal-delay-1">
+        <h3><span class="biz-icon bi-compete"><svg viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> Competitive Advantage</h3>
+        <p>Ring solved "who's at my door." <strong>Marq-E solves "what should my door tell them."</strong> At under $50, it's cheaper than a Ring and serves a complementary purpose. E-ink means exceptional battery life and daylight readability. The gift-ability factor creates organic word-of-mouth growth.</p>
+      </div>
+      <div class="biz-card reveal reveal-delay-2">
+        <h3><span class="biz-icon bi-cost"><svg viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> Startup Cost</h3>
+        <div class="biz-cost-tag">$50,000 &ndash; $120,000</div>
+        <p>Covers hardware prototyping, app development, initial manufacturing run, and Kickstarter campaign production. Lean enough for angel funding or bootstrapping with a strong crowdfunding campaign.</p>
+      </div>
+      <div class="biz-card reveal reveal-delay-1">
+        <h3><span class="biz-icon bi-milestones"><svg viewBox="0 0 24 24" fill="none" stroke="#9D174D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span> Year One Milestones</h3>
+        <ul class="biz-list milestone-list">
+          <li>Successfully fund Kickstarter campaign and ship first 5,000 units</li>
+          <li>Achieve 4.5+ star average rating to build word-of-mouth credibility</li>
+          <li>Secure retail placement in one major chain (Target, Home Depot, or Best Buy)</li>
+        </ul>
+      </div>
+      <div class="biz-card reveal reveal-delay-2">
+        <h3><span class="biz-icon bi-risks"><svg viewBox="0 0 24 24" fill="none" stroke="#B91C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> Key Risks</h3>
+        <ul class="biz-list risk-list">
+          <li>Battery life and weatherproofing must be bulletproof or returns will kill the brand</li>
+          <li>Smart home fatigue: consumers may see it as yet another gadget they don't need</li>
+          <li>Large players (Ring, Google) could easily add a display feature to existing doorbells</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2 class="reveal">Ready to make your door smarter?</h2>
+  <p class="reveal reveal-delay-1">Join the waitlist and be the first to know when Marq-E launches.</p>
+  <a href="#" class="btn btn-white reveal reveal-delay-2" onclick="return false;">Join the Waitlist</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Marq-E</div>
+  <p>Your door has something to say.</p>
+  <div class="footer-divider"></div>
+  <p>This is a concept from the <strong><a href="https://www.youtube.com/watch?v=O_Lc5TOkT-I" target="_blank" rel="noopener">Steal This Idea</a></strong> podcast.</p>
+  <p style="margin-top: 8px; font-size: 0.85rem;">Not a real product (yet). Built as an idea exploration.</p>
+</footer>
+
+<script>
+// Intersection Observer for scroll reveals
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// SVG icon templates for door screen messages
+const svgHome = '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
+const svgMoon = '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>';
+const svgBox = '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>';
+const svgStar = '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+const svgCheck = '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+
+// Cycle door screen messages
+const messages = [
+  { icon: svgHome, text: 'The Johnsons<br>1247' },
+  { icon: svgMoon, text: 'Baby sleeping<br>Please don\'t ring' },
+  { icon: svgBox, text: 'Leave packages<br>by the side door' },
+  { icon: svgStar, text: 'Come on in!<br>We\'re in the backyard' },
+  { icon: svgCheck, text: 'Welcome!<br>Shoes off please' }
+];
+
+let msgIndex = 0;
+const screenMsg = document.getElementById('screenMsg');
+
+setInterval(() => {
+  screenMsg.style.opacity = '0';
+  setTimeout(() => {
+    msgIndex = (msgIndex + 1) % messages.length;
+    screenMsg.querySelector('.msg-icon').innerHTML = messages[msgIndex].icon;
+    screenMsg.querySelector('.msg-text').innerHTML = messages[msgIndex].text;
+    screenMsg.style.opacity = '1';
+  }, 400);
+}, 3000);
+</script>
+
+</body>
+</html>

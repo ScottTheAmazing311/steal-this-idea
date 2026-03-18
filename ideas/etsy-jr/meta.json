@@ -1,0 +1,34 @@
+{
+  "slug": "etsy-jr",
+  "company_name": "KidCraft Market",
+  "tagline": "Where young makers become real entrepreneurs.",
+  "elevator_pitch": "KidCraft Market is a dedicated online marketplace where kids sell their handmade goods, from art and jewelry to crafts and ornaments. It gives young entrepreneurs a safe, supportive platform to learn business skills while connecting with buyers who love supporting the next generation of makers.",
+  "problem": "Kids with entrepreneurial energy have no real platform to sell what they make. They are stuck with lemonade stands and door-to-door sales, which teach almost nothing about real business. Parents want to nurture their children's creativity and drive, but there is no safe, dedicated marketplace designed for young sellers.",
+  "solution": "KidCraft Market provides a kid-friendly marketplace where young creators list handmade goods with video introductions, progress stories, and parent-verified profiles. Buyers get the same feel-good experience as Etsy, amplified by the knowledge that they are directly supporting a child's growth and entrepreneurial journey.",
+  "target_market": "Parents of kids aged 7 to 16 who show creative or entrepreneurial interests, plus gift buyers who love handmade goods and want to support young makers. Secondary market includes grandparents, teachers, and community supporters.",
+  "revenue_model": "Transaction fee (10-12% per sale), optional premium seller profiles with enhanced storefronts, seasonal featured placement fees, and curated gift box subscriptions assembled from top young sellers.",
+  "key_features": [
+    "Kid-safe seller profiles with parent verification and video introductions",
+    "Built-in learning modules teaching pricing, inventory, and customer service",
+    "Seasonal collections and themed marketplaces (holiday ornaments, back-to-school, etc.)",
+    "Progress stories and maker journals that build buyer connection and social proof"
+  ],
+  "competitive_advantage": "No dedicated marketplace exists for kid entrepreneurs. Etsy prohibits sellers under 18 from having their own shops. KidCraft Market owns this niche with purpose-built safety features, educational components, and a compelling emotional buying experience that no general marketplace can replicate.",
+  "market_size_estimate": "The U.S. handmade goods market exceeds $40 billion. With roughly 50 million kids aged 7 to 16 and growing parental interest in entrepreneurship education, even capturing a small fraction of gift and craft spending represents a $500M+ addressable market.",
+  "go_to_market": "Launch with a curated beta of 200 young sellers sourced through homeschool networks, youth entrepreneurship programs, and parenting influencers. Build viral content around maker stories on TikTok and Instagram. Partner with schools for entrepreneurship curriculum tie-ins.",
+  "risks": [
+    "Child safety and privacy regulations (COPPA compliance) add complexity and cost",
+    "Quality control challenges when products are made by children",
+    "Marketplace liquidity: attracting enough buyers to keep young sellers motivated"
+  ],
+  "year_one_milestones": [
+    "Onboard 2,000 active young sellers across 20 product categories",
+    "Process $500K in gross merchandise volume with 10% take rate",
+    "Secure partnerships with 50 schools and 10 youth entrepreneurship organizations"
+  ],
+  "startup_cost_range": "$80,000 - $150,000",
+  "category": "Marketplace",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=2lfDyvWaC8A",
+  "episode_number": 139
+}

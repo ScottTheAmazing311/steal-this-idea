@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FGS: Freakin' Good Salads</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --lime: #A8E10C;
+  --dark: #111111;
+  --off-white: #F7F7F2;
+  --green-deep: #1B5E20;
+  --green-mid: #2E7D32;
+  --accent-orange: #FF6D00;
+  --gray-light: #E8E8E3;
+}
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--dark);
+  background: var(--off-white);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1000;
+  background: var(--dark);
+  color: var(--lime);
+  text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+.sti-badge:hover { transform: scale(1.05); }
+.sti-badge svg { width: 18px; height: 18px; fill: var(--lime); }
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--dark);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  opacity: 0.45;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(17,17,17,0.85) 0%, rgba(27,94,32,0.6) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--dark);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  padding: 6px 20px;
+  border-radius: 30px;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  color: #fff;
+  line-height: 0.95;
+  margin-bottom: 0.5rem;
+}
+.hero h1 span {
+  color: var(--lime);
+}
+.hero-pitch {
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 1.5rem auto 2.5rem;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--dark);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  padding: 16px 48px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(168,225,12,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(168,225,12,0.45);
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+.hero-scroll-hint svg { width: 28px; height: 28px; stroke: var(--lime); }
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* PROBLEM */
+.problem {
+  padding: 6rem 2rem;
+  background: var(--off-white);
+}
+.problem-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.problem-img {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+.problem-img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.section-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-orange);
+  margin-bottom: 0.75rem;
+}
+.problem-text h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+  color: var(--dark);
+}
+.problem-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* SOLUTION */
+.solution {
+  position: relative;
+  padding: 6rem 2rem;
+  background: var(--green-deep);
+  color: #fff;
+  overflow: hidden;
+}
+.solution-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  opacity: 0.15;
+}
+.solution-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.solution-text h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+.solution-text .section-label { color: var(--lime); }
+.solution-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+}
+.solution-img {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.solution-img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+/* FEATURES */
+.features {
+  padding: 6rem 2rem;
+  background: var(--off-white);
+}
+.features-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+}
+.features-header h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+}
+.features-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.1);
+}
+.feature-card-img {
+  height: 180px;
+  overflow: hidden;
+}
+.feature-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.feature-card:hover .feature-card-img img {
+  transform: scale(1.05);
+}
+.feature-card-body {
+  padding: 1.5rem;
+}
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--lime);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.feature-icon svg { width: 22px; height: 22px; fill: var(--dark); }
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+.feature-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* MARKET */
+.market {
+  padding: 6rem 2rem;
+  background: var(--dark);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.market-bg-img {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  opacity: 0.1;
+}
+.market-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.market-inner .section-label { color: var(--lime); }
+.market-inner h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+}
+.market-inner > p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+.market-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+.stat-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(168,225,12,0.2);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+}
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--lime);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.4;
+}
+
+/* BUSINESS PLAN */
+.biz-plan {
+  padding: 6rem 2rem;
+  background: var(--gray-light);
+}
+.biz-plan-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.biz-plan-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.biz-plan-header h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 0.5rem;
+}
+.biz-plan-header p {
+  color: #666;
+  font-size: 1.05rem;
+}
+.biz-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+.biz-section h3 {
+  font-size: 1.6rem;
+  color: var(--green-deep);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.biz-section h3 svg { width: 22px; height: 22px; fill: var(--green-deep); flex-shrink: 0; }
+.biz-section p, .biz-section li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #444;
+}
+.biz-section ul {
+  list-style: none;
+  padding: 0;
+}
+.biz-section ul li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.biz-section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  width: 8px;
+  height: 8px;
+  background: var(--lime);
+  border-radius: 50%;
+}
+.biz-highlight {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--dark);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  padding: 4px 14px;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+/* CTA BANNER */
+.cta-banner {
+  padding: 5rem 2rem;
+  background: var(--green-deep);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  opacity: 0.12;
+}
+.cta-banner-inner {
+  position: relative;
+  z-index: 2;
+}
+.cta-banner h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.cta-banner p {
+  color: rgba(255,255,255,0.8);
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* FOOTER */
+footer {
+  padding: 3rem 2rem;
+  background: var(--dark);
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+footer a {
+  color: var(--lime);
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .problem-inner,
+  .solution-inner {
+    grid-template-columns: 1fr;
+  }
+  .solution-inner { direction: ltr; }
+  .problem-img, .solution-img { order: -1; }
+  .problem-img img, .solution-img img { height: 280px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .market-stats { grid-template-columns: 1fr 1fr; }
+  .biz-section { padding: 1.5rem; }
+  .sti-badge { font-size: 0.8rem; padding: 6px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">FAST CASUAL. FRESH DAILY. ZERO COMPROMISE.</div>
+    <h1>FREAKIN'<br><span>GOOD</span><br>SALADS</h1>
+    <p class="hero-pitch">Six perfected salads. One drive-thru lane. Restaurant-quality greens you can grab in under five minutes. Think In-N-Out, but for salads that actually taste incredible.</p>
+    <a href="#" class="btn-primary" onclick="return false;">Find a Location</a>
+  </div>
+  <div class="hero-scroll-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <div class="problem-img reveal">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Fast food drive-thru">
+    </div>
+    <div class="problem-text reveal">
+      <div class="section-label">THE PROBLEM</div>
+      <h2>Healthy fast food is still an oxymoron.</h2>
+      <p>You are hungry, short on time, and sitting in your car. Your options? A soggy side salad from a burger chain, or parking, walking in, and waiting 20 minutes at a sit-down restaurant. For anyone who wants something fresh and fast, the gap in the market is painfully obvious.</p>
+      <br>
+      <p>Salads worth eating require a time commitment. Drive-thru salads require lowering your standards. Until now, there has been no middle ground.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="solution-bg"></div>
+  <div class="solution-inner">
+    <div class="solution-text reveal">
+      <div class="section-label">THE SOLUTION</div>
+      <h2>Six salads. Perfected. Ready in two minutes.</h2>
+      <p>FGS keeps it radically simple. We tested over a thousand salad combinations and narrowed it down to six that people genuinely crave. Every ingredient is prepped fresh daily. Every salad is a complete, finished recipe; no building, no customizing, no decision fatigue.</p>
+      <br>
+      <p>Pull up to the drive-thru, order by number, and you are back on the road before the song on your radio ends. It is the speed of fast food with the quality of a great restaurant.</p>
+    </div>
+    <div class="solution-img reveal">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Beautiful fresh salad bowl">
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-header reveal">
+    <div class="section-label">WHAT MAKES US DIFFERENT</div>
+    <h2>Built for speed. Obsessed with flavor.</h2>
+    <p>Every detail of FGS is designed to deliver restaurant-quality salads at drive-thru speed.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1607532941433-304659e8198a?auto=format&fit=crop&w=800&q=80" alt="Curated menu board">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+        </div>
+        <h3>Six-Item Menu</h3>
+        <p>A curated lineup of perfected, restaurant-quality salads. No filler, no fluff. Every option is a signature dish that keeps customers coming back.</p>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Fresh ingredients">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        </div>
+        <h3>Two-Minute Service</h3>
+        <p>Purpose-built drive-thru workflow means your salad is assembled fresh and in your hands before you even finish checking your phone.</p>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=800&q=80" alt="Fresh local produce">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <h3>Locally Sourced</h3>
+        <p>Fresh daily prep with locally sourced greens and premium proteins. We partner with regional farms so every bite is as fresh as it gets.</p>
+      </div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" alt="Eco-friendly packaging">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.71c.79.47 1.76.71 2.84.71 2.5 0 4.41-1.56 5.57-3.65.88.35 1.94.59 3.14.59.9 0 1.73-.14 2.48-.38C21.83 13.8 22.82 10.42 17 8zm-4.5 9c-1.26 0-2.26-.63-2.88-1.34l.57-1.63C11.14 14.94 12.26 16 14 16c.39 0 .76-.06 1.1-.16-.48.96-1.27 1.16-2.6 1.16z"/></svg>
+        </div>
+        <h3>Eco-Friendly Bowls</h3>
+        <p>Oversized compostable bowls designed for on-the-go eating. Good for you, good for the planet. No guilt, no waste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="market-bg-img"></div>
+  <div class="market-inner">
+    <div class="section-label reveal">MARKET OPPORTUNITY</div>
+    <h2 class="reveal">A $10 billion gap waiting to be filled.</h2>
+    <p class="reveal">The U.S. fast-casual restaurant market tops $100 billion, with the health-focused segment growing at roughly 10% per year. The salad and healthy bowl category alone represents an estimated $8 to $10 billion, and the drive-thru format remains almost entirely untapped.</p>
+    <div class="market-stats">
+      <div class="stat-card reveal">
+        <div class="stat-number">$100B+</div>
+        <div class="stat-label">U.S. fast-casual restaurant market</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">10%</div>
+        <div class="stat-label">Annual growth in health-focused dining</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">$8-10B</div>
+        <div class="stat-label">Salad and healthy bowl category TAM</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">~0</div>
+        <div class="stat-label">Drive-thru-first salad chains in the market</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="biz-plan">
+  <div class="biz-plan-inner">
+    <div class="biz-plan-header reveal">
+      <div class="section-label">THE BLUEPRINT</div>
+      <h2>Business Plan</h2>
+      <p>A closer look at how FGS gets from concept to franchise.</p>
+    </div>
+
+    <div class="biz-section reveal">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+        Revenue Model
+      </h3>
+      <p>Per-unit salad sales at $12 to $16 per salad with high margins thanks to the limited menu and streamlined prep. Additional revenue from fresh-squeezed lemonades, seasonal soups, and branded dressings sold retail. Franchise fees follow once the model is proven across 3 to 5 company-owned locations.</p>
+    </div>
+
+    <div class="biz-section reveal">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        Go-to-Market Strategy
+      </h3>
+      <p>Launch with a single flagship location in a high-traffic suburban commercial corridor. Build buzz through local food influencer partnerships and a bold, recognizable brand identity. Offer a free salad to every customer during opening week to generate word-of-mouth and repeat visits.</p>
+    </div>
+
+    <div class="biz-section reveal">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        Competitive Advantage
+      </h3>
+      <p>The radically simple menu means faster prep, less food waste, and unmatched consistency. Unlike Sweetgreen or Chopt, FGS does not ask customers to build anything. Every salad is a finished, tested recipe. The drive-thru format removes the biggest friction point in healthy fast food: having to park and walk inside.</p>
+    </div>
+
+    <div class="biz-section reveal">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+        Year One Milestones
+      </h3>
+      <ul>
+        <li>Open flagship drive-thru location and reach 300 orders per day within 6 months</li>
+        <li>Achieve an average ticket of $15 with 65% gross margin on food costs</li>
+        <li>Begin site selection for second and third locations based on proven unit economics</li>
+      </ul>
+    </div>
+
+    <div class="biz-section reveal">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        Startup Cost Estimate
+      </h3>
+      <p>Estimated $250,000 to $500,000 for a single drive-thru location, covering build-out, commercial kitchen equipment, initial inventory, branding, and working capital for the first six months of operations.</p>
+      <br>
+      <span class="biz-highlight">$250K - $500K TO LAUNCH</span>
+    </div>
+
+    <div class="biz-section reveal">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        Key Risks
+      </h3>
+      <ul>
+        <li>Perishable inventory and food waste if demand forecasting is off during early operations</li>
+        <li>Consumer perception that salads are not worth paying $12 to $16 for at a drive-thru window</li>
+        <li>Competition from established fast-casual chains adding drive-thru salad options to their menus</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-banner-bg"></div>
+  <div class="cta-banner-inner reveal">
+    <h2>Ready to steal this idea?</h2>
+    <p>FGS is a concept from the Steal This Idea podcast. The blueprint is right here. All it needs is someone bold enough to build it.</p>
+    <a href="#" class="btn-primary" onclick="return false;">Get the Full Plan</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>FGS: Freakin' Good Salads is a startup concept featured on the <a href="https://www.youtube.com/watch?v=m-MaLiQSqX0" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+  <p>This landing page is for demonstration purposes only. No actual business entity exists.</p>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      // Stagger animations slightly for elements in the same section
+      const delay = entry.target.dataset.delay || 0;
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  // Add staggered delays for grid children
+  const parent = el.parentElement;
+  if (parent && (parent.classList.contains('features-grid') || parent.classList.contains('market-stats'))) {
+    const siblings = Array.from(parent.querySelectorAll('.reveal'));
+    el.dataset.delay = siblings.indexOf(el) * 120;
+  }
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

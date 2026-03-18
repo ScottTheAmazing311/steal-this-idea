@@ -1,0 +1,34 @@
+{
+  "slug": "rentastic",
+  "company_name": "Rentastic",
+  "tagline": "Your stuff, their adventure.",
+  "elevator_pitch": "Rentastic is a marketplace that connects vacation rental hosts with local gear owners, letting hosts offer premium add-ons like e-bikes, golf clubs, and game consoles without buying them. Gear owners earn passive income on items they already own, and guests get a better vacation experience.",
+  "problem": "Vacation rental listings all look the same, making it nearly impossible for hosts to stand out among thousands of competitors. Meanwhile, travelers want unique experiences and recreational gear but hate renting from expensive shops. Locals have garages full of equipment collecting dust.",
+  "solution": "Rentastic creates a three-sided marketplace linking gear owners, Airbnb hosts, and vacation guests. Hosts list gear add-ons to make their rentals more attractive, gear owners earn money on idle equipment, and guests get curated recreational packages delivered to their rental. Everything is insured and managed through one platform.",
+  "target_market": "Airbnb and VRBO hosts in popular vacation destinations, recreational gear owners in tourist areas, and vacation travelers looking for premium experiences.",
+  "revenue_model": "Rentastic takes a percentage of each gear rental transaction from both the host and the gear owner. Additional revenue comes from optional insurance premiums and featured listing placements for hosts wanting to highlight their add-on packages.",
+  "key_features": [
+    "Plug-and-play integration with Airbnb and VRBO listings for seamless add-on booking",
+    "Full insurance coverage on all rented gear with damage protection for owners",
+    "Smart matching that pairs nearby gear owners with vacation rental hosts automatically",
+    "Curated experience packages bundling multiple items like bikes, boards, and games"
+  ],
+  "competitive_advantage": "Rentastic sits at the intersection of the sharing economy and vacation rentals, a gap no major player currently fills. By embedding directly into existing booking flows, it creates network effects where more gear means better listings, which means more guests, which attracts more gear owners.",
+  "market_size_estimate": "The US vacation rental market generates over $74B annually with 1.4M+ listings. If 10% of hosts adopt gear add-ons at an average of $50 per booking, that represents a $3.7B addressable market. The recreational equipment rental market adds another $12B globally.",
+  "go_to_market": "Launch in three high-density vacation rental markets (e.g., Park City, Destin, Lake Tahoe) with a focus on high-value gear like e-bikes and ATVs. Partner directly with local Airbnb host groups and recreational equipment retailers to seed both sides of the marketplace.",
+  "risks": [
+    "Gear damage or theft could erode owner trust and increase insurance costs significantly",
+    "Airbnb or VRBO could build native add-on features, cutting out the middleman",
+    "Cold-start problem of needing both gear supply and host demand in the same geographic area"
+  ],
+  "year_one_milestones": [
+    "Launch in 3 pilot vacation markets with 500+ active gear listings",
+    "Achieve 2,000 completed gear rentals with a sub-3% damage claim rate",
+    "Secure API partnership or integration approval with at least one major booking platform"
+  ],
+  "startup_cost_range": "$150K - $300K",
+  "category": "Marketplace",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=s7IYr68btKQ",
+  "episode_number": 134
+}

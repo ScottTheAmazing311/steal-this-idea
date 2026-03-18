@@ -1,0 +1,34 @@
+{
+  "slug": "the-vib",
+  "company_name": "The V.I.B.",
+  "tagline": "Restrooms worth the membership.",
+  "elevator_pitch": "The V.I.B. (Very Important Bathroom) is a subscription-based network of premium portable restrooms. For $9.99/month, badge into clean, sanitized, music-playing restrooms placed throughout your city—at office parks, events, downtown areas, and parks. It's the private members' club your bladder has been waiting for.",
+  "problem": "Portable restrooms are universally despised—dirty, smelly, and degrading. Yet the $7B industry hasn't innovated in decades. Office workers in gender-imbalanced workplaces wait in endless lines, concertgoers brave horrifying honey buckets, and park visitors just hold it. Everyone deserves better.",
+  "solution": "The V.I.B. deploys a citywide network of premium portable restrooms accessible only to subscribers. Each unit is climate-controlled, regularly sanitized, and plays ambient music. Badge-in access limits traffic and creates accountability, keeping every unit clean. An app shows real-time availability and locations near you.",
+  "target_market": "Urban professionals in office parks with inadequate facilities, frequent event attendees, outdoor enthusiasts, and gig economy workers (delivery drivers, rideshare) who need reliable restroom access. Secondary: event organizers wanting a premium restroom option for their venues.",
+  "revenue_model": "Monthly subscriptions at $9.99/month per individual. Corporate plans for office parks at $500-2,000/month. Event rental packages at premium rates. Per-use swipe option at $1-2 for non-subscribers. Hardware revenue from selling/leasing premium units to venue operators.",
+  "key_features": [
+    "Badge-in access with real-time availability on the app",
+    "Climate-controlled, sanitized, and ambient music in every unit",
+    "Citywide network coverage at offices, parks, downtown, and events",
+    "Accountability system—badge tracking keeps every unit pristine"
+  ],
+  "competitive_advantage": "The portable restroom industry has had zero consumer-facing innovation. Honey Bucket and competitors compete on price for a commodity product. The V.I.B. creates an entirely new premium tier with recurring revenue, brand loyalty, and network effects. Badge access solves the vandalism and overcrowding problems that make current porta-potties terrible.",
+  "market_size_estimate": "The global portable restroom market is $7B+ with steady year-over-year growth. Premium restroom rentals for events already command 3-5x standard pricing. A network subscription model across 10 major U.S. cities with 50,000 subscribers each = $60M+ ARR before corporate and event revenue.",
+  "go_to_market": "Start with 20-30 units in one city, placed at high-traffic office parks and near popular outdoor venues. Offer corporate partnerships first (guaranteed revenue). Build consumer base through events and word-of-mouth. Expand city-by-city once unit economics are proven.",
+  "risks": [
+    "High upfront capital required to manufacture and place enough units for network density",
+    "Vandalism and misuse despite badge system could erode the premium experience",
+    "Consumer willingness to pay monthly for restroom access is unproven in the U.S. market"
+  ],
+  "year_one_milestones": [
+    "Deploy 30 premium units across one metro area with 2,000+ active subscribers",
+    "Sign 5 corporate office park partnerships for guaranteed recurring revenue",
+    "Prove unit economics: each unit generating 2x its monthly maintenance cost"
+  ],
+  "startup_cost_range": "$150,000 - $400,000 (premium unit manufacturing, placement logistics, app development, initial maintenance operations)",
+  "category": "Services",
+  "vibe": "premium",
+  "episode_url": "https://www.youtube.com/watch?v=FYNmnMlRkjE",
+  "episode_number": 5
+}

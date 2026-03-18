@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phone Down - Earn rewards by putting your phone away.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --coral:#FF6B6B;
+    --mint:#4ECDC4;
+    --sun:#FFE66D;
+    --navy:#2C3E6B;
+    --lavender:#A78BFA;
+    --cream:#FFF9F0;
+    --dark:#1a1a2e;
+    --green:#22c55e;
+    --red:#ef4444;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;color:#333;background:var(--cream);overflow-x:hidden}
+  h1,h2,h3,h4{font-family:'Fredoka',sans-serif;font-weight:600}
+
+  /* Animations */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-left{opacity:0;transform:translateX(-50px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .reveal-left.visible{opacity:1;transform:translateX(0)}
+  .reveal-right{opacity:0;transform:translateX(50px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .reveal-right.visible{opacity:1;transform:translateX(0)}
+  .reveal-scale{opacity:0;transform:scale(0.9);transition:opacity 0.6s ease,transform 0.6s ease}
+  .reveal-scale.visible{opacity:1;transform:scale(1)}
+
+  /* Badge */
+  .sti-badge{
+    position:fixed;top:20px;left:20px;z-index:1000;
+    background:var(--navy);color:#fff;
+    padding:8px 16px;border-radius:50px;
+    font-family:'Fredoka',sans-serif;font-size:0.85rem;font-weight:600;
+    text-decoration:none;
+    display:flex;align-items:center;gap:8px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    transition:transform 0.3s,box-shadow 0.3s;
+  }
+  .sti-badge:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+  .sti-badge svg{width:18px;height:18px;fill:var(--sun)}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--navy) 0%,#1a1a3e 50%,#2d1b4e 100%);
+    color:#fff;
+  }
+  .hero-bg-img{
+    position:absolute;inset:0;
+    background:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover;
+    opacity:0.15;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    text-align:center;
+    max-width:800px;
+    padding:40px 24px;
+  }
+  .hero-icon{
+    width:120px;height:120px;
+    margin:0 auto 32px;
+    background:linear-gradient(135deg,var(--mint),var(--green));
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 60px rgba(78,205,196,0.4);
+    animation:pulse-glow 3s ease-in-out infinite;
+  }
+  @keyframes pulse-glow{
+    0%,100%{box-shadow:0 0 40px rgba(78,205,196,0.3)}
+    50%{box-shadow:0 0 80px rgba(78,205,196,0.6)}
+  }
+  .hero-icon svg{width:56px;height:56px;fill:#fff}
+  .hero h1{font-size:clamp(3rem,8vw,5.5rem);line-height:1.05;margin-bottom:16px;letter-spacing:-1px}
+  .hero h1 span{
+    background:linear-gradient(135deg,var(--sun),var(--coral));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero .tagline{
+    font-size:clamp(1.2rem,3vw,1.6rem);
+    font-weight:600;opacity:0.9;margin-bottom:24px;
+    font-family:'Fredoka',sans-serif;
+  }
+  .hero .pitch{
+    font-size:1.1rem;line-height:1.7;
+    max-width:600px;margin:0 auto 40px;opacity:0.8;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 36px;border-radius:50px;
+    font-family:'Fredoka',sans-serif;font-size:1.1rem;font-weight:600;
+    text-decoration:none;border:none;cursor:pointer;
+    transition:transform 0.3s,box-shadow 0.3s;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--coral),#ff8a5c);
+    color:#fff;
+    box-shadow:0 8px 30px rgba(255,107,107,0.4);
+  }
+  .btn-primary:hover{box-shadow:0 12px 40px rgba(255,107,107,0.5)}
+  .btn-secondary{
+    background:rgba(255,255,255,0.1);
+    color:#fff;border:2px solid rgba(255,255,255,0.3);
+    backdrop-filter:blur(8px);
+  }
+  .hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .hero-scroll{
+    position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+    animation:bounce 2s infinite;
+    opacity:0.5;
+  }
+  .hero-scroll svg{width:32px;height:32px;fill:#fff}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+  /* Section shared */
+  section{padding:100px 24px}
+  .container{max-width:1100px;margin:0 auto}
+  .section-label{
+    font-family:'Fredoka',sans-serif;
+    font-size:0.85rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:3px;
+    color:var(--coral);margin-bottom:12px;
+  }
+  .section-title{
+    font-size:clamp(2rem,5vw,3rem);
+    color:var(--navy);margin-bottom:20px;line-height:1.2;
+  }
+  .section-desc{
+    font-size:1.1rem;line-height:1.8;
+    color:#555;max-width:680px;
+  }
+
+  /* PROBLEM */
+  .problem{background:#fff}
+  .problem-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;
+    align-items:center;margin-top:48px;
+  }
+  .problem-img{
+    border-radius:20px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.1);
+    position:relative;
+  }
+  .problem-img img{width:100%;height:400px;object-fit:cover;display:block}
+  .problem-stats{display:flex;flex-direction:column;gap:24px}
+  .stat-card{
+    background:var(--cream);padding:24px 28px;border-radius:16px;
+    display:flex;align-items:center;gap:20px;
+    transition:transform 0.3s;
+  }
+  .stat-card:hover{transform:translateX(8px)}
+  .stat-icon{
+    width:56px;height:56px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .stat-icon svg{width:28px;height:28px;fill:#fff}
+  .stat-icon.coral{background:linear-gradient(135deg,var(--coral),#ff8a5c)}
+  .stat-icon.mint{background:linear-gradient(135deg,var(--mint),#36b5a0)}
+  .stat-icon.sun{background:linear-gradient(135deg,var(--sun),#ffd43b)}
+  .stat-icon.lavender{background:linear-gradient(135deg,var(--lavender),#8b5cf6)}
+  .stat-num{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;color:var(--navy)}
+  .stat-label{font-size:0.95rem;color:#666}
+
+  /* SOLUTION */
+  .solution{
+    background:linear-gradient(135deg,var(--navy),#1a1a3e);
+    color:#fff;position:relative;overflow:hidden;
+  }
+  .solution .section-label{color:var(--mint)}
+  .solution .section-title{color:#fff}
+  .solution .section-desc{color:rgba(255,255,255,0.75)}
+  .solution-showcase{
+    display:grid;grid-template-columns:1fr 1fr;gap:48px;
+    align-items:center;margin-top:48px;
+  }
+  .solution-visual{position:relative;text-align:center}
+  .charging-pad{
+    width:260px;height:260px;
+    margin:0 auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,#2a2a4a,#3a3a5a);
+    border:3px solid rgba(78,205,196,0.3);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    box-shadow:0 0 80px rgba(78,205,196,0.2);
+  }
+  .charging-pad::before{
+    content:'';position:absolute;inset:-8px;
+    border-radius:50%;
+    border:2px solid transparent;
+    background:linear-gradient(135deg,var(--mint),var(--lavender),var(--coral)) border-box;
+    -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    animation:spin-ring 6s linear infinite;
+  }
+  @keyframes spin-ring{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  .charging-pad svg{width:80px;height:80px;fill:var(--mint);opacity:0.6}
+  .led-ring{
+    position:absolute;inset:-20px;border-radius:50%;
+    border:4px solid var(--green);
+    opacity:0.5;
+    animation:led-pulse 2s ease-in-out infinite;
+  }
+  @keyframes led-pulse{0%,100%{opacity:0.3;border-color:var(--green)}50%{opacity:0.8;border-color:var(--mint)}}
+  .solution-points{display:flex;flex-direction:column;gap:28px}
+  .sol-point{display:flex;align-items:flex-start;gap:16px}
+  .sol-num{
+    width:40px;height:40px;border-radius:12px;
+    background:linear-gradient(135deg,var(--mint),var(--green));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1rem;
+    color:#fff;flex-shrink:0;
+  }
+  .sol-point h4{font-size:1.15rem;margin-bottom:4px}
+  .sol-point p{font-size:0.95rem;opacity:0.7;line-height:1.6}
+
+  .solution-img-strip{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+    margin-top:60px;
+  }
+  .solution-img-strip img{
+    width:100%;height:200px;object-fit:cover;
+    border-radius:16px;opacity:0.7;
+    transition:opacity 0.3s,transform 0.3s;
+  }
+  .solution-img-strip img:hover{opacity:1;transform:scale(1.03)}
+
+  /* FEATURES */
+  .features{background:#fff}
+  .features-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:32px;
+    margin-top:48px;
+  }
+  .feature-card{
+    background:var(--cream);border-radius:20px;overflow:hidden;
+    transition:transform 0.3s,box-shadow 0.3s;
+    position:relative;
+  }
+  .feature-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.08)}
+  .feature-img{position:relative;overflow:hidden;height:200px}
+  .feature-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+  .feature-card:hover .feature-img img{transform:scale(1.05)}
+  .feature-body{padding:28px}
+  .feature-icon{
+    width:48px;height:48px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+  }
+  .feature-icon svg{width:24px;height:24px;fill:#fff}
+  .feature-card:nth-child(1) .feature-icon{background:linear-gradient(135deg,var(--green),var(--mint))}
+  .feature-card:nth-child(2) .feature-icon{background:linear-gradient(135deg,var(--coral),#ff8a5c)}
+  .feature-card:nth-child(3) .feature-icon{background:linear-gradient(135deg,var(--lavender),#8b5cf6)}
+  .feature-card:nth-child(4) .feature-icon{background:linear-gradient(135deg,var(--sun),#ffa500)}
+  .feature-card h3{font-size:1.25rem;color:var(--navy);margin-bottom:8px}
+  .feature-card p{font-size:0.95rem;color:#666;line-height:1.7}
+
+  /* MARKET */
+  .market{
+    background:linear-gradient(180deg,var(--cream) 0%,#f0e6ff 100%);
+    position:relative;
+  }
+  .market-content{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;
+    align-items:center;margin-top:48px;
+  }
+  .market-img{border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.1)}
+  .market-img img{width:100%;height:420px;object-fit:cover;display:block}
+  .market-details h3{font-size:1.5rem;color:var(--navy);margin-bottom:16px}
+  .market-details p{font-size:1.05rem;color:#555;line-height:1.8;margin-bottom:24px}
+  .market-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .market-tag{
+    padding:8px 18px;border-radius:50px;
+    font-size:0.85rem;font-weight:700;
+    font-family:'Fredoka',sans-serif;
+  }
+  .market-tag.t1{background:rgba(78,205,196,0.15);color:var(--mint)}
+  .market-tag.t2{background:rgba(255,107,107,0.15);color:var(--coral)}
+  .market-tag.t3{background:rgba(167,139,250,0.15);color:var(--lavender)}
+  .market-tag.t4{background:rgba(255,230,109,0.25);color:#b8860b}
+  .tam-badge{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--navy);color:#fff;
+    padding:16px 28px;border-radius:16px;
+    margin-top:28px;
+  }
+  .tam-badge .tam-num{font-family:'Fredoka',sans-serif;font-size:2rem;font-weight:700;color:var(--sun)}
+  .tam-badge .tam-label{font-size:0.9rem;opacity:0.8;line-height:1.4}
+
+  /* BUSINESS PLAN */
+  .business{background:#fff}
+  .biz-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:32px;
+    margin-top:48px;
+  }
+  .biz-card{
+    background:var(--cream);border-radius:20px;padding:32px;
+    border-left:4px solid var(--mint);
+    transition:transform 0.3s;
+  }
+  .biz-card:hover{transform:translateY(-4px)}
+  .biz-card.accent-coral{border-left-color:var(--coral)}
+  .biz-card.accent-lavender{border-left-color:var(--lavender)}
+  .biz-card.accent-sun{border-left-color:var(--sun)}
+  .biz-card.accent-green{border-left-color:var(--green)}
+  .biz-card.accent-navy{border-left-color:var(--navy)}
+  .biz-card h3{
+    font-size:1.15rem;color:var(--navy);margin-bottom:12px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .biz-card h3 .biz-dot{
+    width:10px;height:10px;border-radius:50%;flex-shrink:0;
+  }
+  .biz-card p,.biz-card li{font-size:0.95rem;color:#555;line-height:1.7}
+  .biz-card ul{list-style:none;padding:0}
+  .biz-card ul li{
+    padding:8px 0;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    display:flex;align-items:flex-start;gap:10px;
+  }
+  .biz-card ul li:last-child{border-bottom:none}
+  .biz-check{
+    width:20px;height:20px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:2px;
+  }
+  .biz-check svg{width:12px;height:12px;fill:#fff}
+  .biz-check.green{background:var(--green)}
+  .biz-check.coral{background:var(--coral)}
+  .biz-check.lavender{background:var(--lavender)}
+  .biz-check.sun{background:var(--sun)}
+
+  .biz-full{
+    grid-column:1/-1;
+    background:linear-gradient(135deg,var(--navy),#2d1b4e);
+    color:#fff;border-left:none;
+    border-radius:20px;padding:40px;
+  }
+  .biz-full h3{color:var(--sun)}
+  .biz-full p,.biz-full li{color:rgba(255,255,255,0.8)}
+  .cost-range{
+    display:inline-block;
+    font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;
+    color:var(--mint);margin:8px 0 16px;
+  }
+
+  /* FOOTER */
+  footer{
+    background:var(--dark);color:#fff;
+    padding:60px 24px;text-align:center;
+  }
+  footer p{font-size:0.95rem;opacity:0.7;line-height:1.8;margin-bottom:8px}
+  footer a{color:var(--mint);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .footer-brand{
+    font-family:'Fredoka',sans-serif;font-size:1.4rem;font-weight:600;
+    margin-bottom:16px;
+  }
+  .footer-divider{
+    width:60px;height:3px;
+    background:linear-gradient(90deg,var(--mint),var(--coral));
+    margin:20px auto;border-radius:2px;
+  }
+
+  /* Responsive */
+  @media(max-width:768px){
+    .problem-grid,.solution-showcase,.market-content{grid-template-columns:1fr;gap:32px}
+    .features-grid{grid-template-columns:1fr}
+    .biz-grid{grid-template-columns:1fr}
+    .solution-img-strip{grid-template-columns:1fr}
+    .hero-buttons{flex-direction:column;align-items:center}
+    section{padding:72px 20px}
+    .charging-pad{width:200px;height:200px}
+    .problem-img img,.market-img img{height:280px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-content">
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/><path d="M12 7l-5 9h10z" transform="rotate(180 12 11.5)" opacity="0.5"/></svg>
+    </div>
+    <h1>Phone <span>Down</span></h1>
+    <p class="tagline">Earn rewards by putting your phone away.</p>
+    <p class="pitch">A smart wireless charging pad paired with a gamified app that rewards you for staying off your phone. Build streaks, compete with friends, and unlock real rewards from brand sponsors.</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        Start Earning Points
+      </a>
+      <a href="#business" class="btn btn-secondary">See the Business Plan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">Your phone is stealing your best hours.</h2>
+      <p class="section-desc">The average person checks their phone 96 times a day. Every notification shatters focus, kills momentum, and chips away at the deep work that actually matters. People know they should disconnect, but willpower alone never holds up.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" alt="Person distracted by phone notifications">
+      </div>
+      <div class="problem-stats reveal-right">
+        <div class="stat-card">
+          <div class="stat-icon coral">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num">2.5 hrs</div>
+            <div class="stat-label">Average daily screen time lost to distractions</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon mint">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num">96x</div>
+            <div class="stat-label">Times per day the average person checks their phone</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon sun">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num">23 min</div>
+            <div class="stat-label">Time to regain focus after a single interruption</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon lavender">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <div>
+            <div class="stat-num">73%</div>
+            <div class="stat-label">Of workers say phone distractions reduce their output</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solution">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">The Solution</p>
+      <h2 class="section-title">Turn focus into a game you actually want to play.</h2>
+      <p class="section-desc">Phone Down transforms staying off your phone from a chore into a challenge. Place your phone on the smart charging pad, watch the points climb, and compete with friends to see who can stay focused the longest.</p>
+    </div>
+    <div class="solution-showcase">
+      <div class="solution-visual reveal-left">
+        <div class="charging-pad">
+          <div class="led-ring"></div>
+          <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        </div>
+      </div>
+      <div class="solution-points reveal-right">
+        <div class="sol-point">
+          <div class="sol-num">1</div>
+          <div>
+            <h4>Place your phone on the pad</h4>
+            <p>The LED ring glows green. Points start accumulating at one per second, and your charging pad doubles as a wireless charger.</p>
+          </div>
+        </div>
+        <div class="sol-point">
+          <div class="sol-num">2</div>
+          <div>
+            <h4>Build your streak</h4>
+            <p>The longer your phone stays down, the faster you earn. After 30 minutes, you hit 3x speed. Your streak is your currency.</p>
+          </div>
+        </div>
+        <div class="sol-point">
+          <div class="sol-num">3</div>
+          <div>
+            <h4>Compete and earn rewards</h4>
+            <p>Climb the leaderboard, challenge friends to focus duels, and spend your points on avatar cosmetics or real brand-sponsored rewards.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="solution-img-strip reveal">
+      <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=600&q=80" alt="Focused workspace">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Team collaborating without phones">
+      <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80" alt="Clean desk with technology">
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Everything you need to reclaim your focus.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal-scale">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80" alt="LED charging pad glowing">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2zm1-10c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
+          </div>
+          <h3>Smart LED Streak Indicators</h3>
+          <p>The charging pad glows green while you earn points and shifts to red when you pick up your phone. A gentle visual nudge that keeps you honest.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal-scale">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&w=800&q=80" alt="Accelerating points display">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+          </div>
+          <h3>Accelerating Point System</h3>
+          <p>Earn faster the longer your phone stays on the pad. Start at 1x and ramp up to 3x after 30 minutes. Pick up your phone and the multiplier resets.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal-scale">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80" alt="Deep focus session">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          </div>
+          <h3>Power Hour Mode</h3>
+          <p>Schedule a deep focus window and earn 2x or 3x multiplied points. Perfect for hitting flow state during your most important work blocks.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal-scale">
+        <div class="feature-img">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Friends competing on leaderboard">
+        </div>
+        <div class="feature-body">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Social Leaderboards and Avatar Store</h3>
+          <p>Challenge friends, climb the leaderboard, and spend earned points on cosmetic upgrades for your avatar. Pirate hats, trails, and more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Market Opportunity</p>
+      <h2 class="section-title">A growing demand for digital wellness.</h2>
+    </div>
+    <div class="market-content">
+      <div class="market-img reveal-left">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" alt="Knowledge workers in modern office">
+      </div>
+      <div class="market-details reveal-right">
+        <h3>Who needs Phone Down?</h3>
+        <p>Knowledge workers, students, parents, and anyone aged 18 to 45 who wants a fun, social way to build healthier screen habits. The audience already knows they have a problem. Phone Down gives them a reason to solve it.</p>
+        <div class="market-tags">
+          <span class="market-tag t1">Remote Workers</span>
+          <span class="market-tag t2">College Students</span>
+          <span class="market-tag t3">Parents</span>
+          <span class="market-tag t4">Coworking Spaces</span>
+        </div>
+        <div class="tam-badge">
+          <div class="tam-num">$7B+</div>
+          <div class="tam-label">Global digital wellness<br>market opportunity</div>
+        </div>
+        <p style="margin-top:16px;font-size:0.95rem;color:#666">With over 250 million knowledge workers in North America and Europe, even capturing 1% at $70 average revenue yields a $175M addressable opportunity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business" id="business">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Business Plan</p>
+      <h2 class="section-title">The roadmap to making this real.</h2>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card reveal-scale">
+        <h3><span class="biz-dot" style="background:var(--mint)"></span>Revenue Model</h3>
+        <p>Hardware sales of the wireless charging pad at $49 to $79 per unit. A freemium app with a premium tier at $4.99 per month for advanced analytics and custom power hours. Sponsored rewards from brands who pay to place coupons and offers in the reward store.</p>
+      </div>
+      <div class="biz-card accent-coral reveal-scale">
+        <h3><span class="biz-dot" style="background:var(--coral)"></span>Go-to-Market Strategy</h3>
+        <p>Launch on Kickstarter with a compelling video showing the LED charging pad in action. Seed units to productivity YouTubers and TikTok creators who already discuss focus and screen time. Partner with coworking spaces for bulk orders and sponsored challenges.</p>
+      </div>
+      <div class="biz-card accent-lavender reveal-scale">
+        <h3><span class="biz-dot" style="background:var(--lavender)"></span>Competitive Advantage</h3>
+        <p>Unlike punitive phone safes or basic screen time trackers, Phone Down uses positive reinforcement, social competition, and tangible rewards to make staying off your phone genuinely fun. The hardware plus software combination creates a physical ritual that pure software cannot replicate.</p>
+      </div>
+      <div class="biz-card accent-sun reveal-scale">
+        <h3><span class="biz-dot" style="background:var(--sun)"></span>Year One Milestones</h3>
+        <ul>
+          <li>
+            <div class="biz-check green"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            Launch Kickstarter and sell 10,000 units in the first 90 days
+          </li>
+          <li>
+            <div class="biz-check green"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            Ship v1 hardware and app, achieving 5,000 daily active users with 60%+ weekly retention
+          </li>
+          <li>
+            <div class="biz-check green"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+            Sign 5 brand sponsors and generate first $50K in sponsorship revenue
+          </li>
+        </ul>
+      </div>
+      <div class="biz-card biz-full reveal-scale">
+        <h3><span class="biz-dot" style="background:var(--mint)"></span>Startup Cost and Key Risks</h3>
+        <div class="cost-range">$150K to $400K</div>
+        <p style="margin-bottom:20px">Covers hardware prototyping, mold tooling, app development, and initial inventory run.</p>
+        <ul>
+          <li>
+            <div class="biz-check coral"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>
+            Users may game the system by placing their phone on the pad without genuinely disengaging (e.g., using a tablet instead)
+          </li>
+          <li>
+            <div class="biz-check coral"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>
+            Hardware sourcing and manufacturing adds complexity and capital requirements compared to a pure software play
+          </li>
+          <li>
+            <div class="biz-check coral"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>
+            Apple and Android could integrate similar focus-reward features natively, reducing the need for a third-party product
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">Phone Down</div>
+    <div class="footer-divider"></div>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+    <p>It is not a real product (yet). If you want to build it, go for it.</p>
+    <p style="margin-top:12px">
+      <a href="https://www.youtube.com/watch?v=MN3wkk7i_vE" target="_blank" rel="noopener">Watch the original episode</a>
+    </p>
+    <p style="margin-top:24px;font-size:0.8rem;opacity:0.4">Concept generated from podcast transcript. All images via Unsplash.</p>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll animations
+document.addEventListener('DOMContentLoaded', () => {
+  const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => observer.observe(el));
+});
+</script>
+</body>
+</html>

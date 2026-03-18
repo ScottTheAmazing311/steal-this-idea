@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wash-O-Rama | Your Car Wash Just Became a Ride</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff00e5;
+  --neon-yellow: #ffe600;
+  --dark: #0a0a12;
+  --dark-card: #12121f;
+  --white: #f0f0f5;
+  --gray: #8888aa;
+}
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  color: var(--dark);
+  text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.sti-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+}
+.sti-badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Scroll animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1605164599901-57e4186efa65?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.25);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,18,0.3) 0%, rgba(10,10,18,0.95) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+}
+.hero-content h1 {
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 0.9;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3em;
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  0% { filter: drop-shadow(0 0 10px rgba(0,240,255,0.3)); }
+  100% { filter: drop-shadow(0 0 30px rgba(255,0,229,0.4)); }
+}
+.hero-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  color: var(--neon-yellow);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+}
+.hero-pitch {
+  font-size: 1.15rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
+  color: var(--dark);
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 30px rgba(0,240,255,0.3), 0 0 60px rgba(255,0,229,0.15);
+}
+.cta-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 40px rgba(0,240,255,0.5), 0 0 80px rgba(255,0,229,0.3);
+}
+
+/* Section base */
+section {
+  padding: 100px 24px;
+}
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+/* PROBLEM */
+.problem {
+  background: var(--dark);
+  position: relative;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.problem-img {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+.problem-img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.6) brightness(0.8);
+}
+.problem-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0,240,255,0.15);
+  border-radius: 16px;
+  pointer-events: none;
+}
+.problem-text p {
+  color: var(--gray);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.problem-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.stat {
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--neon-magenta);
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+/* SOLUTION */
+.solution {
+  background: linear-gradient(180deg, var(--dark) 0%, #0e0e1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.solution-hero-img {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,240,255,0.1);
+}
+.solution-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.sol-card {
+  background: var(--dark-card);
+  border: 1px solid rgba(0,240,255,0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.sol-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--neon-cyan);
+}
+.sol-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sol-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--dark);
+}
+.sol-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.sol-card p {
+  color: var(--gray);
+  font-size: 0.95rem;
+}
+
+/* FEATURES */
+.features {
+  background: var(--dark);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.feature-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+  transition: transform 0.3s;
+}
+.feature-card:hover {
+  transform: scale(1.02);
+}
+.feature-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) saturate(0.8);
+  transition: filter 0.3s;
+}
+.feature-card:hover img {
+  filter: brightness(0.5) saturate(1);
+}
+.feature-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  background: linear-gradient(0deg, rgba(10,10,18,0.95) 0%, transparent 100%);
+  width: 100%;
+  padding-top: 4rem;
+}
+.feature-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--neon-cyan);
+  opacity: 0.5;
+  line-height: 1;
+}
+.feature-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+.feature-card p {
+  color: var(--gray);
+  font-size: 0.95rem;
+}
+
+/* MARKET */
+.market {
+  background: linear-gradient(180deg, var(--dark) 0%, #0e0e1a 100%);
+  position: relative;
+}
+.market-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+.market-img-wrap {
+  position: relative;
+}
+.market-img-wrap img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.market-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  z-index: -1;
+  opacity: 0.4;
+}
+.market-details h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.market-details p {
+  color: var(--gray);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.market-bar {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 0.7rem;
+}
+.market-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+  width: 0%;
+  transition: width 1.5s ease;
+}
+.market-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+}
+
+/* BUSINESS PLAN */
+.biz-plan {
+  background: var(--dark);
+}
+.biz-plan-doc {
+  background: var(--dark-card);
+  border: 1px solid rgba(0,240,255,0.1);
+  border-radius: 24px;
+  padding: 3rem;
+  margin-top: 2rem;
+}
+.biz-section {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.biz-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.biz-section h3 {
+  font-size: 1.8rem;
+  color: var(--neon-cyan);
+  margin-bottom: 1rem;
+}
+.biz-section p {
+  color: var(--gray);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.biz-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.milestone-list, .risk-list {
+  list-style: none;
+  padding: 0;
+}
+.milestone-list li, .risk-list li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 1rem;
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.milestone-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0,240,255,0.4);
+}
+.risk-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--neon-magenta);
+  box-shadow: 0 0 10px rgba(255,0,229,0.3);
+  transform: rotate(45deg);
+}
+.cost-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  color: var(--dark);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  padding: 12px 32px;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  filter: brightness(0.15);
+}
+.cta-section .section-inner {
+  position: relative;
+  z-index: 2;
+}
+.cta-section h2 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+}
+.cta-section p {
+  color: var(--gray);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* FOOTER */
+footer {
+  background: #060610;
+  padding: 50px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+footer p {
+  color: var(--gray);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+footer a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+footer a:hover {
+  color: var(--neon-magenta);
+}
+
+/* Image strip */
+.img-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 4rem 0;
+}
+.img-strip img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  filter: brightness(0.6) saturate(0.7);
+  transition: filter 0.3s;
+}
+.img-strip img:hover {
+  filter: brightness(0.8) saturate(1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-grid,
+  .solution-cards,
+  .features-grid,
+  .market-visual,
+  .biz-columns {
+    grid-template-columns: 1fr;
+  }
+  .problem-stats {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  section {
+    padding: 60px 20px;
+  }
+  .biz-plan-doc {
+    padding: 1.5rem;
+  }
+  .sti-badge {
+    top: 12px;
+    left: 12px;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+  .img-strip {
+    grid-template-columns: 1fr;
+  }
+  .img-strip img {
+    height: 180px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge" aria-label="Back to Steal This Idea">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="8" x2="12" y2="16"/>
+    <line x1="8" y1="12" x2="16" y2="12"/>
+  </svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Wash-O-Rama</h1>
+    <p class="hero-tagline">Your Car Wash Just Became a Ride.</p>
+    <p class="hero-pitch">
+      Imagine pulling into a car wash and choosing a space battle, an underwater adventure, or a holiday light show. Wash-O-Rama transforms boring 5-minute washes into immersive AR experiences that keep customers coming back.
+    </p>
+    <a href="#" class="cta-btn" onclick="return false;">Get Early Access</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="problem-grid reveal">
+      <div class="problem-img">
+        <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=800&q=80" alt="A mundane car wash tunnel" loading="lazy">
+      </div>
+      <div class="problem-text">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-title">Five Minutes of Nothing</h2>
+        <p>
+          Every car wash is the same. You pull in, sit through soap, water, and spinning brushes, then drive away. There is nothing memorable about it, nothing that makes you choose one wash over another.
+        </p>
+        <p>
+          Car wash operators face a loyalty crisis. With no differentiation, customers default to whatever is cheapest or closest. Margins shrink, churn increases, and there is no reason for anyone to come back.
+        </p>
+        <div class="problem-stats">
+          <div class="stat">
+            <div class="stat-number">60K+</div>
+            <div class="stat-label">Car washes in the US</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">$15B</div>
+            <div class="stat-label">Industry revenue</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">0%</div>
+            <div class="stat-label">Differentiation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE STRIP -->
+<div class="img-strip reveal">
+  <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="Neon lights and technology" loading="lazy">
+  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80" alt="Colorful LED light display" loading="lazy">
+  <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80" alt="Augmented reality technology" loading="lazy">
+</div>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="section-inner">
+    <p class="section-label reveal">The Solution</p>
+    <h2 class="section-title reveal">Entertainment on the Track</h2>
+    <img class="solution-hero-img reveal" src="https://images.unsplash.com/photo-1626379953822-baec19c3accd?auto=format&fit=crop&w=1200&q=80" alt="Immersive light tunnel experience" loading="lazy">
+    <div class="solution-cards">
+      <div class="sol-card reveal">
+        <div class="sol-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Choose Your Adventure</h3>
+        <p>Pick from rotating themes: space battles, ocean dives, holiday spectacles, or movie tie-ins before you enter the wash tunnel.</p>
+      </div>
+      <div class="sol-card reveal">
+        <div class="sol-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>AR on Your Phone</h3>
+        <p>Your smartphone becomes the controller. The AR experience syncs perfectly with the car wash track speed and stages.</p>
+      </div>
+      <div class="sol-card reveal">
+        <div class="sol-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>LED + Audio</h3>
+        <p>Synchronized LED light shows and surround audio piped through an FM frequency turn the tunnel into a real environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-inner">
+    <p class="section-label reveal">Key Features</p>
+    <h2 class="section-title reveal">Built for Repeat Visits</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Gaming and AR experience" loading="lazy">
+        <div class="feature-card-content">
+          <div class="feature-number">01</div>
+          <h3>AR Gaming Synced to Track</h3>
+          <p>The fixed speed and consistent staging of a car wash make AR synchronization reliable and repeatable. Every ride is perfectly timed.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=800&q=80" alt="Vibrant LED light installations" loading="lazy">
+        <div class="feature-card-content">
+          <div class="feature-number">02</div>
+          <h3>Themed LED Light Shows</h3>
+          <p>From Christmas wonderlands to deep-space nebulae, immersive LED arrays transform the wash tunnel into a visual spectacle.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" alt="Leaderboard and competitive gaming" loading="lazy">
+        <div class="feature-card-content">
+          <div class="feature-number">03</div>
+          <h3>Leaderboards and Push Alerts</h3>
+          <p>Compete for high scores. Get notified when someone beats you. Suddenly you need another car wash, and your car could use one too.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" alt="Seasonal rotating content" loading="lazy">
+        <div class="feature-card-content">
+          <div class="feature-number">04</div>
+          <h3>Seasonal Content Drops</h3>
+          <p>New experiences every quarter. Branded partnerships with movie studios and seasonal events keep the content fresh and buzzworthy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="section-inner">
+    <p class="section-label reveal">Market Opportunity</p>
+    <h2 class="section-title reveal">A $15 Billion Industry, Zero Innovation</h2>
+    <div class="market-visual reveal">
+      <div class="market-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=800&q=80" alt="Family in a car" loading="lazy">
+      </div>
+      <div class="market-details">
+        <h3>Who Is This For?</h3>
+        <p>
+          Families with kids who turn "errands" into events. Millennials and Gen-Z drivers who share experiences on social media. And the 60,000+ car wash operators desperate for a way to stand out and retain customers.
+        </p>
+        <div>
+          <div class="market-bar-label">
+            <span>Families with children</span>
+            <span>42%</span>
+          </div>
+          <div class="market-bar">
+            <div class="market-bar-fill" data-width="42"></div>
+          </div>
+        </div>
+        <div>
+          <div class="market-bar-label">
+            <span>Millennials / Gen-Z drivers</span>
+            <span>35%</span>
+          </div>
+          <div class="market-bar">
+            <div class="market-bar-fill" data-width="35"></div>
+          </div>
+        </div>
+        <div>
+          <div class="market-bar-label">
+            <span>Car wash operators (B2B licensing)</span>
+            <span>23%</span>
+          </div>
+          <div class="market-bar">
+            <div class="market-bar-fill" data-width="23"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="biz-plan">
+  <div class="section-inner">
+    <p class="section-label reveal">Business Plan</p>
+    <h2 class="section-title reveal">The Playbook</h2>
+    <div class="biz-plan-doc reveal">
+
+      <div class="biz-section">
+        <h3>Revenue Model</h3>
+        <p>
+          Premium pricing adds $5 to $10 per wash above standard rates. Monthly memberships unlock exclusive experiences and early access to new themes. The licensing model sells the full AR hardware kit and software platform to existing car wash operators for a setup fee plus recurring revenue. Branded experience sponsorships from movie studios and consumer brands add a high-margin revenue stream.
+        </p>
+      </div>
+
+      <div class="biz-section">
+        <h3>Go-to-Market Strategy</h3>
+        <p>
+          Launch a single flagship location in a high-traffic suburban corridor. Use that location to generate viral social media content (TikTok and Instagram Reels of families reacting to the AR experience). Once the concept is proven and documented, license the technology kit to existing car wash operators who want to differentiate without building from scratch.
+        </p>
+      </div>
+
+      <div class="biz-section">
+        <h3>Competitive Advantage</h3>
+        <p>
+          Nobody else is combining entertainment with car washing at scale. The controlled environment, with its fixed speed, fixed duration, and captive audience, makes synchronization trivially reliable compared to other location-based AR experiences. Early movers can lock in exclusive franchise territories and content deals with entertainment studios.
+        </p>
+      </div>
+
+      <div class="biz-section">
+        <div class="biz-columns">
+          <div>
+            <h3>Year One Milestones</h3>
+            <ul class="milestone-list">
+              <li>Open one flagship location and achieve 500+ washes per week</li>
+              <li>Launch AR app with 3 themed experiences and hit 10,000 downloads</li>
+              <li>Sign letters of intent with 5 car wash operators for the licensing pilot</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Key Risks</h3>
+            <ul class="risk-list">
+              <li>Hardware installation costs may deter operators from adopting the platform</li>
+              <li>AR adoption requires customers to download an app, creating friction at the tunnel entrance</li>
+              <li>Themed content production costs could be high and require frequent refreshes to sustain interest</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="biz-section" style="text-align: center;">
+        <h3>Estimated Startup Cost</h3>
+        <p>Flagship build-out, AR app development, LED and audio hardware, initial content production</p>
+        <div class="cost-badge">$250K - $500K</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-section-bg"></div>
+  <div class="section-inner">
+    <h2 class="reveal">Ready to Build This?</h2>
+    <p class="reveal">This idea is free for the taking. All it needs is someone bold enough to build it.</p>
+    <a href="#" class="cta-btn reveal" onclick="return false;">Steal This Idea</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="section-inner">
+    <p>
+      This is a concept from the <strong>Steal This Idea</strong> podcast.
+      <br>
+      Based on <a href="https://www.youtube.com/watch?v=5ZvWF_GZWqU" target="_blank" rel="noopener">Episode: Wash-O-Rama</a>.
+      <br><br>
+      This landing page is a creative exercise. Wash-O-Rama is not a real company (yet).
+    </p>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered animations
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // Animate market bars
+        const bars = entry.target.querySelectorAll('.market-bar-fill');
+        bars.forEach((bar) => {
+          const w = bar.getAttribute('data-width');
+          if (w) {
+            setTimeout(() => { bar.style.width = w + '%'; }, 200);
+          }
+        });
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+  // Also animate market bars if they are inside a reveal that's already visible
+  const marketSection = document.querySelector('.market-visual');
+  if (marketSection) {
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.market-bar-fill').forEach((bar) => {
+            const w = bar.getAttribute('data-width');
+            if (w) setTimeout(() => { bar.style.width = w + '%'; }, 300);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+    barObserver.observe(marketSection);
+  }
+});
+</script>
+</body>
+</html>

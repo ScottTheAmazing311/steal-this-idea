@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareAI - Your Skin's Progress, Measured by AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5A8;
+    --gold-dark: #A07D3F;
+    --bg-deep: #0C0B0F;
+    --bg-card: #161520;
+    --bg-section: #111019;
+    --text-primary: #F2EDE4;
+    --text-muted: #9A958B;
+    --text-dim: #6B6660;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Lato', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* STI Badge */
+  .sti-badge {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--bg-card);
+    border: 1px solid var(--gold-dark);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  .sti-badge:hover {
+    background: var(--gold-dark);
+    border-color: var(--gold);
+  }
+  .sti-badge svg { width: 16px; height: 16px; }
+  .sti-badge span {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Reveal Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* Section Defaults */
+  section { padding: 120px 24px; position: relative; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+  }
+
+  .section-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 640px;
+    line-height: 1.8;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 24px;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.25) saturate(0.6);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(12,11,15,0.3) 0%, rgba(12,11,15,0.85) 70%, var(--bg-deep) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+  }
+  .hero-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .hero-logo-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-logo-icon svg { width: 26px; height: 26px; }
+  .hero-logo-text {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 2px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    color: var(--text-primary);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-pitch {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+  .hero-cta {
+    display: inline-block;
+    padding: 16px 48px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .hero-cta:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201,169,110,0.3);
+  }
+
+  /* ===== PROBLEM ===== */
+  .problem {
+    background: var(--bg-section);
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .problem-image {
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+  }
+  .problem-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85) saturate(0.9);
+    transition: transform 0.6s ease;
+  }
+  .problem-image:hover img { transform: scale(1.03); }
+  .problem-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(201,169,110,0.1);
+    padding: 24px;
+    border-radius: 4px;
+  }
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ===== SOLUTION ===== */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .solution-image {
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    order: 2;
+  }
+  .solution-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85) saturate(0.9);
+    transition: transform 0.6s ease;
+  }
+  .solution-image:hover img { transform: scale(1.03); }
+  .solution-steps {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .solution-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: 1px solid var(--gold-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .step-text h4 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+  .step-text p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    background: var(--bg-section);
+  }
+  .features-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .features-header .section-text {
+    margin: 0 auto;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .feature-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .feature-card:hover {
+    border-color: rgba(201,169,110,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+  .feature-card-image {
+    height: 220px;
+    overflow: hidden;
+  }
+  .feature-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7) saturate(0.8);
+    transition: transform 0.6s ease;
+  }
+  .feature-card:hover .feature-card-image img { transform: scale(1.06); }
+  .feature-card-body {
+    padding: 32px;
+  }
+  .feature-card-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--gold-dark);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .feature-card-icon svg { width: 22px; height: 22px; }
+  .feature-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+  .feature-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ===== MARKET ===== */
+  .market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .market-image {
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+  }
+  .market-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) saturate(0.8);
+  }
+  .market-figure {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin: 24px 0 16px;
+  }
+  .market-caption {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  .market-audiences {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .market-audience {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border-left: 2px solid var(--gold-dark);
+    border-radius: 0 4px 4px 0;
+  }
+  .market-audience span {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== BUSINESS PLAN ===== */
+  .business-plan {
+    background: var(--bg-section);
+  }
+  .plan-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .plan-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(201,169,110,0.08);
+    padding: 36px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  .plan-card:hover {
+    border-color: rgba(201,169,110,0.2);
+  }
+  .plan-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .plan-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+  .plan-card p, .plan-card li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .plan-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .plan-card ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(201,169,110,0.06);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .plan-card ul li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    background: var(--gold-dark);
+    border-radius: 50%;
+    margin-top: 8px;
+  }
+
+  .plan-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .plan-cost {
+    background: linear-gradient(135deg, var(--bg-card), rgba(201,169,110,0.06));
+    border: 1px solid rgba(201,169,110,0.15);
+    padding: 40px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .plan-cost .cost-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .plan-cost .cost-value {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .plan-cost .cost-note {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 80px 24px 48px;
+    text-align: center;
+    border-top: 1px solid rgba(201,169,110,0.1);
+  }
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .footer-note {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    max-width: 480px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+  }
+  .footer-link {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .footer-link:hover { border-bottom-color: var(--gold); }
+  .footer-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--gold-dark);
+    margin: 32px auto;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    section { padding: 80px 20px; }
+    .problem-grid,
+    .solution-grid,
+    .market-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .solution-image { order: 0; }
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    .plan-grid {
+      grid-template-columns: 1fr;
+    }
+    .plan-bottom {
+      grid-template-columns: 1fr;
+    }
+    .problem-stats {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sti-badge {
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+    }
+    .sti-badge span { font-size: 10px; }
+    .hero { padding: 60px 16px; min-height: 90vh; }
+    .hero-pitch { font-size: 1rem; }
+    .hero-cta { padding: 14px 36px; font-size: 12px; }
+    .problem-stats { grid-template-columns: 1fr; }
+    .feature-card-image { height: 180px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STI Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="8" cy="6" r="4" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+    <line x1="8" y1="10" x2="8" y2="15" stroke="#C9A96E" stroke-width="1.5"/>
+    <line x1="5" y1="12" x2="11" y2="12" stroke="#C9A96E" stroke-width="1.5"/>
+  </svg>
+  <span>Steal This Idea</span>
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1596642748852-5596416147ac?auto=format&fit=crop&w=1400&q=80" alt="Skincare routine">
+  </div>
+  <div class="hero-content">
+    <div class="hero-logo reveal">
+      <div class="hero-logo-icon">
+        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="13" cy="10" r="7" stroke="#C9A96E" stroke-width="1.5"/>
+          <path d="M6 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+          <circle cx="10" cy="9" r="1" fill="#C9A96E"/>
+          <circle cx="16" cy="9" r="1" fill="#C9A96E"/>
+          <path d="M10 13c1 1.5 5 1.5 6 0" stroke="#C9A96E" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="hero-logo-text">CareAI</span>
+    </div>
+    <h1 class="reveal reveal-delay-1">Your Skin's Progress,<br>Measured by <em>AI</em></h1>
+    <p class="hero-pitch reveal reveal-delay-2">Stop guessing whether your skincare products actually work. CareAI scans your face, scores your skin health, and tracks real progress over time, so you know exactly what is making a difference.</p>
+    <a href="#" class="hero-cta reveal reveal-delay-3">Get Early Access</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1706419972358-028e2c713133?auto=format&fit=crop&w=800&q=80" alt="Person examining skin">
+      </div>
+      <div>
+        <p class="section-label reveal">The Problem</p>
+        <h2 class="section-title reveal reveal-delay-1">Skincare is expensive.<br>And you can never tell if it is working.</h2>
+        <p class="section-text reveal reveal-delay-2">With millions of products on the market and each one promising results in "4 to 6 weeks," consumers are left guessing. You stare at your face in the mirror every day, trying to decide if anything has changed. Is that product working, or is it just the placebo effect? Most people never find out. They just keep spending.</p>
+        <div class="problem-stats reveal reveal-delay-3">
+          <div class="stat-card">
+            <div class="stat-number">$180B+</div>
+            <div class="stat-label">Global skincare market with no standard for measuring results</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">62%</div>
+            <div class="stat-label">Of consumers say they cannot tell if their products work</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">6 mo.</div>
+            <div class="stat-label">Average time before visible results, well past return windows</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$300+</div>
+            <div class="stat-label">Average annual spend on skincare products per person</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="container">
+    <div class="solution-grid">
+      <div>
+        <p class="section-label reveal">The Solution</p>
+        <h2 class="section-title reveal reveal-delay-1">A personal skin analyst<br>in your pocket.</h2>
+        <p class="section-text reveal reveal-delay-2">CareAI uses computer vision to objectively measure your skin health. No more guesswork, no more daily selfie comparisons. Just data that shows you exactly how your skin is evolving and which products deserve the credit.</p>
+        <div class="solution-steps reveal reveal-delay-3">
+          <div class="solution-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <h4>Scan your face</h4>
+              <p>Open the app, hold up your phone, and let CareAI analyze your skin in seconds.</p>
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <h4>Get your score</h4>
+              <p>Receive objective ratings across texture, tone, hydration, wrinkles, and dark circles.</p>
+            </div>
+          </div>
+          <div class="solution-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <h4>Track your progress</h4>
+              <p>Watch your scores improve over days and weeks. Know exactly what is working and what to cut.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="solution-image reveal">
+        <img src="https://images.unsplash.com/photo-1643747238009-6863ea63e78d?auto=format&fit=crop&w=800&q=80" alt="Skincare application">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-header">
+      <p class="section-label reveal">Key Features</p>
+      <h2 class="section-title reveal reveal-delay-1">Intelligent tools for<br>intentional skincare.</h2>
+      <p class="section-text reveal reveal-delay-2">Every feature is designed to replace guessing with knowing, giving you clarity and confidence in your routine.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1562873120-ba8c5c6658d5?auto=format&fit=crop&w=800&q=80" alt="Face analysis technology">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="9" stroke="#C9A96E" stroke-width="1.2"/>
+              <circle cx="11" cy="11" r="4" stroke="#C9A96E" stroke-width="1.2"/>
+              <line x1="11" y1="1" x2="11" y2="4" stroke="#C9A96E" stroke-width="1.2"/>
+              <line x1="11" y1="18" x2="11" y2="21" stroke="#C9A96E" stroke-width="1.2"/>
+              <line x1="1" y1="11" x2="4" y2="11" stroke="#C9A96E" stroke-width="1.2"/>
+              <line x1="18" y1="11" x2="21" y2="11" stroke="#C9A96E" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <h3>AI Face Scan</h3>
+          <p>Advanced computer vision analyzes texture, tone, wrinkles, dark circles, and hydration levels. Objective measurements that your mirror simply cannot provide.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1629380106682-6736d2c327ed?auto=format&fit=crop&w=800&q=80" alt="Skincare products">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="2,16 6,10 10,13 14,6 20,4" stroke="#C9A96E" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="2" y1="20" x2="20" y2="20" stroke="#C9A96E" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <h3>Progress Dashboard</h3>
+          <p>Watch your skin health trend upward over days, weeks, and months. Clear percentage improvements give you the motivation to stay consistent with your routine.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1656103743126-656ce0ed6291?auto=format&fit=crop&w=800&q=80" alt="Beauty products arranged">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="7" height="7" rx="1" stroke="#C9A96E" stroke-width="1.2"/>
+              <rect x="12" y="3" width="7" height="7" rx="1" stroke="#C9A96E" stroke-width="1.2"/>
+              <rect x="3" y="12" width="7" height="7" rx="1" stroke="#C9A96E" stroke-width="1.2"/>
+              <rect x="12" y="12" width="7" height="7" rx="1" stroke="#C9A96E" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <h3>Product Tracker</h3>
+          <p>Log every product you use and see which ones correlate with real improvements. Finally know whether that $40 serum is earning its spot in your routine.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-card-image">
+          <img src="https://images.unsplash.com/photo-1547637974-a0d8a38ebbda?auto=format&fit=crop&w=800&q=80" alt="Personalized skincare">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 2l2.5 5.5L19 8.5l-4 4 1 6-5-2.5-5 2.5 1-6-4-4 5.5-1z" stroke="#C9A96E" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Personalized Recommendations</h3>
+          <p>Based on your skin data, demographics, and goals, CareAI suggests products and routines tailored to you. Smarter choices, less wasted money.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="container">
+    <div class="market-grid">
+      <div>
+        <p class="section-label reveal">Market Opportunity</p>
+        <h2 class="section-title reveal reveal-delay-1">A massive market with<br>zero accountability.</h2>
+        <div class="market-figure reveal reveal-delay-2">$180B+</div>
+        <p class="market-caption reveal reveal-delay-2">Global skincare industry with no standard for objectively measuring product effectiveness for consumers.</p>
+        <p class="section-text reveal reveal-delay-3" style="margin-bottom: 32px;">Skincare consumers are already data-driven. They read ingredient lists, follow routines, and track what they buy. What they lack is a feedback loop. CareAI fills that gap for the millions of people who already invest in their skin.</p>
+        <div class="market-audiences reveal reveal-delay-3">
+          <div class="market-audience">
+            <span>Millennials and Gen Z who use fitness and health tracking apps</span>
+          </div>
+          <div class="market-audience">
+            <span>Skincare enthusiasts spending $300+ annually on products</span>
+          </div>
+          <div class="market-audience">
+            <span>Adults 25 to 45 starting to notice aging and seeking solutions</span>
+          </div>
+        </div>
+      </div>
+      <div class="market-image reveal">
+        <img src="https://images.unsplash.com/photo-1683408640631-2c99fff964d7?auto=format&fit=crop&w=800&q=80" alt="Beauty and skincare market">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan">
+  <div class="container">
+    <div class="plan-header">
+      <p class="section-label reveal">Business Plan</p>
+      <h2 class="section-title reveal reveal-delay-1">Built to scale with every scan.</h2>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-card reveal">
+        <div class="plan-card-label">Revenue Model</div>
+        <h3>Freemium Subscription</h3>
+        <p>Free tier includes basic skin scoring and weekly scans. Premium tier at $9.99/month (or $59.99/year) unlocks daily tracking, detailed analytics, product correlations, and personalized routine suggestions. Affiliate partnerships with skincare brands add a secondary revenue stream.</p>
+      </div>
+      <div class="plan-card reveal reveal-delay-1">
+        <div class="plan-card-label">Go-to-Market</div>
+        <h3>Social-First Launch</h3>
+        <p>Launch a free AI skin scoring tool designed for virality on TikTok and Instagram through influencer partnerships and shareable before/after content. Target existing skincare communities on Reddit and YouTube. Convert free users to premium through gated analytics and personalized insights.</p>
+      </div>
+      <div class="plan-card reveal reveal-delay-2">
+        <div class="plan-card-label">Competitive Advantage</div>
+        <h3>Data That Deepens Over Time</h3>
+        <p>Unlike apps that offer tips or routines, CareAI provides objective, data-driven skin analysis. The longer users stay, the more personalized their experience becomes. This creates a strong retention loop and a defensible dataset of skin-product correlations that competitors cannot replicate easily.</p>
+      </div>
+    </div>
+    <div class="plan-grid" style="margin-bottom: 48px;">
+      <div class="plan-card reveal">
+        <div class="plan-card-label">Year One Milestones</div>
+        <ul>
+          <li>Launch MVP on iOS with core AI scanning, scoring, and product logging within 4 months</li>
+          <li>Reach 100,000 free users and 5,000 premium subscribers within 9 months through influencer-led campaigns</li>
+          <li>Secure 3 to 5 affiliate partnerships with skincare brands and launch the recommendation engine by month 12</li>
+        </ul>
+      </div>
+      <div class="plan-card reveal reveal-delay-1">
+        <div class="plan-card-label">Key Risks</div>
+        <ul>
+          <li>Regulatory challenges around health or dermatological claims, requiring careful positioning as a wellness product</li>
+          <li>Accuracy of phone camera-based analysis across different lighting, devices, and skin tones may undermine trust</li>
+          <li>User retention may suffer if scores feel too slow to change or do not align with self-perception</li>
+        </ul>
+      </div>
+    </div>
+    <div class="plan-bottom">
+      <div class="plan-cost reveal">
+        <div class="cost-label">Estimated Startup Cost</div>
+        <div class="cost-value">$150K - $350K</div>
+        <div class="cost-note">To MVP including AI model training, iOS development, and initial marketing</div>
+      </div>
+      <div class="plan-cost reveal reveal-delay-1">
+        <div class="cost-label">Category</div>
+        <div class="cost-value">AI / ML</div>
+        <div class="cost-note">Computer vision, health tracking, and personalized product recommendations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">CareAI</div>
+    <p class="footer-note">This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet). Think you could build it? Steal it.</p>
+    <a href="https://www.youtube.com/watch?v=BjzwucD8uCc" target="_blank" rel="noopener" class="footer-link">Listen to the original episode</a>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">Concept by Steal This Idea Podcast. Landing page generated for educational purposes.</p>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll-triggered reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

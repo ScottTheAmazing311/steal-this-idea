@@ -1,0 +1,34 @@
+{
+  "slug": "boom-box",
+  "company_name": "Boom Box",
+  "tagline": "Your night out, in a box.",
+  "elevator_pitch": "Boom Box is a drive-through mystery box packed with curated games, activities, playlists, swag, and local deals that turn any boring night into an instant party. For the price of a couple coffees, you and your crew get a fresh, rotating kit of fun delivered through a pickup window.",
+  "problem": "People are constantly looking for something to do, especially on weeknights and weekends. Going out is expensive and planning activities is exhausting. Most of us just need a little direction and a spark of creativity to have a great time with friends and family.",
+  "solution": "Boom Box provides a grab-and-go mystery box you pick up at a local drive-through location. Each box contains a curated playlist, party games with instructions, branded swag, local vendor coupons, collectibles with sweepstakes prizes, and activity kits tailored to your group type: couples, kids, friends, or solo. The contents rotate weekly so every box is a fresh surprise.",
+  "target_market": "Young adults (18-35), families with kids, and friend groups looking for affordable, spontaneous entertainment. Especially strong in suburban areas where nightlife options are limited and people are tired of the same routines.",
+  "revenue_model": "Direct box sales at $15-30 per box through drive-through locations. Additional revenue from local business sponsorships and advertising placed inside boxes, vendor partnership fees for coupon placement, and limited-edition or premium themed boxes at higher price points.",
+  "key_features": [
+    "Weekly rotating mystery contents with curated playlists, games, activities, and swag",
+    "Multiple box types for couples, families, friend groups, and solo adventurers",
+    "Local vendor partnerships with exclusive coupons and sponsored items",
+    "Collectible items and sweepstakes prizes that keep customers coming back"
+  ],
+  "competitive_advantage": "Unlike subscription boxes that arrive monthly whether you want them or not, Boom Box is impulse-driven and local. The drive-through model means zero shipping costs, instant gratification, and the ability to pack in local deals and partnerships that national competitors cannot replicate. The low content-creation cost (60% is printed creative material) keeps margins healthy.",
+  "market_size_estimate": "$2-4 billion addressable market. The U.S. subscription box market is over $30B, the board game and activity market exceeds $13B, and the experience economy continues to grow. Even capturing a fraction of the overlap between impulse entertainment, local deals, and mystery box culture represents a significant opportunity.",
+  "go_to_market": "Start with 100 hand-assembled boxes sold at a table outside a grocery store, at farmers markets, or via Facebook Marketplace. Give 25 free boxes to distinct friend groups for feedback. Once validated, open a single drive-through location in a college town or suburban hub and build local vendor partnerships to subsidize box contents.",
+  "risks": [
+    "Boxes could feel cheap or gimmicky if design and content quality are not consistently high",
+    "Drive-through retail locations have significant lease and build-out costs that increase burn rate",
+    "Customer retention depends on creative teams continuously generating fresh, exciting content every week"
+  ],
+  "year_one_milestones": [
+    "Validate concept by selling 500 boxes through pop-up locations and farmers markets in the first 3 months",
+    "Open first permanent drive-through location and secure 20 local vendor partnerships by month 6",
+    "Reach 1,000 boxes sold per week with positive unit economics and begin scouting second location by month 12"
+  ],
+  "startup_cost_range": "$15,000 - $50,000 for pop-up validation phase; $75,000 - $150,000 to open first drive-through location",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=jADwdabemZ4",
+  "episode_number": 122
+}

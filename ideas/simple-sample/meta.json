@@ -1,0 +1,34 @@
+{
+  "slug": "simple-sample",
+  "company_name": "Simple Sample",
+  "tagline": "Try everything. Commit to the best.",
+  "elevator_pitch": "Simple Sample is an ultra-affordable subscription box that sends you curated sample-size personal care products every month. For just a couple bucks, you get to try five or six competing brands of toothpaste, deodorant, shampoo, or soap side by side, so you can finally find what you actually love without buying full-size bottles you might hate.",
+  "problem": "Most people use the same toothpaste, deodorant, and soap for years, not because it is the best option, but because switching means buying a full-size product and risking disappointment. The personal care aisle has hundreds of options, yet trying even a handful means spending $50 or more on products that might end up in the trash.",
+  "solution": "Simple Sample partners with personal care brands to source sample-size products that already exist (dentist freebies, hotel minis, promotional packs) and bundles them into themed monthly boxes. Each box contains five to six competing products in a single category so subscribers can do a true head-to-head comparison. If you find a winner, you can buy the full-size version at a discount through the platform.",
+  "target_market": "Adults aged 18 to 40 who care about personal grooming but feel overwhelmed by choice. Especially strong with college students, young professionals, and anyone who recently moved or is rethinking their daily routine. Secondary market: brands looking for a cost-effective sampling channel to reach engaged consumers.",
+  "revenue_model": "Three revenue streams: (1) low-cost consumer subscriptions at $1.99 to $3.99 per month covering shipping and a thin margin, (2) brand partnerships where companies pay to place their samples in curated boxes, similar to how Ipsy monetizes beauty brands, and (3) affiliate commissions on full-size purchases made through the platform after a subscriber discovers a product they love.",
+  "key_features": [
+    "Themed monthly boxes with five to six competing sample-size products in one category",
+    "Personalization quiz that matches boxes to your preferences and current brands",
+    "In-app rating system so you can compare products side by side after trying them",
+    "One-tap purchase of full-size winners at subscriber-exclusive discounts"
+  ],
+  "competitive_advantage": "Unlike premium subscription boxes (Birchbox, Ipsy) that cost $15 to $25 per month and focus on discovery of luxury items, Simple Sample is radically affordable and focused on everyday staples people already buy. The head-to-head comparison format is unique: instead of random products, every box is a structured shootout. Brands get higher-intent leads because subscribers are actively evaluating, not just collecting.",
+  "market_size_estimate": "The US personal care market exceeds $90 billion annually. Even capturing a tiny fraction of switching behavior across 80 million US households that buy toothpaste, deodorant, and soap creates a multi-billion dollar addressable market. On the brand side, consumer product companies spend over $25 billion per year on sampling and promotions.",
+  "go_to_market": "Launch with a single category (toothpaste) and a waitlist campaign on social media, leaning into the relatable frustration of never knowing if your toothpaste is actually the best one. Partner with three to five mid-tier brands willing to supply samples in exchange for subscriber data and conversion metrics. Scale to deodorant, soap, and shampoo within six months.",
+  "risks": [
+    "Shipping economics are brutal at a $2 to $4 price point, requiring massive brand subsidies or high volume to break even",
+    "Large brands may prefer their own direct-to-consumer sampling programs over a third-party platform",
+    "Subscriber churn could be high once people find their preferred products and no longer need new samples"
+  ],
+  "year_one_milestones": [
+    "Launch toothpaste category with 5,000 subscribers and three brand partners within the first 90 days",
+    "Expand to four product categories (toothpaste, deodorant, soap, shampoo) by month six",
+    "Reach 25,000 active subscribers and sign 15 brand partnerships generating $200K in brand revenue"
+  ],
+  "startup_cost_range": "$30K - $75K to reach MVP and first 1,000 subscribers",
+  "category": "Consumer",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=R6NANJbeGBk",
+  "episode_number": 133
+}

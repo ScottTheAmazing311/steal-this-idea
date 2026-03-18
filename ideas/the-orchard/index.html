@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Orchard | Every Apple Experience Under One Roof</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAF6F0;
+      --bark: #3B2414;
+      --leaf: #4A6741;
+      --leaf-light: #6B8F63;
+      --apple-red: #B8423A;
+      --gold: #D4A843;
+      --warm-white: #FFF8F0;
+      --text: #2C1810;
+      --text-light: #6B5B4F;
+      --shadow: rgba(59, 36, 20, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Libre Baskerville', serif; line-height: 1.3; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Badge */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: var(--bark);
+      color: var(--gold);
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-family: 'Karla', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .sti-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(59, 36, 20, 0.2);
+    }
+    .sti-badge svg { flex-shrink: 0; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      filter: brightness(0.4);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(59,36,20,0.3) 0%, rgba(59,36,20,0.7) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 2rem;
+    }
+    .hero-label {
+      display: inline-block;
+      background: var(--leaf);
+      color: var(--cream);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero .tagline {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero .pitch {
+      font-size: 1.1rem;
+      color: rgba(250,246,240,0.85);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--apple-red);
+      color: var(--cream);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-family: 'Karla', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #9E332C;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      display: inline-block;
+      border: 2px solid var(--cream);
+      color: var(--cream);
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-family: 'Karla', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-left: 1rem;
+      transition: background 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      background: rgba(250,246,240,0.15);
+      transform: translateY(-2px);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bobble 2s ease-in-out infinite;
+    }
+    @keyframes bobble {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Section shared */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--leaf);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1.5rem;
+      color: var(--bark);
+    }
+    .section-text {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 650px;
+      line-height: 1.8;
+    }
+
+    /* Problem */
+    .problem {
+      background: var(--bark);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .problem .section-label { color: var(--gold); }
+    .problem .section-title { color: var(--cream); }
+    .problem .section-text { color: rgba(250,246,240,0.75); }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .problem-img {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .problem-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .problem-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .stat-card {
+      background: rgba(250,246,240,0.07);
+      border: 1px solid rgba(250,246,240,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .stat-number {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(250,246,240,0.6);
+    }
+
+    /* Solution */
+    .solution {
+      background: var(--cream);
+      position: relative;
+    }
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .solution-img {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px var(--shadow);
+    }
+    .solution-img img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .solution-points {
+      list-style: none;
+      margin-top: 2rem;
+    }
+    .solution-points li {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+    .solution-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--leaf);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .solution-icon svg { width: 20px; height: 20px; }
+    .solution-points h4 {
+      font-family: 'Karla', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .solution-points p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Features */
+    .features {
+      background: var(--warm-white);
+      text-align: center;
+    }
+    .features .section-text { margin: 0 auto 3rem; }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px var(--shadow);
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(59,36,20,0.18);
+    }
+    .feature-card-img {
+      height: 220px;
+      overflow: hidden;
+    }
+    .feature-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .feature-card:hover .feature-card-img img {
+      transform: scale(1.05);
+    }
+    .feature-card-body {
+      padding: 1.5rem 1.8rem 2rem;
+    }
+    .feature-card-body h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--bark);
+    }
+    .feature-card-body p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* Market */
+    .market {
+      position: relative;
+      background: var(--leaf);
+      color: var(--cream);
+      overflow: hidden;
+    }
+    .market-bg-img {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    .market .container { position: relative; z-index: 2; }
+    .market .section-label { color: var(--gold); }
+    .market .section-title { color: var(--cream); }
+    .market .section-text { color: rgba(250,246,240,0.8); margin-bottom: 3rem; }
+    .market-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .market-card {
+      background: rgba(250,246,240,0.1);
+      border: 1px solid rgba(250,246,240,0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+    }
+    .market-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--gold);
+    }
+    .market-card .big-num {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.5rem;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .market-card p {
+      font-size: 0.85rem;
+      color: rgba(250,246,240,0.65);
+      line-height: 1.6;
+    }
+
+    /* Business Plan */
+    .business-plan {
+      background: var(--cream);
+      padding: 6rem 2rem;
+    }
+    .bp-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .bp-header .section-text { margin: 0 auto; }
+    .bp-document {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 60px var(--shadow);
+      max-width: 900px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .bp-top-bar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--leaf), var(--apple-red), var(--gold));
+    }
+    .bp-inner {
+      padding: 3rem;
+    }
+    .bp-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(59,36,20,0.08);
+    }
+    .bp-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .bp-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.1rem;
+      color: var(--bark);
+      margin-bottom: 1rem;
+    }
+    .bp-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .bp-icon svg { width: 18px; height: 18px; }
+    .bp-icon.green { background: rgba(74,103,65,0.12); }
+    .bp-icon.red { background: rgba(184,66,58,0.12); }
+    .bp-icon.gold { background: rgba(212,168,67,0.12); }
+    .bp-text {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+    .bp-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+    .bp-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .bp-bullet {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 8px;
+    }
+    .bp-bullet.green { background: var(--leaf); }
+    .bp-bullet.red { background: var(--apple-red); }
+    .bp-bullet.gold { background: var(--gold); }
+    .bp-cost-badge {
+      display: inline-block;
+      background: var(--leaf);
+      color: var(--cream);
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Photo break */
+    .photo-break {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 300px;
+      overflow: hidden;
+    }
+    .photo-break img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .photo-break img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bark);
+      color: var(--cream);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    footer .footer-brand {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    footer p {
+      color: rgba(250,246,240,0.6);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+    }
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+    .footer-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 2rem auto;
+      opacity: 0.5;
+    }
+    .footer-note {
+      font-size: 0.8rem;
+      color: rgba(250,246,240,0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .problem-grid,
+      .solution-grid {
+        grid-template-columns: 1fr;
+      }
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      .market-cards {
+        grid-template-columns: 1fr;
+      }
+      .photo-break {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      .photo-break img { height: 200px; }
+      .problem-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .bp-inner { padding: 2rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .sti-badge {
+        top: 12px;
+        left: 12px;
+        padding: 8px 12px;
+        font-size: 0.7rem;
+      }
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 1rem;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Steal This Idea Badge -->
+  <a href="../index.html" class="sti-badge">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    Steal This Idea
+  </a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1570825272076-2b26e4c0e176?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-label">An Immersive Fall Destination</span>
+      <h1>The Orchard</h1>
+      <p class="tagline">Every apple experience under one roof.</p>
+      <p class="pitch">Pick apples, press fresh cider, bake pies from scratch, and dive into the world's deepest leaf pit. The Orchard turns a beloved fruit into an all-day adventure for families, couples, and friends.</p>
+      <div>
+        <a href="#features" class="btn-primary">Explore Experiences</a>
+        <a href="#business-plan" class="btn-secondary">View the Plan</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(250,246,240,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">The Problem</span>
+        <h2 class="section-title">Fall experiences have gone stale.</h2>
+      </div>
+      <div class="problem-grid">
+        <div class="reveal">
+          <p class="section-text">Every autumn, families recycle the same tired options: another corn maze, another pumpkin patch. The experiences blur together, and nothing feels special anymore. People crave seasonal activities that are fresh, interactive, and worth the drive.</p>
+          <div class="problem-stats">
+            <div class="stat-card">
+              <div class="stat-number">78%</div>
+              <div class="stat-label">of families repeat the same fall outings every year</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">$950M+</div>
+              <div class="stat-label">annual U.S. agritourism market, ripe for reinvention</div>
+            </div>
+          </div>
+        </div>
+        <div class="problem-img reveal">
+          <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?auto=format&fit=crop&w=800&q=80" alt="Autumn forest scene" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution">
+    <div class="container">
+      <div class="solution-grid">
+        <div class="solution-img reveal">
+          <img src="https://images.unsplash.com/photo-1474564862106-1f23d10b9d6b?auto=format&fit=crop&w=800&q=80" alt="Fresh apples in orchard" loading="lazy">
+        </div>
+        <div class="reveal">
+          <span class="section-label">The Solution</span>
+          <h2 class="section-title">One ingredient. Infinite experiences.</h2>
+          <p class="section-text">The Orchard is a large-format destination built entirely around apples. It combines education, hands-on workshops, food, entertainment, and social-media-ready attractions into a single unforgettable visit.</p>
+          <ul class="solution-points">
+            <li>
+              <div class="solution-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#FAF6F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-4 8-7.5 8-12a8 8 0 10-16 0c0 4.5 4 8 8 12z"/></svg>
+              </div>
+              <div>
+                <h4>Curated Orchard</h4>
+                <p>20+ apple varieties you can pick, taste, and compare, from Honeycrisp to Fuji.</p>
+              </div>
+            </li>
+            <li>
+              <div class="solution-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#FAF6F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              </div>
+              <div>
+                <h4>Hands-On Workshops</h4>
+                <p>Press your own cider and bake pies with guided, all-ages sessions.</p>
+              </div>
+            </li>
+            <li>
+              <div class="solution-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#FAF6F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div>
+                <h4>Viral Attractions</h4>
+                <p>The Leaf Pit: a diving-board-equipped leaf pool with slow-motion cameras built for sharing.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Break -->
+  <div class="photo-break">
+    <img src="https://images.unsplash.com/photo-1600423115867-87b6a647be2e?auto=format&fit=crop&w=600&q=80" alt="Apple cider pressing" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1509622905150-fa66d3906e09?auto=format&fit=crop&w=600&q=80" alt="Fall leaves" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1504387828636-abeb50778c0c?auto=format&fit=crop&w=600&q=80" alt="Family fall outing" loading="lazy">
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Experiences</span>
+        <h2 class="section-title">Four ways to fall in love with apples.</h2>
+        <p class="section-text">Each visit offers something new. Build your perfect day from our signature experiences.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Apple picking orchard" loading="lazy">
+          </div>
+          <div class="feature-card-body">
+            <h3>Pick Your Own</h3>
+            <p>Wander rows of 20+ apple varieties with guided tastings and harvest baskets. Every visit reveals a new favorite.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=800&q=80" alt="Cider pressing workshop" loading="lazy">
+          </div>
+          <div class="feature-card-body">
+            <h3>Cider Pressing Studio</h3>
+            <p>Hand-crank your own cider, learn traditional techniques, and take home a fresh bottle you pressed yourself.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?auto=format&fit=crop&w=800&q=80" alt="Apple pie baking" loading="lazy">
+          </div>
+          <div class="feature-card-body">
+            <h3>Pie Baking Kitchen</h3>
+            <p>Roll dough, choose your filling, and bake a pie from scratch in our open-air kitchen. Perfect for dates and families alike.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?auto=format&fit=crop&w=800&q=80" alt="Autumn leaves falling" loading="lazy">
+          </div>
+          <div class="feature-card-body">
+            <h3>The Leaf Pit</h3>
+            <p>Our signature attraction: a massive, sanitized leaf pool with diving boards and slow-motion cameras. Cannonball into autumn.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="market">
+    <div class="market-bg-img"></div>
+    <div class="container">
+      <div class="reveal">
+        <span class="section-label">Market Opportunity</span>
+        <h2 class="section-title">A harvest of opportunity.</h2>
+        <p class="section-text">The agritourism and experiential entertainment markets are massive, growing, and ready for reinvention. The Orchard sits at the intersection of both.</p>
+      </div>
+      <div class="market-cards">
+        <div class="market-card reveal">
+          <h3>Agritourism Market</h3>
+          <div class="big-num">$950M+</div>
+          <p>Annual U.S. agritourism revenue, growing steadily as consumers prioritize local, authentic experiences over generic entertainment.</p>
+        </div>
+        <div class="market-card reveal">
+          <h3>Orchard Visitors</h3>
+          <div class="big-num">100M+</div>
+          <p>Americans visit apple orchards each year. The Orchard converts these casual visitors into premium, multi-hour guests.</p>
+        </div>
+        <div class="market-card reveal">
+          <h3>Target Revenue</h3>
+          <div class="big-num">$2-4M</div>
+          <p>Projected annual revenue per location through admissions, workshops, retail, and private events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS PLAN -->
+  <section class="business-plan" id="business-plan">
+    <div class="container">
+      <div class="bp-header reveal">
+        <span class="section-label">Business Plan</span>
+        <h2 class="section-title">From seed to scale.</h2>
+        <p class="section-text">A clear path from flagship location to a network of Orchard destinations across the country.</p>
+      </div>
+      <div class="bp-document reveal">
+        <div class="bp-top-bar"></div>
+        <div class="bp-inner">
+
+          <!-- Revenue Model -->
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <div class="bp-icon green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4A6741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </div>
+              <h3>Revenue Model</h3>
+            </div>
+            <p class="bp-text">Multiple revenue streams ensure year-round viability. Tiered admission tickets range from $15 to $45 per person depending on experience level. Add-on workshops (pie baking, cider pressing) generate $20 to $35 each. Retail sales of fresh apples, cider, pies, and branded merchandise provide high-margin supplemental income. Private event bookings for birthdays and corporate outings fill weekday and off-peak capacity. Seasonal pop-up cider stands at partner locations extend reach beyond the main venue.</p>
+          </div>
+
+          <!-- Go-to-Market -->
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <div class="bp-icon green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4A6741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              </div>
+              <h3>Go-to-Market Strategy</h3>
+            </div>
+            <p class="bp-text">Launch a flagship location near a major metro area in a region with strong fall culture, such as the Northeast or Mountain West. Build pre-launch buzz through Instagram and TikTok content featuring the Leaf Pit attraction. Partner with local schools for field trip programs and offer early-bird season passes to build a loyal visitor base before opening weekend.</p>
+          </div>
+
+          <!-- Competitive Advantage -->
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <div class="bp-icon gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <h3>Competitive Advantage</h3>
+            </div>
+            <p class="bp-text">Unlike generic pumpkin patches and corn mazes, The Orchard builds an entire brand ecosystem around a single beloved ingredient. The combination of experiential workshops, viral attractions like the Leaf Pit, and year-round retail creates multiple revenue streams and repeat visitation that typical seasonal venues cannot match. Strong social media shareability drives organic acquisition.</p>
+          </div>
+
+          <!-- Year One Milestones -->
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <div class="bp-icon green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4A6741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <h3>Year One Milestones</h3>
+            </div>
+            <ul class="bp-list">
+              <li><span class="bp-bullet green"></span>Secure a 20+ acre site and complete venue build-out including workshop spaces, retail barn, and Leaf Pit</li>
+              <li><span class="bp-bullet green"></span>Attract 50,000 visitors in the first fall season through social media virality and local press coverage</li>
+              <li><span class="bp-bullet green"></span>Generate $1.5 million in combined revenue from admissions, workshops, retail, and events</li>
+            </ul>
+          </div>
+
+          <!-- Startup Cost -->
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <div class="bp-icon gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              </div>
+              <h3>Startup Cost Estimate</h3>
+            </div>
+            <p class="bp-text">Estimated investment to reach MVP and first operating season:</p>
+            <div class="bp-cost-badge">$500,000 to $1,500,000</div>
+          </div>
+
+          <!-- Risks -->
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <div class="bp-icon red">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#B8423A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <h3>Key Risks</h3>
+            </div>
+            <ul class="bp-list">
+              <li><span class="bp-bullet red"></span>Heavy seasonality: peak revenue concentrated in September through November, requiring creative off-season programming to maintain cash flow</li>
+              <li><span class="bp-bullet red"></span>High upfront capital for land, structures, and orchard establishment with a multi-year timeline to mature apple trees</li>
+              <li><span class="bp-bullet red"></span>Weather dependency: rain, early frost, or drought can significantly impact both crop yield and visitor turnout</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">The Orchard</div>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet). If this idea inspires you, go build it.</p>
+    <a href="https://www.youtube.com/watch?v=5aypjfIgmZ8">Watch the Episode</a>
+    <div class="footer-divider"></div>
+    <p class="footer-note">Concept extracted and visualized from the Steal This Idea podcast. All business projections are speculative and for inspiration only.</p>
+  </footer>
+
+  <script>
+    // IntersectionObserver for scroll-triggered reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

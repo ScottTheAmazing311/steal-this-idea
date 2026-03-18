@@ -1,0 +1,34 @@
+{
+  "slug": "better-closet",
+  "company_name": "Better Closet",
+  "tagline": "Your wardrobe, finally under control.",
+  "elevator_pitch": "Better Closet uses RFID tags and smart scanners to track every piece of clothing in your home. It knows what's clean, what's dirty, and what you never wear, so you can make smarter laundry and wardrobe decisions effortlessly.",
+  "problem": "Most people own far more clothes than they actually wear, yet they constantly feel like they have nothing to put on. Laundry piles up unnoticed, favorite items sit dirty in hampers, and forgotten garments waste closet space and money.",
+  "solution": "Better Closet pairs penny-sized RFID stickers on every garment with three compact scanners placed at your closet, hamper, and washing machine. An intelligent app tracks each item's journey in real time and sends timely nudges about laundry, weather-appropriate outfits, and clothes you should sell or donate.",
+  "target_market": "Fashion-conscious millennials and Gen-Z adults (ages 22 to 40) in urban apartments, busy parents managing household laundry, and anyone who owns more clothes than they can keep track of.",
+  "revenue_model": "Hardware starter kit sold at $99 to $149 (three RFID scanners plus 100 tags). Optional monthly subscription ($5 to $9/month) unlocks premium features like outfit planning, weather integration, resale marketplace connections, and AI wardrobe analytics. Additional revenue from affiliate partnerships with resale platforms like ThredUp and Poshmark.",
+  "key_features": [
+    "Real-time garment tracking across closet, hamper, and washer with RFID scanners",
+    "Smart laundry alerts that remind you before you run out of favorites",
+    "Spring cleaning mode powered by AI to flag unworn and over-worn items",
+    "Weather-aware outfit suggestions drawn from your actual available wardrobe"
+  ],
+  "competitive_advantage": "No competitor offers a full-loop garment tracking system from closet to hamper to wash and back. The combination of affordable RFID hardware with an intelligent software layer creates a data flywheel that gets smarter over time. Washable adhesive RFID tags remove the biggest friction point of inventory-based closet systems.",
+  "market_size_estimate": "The global smart clothing market is projected to reach $10B+ by 2028. The more direct addressable market of wardrobe management apps and smart home laundry tech is roughly $2B. Even capturing 1% of the 130M US households yields a $130M+ annual revenue opportunity.",
+  "go_to_market": "Launch a Kickstarter campaign targeting minimalism, sustainability, and smart-home communities. Seed early adopters through lifestyle and home-organization influencers on Instagram and TikTok. Partner with one mid-tier clothing brand to pre-tag garments as a proof-of-concept co-marketing play.",
+  "risks": [
+    "Consumer friction during initial setup: tagging and scanning every garment requires real effort up front",
+    "RFID tag durability through repeated wash and dry cycles may frustrate users if tags fail",
+    "Competing with simpler low-tech habits: many people tolerate closet chaos rather than adopting new systems"
+  ],
+  "year_one_milestones": [
+    "Ship 5,000 hardware starter kits through a successful crowdfunding campaign",
+    "Reach 2,000 monthly active subscribers on the premium app tier",
+    "Secure one brand partnership for pre-tagged clothing integration"
+  ],
+  "startup_cost_range": "$75,000 to $200,000",
+  "category": "Hardware",
+  "vibe": "technical",
+  "episode_url": "https://www.youtube.com/watch?v=zNn9cuNzCO4",
+  "episode_number": 95
+}

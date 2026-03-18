@@ -1,0 +1,34 @@
+{
+  "slug": "charity-buck",
+  "company_name": "Charity Buck",
+  "tagline": "Slide your giving. Change the world.",
+  "elevator_pitch": "Charity Buck is a subscription-based charitable giving platform that lets you set a monthly donation budget, then seamlessly slide your pooled funds between vetted charities, emergency causes, and community projects with a single tap. It combines transparent charity ratings, smart fund allocation, and an emergency ambassador program so your generosity always lands where it matters most.",
+  "problem": "Most people want to give to charity but face decision paralysis: thousands of organizations, unclear overhead rates, and no easy way to redirect donations when new crises emerge. The result is sporadic, guilt-driven giving or no giving at all.",
+  "solution": "Charity Buck pools your daily micro-donations into a monthly fund, then lets you slide that money between curated, transparency-rated charities in seconds. When a disaster strikes or a cause catches your eye, one tap redirects your funds. No new credit card entry, no research rabbit holes, just frictionless, informed generosity.",
+  "target_market": "Millennials and Gen Z earners (ages 22 to 40) who support charitable causes in principle but lack a convenient, transparent, and flexible way to donate consistently. Secondary market includes HR departments seeking employee giving programs.",
+  "revenue_model": "Small monthly platform fee (e.g. $1.99/month) plus optional premium tiers for corporate matching dashboards and ambassador-level features. Additional revenue from nonprofit partnerships who pay for featured placement and analytics on donor engagement.",
+  "key_features": [
+    "Slide-to-Give fund allocation that lets you redirect your pooled donations between charities with one swipe",
+    "Charity Transparency Scores showing exactly what percentage of each dollar reaches the cause",
+    "Smart Cause Groups that automatically distribute your funds across multiple vetted organizations in a single category",
+    "Ambassador Program that rewards consistent donors with the ability to nominate people in crisis for emergency grants"
+  ],
+  "competitive_advantage": "Unlike GoFundMe or direct charity websites, Charity Buck combines a subscription micro-donation model with real-time fund redirection, built-in transparency scoring, and a community emergency fund. The lagging-period pooling mechanism and slide-to-give UX create a switching cost that grows with each month of giving history.",
+  "market_size_estimate": "U.S. charitable giving exceeded $500 billion annually. Even capturing 0.1% of individual giving (roughly $350 billion) through platform fees and partnerships represents a $350 million addressable market. The online giving segment grows 10 to 15% year over year.",
+  "go_to_market": "Launch with a mobile-first app targeting socially conscious young professionals through Instagram and TikTok campaigns featuring transparent giving stories. Partner with 50 highly rated charities at launch for curated cause groups. Offer a free tier (no platform fee for the first 3 months) and referral bonuses to drive viral adoption.",
+  "risks": [
+    "Regulatory complexity around holding and distributing charitable funds across state lines and maintaining nonprofit tax-deductible status",
+    "Building and maintaining accurate, up-to-date transparency scores for thousands of charities requires significant data infrastructure and editorial oversight",
+    "User acquisition cost may be high in a space where people are inherently cautious about new financial platforms handling their donations"
+  ],
+  "year_one_milestones": [
+    "Onboard 100 vetted charities with transparency scores and launch the mobile app on iOS and Android",
+    "Reach 10,000 active subscribers with an average monthly donation pool of $25 per user",
+    "Facilitate $2 million in total charitable donations and establish the first Ambassador emergency grant cycle"
+  ],
+  "startup_cost_range": "$150,000 to $400,000",
+  "category": "Fintech",
+  "vibe": "playful",
+  "episode_url": "https://www.youtube.com/watch?v=H_HetmAiKVE",
+  "episode_number": 86
+}

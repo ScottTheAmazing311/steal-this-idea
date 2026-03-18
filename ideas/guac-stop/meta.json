@@ -1,0 +1,34 @@
+{
+  "slug": "guac-stop",
+  "company_name": "Guac Stop",
+  "tagline": "Fresh guac, no wait, just drive.",
+  "elevator_pitch": "Guac Stop is a drive-through concept dedicated entirely to fresh guacamole, chips, salsas, and Mexican beverages. Modeled after the tiny drive-through coffee stand, it serves the massive snack market with a beloved food that requires zero hot prep and endless flavor variety.",
+  "problem": "When you want a quick, satisfying snack on the go, your options are limited to greasy fast food or sugar-loaded coffee drinks. There is no fast, affordable drive-through option for fresh, customizable dips and chips. Existing Mexican restaurants are full sit-down or fast-casual experiences that take too long for a simple craving.",
+  "solution": "Guac Stop operates out of small drive-through kiosks, similar to a coffee stand, serving freshly made guacamole in rotating daily flavors alongside chips, queso, salsa, pico de gallo, and horchata. All ingredients are cold-prepped, keeping operations simple and costs low. Customers can grab a quick, fresh snack without ever leaving their car.",
+  "target_market": "Snack-loving adults aged 22 to 45 who frequent drive-throughs, enjoy fresh Mexican food, and want a healthier alternative to traditional fast food. Secondary market includes office workers looking for catering and party-ready dip platters.",
+  "revenue_model": "Revenue comes from individual chip-and-guac cups ($6 to $10), premium guac flavors at a slight upcharge, add-ons like queso and horchata ($3 to $5), and party-size platters ($25 to $40). High margins on avocado-based products and minimal labor keep unit economics strong.",
+  "key_features": [
+    "Guac of the Day: a rotating daily specialty flavor from a library of 30+ recipes",
+    "Tiny Footprint: operates from small drive-through kiosks with minimal overhead",
+    "Zero Hot Prep: all ingredients are cold-chopped and assembled fresh, keeping things fast and simple",
+    "Mexican Beverage Bar: horchata, agua fresca, and Mexican sodas round out the menu"
+  ],
+  "competitive_advantage": "No one else owns the single-category guacamole drive-through niche. The tiny kiosk model keeps startup and operating costs dramatically lower than any restaurant. Cold prep means faster service, simpler staffing, and fewer equipment needs. The rotating daily flavor model creates repeat visits and social media buzz.",
+  "market_size_estimate": "The U.S. avocado market exceeds $2.5 billion annually, and the broader snack food market is over $150 billion. Drive-through food represents a massive share of quick-service restaurant revenue ($300B+). Even capturing a micro-niche of guacamole-focused snacking in a metro area represents a multi-million dollar opportunity.",
+  "go_to_market": "Launch a single kiosk in a high-traffic suburban area near existing drive-through clusters. Build a social media presence around the daily guac flavor reveal. Partner with local offices for catering and bulk orders to drive weekday volume.",
+  "risks": [
+    "Avocado price volatility and supply shortages could compress margins unpredictably",
+    "Guacamole as a standalone product may not generate enough ticket size to sustain a location",
+    "Seasonal demand fluctuations could make winter months challenging in colder markets"
+  ],
+  "year_one_milestones": [
+    "Open first drive-through kiosk and reach 200 transactions per day within 6 months",
+    "Develop and test 30+ guacamole recipes with a loyal customer base providing flavor feedback",
+    "Launch catering and party platter service generating 20% of total revenue"
+  ],
+  "startup_cost_range": "$80,000 to $150,000",
+  "category": "Consumer",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=RRStDRCULrU",
+  "episode_number": 137
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "salad-shack",
+  "company_name": "Salad Shack",
+  "tagline": "Unlimited salad and flatbread. One membership.",
+  "elevator_pitch": "Salad Shack is a membership-only quick-service restaurant offering unlimited salads and artisan flatbreads for $49 per month. Walk in, grab a fresh salad or a hot flatbread slice, and walk out. No lines, no transactions, just great food on your schedule.",
+  "problem": "Busy urban professionals spend too much money and time on weekday lunches. Healthy options are expensive, and fast food feels like settling. There is no simple, affordable way to guarantee a fresh, quality lunch every day without the hassle of ordering, waiting, and paying each time.",
+  "solution": "Salad Shack operates like a gym membership for lunch. For $49 a month, members get unlimited access to fresh, pre-made salads and hot artisan flatbreads. The grab-and-go format means no waiting in line, no point-of-sale transactions, and no decision fatigue. Just walk in with your wristband and eat.",
+  "target_market": "Urban professionals in high foot-traffic business districts, particularly in cities like New York, San Francisco, and Chicago. Secondary market includes corporate HR departments looking for affordable employee lunch benefits.",
+  "revenue_model": "Monthly subscription at $49/month for unlimited salads and flatbreads. Corporate group plans at discounted rates for employee benefits. The business profits from the gym membership effect: most members average 6-8 visits per month, keeping cost per meal around $6-7. Flatbread (very cheap to produce) further improves margins when members choose it over salad.",
+  "key_features": [
+    "Membership-only model with wristband access for frictionless grab-and-go",
+    "Fresh pre-made salads and hot artisan flatbreads ready at all times",
+    "Corporate partnership program for employee lunch benefits",
+    "7-day free trial to convert walk-in traffic into subscribers"
+  ],
+  "competitive_advantage": "The subscription model creates predictable recurring revenue and customer loyalty that traditional fast-casual restaurants cannot match. By limiting the menu to salads and flatbreads, operational costs stay extremely low (small kitchen, minimal staff). The psychology of choice between healthy salad and indulgent flatbread naturally pushes members toward the higher-margin option.",
+  "market_size_estimate": "The US fast-casual restaurant market is worth $110 billion. With 160 million employed Americans, many spending $10-15 daily on lunch, even capturing a fraction of the urban lunch market in top metro areas represents a multi-billion dollar opportunity.",
+  "go_to_market": "Open a single location in a high foot-traffic business district. Offer 7-day free trials to nearby office workers. Partner with 2-3 local companies to offer Salad Shack memberships as an employee benefit. Use word of mouth and the visible foot traffic to drive organic growth.",
+  "risks": [
+    "High-frequency members could eat into margins if average visits exceed projections",
+    "Subscription fatigue: members may churn quickly if novelty wears off or variety feels limited",
+    "Competing with established fast-casual chains that have brand recognition and broader menus"
+  ],
+  "year_one_milestones": [
+    "Open first location and reach 400 active monthly subscribers",
+    "Sign 5 corporate partnership deals for employee lunch benefit programs",
+    "Achieve positive unit economics with average member visiting 6-8 times per month"
+  ],
+  "startup_cost_range": "$50,000 - $120,000",
+  "category": "Consumer",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=J44ikec_zO8",
+  "episode_number": 143
+}

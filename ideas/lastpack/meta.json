@@ -1,0 +1,34 @@
+{
+  "slug": "lastpack",
+  "company_name": "LastPack",
+  "tagline": "The last backpack you will ever buy.",
+  "elevator_pitch": "LastPack is a modular backpack system that lets you build your perfect daily carry. Choose your outer frame style, then snap in only the internal modules you actually need, from a lunch compartment to a sunglasses sleeve to reinforced laptop protection.",
+  "problem": "Backpacks today fall into three frustrating categories: overbuilt hiking packs stuffed with compartments you will never use, overpriced leather briefcase-bags that try too hard, or cheap generic bags that do not try at all. Working professionals carry a backpack every single day, yet no brand designs specifically for the daily commuter who just wants their essentials organized without the clutter.",
+  "solution": "LastPack offers a modular grid system inside a selection of stylish outer frames. You pick the exterior that matches your aesthetic, then snap in individual modules (lunch, sunglasses, camera, water bottle, charger, keys) onto a standardized internal rail. Every module clicks in and out, so your backpack evolves with your life instead of collecting dust.",
+  "target_market": "Working professionals aged 22 to 45 who commute daily with a backpack, are frustrated by generic or overengineered options, and are willing to invest in a quality everyday carry solution.",
+  "revenue_model": "Direct-to-consumer e-commerce with a base frame priced at $129 to $189 depending on style. Individual modules range from $15 to $45 each. Starter bundles (frame plus 4 to 6 modules) offered at $199 to $279. Recurring revenue from seasonal module drops and limited-edition frame collaborations.",
+  "key_features": [
+    "Modular grid system with snap-in compartments you configure yourself",
+    "Multiple outer frame styles from minimal canvas to premium leather",
+    "Swappable straps with comfort and weight options",
+    "Universal laptop sleeve built into every frame"
+  ],
+  "competitive_advantage": "While competitors like Away and Timbuk2 offer surface-level customization (colors, flaps), LastPack is the only system where the internal architecture is fully reconfigurable. The standardized grid rail creates a platform ecosystem where new modules can launch continuously, driving repeat purchases and deep brand loyalty.",
+  "market_size_estimate": "The global backpack market is valued at approximately $24 billion, with the commuter and business segment growing at 6% annually. Targeting the U.S. professional commuter niche alone represents a $2 to $3 billion addressable market.",
+  "go_to_market": "Launch on Kickstarter with three signature frame styles and a library of 12 initial modules. Target productivity-focused YouTube creators and commuter lifestyle bloggers for early buzz. Follow up with a DTC Shopify store and pop-up events in co-working spaces in major metro areas.",
+  "risks": [
+    "Engineering a durable yet lightweight modular rail system at a consumer-friendly price point",
+    "High competition and crowdfunding fatigue in the backpack category on Kickstarter",
+    "Educating buyers on the modular concept when most people impulse-buy backpacks"
+  ],
+  "year_one_milestones": [
+    "Raise $250K+ on Kickstarter and deliver first 2,000 units within 6 months",
+    "Launch DTC store with 3 frame styles and 15 module SKUs",
+    "Secure placement in 2 to 3 retail partners (e.g., REI, The Container Store)"
+  ],
+  "startup_cost_range": "$80,000 to $200,000",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=GX6Y4zFg9aU",
+  "episode_number": 33
+}

@@ -1,0 +1,34 @@
+{
+  "slug": "card-shark",
+  "company_name": "CardShark",
+  "tagline": "Your spending finds your perfect card.",
+  "elevator_pitch": "CardShark analyzes your real spending habits and recommends the credit card that will maximize your rewards. Stop guessing which card is best and start seeing exactly how much you could have saved.",
+  "problem": "There are over 1,000 credit cards on the market, each with different reward categories, caps, and perks. Consumers rely on generic blog recommendations that do not account for individual spending patterns, leaving significant cashback and rewards on the table.",
+  "solution": "CardShark connects to your bank account via Plaid, analyzes your actual spending history across every category, and runs simulations against every major credit card on the market. It shows you exactly how much you would have earned on each card, so you can pick the one that truly fits your life.",
+  "target_market": "Financially savvy millennials and Gen Z consumers (ages 22-40) who use credit cards regularly, want to optimize rewards, and are comfortable linking bank accounts to fintech apps.",
+  "revenue_model": "Affiliate commissions from credit card companies for each approved referral. Credit card issuers pay $50-$200+ per approved application. The service is free to consumers, creating a frictionless funnel from personalized recommendation to affiliate click-through.",
+  "key_features": [
+    "Automatic spending analysis via secure Plaid bank integration",
+    "Side-by-side card comparison based on your real purchase history",
+    "Simulated savings calculator showing what you would have earned",
+    "Ongoing monitoring with alerts when a better card match emerges"
+  ],
+  "competitive_advantage": "Unlike The Points Guy or NerdWallet, which offer static editorial recommendations, CardShark delivers dynamic, personalized advice based on actual transaction data. The longer a user stays connected, the more accurate recommendations become, creating a sticky data moat.",
+  "market_size_estimate": "The US credit card market generates over $180B in annual interest and fees. Credit card affiliate marketing alone is a $2B+ industry. With 190M+ credit card holders in the US and growing demand for personal finance optimization tools, the addressable market for a personalized recommendation engine is substantial.",
+  "go_to_market": "Launch with social ads showing a simple hook: 'You left $600 on the table last year.' Drive users to a free sign-up where they link their bank account and instantly see how much they could save. Viral sharing is built in, as users share their savings gap on social media.",
+  "risks": [
+    "Consumer trust and willingness to share bank data with a new platform",
+    "Credit card companies changing affiliate commission structures or terms",
+    "Competition from established players like NerdWallet or Mint adding similar features"
+  ],
+  "year_one_milestones": [
+    "Launch MVP with Plaid integration and top 100 credit card database",
+    "Acquire 50,000 users and generate 10,000 affiliate referrals",
+    "Secure partnerships with 3+ major credit card issuers for premium placement"
+  ],
+  "startup_cost_range": "$30,000 - $75,000",
+  "category": "Fintech",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=ROfZJbBrjJ4",
+  "episode_number": 123
+}

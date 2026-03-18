@@ -1,0 +1,34 @@
+{
+  "slug": "visibuildity",
+  "company_name": "Visibuildity",
+  "tagline": "Real-time visibility into every build.",
+  "elevator_pitch": "Visibuildity is a project transparency platform that gives homeowners real-time updates on their construction projects through checklists, photos, and text-based contractor coordination. No more driving by the job site wondering what happened this week.",
+  "problem": "Home builders and contractors are notorious for missed timelines, zero communication, and costly mistakes. Homeowners are left in the dark, forced to play project manager for their own builds, and often discover errors only after they are cemented into place.",
+  "solution": "Visibuildity provides a shared portal where general contractors log progress with checklists, photos, and notes, while homeowners track every milestone from their phone. Subcontractors confirm tasks via simple text messages, so even the least tech-savvy plumber stays in the loop.",
+  "target_market": "Homeowners building or renovating homes, general contractors and home builders managing multiple projects, and subcontractors coordinating across job sites.",
+  "revenue_model": "SaaS subscription sold to builders and general contractors on a per-active-project basis. Smaller contractors pay lower monthly fees while large builders with hundreds of active projects pay premium rates. A secondary revenue stream comes from a contractor review marketplace powered by platform data.",
+  "key_features": [
+    "Real-time project timeline with milestone tracking and percentage completion",
+    "Photo and video documentation at every stage, so homeowners never have to drive by",
+    "SMS-based subcontractor check-ins that require zero app downloads or logins",
+    "Design selection portal to review and change material choices before installation"
+  ],
+  "competitive_advantage": "Unlike generic project management tools, Visibuildity is purpose-built for the builder-to-homeowner relationship. The SMS-based subcontractor interface removes the biggest adoption barrier in construction tech: getting tradespeople to actually use the software. Over time, aggregated project data creates a defensible contractor review marketplace.",
+  "market_size_estimate": "The U.S. residential construction market exceeds $500B annually with over 1 million new housing starts per year. Even capturing 1% of builders at an average of $2,000/year per account represents a $200M+ TAM, not counting renovation and remodel projects which add another significant layer.",
+  "go_to_market": "Start by partnering with 5 to 10 regional home builders to pilot the platform, using their homeowner satisfaction scores as case studies. Then expand to individual contractors through a freemium tier and build word-of-mouth via homeowner referrals who experienced the platform during their own builds.",
+  "risks": [
+    "Contractor adoption: tradespeople may resist any additional reporting, even via text",
+    "Builder inertia: large home builders have established workflows and may be slow to change",
+    "Data accuracy: the platform is only as good as the updates contractors actually submit"
+  ],
+  "year_one_milestones": [
+    "Sign 10 paying builder accounts managing at least 50 active projects on the platform",
+    "Process 5,000 subcontractor text check-ins proving the SMS workflow at scale",
+    "Achieve a 40+ Net Promoter Score from homeowners using the portal"
+  ],
+  "startup_cost_range": "$75,000 to $200,000",
+  "category": "SaaS",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=-SnZ5WxWsfQ",
+  "episode_number": 6
+}

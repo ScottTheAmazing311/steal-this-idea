@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groupie - Better errands with better company.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --coral: #FF6B6B;
+      --coral-dark: #E85555;
+      --sunshine: #FFD93D;
+      --sky: #6BC5FF;
+      --mint: #6BCB77;
+      --lavender: #C084FC;
+      --peach: #FFAB76;
+      --navy: #1A1A2E;
+      --dark: #16213E;
+      --cream: #FFF9F0;
+      --white: #FFFFFF;
+      --gray-100: #F7F7F8;
+      --gray-200: #E8E8ED;
+      --gray-500: #6B7280;
+      --gray-700: #374151;
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--navy);
+      background: var(--cream);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; line-height: 1.2; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* STI Badge */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: var(--white);
+      border: 2px solid var(--sunshine);
+      border-radius: 50px;
+      padding: 8px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--navy);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .sti-badge:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.12); }
+    .sti-badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-60px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(60px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 50%, #6BC5FF 100%);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80') center/cover;
+      opacity: 0.2;
+      mix-blend-mode: overlay;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(26,26,46,0.3) 0%, rgba(26,26,46,0.1) 50%, rgba(26,26,46,0.4) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 50px;
+      padding: 8px 24px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      color: var(--white);
+      margin-bottom: 16px;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    }
+    .hero-tagline {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .hero-pitch {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.92);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      color: var(--coral);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+    .btn-primary svg { width: 20px; height: 20px; }
+
+    .hero-blob-1 {
+      position: absolute;
+      top: -100px;
+      right: -150px;
+      width: 400px;
+      height: 400px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .hero-blob-2 {
+      position: absolute;
+      bottom: -80px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    /* ===== SOCIAL PROOF BAR ===== */
+    .social-proof {
+      background: var(--white);
+      padding: 32px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .social-proof-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .social-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .social-stat-num {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--coral);
+    }
+    .social-stat-label {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      font-weight: 600;
+    }
+
+    /* ===== PROBLEM ===== */
+    .problem {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .problem-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .problem-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--coral);
+      margin-bottom: 16px;
+    }
+    .section-label svg { width: 16px; height: 16px; }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .section-text {
+      font-size: 1.1rem;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .pain-points {
+      list-style: none;
+      margin-top: 24px;
+    }
+    .pain-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      font-size: 1.05rem;
+      color: var(--gray-700);
+    }
+    .pain-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: #FFF0F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .pain-icon svg { width: 14px; height: 14px; color: var(--coral); }
+
+    /* ===== SOLUTION ===== */
+    .solution {
+      padding: 100px 0;
+      background: var(--cream);
+      position: relative;
+    }
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .solution-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .solution-image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .solution-steps {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .solution-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .solution-step:hover { transform: translateX(8px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--coral), var(--peach));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+    .step-text h4 { font-size: 1.05rem; margin-bottom: 4px; color: var(--navy); }
+    .step-text p { font-size: 0.95rem; color: var(--gray-500); }
+
+    /* ===== FEATURES ===== */
+    .features {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .features-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+    .feature-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s;
+    }
+    .feature-card:hover .feature-card-bg { transform: scale(1.05); }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(26,26,46,0) 30%, rgba(26,26,46,0.85) 100%);
+    }
+    .feature-card-content {
+      position: relative;
+      z-index: 2;
+      padding: 32px;
+    }
+    .feature-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-icon-wrap svg { width: 24px; height: 24px; color: var(--white); }
+    .feature-card-content h3 {
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .feature-card-content p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+
+    /* ===== LIFESTYLE BREAK ===== */
+    .lifestyle {
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 300px;
+    }
+    .lifestyle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== MARKET ===== */
+    .market {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--dark) 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .market::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,107,107,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .market-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+    .market-header .section-label { color: var(--sunshine); }
+    .market-header .section-title { color: var(--white); }
+    .market-header .section-text { color: rgba(255,255,255,0.75); }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .market-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .market-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.1); }
+    .market-card-num {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, var(--coral), var(--sunshine));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .market-card-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .market-card p { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+    .market-image-strip {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .market-image-strip img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      border-radius: var(--radius);
+    }
+
+    /* ===== BUSINESS PLAN ===== */
+    .business-plan {
+      padding: 100px 0;
+      background: var(--gray-100);
+    }
+    .bp-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+    .bp-document {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .bp-doc-header {
+      background: linear-gradient(135deg, var(--coral), var(--peach));
+      padding: 40px;
+      text-align: center;
+    }
+    .bp-doc-header h3 {
+      font-size: 1.8rem;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .bp-doc-header p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+    }
+    .bp-doc-body { padding: 48px 40px; }
+
+    .bp-section { margin-bottom: 40px; }
+    .bp-section:last-child { margin-bottom: 0; }
+    .bp-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-200);
+    }
+    .bp-section-title svg { width: 20px; height: 20px; color: var(--coral); flex-shrink: 0; }
+    .bp-section p {
+      font-size: 1rem;
+      color: var(--gray-700);
+      line-height: 1.8;
+    }
+    .bp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .bp-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+    .bp-bullet {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      background: var(--coral);
+      border-radius: 50%;
+      margin-top: 8px;
+    }
+    .bp-cost-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--mint), #4ECDC4);
+      color: var(--white);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 50px;
+      margin-top: 8px;
+    }
+
+    .bp-milestones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .bp-milestone {
+      background: var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+    }
+    .bp-milestone-num {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--coral);
+      margin-bottom: 8px;
+    }
+    .bp-milestone p { font-size: 0.9rem; color: var(--gray-700); }
+
+    /* ===== CTA ===== */
+    .cta {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 50%, #6BC5FF 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1600&q=80') center/cover;
+      opacity: 0.15;
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--white);
+      margin-bottom: 16px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .cta p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 48px 0;
+      background: var(--navy);
+      text-align: center;
+    }
+    .footer p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .footer a {
+      color: var(--sunshine);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .footer a:hover { color: var(--coral); }
+    .footer-divider {
+      width: 40px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      margin: 16px auto;
+      border-radius: 2px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .problem-grid,
+      .solution-grid { grid-template-columns: 1fr; gap: 40px; }
+      .solution-grid .solution-image { order: -1; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { min-height: 280px; }
+      .market-grid { grid-template-columns: 1fr; }
+      .market-image-strip { grid-template-columns: 1fr; }
+      .market-image-strip img { height: 180px; }
+      .bp-milestones { grid-template-columns: 1fr; }
+      .bp-doc-body { padding: 32px 24px; }
+      .lifestyle { grid-template-columns: 1fr; height: auto; }
+      .lifestyle img { height: 200px; }
+      .social-proof-inner { gap: 24px; }
+      .sti-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STI Badge -->
+  <a href="../index.html" class="sti-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+    </svg>
+    Steal This Idea
+  </a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-blob-1"></div>
+    <div class="hero-blob-2"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-pill">A social coordination app for friend groups</div>
+      <h1>Groupie</h1>
+      <p class="hero-tagline">Better errands with better company.</p>
+      <p class="hero-pitch">Turn boring errands and chores into shared experiences with your friend group. Groupie matches friends who need to do similar tasks, making everyday to-dos more fun while saving everyone time and trips.</p>
+      <a href="#features" class="btn-primary">
+        Get Early Access
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <div class="container">
+      <div class="social-proof-inner reveal">
+        <div class="social-stat">
+          <span class="social-stat-num">70M+</span>
+          <span class="social-stat-label">US Adults 20-35</span>
+        </div>
+        <div class="social-stat">
+          <span class="social-stat-num">12+</span>
+          <span class="social-stat-label">Errands Per Week</span>
+        </div>
+        <div class="social-stat">
+          <span class="social-stat-num">73%</span>
+          <span class="social-stat-label">Prefer Company for Chores</span>
+        </div>
+        <div class="social-stat">
+          <span class="social-stat-num">$1.2B</span>
+          <span class="social-stat-label">Addressable Market</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="reveal-left">
+          <div class="problem-image">
+            <img src="https://images.unsplash.com/photo-1513128034602-7814ccaddd4e?auto=format&fit=crop&w=800&q=80" alt="Person doing errands alone">
+          </div>
+        </div>
+        <div class="reveal-right">
+          <div class="section-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            The Problem
+          </div>
+          <h2 class="section-title">Errands are lonely. Tasks pile up. Friends drift apart.</h2>
+          <p class="section-text">Everyone has a never-ending list of errands and chores they dread doing alone: flu shots, oil changes, grocery runs, IKEA trips. These tasks pile up because they feel tedious in isolation.</p>
+          <ul class="pain-points">
+            <li>
+              <span class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+              Your friends are doing the same errands separately, across town, on different days
+            </li>
+            <li>
+              <span class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+              Texting "anyone want to come to Target?" feels awkward and often goes unanswered
+            </li>
+            <li>
+              <span class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+              You forget a friend is nearby who could grab something for you on their way home
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution">
+    <div class="container">
+      <div class="solution-grid">
+        <div class="reveal-left">
+          <div class="section-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            The Solution
+          </div>
+          <h2 class="section-title">Your friend group, synchronized.</h2>
+          <p class="section-text">Groupie lets your friend group share tasks and automatically matches people with overlapping errands or nearby locations. No more solo chores, no more missed opportunities to hang out.</p>
+          <div class="solution-steps">
+            <div class="solution-step">
+              <span class="step-num">1</span>
+              <div class="step-text">
+                <h4>Drop in your tasks</h4>
+                <p>Add errands, appointments, or even lunch plans to your Groupie feed.</p>
+              </div>
+            </div>
+            <div class="solution-step">
+              <span class="step-num">2</span>
+              <div class="step-text">
+                <h4>Get matched with friends</h4>
+                <p>Groupie pairs you with friends who need to do the same thing or are already nearby.</p>
+              </div>
+            </div>
+            <div class="solution-step">
+              <span class="step-num">3</span>
+              <div class="step-text">
+                <h4>Go together or ask a favor</h4>
+                <p>Tap to join, request a pickup, or just tag along. Favors are tracked and balanced.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal-right">
+          <div class="solution-image">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Friends collaborating together">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="features-header reveal">
+        <div class="section-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Key Features
+        </div>
+        <h2 class="section-title">Everything your friend group needs</h2>
+        <p class="section-text">Four core features that make coordinating with friends feel effortless.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal-scale" style="transition-delay:0.1s">
+          <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80')"></div>
+          <div class="feature-card-content">
+            <div class="feature-icon-wrap" style="background: rgba(255,107,107,0.8);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+            </div>
+            <h3>Task Matching</h3>
+            <p>Automatically pairs friends with overlapping errands and suggests group outings so no one goes alone.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal-scale" style="transition-delay:0.2s">
+          <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80')"></div>
+          <div class="feature-card-content">
+            <div class="feature-icon-wrap" style="background: rgba(107,197,255,0.8);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3>Location Alerts</h3>
+            <p>Get notified when a friend is near a store you need something from. One tap to request a pickup.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal-scale" style="transition-delay:0.3s">
+          <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80')"></div>
+          <div class="feature-card-content">
+            <div class="feature-icon-wrap" style="background: rgba(107,203,119,0.8);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3>Favor Coins</h3>
+            <p>A built-in economy that tracks who helped whom, keeping the give-and-take balanced across your group.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal-scale" style="transition-delay:0.4s">
+          <div class="feature-card-bg" style="background-image: url('https://images.unsplash.com/photo-1556742393-d75f468bfcb0?auto=format&fit=crop&w=800&q=80')"></div>
+          <div class="feature-card-content">
+            <div class="feature-icon-wrap" style="background: rgba(192,132,252,0.8);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><path d="M1 10h22"/></svg>
+            </div>
+            <h3>Instant Payments</h3>
+            <p>One-tap Venmo and Apple Pay integration for seamless reimbursements. Set spending thresholds per friend.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE IMAGE STRIP -->
+  <div class="lifestyle reveal-scale">
+    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80" alt="Friends hanging out">
+    <img src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76cb?auto=format&fit=crop&w=800&q=80" alt="People at a coffee shop">
+    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Group of friends outdoors">
+  </div>
+
+  <!-- MARKET -->
+  <section class="market">
+    <div class="container">
+      <div class="market-header reveal">
+        <div class="section-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+          Market Opportunity
+        </div>
+        <h2 class="section-title">A massive, underserved market</h2>
+        <p class="section-text">Social coordination for real life sits at the intersection of social networking, productivity, and local commerce.</p>
+      </div>
+      <div class="market-grid">
+        <div class="market-card reveal" style="transition-delay:0.1s">
+          <div class="market-card-num">$1.2B</div>
+          <div class="market-card-label">US TAM</div>
+          <p>70M+ young adults who regularly coordinate with friends, at $5/month premium potential.</p>
+        </div>
+        <div class="market-card reveal" style="transition-delay:0.2s">
+          <div class="market-card-num">20-35</div>
+          <div class="market-card-label">Target Age</div>
+          <p>Young adults in suburban friend groups, roommates, and tight-knit neighborhood communities.</p>
+        </div>
+        <div class="market-card reveal" style="transition-delay:0.3s">
+          <div class="market-card-num">3x</div>
+          <div class="market-card-label">Growth Driver</div>
+          <p>Network effects within friend groups create viral loops. One user brings five friends organically.</p>
+        </div>
+      </div>
+      <div class="market-image-strip reveal">
+        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80" alt="Young adults socializing">
+        <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" alt="Friends at event">
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS PLAN -->
+  <section class="business-plan">
+    <div class="container">
+      <div class="bp-header reveal">
+        <div class="section-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          Business Plan
+        </div>
+        <h2 class="section-title">The roadmap to launch</h2>
+      </div>
+
+      <div class="bp-document reveal">
+        <div class="bp-doc-header">
+          <h3>Groupie Business Plan</h3>
+          <p>A social coordination app for friend groups</p>
+        </div>
+        <div class="bp-doc-body">
+
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              Revenue Model
+            </div>
+            <p>Freemium model with a free tier for basic task sharing and group coordination. Premium tier at $4.99/month unlocks smart location-based notifications, Venmo and Apple Pay integration, spending thresholds, and favor analytics. Additional revenue comes from local business partnerships that offer deals when groups visit together.</p>
+          </div>
+
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+              Go-to-Market Strategy
+            </div>
+            <p>Launch as a free app targeting college towns and dense suburban friend groups through TikTok and Instagram influencer campaigns. Seed initial groups by partnering with local businesses (coffee shops, gyms) who offer group discounts. Focus on one metro area first to build density, then expand city by city.</p>
+          </div>
+
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Competitive Advantage
+            </div>
+            <p>Unlike generic group chats or calendar apps, Groupie is purpose-built for real-world coordination among close friend groups. The combination of task matching, location awareness, and a favor economy creates a unique social layer that no existing app replicates. Network effects within friend groups drive organic retention and make switching costly.</p>
+          </div>
+
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Year One Milestones
+            </div>
+            <div class="bp-milestones">
+              <div class="bp-milestone">
+                <div class="bp-milestone-num">Q1-Q2</div>
+                <p>Launch MVP with task sharing, group matching, and basic notifications in 3 target metro areas</p>
+              </div>
+              <div class="bp-milestone">
+                <div class="bp-milestone-num">Q3</div>
+                <p>Reach 50,000 active users across 10,000 friend groups with 60%+ weekly retention</p>
+              </div>
+              <div class="bp-milestone">
+                <div class="bp-milestone-num">Q4</div>
+                <p>Secure partnerships with 200+ local businesses offering group visit perks</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              Startup Cost Estimate
+            </div>
+            <p>Estimated investment to reach MVP and initial launch:</p>
+            <div class="bp-cost-badge">$150,000 - $350,000</div>
+          </div>
+
+          <div class="bp-section">
+            <div class="bp-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Key Risks
+            </div>
+            <ul class="bp-list">
+              <li><span class="bp-bullet"></span>Network effects require a critical mass of friends on the platform before it becomes useful, creating a cold-start problem</li>
+              <li><span class="bp-bullet"></span>Users may default to existing group chats (iMessage, WhatsApp) for the same coordination, limiting switching incentives</li>
+              <li><span class="bp-bullet"></span>Location tracking features may raise privacy concerns and require careful opt-in design to avoid feeling invasive</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-content reveal">
+      <h2>Ready to make errands fun?</h2>
+      <p>Join the waitlist and be the first to coordinate with your crew when Groupie launches.</p>
+      <a href="#" class="btn-dark">
+        Join the Waitlist
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+      <p>Not a real product. <a href="https://www.youtube.com/watch?v=Qwh_ys32_B4" target="_blank" rel="noopener">Watch the episode</a></p>
+      <div class="footer-divider"></div>
+      <p style="font-size: 0.85rem; color: rgba(255,255,255,0.35);">Idea discussed by Diego and Andre on the Steal This Idea podcast.</p>
+    </div>
+  </footer>
+
+  <script>
+    // IntersectionObserver for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+
+</body>
+</html>

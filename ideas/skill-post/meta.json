@@ -1,0 +1,34 @@
+{
+  "slug": "skill-post",
+  "company_name": "SkillPost",
+  "tagline": "A new skill, delivered to your door.",
+  "elevator_pitch": "SkillPost is a subscription box that ships you everything you need to learn a new hands-on skill, from ukulele to watercolors to calligraphy. Each box includes quality materials, a curated step-by-step video course, and achievable 30-day goals so you actually follow through.",
+  "problem": "Most people want to pick up new hobbies and skills but never follow through. The barrier to entry is just high enough to stop them: choosing the right materials, finding quality instruction, and staying motivated through the learning curve.",
+  "solution": "SkillPost removes every obstacle by shipping a complete kit with beginner-friendly materials and a curated, MasterClass-quality video course. Each box focuses on one achievable goal you can hit in 30 days, giving you skin in the game and a clear path to progress.",
+  "target_market": "Adults aged 25-55 who want to explore creative hobbies but struggle with follow-through. Secondary market includes gift-givers and older adults who prefer physical learning over pure digital platforms.",
+  "revenue_model": "Quarterly subscription boxes at $40-60 per box. Premium tier includes one-on-one video tutoring sessions. Affiliate revenue from upselling full equipment and advanced courses from partner brands. Sponsored product placement inside boxes.",
+  "key_features": [
+    "Complete skill kits with quality beginner materials shipped to your door",
+    "Curated MasterClass-style video courses with 30-day milestone goals",
+    "Premium tier with live one-on-one video tutoring from skilled instructors",
+    "Catalog browsing experience to choose your next skill each quarter"
+  ],
+  "competitive_advantage": "Unlike Skillshare or YouTube, SkillPost combines physical materials with consistently high-quality instruction in a single package. The tangible box creates commitment that digital-only platforms cannot match, similar to how HelloFresh outperforms recipe apps.",
+  "market_size_estimate": "The subscription box market is valued at $32B globally. Online learning is a $300B+ market. SkillPost sits at the intersection, targeting the estimated 40M+ U.S. adults interested in creative hobbies, representing a $2-5B addressable market.",
+  "go_to_market": "Launch with 5-8 curated skill boxes (ukulele, watercolor, calligraphy, harmonica, knitting) and a direct-to-consumer Shopify store. Partner with skilled instructors on revenue share. Build early traction through lifestyle influencers and gift-guide placements.",
+  "risks": [
+    "High per-box cost of physical goods and shipping could squeeze margins",
+    "Content production for each new skill requires significant upfront investment",
+    "Customer churn if novelty wears off or boxes feel repetitive over time"
+  ],
+  "year_one_milestones": [
+    "Launch with 8 skill categories and 2,000 subscribers in first 6 months",
+    "Achieve 70% subscriber retention rate quarter-over-quarter",
+    "Introduce premium tutoring tier and generate 20% of revenue from upsells"
+  ],
+  "startup_cost_range": "$50,000 - $150,000",
+  "category": "Consumer",
+  "vibe": "earthy",
+  "episode_url": "https://www.youtube.com/watch?v=P3csoqn8kJ4",
+  "episode_number": 91
+}

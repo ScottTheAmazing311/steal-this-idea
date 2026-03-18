@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeTeam - Your Home Celebrates Every Score</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --neon-green: #39ff14;
+      --neon-blue: #00d4ff;
+      --neon-purple: #b026ff;
+      --dark: #0a0a0f;
+      --dark-surface: #12121a;
+      --dark-card: #1a1a28;
+      --gray-text: #a0a0b8;
+      --white: #f0f0ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Steal This Idea Badge */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      color: var(--dark);
+      padding: 8px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+    }
+    .sti-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+    }
+    .sti-badge svg { width: 16px; height: 16px; }
+
+    /* Sections */
+    section { position: relative; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.85) 100%),
+        url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.4;
+      animation: pulse-glow 4s ease-in-out infinite alternate;
+    }
+    .hero-glow-1 { background: var(--neon-green); top: -200px; right: -100px; }
+    .hero-glow-2 { background: var(--neon-blue); bottom: -200px; left: -100px; animation-delay: 2s; }
+
+    @keyframes pulse-glow {
+      0% { opacity: 0.2; transform: scale(0.9); }
+      100% { opacity: 0.5; transform: scale(1.1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 40px 24px;
+    }
+    .hero-content h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      letter-spacing: 4px;
+      line-height: 0.95;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .hero-content .tagline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      letter-spacing: 6px;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero-content .pitch {
+      font-size: 1.15rem;
+      color: var(--gray-text);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 48px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: var(--dark);
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+    }
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 50px rgba(57, 255, 20, 0.5);
+    }
+    .cta-btn-outline {
+      background: transparent;
+      border: 2px solid var(--neon-green);
+      color: var(--neon-green);
+      box-shadow: none;
+      margin-left: 16px;
+    }
+    .cta-btn-outline:hover {
+      background: rgba(57, 255, 20, 0.1);
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+    .scroll-indicator svg { width: 28px; height: 28px; stroke: var(--neon-green); opacity: 0.6; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(12px); }
+    }
+
+    /* ===== PROBLEM ===== */
+    .problem {
+      padding: 120px 24px;
+      background: var(--dark-surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .problem-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .problem-image {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .problem-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .problem-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      border: 1px solid rgba(57, 255, 20, 0.15);
+    }
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 5px;
+      color: var(--neon-green);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label .line {
+      width: 40px;
+      height: 2px;
+      background: var(--neon-green);
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      line-height: 1.05;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+    }
+    .section-text {
+      font-size: 1.1rem;
+      color: var(--gray-text);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .pain-points {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pain-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: rgba(255, 50, 50, 0.06);
+      border-left: 3px solid #ff3b3b;
+      border-radius: 0 10px 10px 0;
+    }
+    .pain-point svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; stroke: #ff3b3b; }
+    .pain-point span { font-size: 0.95rem; color: var(--gray-text); }
+
+    /* ===== SOLUTION ===== */
+    .solution {
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .solution-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .solution-visual {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .solution-visual img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: block;
+      border-radius: 20px;
+    }
+    .solution-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(57,255,20,0.1), rgba(0,212,255,0.1));
+      border-radius: 20px;
+      z-index: 1;
+    }
+    .check-list {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .check-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .check-icon svg { width: 14px; height: 14px; stroke: var(--dark); }
+    .check-item span { color: var(--gray-text); font-size: 1rem; }
+
+    /* ===== FEATURES ===== */
+    .features {
+      padding: 120px 24px;
+      background: var(--dark-surface);
+    }
+    .features-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .features-showcase {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .feature-card {
+      background: var(--dark-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(57, 255, 20, 0.2);
+    }
+    .feature-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .feature-card-body {
+      padding: 28px;
+    }
+    .feature-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(57,255,20,0.15), rgba(0,212,255,0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-card-icon svg { width: 24px; height: 24px; stroke: var(--neon-green); }
+    .feature-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      color: var(--gray-text);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ===== MARKET ===== */
+    .market {
+      padding: 120px 24px;
+      position: relative;
+    }
+    .market-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .market-hero-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 60px;
+      display: block;
+    }
+    .market-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 40px 24px;
+      background: var(--dark-card);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray-text);
+      letter-spacing: 1px;
+    }
+    .market-text-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .market-text-grid p {
+      color: var(--gray-text);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ===== BUSINESS PLAN ===== */
+    .business-plan {
+      padding: 120px 24px;
+      background: var(--dark-surface);
+    }
+    .bp-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .bp-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .bp-section {
+      margin-bottom: 48px;
+      padding: 36px;
+      background: var(--dark-card);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .bp-section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      color: var(--neon-green);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bp-section-title svg { width: 22px; height: 22px; stroke: var(--neon-green); }
+    .bp-section p, .bp-section li {
+      color: var(--gray-text);
+      font-size: 1rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .bp-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .bp-section ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .bp-section ul li:last-child { border-bottom: none; }
+    .bp-bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--neon-green);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .bp-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .bp-highlight {
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(57,255,20,0.05), rgba(0,212,255,0.05));
+      border-radius: 12px;
+      border: 1px solid rgba(57,255,20,0.1);
+      text-align: center;
+    }
+    .bp-highlight .amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--neon-green);
+    }
+    .bp-highlight .label {
+      color: var(--gray-text);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+    .risk-item {
+      padding: 14px 18px;
+      background: rgba(255, 165, 0, 0.06);
+      border-left: 3px solid #ffa500;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 12px;
+    }
+    .risk-item:last-child { margin-bottom: 0; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer p {
+      color: var(--gray-text);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    footer a {
+      color: var(--neon-green);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+    footer a:hover { opacity: 0.7; }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .problem-grid,
+      .solution-inner,
+      .features-showcase,
+      .market-stats,
+      .market-text-grid,
+      .bp-two-col {
+        grid-template-columns: 1fr;
+      }
+      .hero-content h1 { font-size: 4rem; }
+      .cta-btn-outline { margin-left: 0; margin-top: 12px; }
+      .problem-image img,
+      .solution-visual img { height: 280px; }
+      .market-hero-img { height: 250px; }
+      .feature-card-img { height: 180px; }
+      .sti-badge { top: 12px; left: 12px; font-size: 12px; padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Steal This Idea Badge -->
+  <a href="../index.html" class="sti-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+    STEAL THIS IDEA
+  </a>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-content">
+      <h1>HomeTeam</h1>
+      <p class="tagline">YOUR HOME CELEBRATES EVERY SCORE</p>
+      <p class="pitch">Sync your smart lights, soundbars, and LEDs with live sports data. When your team scores, your entire room erupts in team colors. No coding required.</p>
+      <div>
+        <a href="#features" class="cta-btn">GET EARLY ACCESS</a>
+        <a href="#solution" class="cta-btn cta-btn-outline">SEE HOW IT WORKS</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEM ===== -->
+  <section class="problem">
+    <div class="problem-grid">
+      <div class="reveal">
+        <div class="section-label"><span class="line"></span>THE PROBLEM</div>
+        <h2 class="section-title">GAME DAY AT HOME<br>FEELS FLAT</h2>
+        <p class="section-text">You have a 65-inch TV, a surround sound setup, and a fridge full of game day snacks. But when your team scores the winning touchdown, your living room just... sits there. Nothing changes. No energy shift. No celebration beyond your own cheering.</p>
+        <div class="pain-points">
+          <div class="pain-point">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>DIY setups require hours of Reddit research, coding skills, and home automation expertise</span>
+          </div>
+          <div class="pain-point">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>No consumer product connects live scores to smart home lights and audio</span>
+          </div>
+          <div class="pain-point">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>Sports fans spend thousands on gear but have no way to make their space feel alive</span>
+          </div>
+        </div>
+      </div>
+      <div class="problem-image reveal" style="transition-delay: 0.2s;">
+        <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=800&q=80" alt="Fan watching sports alone at home" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOLUTION ===== -->
+  <section class="solution" id="solution">
+    <div class="solution-inner">
+      <div class="solution-visual reveal">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80" alt="Colorful smart home lighting setup" loading="lazy">
+      </div>
+      <div class="reveal" style="transition-delay: 0.2s;">
+        <div class="section-label"><span class="line"></span>THE SOLUTION</div>
+        <h2 class="section-title">YOUR ROOM REACTS<br>IN REAL TIME</h2>
+        <p class="section-text">HomeTeam bridges live sports scoring APIs with your existing smart home ecosystem. Pick your teams, connect your lights, and your space instantly transforms every time something happens on the field, court, or pitch.</p>
+        <div class="check-list">
+          <div class="check-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Download the app and connect your smart lights in under 5 minutes</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Select your teams across any league: NFL, NBA, Premier League, esports, and more</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Your home lights up in team colors during the game, with celebrations on every score</span>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Works with Philips Hue, LIFX, Nanoleaf, WLED, and compatible soundbars</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="features-header reveal">
+      <div class="section-label" style="justify-content: center;"><span class="line"></span>FEATURES<span class="line"></span></div>
+      <h2 class="section-title" style="text-align:center;">EVERYTHING A FAN CAVE NEEDS</h2>
+      <p class="section-text" style="text-align:center;">Four core features that turn any room into the most electric game-day venue on the block.</p>
+    </div>
+    <div class="features-showcase">
+      <div class="feature-card reveal">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Real-time data visualization" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>LIVE SCORE SYNC</h3>
+          <p>The instant your team scores, your lights react. Real-time data feeds trigger color explosions, strobes, and celebration patterns with sub-second latency.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.15s;">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Smart home devices connected" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>WORKS WITH WHAT YOU OWN</h3>
+          <p>Philips Hue, LIFX, Nanoleaf, WLED strips, smart plugs, and compatible soundbars. No proprietary hardware to buy. Plug into the ecosystem you already have.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.3s;">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1461896836934-bd45ba9fcb37?auto=format&fit=crop&w=800&q=80" alt="Multiple sports leagues" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>EVERY LEAGUE, EVERY TEAM</h3>
+          <p>NFL, NBA, MLB, NHL, MLS, Premier League, La Liga, college sports, and major esports leagues. If they keep score, HomeTeam tracks it.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.45s;">
+        <img class="feature-card-img" src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=800&q=80" alt="Custom celebration settings" loading="lazy">
+        <div class="feature-card-body">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"/></svg>
+          </div>
+          <h3>CUSTOM CELEBRATIONS</h3>
+          <p>Set unique light patterns and intensity for different moments: touchdowns, three-pointers, hat tricks, playoff wins. Make every score feel exactly how you want it to feel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARKET ===== -->
+  <section class="market">
+    <div class="market-inner">
+      <div class="reveal">
+        <img class="market-hero-img" src="https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&w=1400&q=80" alt="Stadium filled with passionate fans" loading="lazy">
+      </div>
+      <div class="reveal" style="transition-delay: 0.2s;">
+        <div class="section-label"><span class="line"></span>MARKET OPPORTUNITY</div>
+        <h2 class="section-title">WHERE FAN PASSION MEETS<br>SMART HOME GROWTH</h2>
+      </div>
+      <div class="market-stats reveal" style="transition-delay: 0.3s;">
+        <div class="stat-card">
+          <div class="stat-number">$64B</div>
+          <div class="stat-label">U.S. Smart Home Market by 2026</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">80M+</div>
+          <div class="stat-label">U.S. Fantasy Sports Players</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">$500M+</div>
+          <div class="stat-label">Estimated Addressable Market</div>
+        </div>
+      </div>
+      <div class="market-text-grid reveal" style="transition-delay: 0.4s;">
+        <p>Sports fans aged 21 to 45 who already own smart home devices are the primary audience. These are people who invest in their viewing experience: large TVs, sound systems, team merchandise, streaming subscriptions. They want their homes to feel like a stadium, not a living room.</p>
+        <p>The secondary market includes esports enthusiasts, sports bars looking to differentiate, and the growing "man cave" culture. Globally, soccer fandom offers enormous scale. Even capturing just 1% of the overlap between smart home owners and active sports fans yields a market well north of $500M.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BUSINESS PLAN ===== -->
+  <section class="business-plan">
+    <div class="bp-inner">
+      <div class="bp-header reveal">
+        <div class="section-label" style="justify-content: center;"><span class="line"></span>BUSINESS PLAN<span class="line"></span></div>
+        <h2 class="section-title" style="text-align:center;">THE PLAYBOOK</h2>
+      </div>
+
+      <div class="bp-section reveal">
+        <div class="bp-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          REVENUE MODEL
+        </div>
+        <p>Freemium app subscription: a free tier supporting one team with basic color changes, and a $9.99/month Pro tier that unlocks unlimited teams, custom celebrations, soundbar integration, and esports support. Hardware starter bundles sold through the website at $149 to $399. Professional installation packages at $299 to $799 for the full fan cave setup. B2B licensing for sports bars and entertainment venues rounds out the revenue streams.</p>
+      </div>
+
+      <div class="bp-section reveal">
+        <div class="bp-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          GO-TO-MARKET STRATEGY
+        </div>
+        <p>Launch with iOS and Android apps supporting Philips Hue and the NFL/NBA during the fall sports season, targeting home automation subreddits and sports fan communities where demand is already proven through DIY posts. Partner with smart lighting brands for co-branded bundles and run targeted campaigns during NFL kickoff and March Madness to capture fans at peak engagement. Leverage user-generated content of lit-up rooms on social media to drive organic growth.</p>
+      </div>
+
+      <div class="bp-section reveal">
+        <div class="bp-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          COMPETITIVE ADVANTAGE
+        </div>
+        <p>No productized solution currently exists for sports-triggered home automation. DIY setups require hours of configuration across Home Assistant, IFTTT, and custom scripts. HomeTeam is the first company to package this into a consumer-friendly app with plug-and-play simplicity. First-mover advantage in a space where fan passion and smart home adoption are both accelerating creates a strong defensible position.</p>
+      </div>
+
+      <div class="bp-section reveal">
+        <div class="bp-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          YEAR ONE MILESTONES
+        </div>
+        <ul>
+          <li><div class="bp-bullet"></div><span>Launch iOS and Android app with support for Philips Hue, LIFX, and NFL/NBA/NHL scoring by Q2</span></li>
+          <li><div class="bp-bullet"></div><span>Reach 25,000 active subscribers and $1.5M ARR by end of year one</span></li>
+          <li><div class="bp-bullet"></div><span>Secure at least one partnership with a smart lighting brand or sports media company</span></li>
+        </ul>
+      </div>
+
+      <div class="bp-two-col reveal">
+        <div class="bp-highlight">
+          <div class="amount">$150K - $350K</div>
+          <div class="label">ESTIMATED STARTUP COST TO MVP</div>
+        </div>
+        <div class="bp-highlight">
+          <div class="amount">$1.5M ARR</div>
+          <div class="label">YEAR ONE REVENUE TARGET</div>
+        </div>
+      </div>
+
+      <div class="bp-section reveal" style="margin-top: 32px;">
+        <div class="bp-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          KEY RISKS
+        </div>
+        <div class="risk-item">
+          <p>Dependency on third-party sports data APIs, which could change pricing or restrict access at any time</p>
+        </div>
+        <div class="risk-item">
+          <p>Smart home ecosystem fragmentation means supporting many platforms, increasing engineering complexity and maintenance costs</p>
+        </div>
+        <div class="risk-item">
+          <p>Potential licensing complications with team logos, official colors, and league branding requirements</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-logo">HOMETEAM</div>
+    <p>This is a concept from the <strong>Steal This Idea</strong> podcast.</p>
+    <p>Discussed in episode: <a href="https://www.youtube.com/watch?v=gyUuWTC2PP0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+    <p style="margin-top: 16px; font-size: 0.85rem; opacity: 0.5;">Not a real company. Yet.</p>
+  </footer>
+
+  <!-- IntersectionObserver scroll animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(el => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>

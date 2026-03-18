@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meet.io | Quick Organic Meetups, Zero Awkwardness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --neon-cyan: #00f0ff;
+      --neon-magenta: #ff00aa;
+      --neon-yellow: #ffe600;
+      --dark-bg: #0a0a1a;
+      --card-bg: #12122a;
+      --text-primary: #f0f0f8;
+      --text-muted: #9a9ab8;
+      --gradient-hero: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Steal This Idea Badge */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: var(--card-bg);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .sti-badge:hover {
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .sti-badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .sti-badge span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: var(--neon-cyan);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,10,26,0.92) 0%, rgba(26,10,46,0.88) 50%, rgba(10,26,46,0.92) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 2rem;
+    }
+    .hero-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      color: var(--neon-cyan);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-tagline {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero-pitch {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      color: var(--dark-bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), 0 0 80px rgba(255, 0, 170, 0.2);
+    }
+    .hero-cta svg { width: 20px; height: 20px; }
+
+    /* Floating grid decoration */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.06;
+      background-image:
+        linear-gradient(var(--neon-cyan) 1px, transparent 1px),
+        linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Glow orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .orb-1 { width: 400px; height: 400px; background: rgba(0,240,255,0.15); top: 10%; right: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(255,0,170,0.12); bottom: 20%; left: -80px; }
+
+    /* Sections */
+    section { padding: 100px 24px; position: relative; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .section-text {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.8;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Problem Section */
+    .problem {
+      background: var(--gradient-hero);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .problem-image {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .problem-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .problem-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(0,240,255,0.15);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+    .problem-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,240,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s ease;
+    }
+    .stat-card:hover {
+      border-color: var(--neon-cyan);
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Solution Section */
+    .solution { background: var(--dark-bg); }
+    .solution-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .flow-step {
+      text-align: center;
+      position: relative;
+    }
+    .flow-step::after {
+      content: '';
+      position: absolute;
+      top: 40px;
+      right: -1rem;
+      width: 2rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), transparent);
+    }
+    .flow-step:last-child::after { display: none; }
+    .flow-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      transition: all 0.3s ease;
+    }
+    .flow-step:hover .flow-icon {
+      background: rgba(0,240,255,0.1);
+      box-shadow: 0 0 30px rgba(0,240,255,0.2);
+    }
+    .flow-icon svg { width: 32px; height: 32px; stroke: var(--neon-cyan); fill: none; stroke-width: 1.5; }
+    .flow-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--neon-magenta);
+      margin-bottom: 0.5rem;
+    }
+    .flow-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .flow-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .solution-image-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .solution-img {
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .solution-img img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .solution-img:hover img { transform: scale(1.05); }
+
+    /* Features Section */
+    .features {
+      background: linear-gradient(180deg, var(--dark-bg) 0%, #0d0d24 100%);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,240,255,0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-card:hover {
+      border-color: rgba(0,240,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(0,240,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .feature-icon svg { width: 24px; height: 24px; stroke: var(--neon-cyan); fill: none; stroke-width: 1.5; }
+    .feature-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Features image */
+    .features-hero-img {
+      margin-top: 3rem;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .features-hero-img img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      display: block;
+    }
+    .features-hero-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, var(--dark-bg) 100%);
+      pointer-events: none;
+    }
+
+    /* Market Section */
+    .market { background: var(--dark-bg); }
+    .market-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .market-img {
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .market-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .market-details { display: flex; flex-direction: column; gap: 1.5rem; }
+    .market-item {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,240,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .market-item h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--neon-cyan);
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    .market-item p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .market-tam {
+      background: linear-gradient(135deg, rgba(0,240,255,0.08), rgba(255,0,170,0.08));
+      border: 1px solid rgba(0,240,255,0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .market-tam .stat-number { font-size: 4rem; }
+    .market-tam p { color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* Business Plan Section */
+    .business-plan {
+      background: linear-gradient(180deg, var(--dark-bg) 0%, #0d0d24 100%);
+    }
+    .bp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .bp-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,240,255,0.08);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .bp-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--neon-cyan);
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bp-card h3 svg { width: 22px; height: 22px; stroke: var(--neon-magenta); fill: none; stroke-width: 1.5; flex-shrink: 0; }
+    .bp-card p, .bp-card li {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .bp-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .bp-card ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .bp-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+    }
+    .bp-full {
+      grid-column: 1 / -1;
+    }
+    .milestones-timeline {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .milestone {
+      flex: 1;
+      position: relative;
+      padding-top: 1.5rem;
+      border-top: 2px solid rgba(0,240,255,0.2);
+    }
+    .milestone::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+    .milestone-time {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: var(--neon-magenta);
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .milestone p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .bp-cost {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .bp-cost-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card-bg);
+      border-top: 1px solid rgba(0,240,255,0.1);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 600px; margin: 0 auto; }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    footer p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .footer-link {
+      color: var(--neon-cyan);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .footer-link:hover { border-bottom-color: var(--neon-cyan); }
+    .footer-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .footer-cta:hover {
+      background: rgba(0,240,255,0.1);
+      box-shadow: 0 0 20px rgba(0,240,255,0.2);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .problem-grid,
+      .solution-flow,
+      .features-grid,
+      .market-layout,
+      .bp-grid,
+      .solution-image-row {
+        grid-template-columns: 1fr;
+      }
+      .flow-step::after { display: none; }
+      .milestones-timeline { flex-direction: column; gap: 1.5rem; }
+      .problem-stats { grid-template-columns: 1fr; }
+      section { padding: 60px 16px; }
+      .sti-badge { top: 12px; left: 12px; padding: 6px 10px; }
+      .sti-badge span { font-size: 0.75rem; }
+      .bp-cost { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge" aria-label="Back to Steal This Idea">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--neon-yellow);">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M9 12h6M12 9l3 3-3 3"/>
+  </svg>
+  <span>Steal This Idea</span>
+</a>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-label reveal">Social Connection, Reinvented</div>
+    <h1 class="reveal">Meet.io</h1>
+    <p class="hero-tagline reveal">Quick organic meetups, zero awkwardness.</p>
+    <p class="hero-pitch reveal">Connect with three strangers for structured, 10-minute video conversations sparked by fun icebreakers. Turn screen time into genuine human connection.</p>
+    <button class="hero-cta reveal" onclick="return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      Start a Meetup
+    </button>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="section-label reveal">The Problem</div>
+    <h2 class="section-title reveal">Isolation Is the New Pandemic</h2>
+    <div class="problem-grid">
+      <div>
+        <p class="section-text reveal">Social distancing and remote work have left millions feeling isolated, stuck in loops of the same few faces and endless social media feeds. You talk to your partner. You scroll Twitter. You repeat. That is not a social life.</p>
+        <br>
+        <p class="section-text reveal">Existing platforms for meeting strangers online (Omegle, Chat Roulette) devolve into toxic, unstructured chaos within minutes. There is no safe, structured way to organically meet new people through video. Until now.</p>
+        <div class="problem-stats reveal">
+          <div class="stat-card">
+            <div class="stat-number">61%</div>
+            <div class="stat-desc">of adults report feeling lonely regularly</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1-2</div>
+            <div class="stat-desc">people the average remote worker sees daily</div>
+          </div>
+        </div>
+      </div>
+      <div class="problem-image reveal">
+        <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80" alt="Person alone at computer" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solution -->
+<section class="solution">
+  <div class="section-inner">
+    <div class="section-label reveal">The Solution</div>
+    <h2 class="section-title reveal">Four People. One Icebreaker. Real Connection.</h2>
+    <p class="section-text reveal" style="margin-bottom: 1rem;">Meet.io groups four people into a video call with a built-in conversation starter. Structure eliminates chaos. Social verification eliminates anonymity. The result: genuine, organic human interaction.</p>
+    <div class="solution-flow">
+      <div class="flow-step reveal">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="flow-num">Step 01</div>
+        <div class="flow-title">Hit Start</div>
+        <p class="flow-desc">Tap one button and get matched with three strangers instantly.</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        </div>
+        <div class="flow-num">Step 02</div>
+        <div class="flow-title">Break the Ice</div>
+        <p class="flow-desc">A prompt appears. One by one, each person unmutes and shares their answer.</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="flow-num">Step 03</div>
+        <div class="flow-title">Talk Freely</div>
+        <p class="flow-desc">The ice is broken. Everyone unmutes for 10 minutes of open conversation.</p>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="flow-num">Step 04</div>
+        <div class="flow-title">Tap to Connect</div>
+        <p class="flow-desc">Mutually tap someone to exchange socials. No match? No pressure.</p>
+      </div>
+    </div>
+    <div class="solution-image-row reveal">
+      <div class="solution-img">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80" alt="People in a video call" loading="lazy">
+      </div>
+      <div class="solution-img">
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Friends laughing together" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+  <div class="section-inner">
+    <div class="section-label reveal">Key Features</div>
+    <h2 class="section-title reveal">Designed for Real Humans</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Structured Icebreakers</h3>
+        <p>Everyone starts muted. A fun prompt appears. One by one, each person shares their answer before the group opens up. No chaos, no talking over each other.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Anti-Toxicity by Design</h3>
+        <p>Four-person groups discourage bad behavior. Social login verification ties accounts to real identities. Skip cooldowns prevent rapid cycling. Community voting flags bad actors fast.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>Mutual Tap System</h3>
+        <p>After each session, tap the people you want to stay connected with. Social profiles are only shared when both sides agree. No unwanted contact, no pressure.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3>Interest + Local Matching</h3>
+        <p>Pro users can filter by keywords like "rock climbing" or "gaming" and match with people in their region. Meet locals who share your passions, not just random strangers.</p>
+      </div>
+    </div>
+    <div class="features-hero-img reveal">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80" alt="People connecting digitally" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- Market -->
+<section class="market">
+  <div class="section-inner">
+    <div class="section-label reveal">Market Opportunity</div>
+    <h2 class="section-title reveal">A Massive, Underserved Need</h2>
+    <div class="market-layout">
+      <div class="market-img reveal">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Diverse group of young people" loading="lazy">
+      </div>
+      <div class="market-details">
+        <div class="market-item reveal">
+          <h4>Primary Audience</h4>
+          <p>Adults aged 20 to 35 experiencing social isolation: remote workers, college students, expats, and anyone who wants to expand their social circle beyond dating apps.</p>
+        </div>
+        <div class="market-item reveal">
+          <h4>Secondary Audience</h4>
+          <p>Corporate team-building facilitators looking for virtual icebreaker tools. Companies with distributed teams who want organic cross-department bonding.</p>
+        </div>
+        <div class="market-item reveal">
+          <h4>Why Now</h4>
+          <p>Video conferencing literacy is at an all-time high. Remote work is permanent for millions. Social isolation is recognized as a public health crisis. The timing has never been better.</p>
+        </div>
+      </div>
+    </div>
+    <div class="market-tam reveal">
+      <div class="stat-number">$980M+</div>
+      <p>Estimated total addressable market. 200M+ isolated adults worldwide. Even 1% conversion at $49/year creates a massive opportunity in the social-but-not-dating niche.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Business Plan -->
+<section class="business-plan">
+  <div class="section-inner">
+    <div class="section-label reveal">Business Plan</div>
+    <h2 class="section-title reveal">The Path to Profitability</h2>
+    <div class="bp-grid">
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Revenue Model
+        </h3>
+        <p>Freemium with ads between sessions on the free tier. Pro tier at $5/month or $49/year unlocks interest-based matching, local filters, unlimited taps, and priority queue. Additional revenue from sponsored conversation prompts and corporate team licenses sold at scale.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Competitive Advantage
+        </h3>
+        <p>The four-person group format with structured icebreakers is a defensible UX innovation that solves the core problems of Omegle-style platforms: toxicity and chaos. Social login raises the barrier for bad actors. No one else combines structure, safety, and serendipity this way.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Go-to-Market Strategy
+        </h3>
+        <p>Launch as a free web app timed with remote work surges and seasonal isolation spikes. Seed users through Reddit communities, TikTok demos showing real sessions, and university partnerships. Every good session produces four potential evangelists, creating a natural viral loop.</p>
+      </div>
+      <div class="bp-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Key Risks
+        </h3>
+        <ul>
+          <li>Content moderation at scale: real-time video moderation is technically challenging, even with design safeguards</li>
+          <li>Chicken-and-egg problem: the platform needs enough concurrent users to form groups quickly, or wait times kill the experience</li>
+          <li>User retention: novelty may wear off if conversation quality is inconsistent across sessions</li>
+        </ul>
+      </div>
+      <div class="bp-card bp-full reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Year One Milestones
+        </h3>
+        <div class="milestones-timeline">
+          <div class="milestone">
+            <div class="milestone-time">Month 3</div>
+            <p>Launch MVP web app and reach 10,000 monthly active users through organic and community-driven growth.</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-time">Month 6</div>
+            <p>Ship Pro tier with interest and location matching. Target 5% free-to-paid conversion rate.</p>
+          </div>
+          <div class="milestone">
+            <div class="milestone-time">Month 12</div>
+            <p>Secure 50 corporate team-building contracts. Reach $500K annual recurring revenue.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bp-card bp-full reveal">
+        <h3>
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Startup Cost Estimate
+        </h3>
+        <div class="bp-cost">
+          <div class="bp-cost-number">$50K -- $150K</div>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Covers MVP development (WebRTC infrastructure, web app, moderation tooling), initial marketing spend, and 6 months of server costs for real-time video at moderate scale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Meet.io</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=a04SZxZu3ro" class="footer-link" target="_blank" rel="noopener">Steal This Idea podcast</a>. It is not a real product (yet). Built to inspire the next generation of founders to take an idea and run with it.</p>
+    <a href="https://www.youtube.com/watch?v=a04SZxZu3ro" class="footer-cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Watch the Episode
+    </a>
+  </div>
+</footer>
+
+<script>
+  // IntersectionObserver for scroll-triggered reveals
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger animations slightly for siblings
+          const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+          let idx = Array.from(siblings).indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, idx * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  });
+</script>
+</body>
+</html>

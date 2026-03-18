@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retreatful - Travel with a Purpose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFFDF9;
+      --forest: #2C4A3E;
+      --forest-dark: #1A3028;
+      --sage: #7A9E8E;
+      --sage-light: #B4CDBE;
+      --terracotta: #C4724E;
+      --terracotta-light: #E8A98A;
+      --earth: #8B7355;
+      --sand: #E8DFD0;
+      --charcoal: #3A3A3A;
+      --text: #2E2E2E;
+      --text-light: #6B6B6B;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Libre Baskerville', serif;
+      line-height: 1.3;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+    .reveal-delay-4 { transition-delay: 0.6s; }
+
+    /* ---- STEAL THIS IDEA BADGE ---- */
+    .sti-badge {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: var(--forest);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-family: 'Karla', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .sti-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+    }
+    .sti-badge svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--terracotta-light);
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.4s ease;
+    }
+    nav.scrolled .nav-logo { color: var(--forest-dark); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.4s ease;
+    }
+    nav.scrolled .nav-links a { color: var(--text-light); }
+    .nav-links a:hover { color: var(--terracotta-light); }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(26,48,40,0.55) 0%, rgba(26,48,40,0.75) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage-light);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .hero-tagline {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      color: var(--terracotta-light);
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .hero-pitch {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+    .btn {
+      display: inline-block;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-family: 'Karla', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--terracotta-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(196, 114, 78, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.1);
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: gentleBounce 2.5s infinite;
+    }
+    .hero-scroll svg { width: 28px; height: 28px; stroke: rgba(255,255,255,0.5); fill: none; }
+
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ---- SECTION COMMON ---- */
+    .section { padding: 100px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--forest-dark);
+      margin-bottom: 20px;
+    }
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 650px;
+      line-height: 1.8;
+    }
+
+    /* ---- PROBLEM ---- */
+    .problem { background: var(--warm-white); }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .problem-image {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .problem-image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .problem-cards { display: flex; flex-direction: column; gap: 24px; }
+    .problem-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      border-left: 4px solid var(--sage);
+      transition: transform 0.3s ease;
+    }
+    .problem-card:hover { transform: translateX(6px); }
+    .problem-card h4 {
+      font-size: 1.05rem;
+      color: var(--forest);
+      margin-bottom: 8px;
+    }
+    .problem-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* ---- SOLUTION ---- */
+    .solution { background: var(--forest-dark); color: #fff; position: relative; overflow: hidden; }
+    .solution .section-label { color: var(--sage-light); }
+    .solution .section-title { color: #fff; }
+    .solution .section-subtitle { color: rgba(255,255,255,0.7); }
+    .solution-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-top: 50px;
+      align-items: center;
+    }
+    .solution-text p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+    .solution-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .solution-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .solution-highlight-icon {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      background: rgba(180, 205, 190, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .solution-highlight-icon svg { width: 18px; height: 18px; stroke: var(--sage-light); fill: none; }
+    .solution-highlight-text h4 { font-size: 0.95rem; margin-bottom: 2px; color: #fff; font-family: 'Karla', sans-serif; font-weight: 700; }
+    .solution-highlight-text p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 0; }
+    .solution-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .solution-images img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .solution-images img:first-child { height: 280px; grid-column: 1 / -1; }
+    .solution-images img:nth-child(2) { height: 200px; }
+    .solution-images img:nth-child(3) { height: 200px; }
+
+    /* ---- FEATURES ---- */
+    .features { background: var(--cream); }
+    .features-header { text-align: center; margin-bottom: 60px; }
+    .features-header .section-subtitle { margin: 0 auto; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 50px rgba(0,0,0,0.1);
+    }
+    .feature-card-img {
+      height: 220px;
+      overflow: hidden;
+    }
+    .feature-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .feature-card:hover .feature-card-img img { transform: scale(1.05); }
+    .feature-card-body { padding: 30px; }
+    .feature-card-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--sand);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-card-icon svg { width: 22px; height: 22px; stroke: var(--forest); fill: none; }
+    .feature-card-body h3 {
+      font-size: 1.2rem;
+      color: var(--forest-dark);
+      margin-bottom: 10px;
+    }
+    .feature-card-body p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* ---- RETREATS SHOWCASE ---- */
+    .retreats-showcase {
+      background: var(--warm-white);
+      padding: 100px 24px;
+    }
+    .retreats-showcase .section-inner { text-align: center; }
+    .retreats-showcase .section-subtitle { margin: 0 auto 50px; }
+    .retreat-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .retreat-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      height: 400px;
+      cursor: pointer;
+    }
+    .retreat-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .retreat-card:hover img { transform: scale(1.08); }
+    .retreat-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(26,48,40,0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      color: #fff;
+    }
+    .retreat-card-tag {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      margin-bottom: 8px;
+    }
+    .retreat-card-overlay h3 { font-size: 1.3rem; margin-bottom: 6px; }
+    .retreat-card-overlay p { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+
+    /* ---- MARKET ---- */
+    .market { background: var(--cream); }
+    .market-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 50px;
+      align-items: start;
+    }
+    .market-text p {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+    .market-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .market-stat {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .market-stat-num {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.2rem;
+      color: var(--terracotta);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .market-stat-label {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+    .market-image {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .market-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ---- BUSINESS PLAN ---- */
+    .business-plan {
+      background: var(--forest-dark);
+      color: #fff;
+      padding: 100px 24px;
+    }
+    .business-plan .section-label { color: var(--sage-light); }
+    .business-plan .section-title { color: #fff; }
+    .bp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+    .bp-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 36px;
+      transition: background 0.3s ease;
+    }
+    .bp-card:hover { background: rgba(255,255,255,0.09); }
+    .bp-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .bp-card-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      background: rgba(180, 205, 190, 0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bp-card-icon svg { width: 20px; height: 20px; stroke: var(--sage-light); fill: none; }
+    .bp-card-header h3 {
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    .bp-card p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+    }
+    .bp-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .bp-card ul li {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .bp-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+    .bp-full {
+      grid-column: 1 / -1;
+    }
+    .bp-cost-tag {
+      display: inline-block;
+      background: rgba(196, 114, 78, 0.2);
+      color: var(--terracotta-light);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 12px;
+    }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      position: relative;
+      padding: 120px 24px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .cta-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(26,48,40,0.7) 0%, rgba(26,48,40,0.85) 100%);
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .cta-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .cta-content p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--forest-dark);
+      color: rgba(255,255,255,0.5);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    footer .footer-inner { max-width: 600px; margin: 0 auto; }
+    .footer-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    footer p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 10px; }
+    footer a { color: var(--terracotta-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--sage);
+      margin: 24px auto;
+      opacity: 0.4;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .problem-grid,
+      .solution-content,
+      .market-layout,
+      .bp-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .retreat-cards { grid-template-columns: 1fr; }
+      .retreat-card { height: 300px; }
+      .nav-links { display: none; }
+      .sti-badge { top: 12px; right: 12px; font-size: 0.78rem; padding: 8px 14px; }
+      .problem-image img { height: 300px; }
+      .market-image img { height: 300px; }
+      .section { padding: 70px 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.6rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .market-stats { grid-template-columns: 1fr; }
+      .solution-images { grid-template-columns: 1fr; }
+      .solution-images img:first-child { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Steal This Idea Badge -->
+  <a href="../index.html" class="sti-badge">
+    <svg viewBox="0 0 24 24"><path d="M9 18c-4.51 2-5-2-7-2 0 0 3 0 4 2 1 2 3 2 3 2m0 0c0 0 2 0 3-2 1-2 4-2 4-2-2 0-2.49 4-7 2z" fill="currentColor" stroke="none"/><path d="M12 2L8.5 8.5 2 9.27l4.5 4.73L5.5 21 12 17.77 18.5 21l-1-7 4.5-4.73-6.5-.77z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+    Steal This Idea
+  </a>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Retreatful</a>
+    <ul class="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#solution">Our Approach</a></li>
+      <li><a href="#retreats">Retreats</a></li>
+      <li><a href="#market">Market</a></li>
+      <li><a href="#plan">Business Plan</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal">Detox. Renew. Recover. Retreat.</div>
+      <h1 class="reveal reveal-delay-1">Retreatful</h1>
+      <p class="hero-tagline reveal reveal-delay-2">Travel with a purpose.</p>
+      <p class="hero-pitch reveal reveal-delay-3">Organized and meaningful vacation retreats for all of life's challenges, transitions, setbacks, and fresh starts. Beautiful destinations. Licensed therapists. Small groups. Real growth.</p>
+      <div class="hero-buttons reveal reveal-delay-4">
+        <a href="#retreats" class="btn btn-primary">Explore Retreats</a>
+        <a href="#solution" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="section problem">
+    <div class="section-inner">
+      <div class="section-label reveal">The Problem</div>
+      <h2 class="section-title reveal">Retreats are broken.</h2>
+      <p class="section-subtitle reveal">When life throws you a curveball, you deserve more than a trust fall and a workbook.</p>
+      <div class="problem-grid">
+        <div class="problem-image reveal">
+          <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=800&q=80" alt="Person sitting alone on a dock looking out at a misty lake">
+        </div>
+        <div class="problem-cards">
+          <div class="problem-card reveal reveal-delay-1">
+            <h4>Corporate Cliches</h4>
+            <p>Ropes courses, icebreakers, and mandatory "synergy" sessions. Most people think of retreats as something their HR department forces on them. The word itself has been co-opted by boardrooms.</p>
+          </div>
+          <div class="problem-card reveal reveal-delay-2">
+            <h4>Fragmented and Forgettable</h4>
+            <p>The few personal retreats that exist are hyper-regional, poorly marketed, and lack any real programming. No recognizable brands. No consistent quality. Just a cabin and a vague promise.</p>
+          </div>
+          <div class="problem-card reveal reveal-delay-3">
+            <h4>Vacations Without Direction</h4>
+            <p>You can book a beach trip or a European tour, but neither addresses what you actually need: space to process a loss, tools to reconnect with a partner, or permission to unplug and reset.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section id="solution" class="section solution">
+    <div class="section-inner">
+      <div class="section-label reveal">The Solution</div>
+      <h2 class="section-title reveal">Vacations that actually change you.</h2>
+      <p class="section-subtitle reveal">Retreatful pairs world-class destinations with therapist-led programming built around life's biggest moments.</p>
+      <div class="solution-content">
+        <div class="solution-text">
+          <p class="reveal">Every Retreatful retreat is five days in a stunning, remote location. Small groups of 15 people connect through guided conversations, shared activities, and intentional downtime. No workbooks. No lectures. Just real growth set against the backdrop of a beautiful trip you would have wanted to take anyway.</p>
+          <div class="solution-highlights">
+            <div class="solution-highlight reveal reveal-delay-1">
+              <div class="solution-highlight-icon">
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div class="solution-highlight-text">
+                <h4>5-Day Immersive Format</h4>
+                <p>Long enough to create real breakthroughs, short enough to fit your life.</p>
+              </div>
+            </div>
+            <div class="solution-highlight reveal reveal-delay-2">
+              <div class="solution-highlight-icon">
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="solution-highlight-text">
+                <h4>Intimate Groups of 15</h4>
+                <p>Strangers becoming confidants in a curated, safe environment.</p>
+              </div>
+            </div>
+            <div class="solution-highlight reveal reveal-delay-3">
+              <div class="solution-highlight-icon">
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div class="solution-highlight-text">
+                <h4>Licensed Therapist-Led</h4>
+                <p>Real professionals guiding every conversation and activity.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="solution-images reveal">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" alt="Mountain lake at golden hour with reflections">
+          <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80" alt="Group of friends sharing a meal outdoors at sunset">
+          <img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80" alt="Campfire at night under the stars">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section features">
+    <div class="section-inner">
+      <div class="features-header">
+        <div class="section-label reveal">How It Works</div>
+        <h2 class="section-title reveal">Built for transformation.</h2>
+        <p class="section-subtitle reveal">Every element is designed to help you show up, open up, and leave lighter than you arrived.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=800&q=80" alt="Two people having a meaningful conversation outdoors">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>Therapist-Led Programming</h3>
+            <p>Each retreat is guided by licensed professionals specializing in the specific life transition at hand: grief, divorce recovery, couples renewal, new parenthood, creativity, or digital detox.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" alt="Dramatic mountain landscape at sunrise">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3>Stunning Remote Locations</h3>
+            <p>Big Sur. The Redwoods. Moab. The Smoky Mountains. Every retreat takes place in a breathtaking, remote location paired with curated local activities like kayaking, wine tasting, and fireside conversations.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Small group of people walking together in nature">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Intimate Group Connection</h3>
+            <p>Groups of just 15 people create genuine bonds with others facing similar challenges. Breakout sessions, partner activities, and group fireside chats all foster deep, meaningful relationships.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-card-img">
+            <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80" alt="Cozy cabin in the woods with warm lighting">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <h3>Scalable Franchise Model</h3>
+            <p>Licensed therapists and counselors can launch their own Retreatful retreats with full brand support, marketing resources, proven playbooks, and booking infrastructure. One brand, many voices.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RETREATS SHOWCASE -->
+  <section id="retreats" class="retreats-showcase">
+    <div class="section-inner">
+      <div class="section-label reveal">Sample Retreats</div>
+      <h2 class="section-title reveal">A retreat for every chapter.</h2>
+      <p class="section-subtitle reveal">From heartbreak to new beginnings, every transition deserves intention, beauty, and support.</p>
+      <div class="retreat-cards">
+        <div class="retreat-card reveal">
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=800&q=80" alt="Coastal sunset over Big Sur cliffs">
+          <div class="retreat-card-overlay">
+            <div class="retreat-card-tag">Couples Renewal</div>
+            <h3>Reconnect in Big Sur</h3>
+            <p>5 days on the California coast. Guided conversations, sunset hikes, and intentional reconnection.</p>
+          </div>
+        </div>
+        <div class="retreat-card reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" alt="Towering redwood trees with sunlight filtering through">
+          <div class="retreat-card-overlay">
+            <div class="retreat-card-tag">Grief and Loss</div>
+            <h3>Heal in the Redwoods</h3>
+            <p>5 days among ancient trees. Fireside chats, kayaking, and space to process and find peace.</p>
+          </div>
+        </div>
+        <div class="retreat-card reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80" alt="Open road through desert landscape in Moab">
+          <div class="retreat-card-overlay">
+            <div class="retreat-card-tag">Digital Detox</div>
+            <h3>Reset in Moab</h3>
+            <p>5 days unplugged in the Utah desert. Mindfulness practices, creative exploration, and human connection.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market" class="section market">
+    <div class="section-inner">
+      <div class="section-label reveal">The Opportunity</div>
+      <h2 class="section-title reveal">A massive market, waiting.</h2>
+      <p class="section-subtitle reveal">Wellness tourism and mental health services are converging into one of the fastest growing categories in travel.</p>
+      <div class="market-layout">
+        <div>
+          <div class="market-text reveal">
+            <p>Adults aged 25 to 50 with mid-to-upper incomes are prioritizing experiences over possessions, mental health over hustle culture, and intentional travel over passive vacations. This generation spends more on wellness, therapy, and personal development than any before it.</p>
+            <p>Yet no single brand owns the "therapeutic travel retreat" category. The existing landscape is fragmented: regional operators with poor websites, inconsistent quality, and zero brand recognition. Retreatful steps into a wide open space with a scalable model and a clear value proposition.</p>
+          </div>
+          <div class="market-stats reveal">
+            <div class="market-stat">
+              <div class="market-stat-num">$450B+</div>
+              <div class="market-stat-label">US Wellness Tourism Market</div>
+            </div>
+            <div class="market-stat">
+              <div class="market-stat-num">$280B+</div>
+              <div class="market-stat-label">US Mental Health Services</div>
+            </div>
+            <div class="market-stat">
+              <div class="market-stat-num">$5-10B</div>
+              <div class="market-stat-label">Addressable Market (est.)</div>
+            </div>
+            <div class="market-stat">
+              <div class="market-stat-num">76%</div>
+              <div class="market-stat-label">Millennials Prefer Experiences</div>
+            </div>
+          </div>
+        </div>
+        <div class="market-image reveal">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Tropical beach with turquoise water and palm trees">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS PLAN -->
+  <section id="plan" class="business-plan">
+    <div class="section-inner">
+      <div class="section-label reveal">The Business Plan</div>
+      <h2 class="section-title reveal">From first retreat to franchise.</h2>
+      <div class="bp-grid">
+        <div class="bp-card reveal">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3>Revenue Model</h3>
+          </div>
+          <p>Per-person retreat fees ranging from $1,000 to $2,500 for a 5-day experience. At 15 guests per retreat and 4 retreats per month per location, a single location generates roughly $60K to $150K monthly. Additional revenue from franchise licensing fees and group-rate activity margins.</p>
+        </div>
+        <div class="bp-card reveal reveal-delay-1">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3>Go-to-Market Strategy</h3>
+          </div>
+          <p>Launch with three flagship retreats run hands-on by the founding team: couples in Big Sur, grief in the Redwoods, digital detox in Moab. Market through targeted digital ads mirroring existing life-event indicators (divorce attorneys, grief resources, parenting blogs) and therapist referral partnerships.</p>
+        </div>
+        <div class="bp-card reveal">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h3>Competitive Advantage</h3>
+          </div>
+          <p>No established brand currently owns this category. Existing retreats are fragmented, poorly marketed, and hyper-regional. Retreatful combines vacation-quality travel with structured therapeutic programming under one recognizable brand, then scales through a franchise model that gives therapists proven playbooks.</p>
+        </div>
+        <div class="bp-card reveal reveal-delay-1">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>Year One Milestones</h3>
+          </div>
+          <ul>
+            <li>Execute 12 flagship retreats across 3 locations with 80%+ occupancy and strong NPS scores</li>
+            <li>Onboard 5 licensed therapist-operators into the franchise model with full brand and marketing support</li>
+            <li>Build a waitlist of 500+ interested participants through digital marketing and therapist referral channels</li>
+          </ul>
+        </div>
+        <div class="bp-card reveal">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3>Key Risks</h3>
+          </div>
+          <ul>
+            <li>Liability and regulatory complexity around combining therapeutic services with travel across state lines</li>
+            <li>High upfront cost of securing locations, therapists, and programming before proving demand</li>
+            <li>Overcoming the negative connotation of "retreat" and differentiating from corporate or yoga-cliche associations</li>
+          </ul>
+        </div>
+        <div class="bp-card reveal reveal-delay-1">
+          <div class="bp-card-header">
+            <div class="bp-card-icon">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <h3>Startup Cost Estimate</h3>
+          </div>
+          <p>Getting from concept to first three operational retreats with marketing, therapist contracts, location deposits, website, and working capital.</p>
+          <div class="bp-cost-tag">$50,000 to $150,000</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+      <h2 class="reveal">Ready to travel with purpose?</h2>
+      <p class="reveal reveal-delay-1">Join the waitlist for Retreatful's first guided retreats. Beautiful places, meaningful conversations, real transformation.</p>
+      <a href="#" class="btn btn-primary reveal reveal-delay-2">Join the Waitlist</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Retreatful</div>
+      <p>This is a concept from the <strong>Steal This Idea</strong> podcast. It is not a real company (yet). If you want to build it, steal it.</p>
+      <div class="footer-divider"></div>
+      <p>Listen to the episode: <a href="https://www.youtube.com/watch?v=24VURlEMix0" target="_blank" rel="noopener">Steal This Idea: Retreatful</a></p>
+      <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">Concept designed for the Steal This Idea podcast. All rights to the idea belong to nobody. That is the point.</p>
+    </div>
+  </footer>
+
+  <script>
+    // IntersectionObserver for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

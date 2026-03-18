@@ -1,0 +1,34 @@
+{
+  "slug": "hometeam",
+  "company_name": "HomeTeam",
+  "tagline": "Your home celebrates every score.",
+  "elevator_pitch": "HomeTeam syncs your smart home lights, soundbars, and LEDs with live sports data so your entire room erupts in team colors when your team scores. It works with lights you already own, supports every major league and esports, and turns any room into the ultimate fan cave.",
+  "problem": "Sports fans want an immersive game-day experience at home, but setting up automated light shows tied to live scores requires deep technical knowledge of home automation and sports APIs. Right now, only Reddit-savvy hobbyists can pull it off, leaving millions of passionate fans without an easy solution.",
+  "solution": "HomeTeam provides an app that bridges live sports scoring APIs with popular smart home ecosystems like Philips Hue, LIFX, and Nanoleaf. Pick your teams, connect your lights, and your home instantly reacts to every goal, touchdown, or three-pointer with team-colored celebrations. For fans who want the full setup, HomeTeam also offers professional installation packages.",
+  "target_market": "Sports fans aged 21-45 who already own or are interested in smart home devices. Secondary markets include esports fans, sports bars, and man-cave enthusiasts. The intersection of the 80M+ U.S. fantasy sports players and the growing smart home market represents a massive opportunity.",
+  "revenue_model": "Freemium app subscription: free tier supports one team with basic color changes; $9.99/month Pro tier unlocks unlimited teams, custom celebrations, soundbar integration, and esports support. Hardware bundles sold through the website at $149-$399. Professional installation packages at $299-$799. B2B licensing for sports bars and venues.",
+  "key_features": [
+    "Live score sync that triggers real-time light shows in your team colors the instant a score happens",
+    "Works with existing smart home ecosystems including Philips Hue, LIFX, Nanoleaf, and WLED",
+    "Supports NFL, NBA, MLB, NHL, MLS, Premier League, college sports, and major esports leagues",
+    "Custom celebration profiles: set unique light patterns, soundbar effects, and intensity for different events like goals, wins, and playoffs"
+  ],
+  "competitive_advantage": "No productized solution currently exists for this. DIY setups require hours of configuration across multiple platforms. HomeTeam is the first to package sports-triggered home automation into a consumer-friendly app with plug-and-play simplicity. First-mover advantage in a space where fan passion and smart home adoption are both growing rapidly.",
+  "market_size_estimate": "The U.S. smart home market is projected at $64B by 2026. The U.S. sports industry generates $80B+ annually. Fantasy sports alone has 80M+ users. Even capturing 1% of smart-home sports fans yields a TAM north of $500M.",
+  "go_to_market": "Launch with an app supporting Philips Hue and the NFL/NBA, targeting sports subreddits and home automation communities where demand is already proven. Partner with smart lighting brands for co-marketing. Run campaigns during NFL kickoff and March Madness to capture peak fan engagement.",
+  "risks": [
+    "Dependency on third-party sports data APIs which could change pricing or access terms",
+    "Smart home fragmentation means supporting many ecosystems, increasing engineering complexity",
+    "Potential licensing issues with team logos, colors, and official branding from leagues"
+  ],
+  "year_one_milestones": [
+    "Launch iOS and Android app with support for Philips Hue, LIFX, and NFL/NBA/NHL scoring by Q2",
+    "Reach 25,000 active subscribers and $1.5M ARR by end of year one",
+    "Secure one partnership with a smart lighting brand or sports media company"
+  ],
+  "startup_cost_range": "$150K - $350K",
+  "category": "Consumer",
+  "vibe": "bold",
+  "episode_url": "https://www.youtube.com/watch?v=gyUuWTC2PP0",
+  "episode_number": 111
+}

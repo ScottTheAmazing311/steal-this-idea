@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bon Appetit - Restaurants Compete. You Eat. Everyone Wins.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --coral:#FF6B6B;
+  --peach:#FFECD2;
+  --gold:#FFB347;
+  --teal:#2EC4B6;
+  --deep:#1A1A2E;
+  --cream:#FFF9F0;
+  --plum:#6C3483;
+  --mint:#A8E6CF;
+  --warm-white:#FFFAF5;
+  --shadow:0 8px 32px rgba(0,0,0,0.1);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;
+  color:#333;
+  background:var(--warm-white);
+  overflow-x:hidden;
+  line-height:1.7;
+}
+h1,h2,h3,h4{font-family:'Fredoka',sans-serif;line-height:1.2}
+
+/* STI Badge */
+.sti-badge{
+  position:fixed;top:20px;left:20px;z-index:1000;
+  background:var(--deep);color:#fff;
+  padding:10px 18px;border-radius:50px;
+  text-decoration:none;font-family:'Fredoka',sans-serif;
+  font-size:0.85rem;font-weight:600;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+  transition:transform 0.3s,background 0.3s;
+  display:flex;align-items:center;gap:8px;
+}
+.sti-badge:hover{transform:scale(1.05);background:var(--coral)}
+.sti-badge svg{width:18px;height:18px;fill:var(--gold)}
+
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(60px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* Hero */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1564808868420-8aff5890528b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,107,107,0.85) 0%,rgba(255,179,71,0.75) 50%,rgba(46,196,182,0.8) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;
+  padding:40px 20px;max-width:800px;
+}
+.hero-content h1{
+  font-size:clamp(3rem,8vw,6rem);color:#fff;
+  margin-bottom:16px;letter-spacing:-1px;
+  text-shadow:0 4px 30px rgba(0,0,0,0.15);
+}
+.hero-tagline{
+  font-size:clamp(1.2rem,3vw,1.8rem);color:#fff;
+  font-weight:600;margin-bottom:24px;
+  font-family:'Fredoka',sans-serif;
+  opacity:0.95;
+}
+.hero-pitch{
+  font-size:1.1rem;color:rgba(255,255,255,0.92);
+  max-width:600px;margin:0 auto 40px;line-height:1.8;
+}
+.btn{
+  display:inline-block;padding:16px 40px;
+  border-radius:50px;font-family:'Fredoka',sans-serif;
+  font-size:1.1rem;font-weight:600;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+.btn-primary{background:#fff;color:var(--coral)}
+.btn-secondary{background:var(--coral);color:#fff}
+.btn-teal{background:var(--teal);color:#fff}
+
+.hero-shapes{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero-shapes .circle{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+}
+.hero-shapes .c1{width:400px;height:400px;top:-100px;right:-100px}
+.hero-shapes .c2{width:250px;height:250px;bottom:-50px;left:-80px}
+.hero-shapes .c3{width:150px;height:150px;top:40%;left:10%}
+
+/* Section base */
+section{padding:100px 20px}
+.container{max-width:1100px;margin:0 auto}
+.section-label{
+  display:inline-block;
+  font-family:'Fredoka',sans-serif;
+  font-size:0.85rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:3px;
+  color:var(--coral);margin-bottom:12px;
+}
+.section-title{
+  font-size:clamp(2rem,5vw,3rem);
+  margin-bottom:24px;color:var(--deep);
+}
+.section-text{
+  font-size:1.05rem;color:#555;max-width:700px;line-height:1.9;
+}
+
+/* Problem */
+.problem{background:var(--cream)}
+.problem-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;margin-top:50px;
+}
+.problem-image{
+  border-radius:24px;overflow:hidden;
+  box-shadow:var(--shadow);
+  aspect-ratio:4/3;
+}
+.problem-image img{width:100%;height:100%;object-fit:cover;display:block}
+.problem-cards{display:flex;flex-direction:column;gap:20px}
+.problem-card{
+  background:#fff;padding:28px;border-radius:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06);
+  display:flex;align-items:flex-start;gap:16px;
+  transition:transform 0.3s;
+}
+.problem-card:hover{transform:translateX(8px)}
+.problem-icon{
+  flex-shrink:0;width:48px;height:48px;
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+}
+.problem-icon svg{width:24px;height:24px}
+.pi-coral{background:rgba(255,107,107,0.15)}
+.pi-coral svg{fill:var(--coral)}
+.pi-gold{background:rgba(255,179,71,0.15)}
+.pi-gold svg{fill:var(--gold)}
+.pi-teal{background:rgba(46,196,182,0.15)}
+.pi-teal svg{fill:var(--teal)}
+.problem-card h4{font-size:1.05rem;margin-bottom:4px;color:var(--deep)}
+.problem-card p{font-size:0.92rem;color:#666;line-height:1.6}
+
+/* Full width image break */
+.image-break{
+  width:100%;height:400px;overflow:hidden;
+  position:relative;
+}
+.image-break img{width:100%;height:100%;object-fit:cover;display:block}
+.image-break .overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(255,249,240,1) 0%,transparent 15%,transparent 85%,rgba(255,249,240,1) 100%);
+}
+
+/* Solution */
+.solution{background:var(--warm-white)}
+.solution-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;margin-top:50px;
+}
+.solution-visual{position:relative}
+.solution-phone{
+  width:280px;margin:0 auto;
+  background:var(--deep);border-radius:36px;
+  padding:12px;box-shadow:0 20px 60px rgba(0,0,0,0.2);
+}
+.solution-phone-inner{
+  border-radius:28px;overflow:hidden;aspect-ratio:9/16;
+}
+.solution-phone-inner img{width:100%;height:100%;object-fit:cover;display:block}
+.solution-bubble{
+  position:absolute;background:#fff;padding:14px 20px;
+  border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.12);
+  font-size:0.88rem;font-weight:600;color:var(--deep);
+  white-space:nowrap;
+  animation:float 3s ease-in-out infinite;
+}
+.bubble-1{top:15%;right:-30px;animation-delay:0s}
+.bubble-2{bottom:25%;left:-40px;animation-delay:1s}
+.bubble-3{top:50%;right:-50px;animation-delay:2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.bubble-dot{
+  display:inline-block;width:8px;height:8px;
+  border-radius:50%;margin-right:8px;vertical-align:middle;
+}
+.solution-steps{display:flex;flex-direction:column;gap:32px}
+.solution-step{display:flex;align-items:flex-start;gap:20px}
+.step-num{
+  flex-shrink:0;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;
+}
+.step-num-1{background:var(--coral)}
+.step-num-2{background:var(--gold)}
+.step-num-3{background:var(--teal)}
+.solution-step h4{font-size:1.1rem;color:var(--deep);margin-bottom:6px}
+.solution-step p{font-size:0.95rem;color:#666;line-height:1.7}
+
+/* Features */
+.features{
+  background:linear-gradient(135deg,var(--coral) 0%,var(--gold) 100%);
+  position:relative;overflow:hidden;
+}
+.features .section-label{color:rgba(255,255,255,0.7)}
+.features .section-title{color:#fff}
+.features .section-text{color:rgba(255,255,255,0.9)}
+.features-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:28px;
+  margin-top:50px;
+}
+.feature-card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:24px;padding:36px;
+  transition:transform 0.3s,background 0.3s;
+  overflow:hidden;position:relative;
+}
+.feature-card:hover{
+  transform:translateY(-6px);
+  background:rgba(255,255,255,0.25);
+}
+.feature-card-img{
+  width:100%;height:160px;border-radius:16px;overflow:hidden;
+  margin-bottom:20px;
+}
+.feature-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.feature-icon{
+  width:52px;height:52px;border-radius:16px;
+  background:rgba(255,255,255,0.25);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;
+}
+.feature-icon svg{width:26px;height:26px;fill:#fff}
+.feature-card h3{
+  font-size:1.2rem;color:#fff;margin-bottom:10px;
+}
+.feature-card p{
+  font-size:0.92rem;color:rgba(255,255,255,0.88);line-height:1.7;
+}
+
+/* Market */
+.market{background:var(--cream)}
+.market-top{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  align-items:center;margin-top:50px;
+}
+.market-image{
+  border-radius:24px;overflow:hidden;
+  box-shadow:var(--shadow);aspect-ratio:4/3;
+}
+.market-image img{width:100%;height:100%;object-fit:cover;display:block}
+.market-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.stat-card{
+  background:#fff;padding:28px;border-radius:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06);text-align:center;
+}
+.stat-num{
+  font-family:'Fredoka',sans-serif;
+  font-size:2.2rem;font-weight:700;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.stat-label{font-size:0.88rem;color:#777;margin-top:4px}
+
+/* Business Plan */
+.biz-plan{background:var(--warm-white)}
+.biz-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:28px;
+  margin-top:50px;
+}
+.biz-card{
+  background:#fff;padding:36px;border-radius:24px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  border-top:4px solid var(--coral);
+  transition:transform 0.3s;
+}
+.biz-card:hover{transform:translateY(-4px)}
+.biz-card.teal-border{border-top-color:var(--teal)}
+.biz-card.gold-border{border-top-color:var(--gold)}
+.biz-card.plum-border{border-top-color:var(--plum)}
+.biz-card.mint-border{border-top-color:var(--mint)}
+.biz-card.deep-border{border-top-color:var(--deep)}
+.biz-card-header{
+  display:flex;align-items:center;gap:14px;margin-bottom:18px;
+}
+.biz-card-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.biz-card-icon svg{width:22px;height:22px}
+.bci-coral{background:rgba(255,107,107,0.12)}
+.bci-coral svg{fill:var(--coral)}
+.bci-teal{background:rgba(46,196,182,0.12)}
+.bci-teal svg{fill:var(--teal)}
+.bci-gold{background:rgba(255,179,71,0.12)}
+.bci-gold svg{fill:var(--gold)}
+.bci-plum{background:rgba(108,52,131,0.12)}
+.bci-plum svg{fill:var(--plum)}
+.bci-mint{background:rgba(168,230,207,0.3)}
+.bci-mint svg{fill:#2a9d6a}
+.bci-deep{background:rgba(26,26,46,0.1)}
+.bci-deep svg{fill:var(--deep)}
+.biz-card h3{font-size:1.15rem;color:var(--deep)}
+.biz-card p{font-size:0.93rem;color:#555;line-height:1.8}
+.biz-card ul{list-style:none;padding:0}
+.biz-card li{
+  font-size:0.93rem;color:#555;line-height:1.8;
+  padding:6px 0;padding-left:24px;position:relative;
+}
+.biz-card li::before{
+  content:'';position:absolute;left:0;top:14px;
+  width:10px;height:10px;border-radius:50%;
+}
+.biz-card.coral-bullets li::before{background:var(--coral)}
+.biz-card.teal-bullets li::before{background:var(--teal)}
+.biz-card.gold-bullets li::before{background:var(--gold)}
+.biz-card.plum-bullets li::before{background:var(--plum)}
+.biz-card.mint-bullets li::before{background:var(--mint)}
+.biz-card.deep-bullets li::before{background:var(--deep)}
+
+.biz-full{grid-column:1/-1}
+.cost-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  color:#fff;padding:10px 28px;border-radius:50px;
+  font-family:'Fredoka',sans-serif;
+  font-size:1.3rem;font-weight:700;
+  margin-top:12px;
+}
+
+/* Footer */
+footer{
+  background:var(--deep);color:rgba(255,255,255,0.7);
+  padding:60px 20px;text-align:center;
+}
+footer p{font-size:0.95rem;line-height:1.8}
+footer a{color:var(--gold);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.footer-brand{
+  font-family:'Fredoka',sans-serif;
+  font-size:1.8rem;color:#fff;margin-bottom:12px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .problem-grid,.solution-layout,.market-top{
+    grid-template-columns:1fr;gap:40px;
+  }
+  .features-grid,.biz-grid,.market-stats{
+    grid-template-columns:1fr;
+  }
+  .solution-visual{order:-1}
+  .solution-phone{width:220px}
+  .solution-bubble{display:none}
+  .image-break{height:250px}
+  section{padding:70px 20px}
+  .hero-content h1{font-size:clamp(2.5rem,10vw,4rem)}
+}
+</style>
+</head>
+<body>
+
+<!-- STI Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+  Steal This Idea
+</a>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-shapes">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+  </div>
+  <div class="hero-content">
+    <h1>Bon Appetit</h1>
+    <p class="hero-tagline">Restaurants compete. You eat. Everyone wins.</p>
+    <p class="hero-pitch">Tap "I'm Hungry" and nearby restaurants will fight for your visit with real-time deals, free appetizers, and exclusive offers. No more guessing, no more endless scrolling.</p>
+    <a href="#solution" class="btn btn-primary">See How It Works</a>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">Choosing where to eat<br>shouldn't be this hard.</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-image reveal-left">
+        <img src="https://images.unsplash.com/photo-1649801563719-228ca578800c?auto=format&fit=crop&w=1200&q=80" alt="Busy restaurant street with many choices" loading="lazy">
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card reveal-right">
+          <div class="problem-icon pi-coral">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <div>
+            <h4>Yelp ratings all blur together</h4>
+            <p>What is the real difference between 4.2 and 4.6 stars? A couple of bad experiences, maybe a slow waiter. It tells you almost nothing useful.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal-right" style="transition-delay:0.15s">
+          <div class="problem-icon pi-gold">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <h4>Hidden gems stay hidden</h4>
+            <p>The best local sushi spot is two blocks away, but it is not on your radar. Search algorithms favor big names, not authentic finds.</p>
+          </div>
+        </div>
+        <div class="problem-card reveal-right" style="transition-delay:0.3s">
+          <div class="problem-icon pi-teal">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+          </div>
+          <div>
+            <h4>Restaurants waste money on old marketing</h4>
+            <p>Coupon mailers, penny savers, generic ads. Restaurants spend thousands reaching people who will never walk through the door.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image Break -->
+<div class="image-break">
+  <img src="https://images.unsplash.com/photo-1767907573109-492de5a9697a?auto=format&fit=crop&w=1200&q=80" alt="Street food and travel dining scene" loading="lazy">
+  <div class="overlay"></div>
+</div>
+
+<!-- Solution -->
+<section class="solution" id="solution">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">The Solution</span>
+      <h2 class="section-title">One tap. Real offers.<br>Your next meal, decided.</h2>
+    </div>
+    <div class="solution-layout">
+      <div class="solution-visual reveal-left">
+        <div class="solution-phone">
+          <div class="solution-phone-inner">
+            <img src="https://images.unsplash.com/photo-1561284081-ebf6c977bbde?auto=format&fit=crop&w=1200&q=80" alt="Phone showing food app interface" loading="lazy">
+          </div>
+        </div>
+        <div class="solution-bubble bubble-1">
+          <span class="bubble-dot" style="background:var(--coral)"></span>Free appetizer nearby
+        </div>
+        <div class="solution-bubble bubble-2">
+          <span class="bubble-dot" style="background:var(--teal)"></span>2 cocktails on us
+        </div>
+        <div class="solution-bubble bubble-3">
+          <span class="bubble-dot" style="background:var(--gold)"></span>Chef's special tonight
+        </div>
+      </div>
+      <div class="solution-steps">
+        <div class="solution-step reveal-right">
+          <div class="step-num step-num-1">1</div>
+          <div>
+            <h4>Tap "I'm Hungry"</h4>
+            <p>Open Bon Appetit and broadcast your appetite. The app pings every partner restaurant within walking distance of your location.</p>
+          </div>
+        </div>
+        <div class="solution-step reveal-right" style="transition-delay:0.15s">
+          <div class="step-num step-num-2">2</div>
+          <div>
+            <h4>Restaurants send you offers</h4>
+            <p>Hosts and owners see your request in real time. They craft personalized deals: free drinks, bonus appetizers, featured dishes, priority seating.</p>
+          </div>
+        </div>
+        <div class="solution-step reveal-right" style="transition-delay:0.3s">
+          <div class="step-num step-num-3">3</div>
+          <div>
+            <h4>Pick the best deal, go eat</h4>
+            <p>Compare offers, check menus and photos, then walk right in. The restaurant knows you are coming, and your freebie is waiting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-label">Key Features</span>
+      <h2 class="section-title">Built for hungry people<br>and smart restaurants.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1508291167-c1f96536d450?auto=format&fit=crop&w=1200&q=80" alt="Person using phone at restaurant" loading="lazy">
+        </div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+        </div>
+        <h3>One-Tap "I'm Hungry" Broadcast</h3>
+        <p>A single tap pings every partner restaurant nearby. No searching, no scrolling, no filters. Just honest hunger, instantly communicated.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.1s">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1651978595425-a4977c4666fd?auto=format&fit=crop&w=1200&q=80" alt="Restaurant preparing food" loading="lazy">
+        </div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <h3>Live Restaurant Dashboard</h3>
+        <p>Restaurant owners and hosts craft real-time offers from their iPad or phone. Slow night? Push a deal. Big cancellation? Fill those seats in minutes.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.2s">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1629667644917-6a2789dedfd0?auto=format&fit=crop&w=1200&q=80" alt="Hidden gem restaurant" loading="lazy">
+        </div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+        </div>
+        <h3>Smart Discovery Engine</h3>
+        <p>Surfaces hidden gems and local favorites that would never show up in a generic search. Three-star spots with incredible dishes finally get their moment.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.3s">
+        <div class="feature-card-img">
+          <img src="https://images.unsplash.com/photo-1562696132-f5a1aea6b759?auto=format&fit=crop&w=1200&q=80" alt="Menu and loyalty cards" loading="lazy">
+        </div>
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg>
+        </div>
+        <h3>Menus, Loyalty, and Guides</h3>
+        <p>Browse full menus, store all your loyalty cards in one place, and explore curated local dining guides. Everything a foodie needs, in one app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Market -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Market Opportunity</span>
+      <h2 class="section-title">A massive, underserved market<br>hungry for innovation.</h2>
+    </div>
+    <div class="market-top">
+      <div class="market-image reveal-left">
+        <img src="https://images.unsplash.com/photo-1768898795091-89d6cc47d4c9?auto=format&fit=crop&w=1200&q=80" alt="Vibrant restaurant district with diners" loading="lazy">
+      </div>
+      <div class="reveal-right">
+        <p class="section-text">Tourists and travelers in food-centric destinations (ages 22 to 45), local foodies, and couples who eat out frequently but struggle with dining indecision. On the supply side: restaurant owners desperate for smarter, real-time marketing tools that actually drive traffic.</p>
+        <div class="market-stats">
+          <div class="stat-card">
+            <div class="stat-num">$35B+</div>
+            <div class="stat-label">Global restaurant marketing &amp; discovery market</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">$10B</div>
+            <div class="stat-label">U.S. restaurant ad spend annually</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">$150B+</div>
+            <div class="stat-label">Global food tourism segment</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">70%</div>
+            <div class="stat-label">of diners say choosing where to eat is stressful</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business Plan -->
+<section class="biz-plan" id="business-plan">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-label">Business Plan</span>
+      <h2 class="section-title">The playbook for growth.</h2>
+    </div>
+    <div class="biz-grid">
+      <!-- Revenue Model -->
+      <div class="biz-card reveal">
+        <div class="biz-card-header">
+          <div class="biz-card-icon bci-coral">
+            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          </div>
+          <h3>Revenue Model</h3>
+        </div>
+        <p>Freemium SaaS for restaurants. Basic listing and offer capability is free. Premium tiers ($49 to $199/month) unlock analytics dashboards, demographic insights, peak-time data, advanced promotion tools, and priority placement. Additional revenue from featured placements and loyalty program integrations.</p>
+      </div>
+
+      <!-- Go to Market -->
+      <div class="biz-card teal-border reveal" style="transition-delay:0.1s">
+        <div class="biz-card-header">
+          <div class="biz-card-icon bci-teal">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <h3>Go-to-Market Strategy</h3>
+        </div>
+        <p>Launch in 3 to 5 major tourist destinations (Rome, Tokyo, Cancun) by signing up restaurant clusters in high-traffic dining districts. Offer the app free to both sides initially to build network density. Partner with travel influencers and hotel concierge services to drive tourist downloads. Expand to U.S. foodie cities (NYC, LA, Austin) once the model is proven.</p>
+      </div>
+
+      <!-- Competitive Advantage -->
+      <div class="biz-card gold-border reveal" style="transition-delay:0.2s">
+        <div class="biz-card-header">
+          <div class="biz-card-icon bci-gold">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <h3>Competitive Advantage</h3>
+        </div>
+        <p>Unlike Yelp or Google Maps, which show static reviews, Bon Appetit creates a live, two-way marketplace where restaurants actively compete for your visit with real-time incentives. Every session is different, offers are personalized, and restaurants can solve supply problems (cancellations, surplus inventory, slow nights) instantly.</p>
+      </div>
+
+      <!-- Year One Milestones -->
+      <div class="biz-card plum-border coral-bullets reveal" style="transition-delay:0.3s">
+        <div class="biz-card-header">
+          <div class="biz-card-icon bci-plum">
+            <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <h3>Year One Milestones</h3>
+        </div>
+        <ul>
+          <li>Launch in 3 tourist-heavy cities with 500+ restaurant partners and 50,000 app downloads</li>
+          <li>Achieve 15% weekly active user rate with an average of 2+ dining sessions per active user per month</li>
+          <li>Convert 10% of free restaurant partners to premium paid tiers, reaching $25K monthly recurring revenue</li>
+        </ul>
+      </div>
+
+      <!-- Startup Cost -->
+      <div class="biz-card mint-border reveal" style="transition-delay:0.4s">
+        <div class="biz-card-header">
+          <div class="biz-card-icon bci-mint">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+          </div>
+          <h3>Startup Cost Estimate</h3>
+        </div>
+        <p>Estimated investment to reach MVP and initial market launch:</p>
+        <div class="cost-badge">$150K - $350K</div>
+      </div>
+
+      <!-- Key Risks -->
+      <div class="biz-card deep-border coral-bullets reveal" style="transition-delay:0.5s">
+        <div class="biz-card-header">
+          <div class="biz-card-icon bci-deep">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          </div>
+          <h3>Key Risks</h3>
+        </div>
+        <ul>
+          <li>Classic chicken-and-egg marketplace problem: need enough restaurants to attract users and enough users to attract restaurants</li>
+          <li>Established players like Yelp, Google Maps, and OpenTable could replicate the real-time offer feature with their existing user bases</li>
+          <li>Restaurants may resist giving away free items or discounts if they do not see measurable ROI quickly enough</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">Bon Appetit</div>
+    <p>This is a concept from the <a href="https://www.youtube.com/watch?v=ptzeNgX_thY" target="_blank" rel="noopener">Steal This Idea podcast</a>.</p>
+    <p style="margin-top:8px;font-size:0.85rem;opacity:0.6">A startup idea, free for the taking. Go build it.</p>
+  </div>
+</footer>
+
+<script>
+// IntersectionObserver for scroll-triggered reveals
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardShark - Your spending finds your perfect card.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --shark-dark: #0a0e17;
+            --shark-navy: #111827;
+            --shark-blue: #1e3a5f;
+            --shark-accent: #00e5ff;
+            --shark-green: #00ff88;
+            --shark-white: #f0f4f8;
+            --shark-gray: #8899aa;
+            --shark-card: #162032;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--shark-dark);
+            color: var(--shark-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* STI Badge */
+        .sti-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--shark-accent);
+            color: var(--shark-dark);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .sti-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);
+        }
+        .sti-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+        .reveal-delay-4 { transition-delay: 0.6s; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1758598303866-743838235b41?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            filter: brightness(0.25);
+        }
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10,14,23,0.95) 0%, rgba(30,58,95,0.7) 50%, rgba(10,14,23,0.9) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 120px 40px 80px;
+        }
+        .hero-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--shark-accent);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-label::before {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--shark-accent);
+        }
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(56px, 10vw, 120px);
+            line-height: 0.95;
+            letter-spacing: 2px;
+            color: var(--shark-white);
+            margin-bottom: 8px;
+        }
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(90deg, var(--shark-accent), var(--shark-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(20px, 3vw, 32px);
+            letter-spacing: 3px;
+            color: var(--shark-gray);
+            margin-bottom: 24px;
+        }
+        .hero-pitch {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--shark-gray);
+            max-width: 560px;
+            margin-bottom: 40px;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--shark-accent), #00b8d4);
+            color: var(--shark-dark);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 229, 255, 0.35);
+        }
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Glowing card decoration */
+        .hero-card-visual {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%) rotate(-8deg);
+            width: 340px;
+            height: 210px;
+            background: linear-gradient(135deg, #1a2a44, #0d1b2a);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 229, 255, 0.15), 0 0 80px rgba(0, 229, 255, 0.05);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 2;
+        }
+        .hero-card-visual .card-chip {
+            width: 44px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--shark-accent), var(--shark-green));
+            border-radius: 6px;
+            opacity: 0.8;
+        }
+        .hero-card-visual .card-number {
+            font-family: 'Source Sans 3', monospace;
+            font-size: 16px;
+            letter-spacing: 4px;
+            color: rgba(240,244,248,0.5);
+        }
+        .hero-card-visual .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .hero-card-visual .card-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--shark-accent);
+        }
+        .hero-card-visual .card-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--shark-accent);
+            opacity: 0.7;
+        }
+        .hero-card-visual .savings-badge {
+            position: absolute;
+            top: -16px;
+            right: -16px;
+            background: var(--shark-green);
+            color: var(--shark-dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-card-visual { display: none; }
+        }
+
+        /* SECTION STYLES */
+        section {
+            padding: 100px 40px;
+        }
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px;
+            letter-spacing: 4px;
+            color: var(--shark-accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--shark-accent);
+        }
+        .section-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(36px, 5vw, 60px);
+            line-height: 1.05;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        .section-text {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--shark-gray);
+            max-width: 640px;
+            line-height: 1.7;
+        }
+
+        /* PROBLEM */
+        .problem {
+            background: var(--shark-navy);
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .problem-image {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        .problem-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .problem-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+        .stat-row {
+            display: flex;
+            gap: 32px;
+            margin-top: 36px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            color: var(--shark-accent);
+            line-height: 1;
+        }
+        .stat-desc {
+            font-size: 13px;
+            color: var(--shark-gray);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .problem-grid { grid-template-columns: 1fr; }
+            .stat-row { flex-wrap: wrap; }
+        }
+
+        /* SOLUTION */
+        .solution {
+            background: var(--shark-dark);
+            position: relative;
+        }
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .solution-image {
+            border-radius: 16px;
+            overflow: hidden;
+            order: 2;
+        }
+        .solution-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .solution-steps {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--shark-accent), var(--shark-green));
+            color: var(--shark-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+        }
+        .step-text {
+            font-size: 16px;
+            color: var(--shark-gray);
+            padding-top: 8px;
+        }
+        .step-text strong {
+            color: var(--shark-white);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .solution-grid { grid-template-columns: 1fr; }
+            .solution-image { order: 0; }
+        }
+
+        /* FEATURES */
+        .features {
+            background: var(--shark-navy);
+        }
+        .features-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .features-header .section-label { justify-content: center; }
+        .features-header .section-label::before { display: none; }
+        .features-header .section-text { margin: 0 auto; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--shark-card);
+            border-radius: 16px;
+            padding: 36px;
+            border: 1px solid rgba(0, 229, 255, 0.08);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 229, 255, 0.25);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,255,136,0.1));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--shark-accent);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .feature-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            font-size: 15px;
+            color: var(--shark-gray);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid { grid-template-columns: 1fr; }
+        }
+
+        /* MARKET */
+        .market {
+            background: var(--shark-dark);
+            position: relative;
+        }
+        .market-visual {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 48px;
+        }
+        .market-image {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .market-image img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+        .market-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .market-stat-card {
+            background: var(--shark-card);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(0,229,255,0.1);
+        }
+        .market-stat-card .big-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 40px;
+            background: linear-gradient(90deg, var(--shark-accent), var(--shark-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .market-stat-card p {
+            font-size: 14px;
+            color: var(--shark-gray);
+        }
+
+        @media (max-width: 768px) {
+            .market-visual { grid-template-columns: 1fr; }
+        }
+
+        /* BUSINESS PLAN */
+        .business-plan {
+            background: var(--shark-navy);
+        }
+        .plan-document {
+            background: var(--shark-dark);
+            border: 1px solid rgba(0,229,255,0.12);
+            border-radius: 20px;
+            padding: 56px;
+            margin-top: 48px;
+            position: relative;
+        }
+        .plan-document::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--shark-accent), var(--shark-green), var(--shark-accent));
+            border-radius: 0 0 4px 4px;
+        }
+        .plan-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+        .plan-section {
+            margin-bottom: 8px;
+        }
+        .plan-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: var(--shark-accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .plan-section h3 svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--shark-accent);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .plan-section p {
+            font-size: 15px;
+            color: var(--shark-gray);
+            line-height: 1.7;
+        }
+        .plan-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .plan-section ul li {
+            font-size: 15px;
+            color: var(--shark-gray);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(136,153,170,0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .plan-section ul li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--shark-accent);
+            border-radius: 50%;
+            margin-top: 8px;
+        }
+        .plan-cost {
+            display: inline-block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            background: linear-gradient(90deg, var(--shark-accent), var(--shark-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .plan-grid { grid-template-columns: 1fr; }
+            .plan-document { padding: 32px 20px; }
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, var(--shark-blue), var(--shark-dark));
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,229,255,0.08), transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .cta-section .section-heading {
+            position: relative;
+        }
+        .cta-section .section-text {
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        .cta-section .cta-btn {
+            position: relative;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--shark-dark);
+            border-top: 1px solid rgba(0,229,255,0.08);
+            padding: 40px;
+            text-align: center;
+        }
+        footer p {
+            font-size: 14px;
+            color: var(--shark-gray);
+            line-height: 1.8;
+        }
+        footer a {
+            color: var(--shark-accent);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        footer a:hover {
+            opacity: 0.7;
+        }
+
+        /* Pulse animation for hero */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 20px 60px rgba(0, 229, 255, 0.15), 0 0 80px rgba(0, 229, 255, 0.05); }
+            50% { box-shadow: 0 20px 60px rgba(0, 229, 255, 0.25), 0 0 120px rgba(0, 229, 255, 0.1); }
+        }
+        .hero-card-visual { animation: pulse-glow 4s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%) rotate(-8deg); }
+            50% { transform: translateY(calc(-50% - 10px)) rotate(-6deg); }
+        }
+        .hero-card-visual { animation: float 6s ease-in-out infinite, pulse-glow 4s ease-in-out infinite; }
+    </style>
+</head>
+<body>
+
+    <!-- STI Badge -->
+    <a href="../index.html" class="sti-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+        </svg>
+        STEAL THIS IDEA
+    </a>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+            <div class="hero-label">PERSONAL FINANCE REIMAGINED</div>
+            <h1>CARD<span>SHARK</span></h1>
+            <p class="hero-tagline">YOUR SPENDING FINDS YOUR PERFECT CARD.</p>
+            <p class="hero-pitch">Stop guessing which credit card is best. CardShark analyzes your real spending habits and shows you exactly how much you could save with the right card. Personalized recommendations, powered by your data.</p>
+            <a href="#" class="cta-btn">
+                FIND YOUR CARD
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+        <div class="hero-card-visual">
+            <div class="savings-badge">+$612 SAVED</div>
+            <div class="card-chip"></div>
+            <div class="card-number">**** **** **** 4821</div>
+            <div class="card-bottom">
+                <div class="card-name">YOUR PERFECT CARD</div>
+                <div class="card-logo">CS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="section-inner">
+            <div class="problem-grid">
+                <div class="reveal">
+                    <div class="section-label">THE PROBLEM</div>
+                    <h2 class="section-heading">Over 1,000 Cards.<br>Zero Personalized Advice.</h2>
+                    <p class="section-text">There are over 1,000 credit cards on the market, each with different reward categories, rotating bonuses, spending caps, and fine print. Consumers rely on generic blog recommendations that do not account for individual spending patterns. The result? You leave hundreds of dollars in rewards on the table every single year.</p>
+                    <div class="stat-row">
+                        <div class="stat-item reveal reveal-delay-1">
+                            <div class="stat-number">1,000+</div>
+                            <div class="stat-desc">CARDS ON MARKET</div>
+                        </div>
+                        <div class="stat-item reveal reveal-delay-2">
+                            <div class="stat-number">$600</div>
+                            <div class="stat-desc">AVG LEFT ON TABLE</div>
+                        </div>
+                        <div class="stat-item reveal reveal-delay-3">
+                            <div class="stat-number">87%</div>
+                            <div class="stat-desc">WRONG CARD FIT</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="problem-image reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1750262701487-4ca222c89ef4?auto=format&fit=crop&w=1200&q=80" alt="Credit card payment terminal" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="solution">
+        <div class="section-inner">
+            <div class="solution-grid">
+                <div class="reveal">
+                    <div class="section-label">THE SOLUTION</div>
+                    <h2 class="section-heading">Your Data.<br>Your Perfect Match.</h2>
+                    <p class="section-text">CardShark connects to your bank account, analyzes your actual spending history, and runs simulations against every major credit card. No guessing. No generic advice. Just the card that fits your life.</p>
+                    <div class="solution-steps">
+                        <div class="step reveal reveal-delay-1">
+                            <div class="step-num">1</div>
+                            <div class="step-text"><strong>Link your bank account</strong> securely through Plaid. Your data stays encrypted and private.</div>
+                        </div>
+                        <div class="step reveal reveal-delay-2">
+                            <div class="step-num">2</div>
+                            <div class="step-text"><strong>We analyze your spending</strong> across groceries, dining, travel, rideshare, gas, and more.</div>
+                        </div>
+                        <div class="step reveal reveal-delay-3">
+                            <div class="step-num">3</div>
+                            <div class="step-text"><strong>See your perfect card match</strong> with a simulated savings report showing exactly what you would earn.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="solution-image reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Analytics dashboard showing financial data" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="section-inner">
+            <div class="features-header reveal">
+                <div class="section-label">KEY FEATURES</div>
+                <h2 class="section-heading">Built for Smarter Spending</h2>
+                <p class="section-text">Everything you need to stop leaving money on the table and start maximizing every swipe.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    </div>
+                    <h3>PLAID BANK INTEGRATION</h3>
+                    <p>Securely connect your bank account in seconds. We pull your full transaction history to build a complete picture of your spending patterns.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                    </div>
+                    <h3>SIDE-BY-SIDE COMPARISON</h3>
+                    <p>See how every major credit card stacks up against your actual purchase history. Compare rewards, cashback, and perks in one clear view.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3>SAVINGS SIMULATOR</h3>
+                    <p>Our simulator calculates exactly what you would have earned on any card over the past 6 to 12 months. Real numbers, not estimates.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-4">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </div>
+                    <h3>SMART ALERTS</h3>
+                    <p>Your spending changes over time. CardShark monitors your habits and alerts you when a better card match emerges, so you never miss out.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKET -->
+    <section class="market">
+        <div class="section-inner">
+            <div class="reveal">
+                <div class="section-label">MARKET OPPORTUNITY</div>
+                <h2 class="section-heading">A Massive, Underserved Market</h2>
+                <p class="section-text">With 190M+ credit card holders in the US and a $2B+ affiliate marketing industry, the opportunity to build a personalized recommendation engine is enormous.</p>
+            </div>
+            <div class="market-visual">
+                <div class="market-image reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1758273705998-05655eea4635?auto=format&fit=crop&w=1200&q=80" alt="Woman shopping online with credit card and smartphone" loading="lazy">
+                </div>
+                <div class="market-stats">
+                    <div class="market-stat-card reveal reveal-delay-1">
+                        <div class="big-num">190M+</div>
+                        <p>Credit card holders in the United States</p>
+                    </div>
+                    <div class="market-stat-card reveal reveal-delay-2">
+                        <div class="big-num">$180B+</div>
+                        <p>Annual credit card interest and fees generated</p>
+                    </div>
+                    <div class="market-stat-card reveal reveal-delay-3">
+                        <div class="big-num">$2B+</div>
+                        <p>Credit card affiliate marketing industry</p>
+                    </div>
+                    <div class="market-stat-card reveal reveal-delay-4">
+                        <div class="big-num">$50-200</div>
+                        <p>Per approved referral from card issuers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS PLAN -->
+    <section class="business-plan">
+        <div class="section-inner">
+            <div class="reveal">
+                <div class="section-label">BUSINESS PLAN</div>
+                <h2 class="section-heading">The Blueprint</h2>
+            </div>
+            <div class="plan-document reveal">
+                <div class="plan-grid">
+                    <div class="plan-section">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            REVENUE MODEL
+                        </h3>
+                        <p>Free for consumers. Revenue comes from affiliate commissions paid by credit card issuers for each approved referral ($50 to $200+ per application). The service creates a frictionless funnel from personalized recommendation to affiliate click-through.</p>
+                    </div>
+                    <div class="plan-section">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            GO-TO-MARKET STRATEGY
+                        </h3>
+                        <p>Launch with social ads showing a simple hook: "You left $600 on the table last year." Drive users to a free sign-up where they link their bank account and instantly see potential savings. Viral sharing is built in as users share their savings gap on social media.</p>
+                    </div>
+                    <div class="plan-section">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            COMPETITIVE ADVANTAGE
+                        </h3>
+                        <p>Unlike The Points Guy or NerdWallet, which offer static editorial recommendations, CardShark delivers dynamic, personalized advice based on actual transaction data. The longer a user stays connected, the more accurate recommendations become, creating a sticky data moat.</p>
+                    </div>
+                    <div class="plan-section">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                            YEAR ONE MILESTONES
+                        </h3>
+                        <ul>
+                            <li>Launch MVP with Plaid integration and top 100 credit card database</li>
+                            <li>Acquire 50,000 users and generate 10,000 affiliate referrals</li>
+                            <li>Secure partnerships with 3+ major credit card issuers for premium placement</li>
+                        </ul>
+                    </div>
+                    <div class="plan-section">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            KEY RISKS
+                        </h3>
+                        <ul>
+                            <li>Consumer trust and willingness to share bank data with a new platform</li>
+                            <li>Credit card companies changing affiliate commission structures or terms</li>
+                            <li>Competition from established players like NerdWallet or Mint adding similar features</li>
+                        </ul>
+                    </div>
+                    <div class="plan-section">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            STARTUP COST ESTIMATE
+                        </h3>
+                        <p>Estimated investment to reach MVP:</p>
+                        <div class="plan-cost">$30,000 - $75,000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="section-inner reveal">
+            <h2 class="section-heading">Ready to Stop Leaving<br>Money on the Table?</h2>
+            <p class="section-text">Link your bank account, see your perfect card match, and start earning the rewards you deserve.</p>
+            <a href="#" class="cta-btn">
+                GET STARTED FREE
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>This is a concept from the <strong>Steal This Idea</strong> podcast. Not a real product (yet).</p>
+        <p style="margin-top: 8px;"><a href="https://www.youtube.com/watch?v=ROfZJbBrjJ4" target="_blank" rel="noopener">Watch the original episode</a></p>
+    </footer>
+
+    <script>
+        // IntersectionObserver for scroll-triggered reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

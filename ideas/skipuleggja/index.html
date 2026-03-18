@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skipuleggja - Your Space, Perfectly Organized</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cream: #F5F0E8;
+  --dark-green: #2C3E2D;
+  --forest: #3D5A3E;
+  --sage: #7A9B76;
+  --warm-brown: #8B6F4E;
+  --light-sage: #C5D5B0;
+  --walnut: #5C4033;
+  --offwhite: #FAFAF6;
+  --text: #2A2A25;
+  --text-light: #6B6B60;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Karla', sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Libre Baskerville', serif;
+  line-height: 1.3;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Badge */
+.sti-badge {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--dark-green);
+  color: var(--cream);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sti-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+}
+
+.sti-badge svg {
+  width: 18px;
+  height: 18px;
+  fill: #F0C940;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.35);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(44,62,45,0.7) 0%, rgba(90,70,50,0.5) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  text-align: center;
+  color: var(--cream);
+}
+
+.hero-label {
+  display: inline-block;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--light-sage);
+  margin-bottom: 24px;
+  border: 1px solid rgba(197,213,176,0.4);
+  padding: 8px 20px;
+  border-radius: 40px;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.hero-tagline {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--light-sage);
+  margin-bottom: 32px;
+}
+
+.hero-pitch {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--sage);
+  color: #fff;
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(122,155,118,0.4);
+}
+
+.btn-primary:hover {
+  background: var(--forest);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(122,155,118,0.5);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--dark-green);
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 16px 40px;
+  border: 2px solid var(--dark-green);
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--dark-green);
+  color: var(--cream);
+}
+
+/* ===== PROBLEM ===== */
+.problem {
+  padding: 120px 24px;
+  background: var(--offwhite);
+}
+
+.problem-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.problem-image {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+.problem-image img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}
+
+.section-label {
+  font-family: 'Karla', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--sage);
+}
+
+.problem-text h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--dark-green);
+  margin-bottom: 24px;
+}
+
+.problem-text p {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.pain-points {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.pain-points li {
+  padding: 12px 0;
+  padding-left: 32px;
+  position: relative;
+  font-size: 1rem;
+  color: var(--text);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.pain-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--warm-brown);
+}
+
+/* ===== SOLUTION ===== */
+.solution {
+  padding: 120px 24px;
+  background: var(--dark-green);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.solution-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.12;
+}
+
+.solution-bg-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.solution-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.solution-text .section-label {
+  color: var(--light-sage);
+}
+
+.solution-text .section-label::before {
+  background: var(--light-sage);
+}
+
+.solution-text h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.solution-text p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.solution-image {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.solution-image img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== FEATURES ===== */
+.features {
+  padding: 120px 24px;
+  background: var(--cream);
+}
+
+.features-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 64px;
+}
+
+.features-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--dark-green);
+  margin-bottom: 16px;
+}
+
+.features-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.feature-card {
+  background: var(--offwhite);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+.feature-card-img {
+  height: 220px;
+  overflow: hidden;
+}
+
+.feature-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.feature-card:hover .feature-card-img img {
+  transform: scale(1.05);
+}
+
+.feature-card-body {
+  padding: 28px 28px 32px;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--light-sage);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--dark-green);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  color: var(--dark-green);
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* ===== SHOWCASE (image strip) ===== */
+.showcase {
+  padding: 0;
+  overflow: hidden;
+}
+
+.showcase-strip {
+  display: flex;
+  width: 100%;
+}
+
+.showcase-strip img {
+  flex: 1;
+  height: 320px;
+  object-fit: cover;
+  min-width: 0;
+}
+
+/* ===== MARKET ===== */
+.market {
+  padding: 120px 24px;
+  background: var(--offwhite);
+  position: relative;
+}
+
+.market-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.market-inner .section-label {
+  justify-content: center;
+}
+
+.market-inner .section-label::before {
+  display: none;
+}
+
+.market-inner h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--dark-green);
+  margin-bottom: 24px;
+}
+
+.market-inner > p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto 56px;
+  line-height: 1.8;
+}
+
+.market-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 56px;
+}
+
+.stat-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+
+.stat-number {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--forest);
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.market-image {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+.market-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== BUSINESS PLAN ===== */
+.business-plan {
+  padding: 120px 24px;
+  background: var(--dark-green);
+  color: var(--cream);
+}
+
+.bp-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.bp-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.bp-header .section-label {
+  color: var(--light-sage);
+  justify-content: center;
+}
+
+.bp-header .section-label::before { display: none; }
+
+.bp-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.bp-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.05rem;
+}
+
+.bp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.bp-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 36px 32px;
+  transition: background 0.3s ease;
+}
+
+.bp-card:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.bp-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(197,213,176,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.bp-card-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--light-sage);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bp-card h3 {
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.bp-card p, .bp-card li {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+}
+
+.bp-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bp-card ul li {
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.bp-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+.bp-full {
+  grid-column: 1 / -1;
+}
+
+.bp-costs {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.bp-cost-range {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.6rem;
+  color: var(--light-sage);
+  font-weight: 700;
+}
+
+.bp-cost-label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ===== CTA ===== */
+.cta-section {
+  padding: 100px 24px;
+  background: var(--cream);
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-inner h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  color: var(--dark-green);
+  margin-bottom: 20px;
+}
+
+.cta-inner p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 48px 24px;
+  background: var(--walnut);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--light-sage);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: #fff;
+}
+
+.footer-line {
+  margin-bottom: 8px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .problem-inner,
+  .solution-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .solution-inner {
+    direction: ltr;
+  }
+
+  .solution-image { order: -1; }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .market-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .bp-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-strip {
+    flex-wrap: wrap;
+  }
+
+  .showcase-strip img {
+    flex: 1 1 50%;
+    height: 200px;
+  }
+
+  .sti-badge {
+    top: 12px;
+    left: 12px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+  }
+
+  .hero-content {
+    padding: 100px 20px 60px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Steal This Idea Badge -->
+<a href="../index.html" class="sti-badge">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C8.7 2 6 4.7 6 8c0 2.4 1.5 4.5 3.5 5.5V16h5v-2.5C16.5 12.5 18 10.4 18 8c0-3.3-2.7-6-6-6z"/>
+    <rect x="9" y="17" width="6" height="2" rx="1"/>
+    <rect x="10" y="20" width="4" height="1.5" rx="0.75"/>
+  </svg>
+  STEAL THIS IDEA
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=80" alt="Clean, organized bathroom interior">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">Handcrafted Organization</div>
+    <h1>Skipuleggja</h1>
+    <div class="hero-tagline">Your space, perfectly organized.</div>
+    <p class="hero-pitch">Custom organizers designed around your life. Precision 3D-printed inserts wrapped in beautiful natural wood frames, built to fit exactly what you own.</p>
+    <a href="#" class="btn-primary">Design Your Organizer</a>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <div class="problem-image reveal-left">
+      <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Cluttered bathroom counter with products">
+    </div>
+    <div class="problem-text reveal-right">
+      <div class="section-label">The Problem</div>
+      <h2>Your counter is a warzone. Your drawers are worse.</h2>
+      <p>Every morning starts the same way: rummaging through a mess of bottles, brushes, and tubes scattered across your bathroom counter. You have tried the baskets, the trays, the acrylic organizers from Amazon. Nothing fits right.</p>
+      <p>You are forced into an impossible choice: leave everything out in a cluttered heap, or hide it all in drawers where the chaos just moves out of sight.</p>
+      <ul class="pain-points">
+        <li>Generic organizers never fit your specific products</li>
+        <li>Drawers become junk drawers within days</li>
+        <li>Couples sharing a space doubles the problem</li>
+        <li>Off-the-shelf solutions look cheap and feel disposable</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="solution-bg-img">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1600&q=80" alt="Wood texture">
+  </div>
+  <div class="solution-inner">
+    <div class="solution-text reveal-left">
+      <div class="section-label">The Solution</div>
+      <h2>Designed around you. Built to last.</h2>
+      <p>Skipuleggja flips the script on organization. Instead of forcing your belongings into generic compartments, you tell us what you own. Our online configurator lets you select your exact products, and we create a precision 3D-printed insert molded to hold every single item perfectly.</p>
+      <p>That custom insert sits inside a beautiful handcrafted frame made from real stained wood. Oak, walnut, or bamboo. It looks stunning on your counter. It fits perfectly in your drawer. Every item has its place, and your space finally feels like your own.</p>
+      <a href="#" class="btn-primary" style="margin-top: 24px;">See How It Works</a>
+    </div>
+    <div class="solution-image reveal-right">
+      <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80" alt="Beautiful wooden organization system">
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-header reveal">
+    <div class="section-label" style="justify-content:center;">
+      <span>Key Features</span>
+    </div>
+    <h2>Thoughtfully crafted, down to every detail</h2>
+    <p>Four pillars that make Skipuleggja unlike anything on the shelf.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80" alt="Digital design interface on screen">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3>Online Configurator</h3>
+        <p>Select your exact products, arrange the layout, and preview your organizer in 3D before ordering. No guesswork involved.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1581783898377-1c85bf937427?auto=format&fit=crop&w=800&q=80" alt="3D printing technology creating precise objects">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <h3>Precision 3D-Printed Inserts</h3>
+        <p>Every compartment is custom-molded to your belongings. Your toothbrush, your serum bottle, your razor: each one slots in perfectly.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80" alt="Beautiful walnut and oak wood grain">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="9" r="1"/></svg>
+        </div>
+        <h3>Premium Wood Frames</h3>
+        <p>Choose from oak, walnut, or bamboo. Interlocking panels fit together seamlessly with no visible joints or hardware.</p>
+      </div>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="feature-card-img">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80" alt="Organized drawer with compartments">
+      </div>
+      <div class="feature-card-body">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <h3>Modular and Dual-Use</h3>
+        <p>Stand it upright for the countertop. Lay it flat for a drawer insert. One design, two orientations, infinite flexibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE STRIP -->
+<section class="showcase reveal">
+  <div class="showcase-strip">
+    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=600&q=80" alt="Wooden shelving">
+    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=600&q=80" alt="Modern bathroom">
+    <img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=600&q=80" alt="Wood workshop">
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market">
+  <div class="market-inner">
+    <div class="section-label reveal">Market Opportunity</div>
+    <h2 class="reveal">A growing market hungry for personalization</h2>
+    <p class="reveal">Design-conscious homeowners aged 25 to 45 are spending more on their spaces than ever before. The home organization industry continues to surge, fueled by social media, remote work, and the desire for calmer, more intentional living environments.</p>
+
+    <div class="market-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">$12B</div>
+        <div class="stat-label">US home organization market (annual)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$2B+</div>
+        <div class="stat-label">Premium bathroom accessories segment</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0.1%</div>
+        <div class="stat-label">Market share target = $2M revenue</div>
+      </div>
+    </div>
+
+    <div class="market-image reveal">
+      <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80" alt="Modern organized home interior">
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS PLAN -->
+<section class="business-plan">
+  <div class="bp-inner">
+    <div class="bp-header reveal">
+      <div class="section-label">Business Plan</div>
+      <h2>The blueprint for building Skipuleggja</h2>
+      <p>A clear-eyed look at how this concept becomes a company.</p>
+    </div>
+
+    <div class="bp-grid">
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Revenue Model</h3>
+        <p>Direct-to-consumer e-commerce. Countertop organizers priced at $79 to $149, drawer inserts at $49 to $99, and kitchen sets at $99 to $179. Premium frame upgrades (walnut, brass, matte black steel) drive higher average order values. A subscription refill program lets customers swap inserts as their product collection changes.</p>
+      </div>
+
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Go-to-Market Strategy</h3>
+        <p>Launch with a focused Instagram and TikTok campaign built around dramatic before/after bathroom transformations. Partner with home organization influencers and interior design creators. Start with bathroom organizers as the hero product, then expand into kitchen drawers and desk setups based on customer demand.</p>
+      </div>
+
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Competitive Advantage</h3>
+        <p>Every Skipuleggja unit is unique to the customer. Mass-customization via 3D printing combined with premium natural materials creates a product that no off-the-shelf competitor can match on fit or aesthetics. The configurator itself becomes a moat: the more product data collected, the better the recommendations become.</p>
+      </div>
+
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Year One Milestones</h3>
+        <ul>
+          <li>Launch online configurator and ship first 1,000 custom organizers within 6 months</li>
+          <li>Achieve $500K in revenue and 30% repeat purchase rate by end of year one</li>
+          <li>Expand product line from bathroom to kitchen and desk organization categories</li>
+        </ul>
+      </div>
+
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Key Risks</h3>
+        <ul>
+          <li>3D printing at scale may create production bottlenecks and longer lead times than customers expect</li>
+          <li>Custom units are non-resalable, so returns could erode margins if sizing or satisfaction issues arise</li>
+          <li>Large competitors like IKEA could introduce similar modular systems at significantly lower price points</li>
+        </ul>
+      </div>
+
+      <div class="bp-card reveal">
+        <div class="bp-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3>Startup Cost Estimate</h3>
+        <div class="bp-costs">
+          <div class="bp-cost-range">$50K - $150K</div>
+          <div class="bp-cost-label">Estimated cost to MVP, including 3D printer fleet, web configurator development, initial wood frame inventory, and launch marketing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2>Ready to reclaim your counter?</h2>
+    <p>Skipuleggja is a concept born from a real frustration with bathroom chaos. If this idea resonates with you, maybe you are the one to build it.</p>
+    <a href="#" class="btn-secondary">Start Building</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-line">This is a concept from the <strong>Steal This Idea</strong> podcast.</div>
+  <div class="footer-line">
+    <a href="https://www.youtube.com/watch?v=4-Hgz0XZKog" target="_blank" rel="noopener">Watch the original episode</a>
+  </div>
+  <div class="footer-line" style="margin-top: 16px; opacity: 0.5;">&copy; 2026 Skipuleggja concept. Not a real company (yet).</div>
+</footer>
+
+<script>
+(function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

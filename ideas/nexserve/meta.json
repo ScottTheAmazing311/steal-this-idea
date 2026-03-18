@@ -1,0 +1,34 @@
+{
+  "slug": "nexserve",
+  "company_name": "NexServe",
+  "tagline": "Your neighbors, at your service.",
+  "elevator_pitch": "NexServe is a hyper-local gig economy app for apartment complexes. Need your laundry done, cat fed, or trash taken out? Someone in your building is home right now and happy to help for a few bucks. It's TaskRabbit, but your tasker lives 30 seconds away.",
+  "problem": "Scheduling home services is painful and expensive—plumbers who can't find your unit, cleaners who need door codes, and $30 minimum charges for 5-minute tasks. Meanwhile, millions of apartment residents (stay-at-home parents, retirees, remote workers) want extra income but can't participate in the gig economy because they can't leave home.",
+  "solution": "NexServe creates a micro-marketplace within each apartment complex. Residents post small tasks (laundry, pet care, trash, light maintenance) and neighbors claim them. No driving, no special skills, no leaving the building. Providers earn side income in their spare moments; requesters get affordable help from someone steps away.",
+  "target_market": "Primary: apartment residents in mid-to-large complexes (50+ units). Demand side: busy professionals, frequent travelers. Supply side: stay-at-home parents, retirees, students, anyone homebound who wants flexible income. 43M Americans currently live in apartment buildings.",
+  "revenue_model": "Platform fee of 15-20% on each transaction. Average task value $5-20, high frequency per user. Premium tier for apartment management companies who want to offer it as a building amenity. Potential for building-level subscription partnerships.",
+  "key_features": [
+    "Hyper-local task marketplace limited to your building or complex",
+    "Instant matching—see who's available in your building right now",
+    "Micro-tasks from $3-20 with no minimums or commitments",
+    "Trust built in—your tasker is literally your neighbor"
+  ],
+  "competitive_advantage": "TaskRabbit and Handy require people to drive across town, creating high minimums and scheduling friction. NexServe's hyper-local model means tasks happen in minutes for pocket change. The trust factor of knowing your tasker lives next door eliminates the stranger-danger barrier. Building-level network effects make each complex stickier over time.",
+  "market_size_estimate": "43M Americans live in apartments. If 10% of apartment buildings adopted NexServe with an average of $50/month in transactions per active building, that's a $260M+ annual GMV opportunity. The U.S. home services market is $600B—NexServe captures the micro-task layer that existing platforms can't serve profitably.",
+  "go_to_market": "Launch in 5-10 apartment complexes in one city, seeding both sides of the marketplace with move-in partnerships. Offer building managers a dashboard to promote community engagement. Expand building-by-building with referral incentives, then city-by-city.",
+  "risks": [
+    "Two-sided marketplace cold start—need both task posters and providers in each building",
+    "Trust and liability concerns when neighbors enter each other's apartments",
+    "Low transaction values may make unit economics challenging at early scale"
+  ],
+  "year_one_milestones": [
+    "Launch in 50 apartment complexes in one metro area with 1,000+ active users",
+    "Achieve $100K in gross transaction volume with positive unit economics per building",
+    "Sign 3 property management partnerships to pre-install NexServe in new buildings"
+  ],
+  "startup_cost_range": "$60,000 - $150,000 (app development, initial building partnerships, marketing, liability insurance)",
+  "category": "Marketplace",
+  "vibe": "technical",
+  "episode_url": "https://www.youtube.com/watch?v=7FJBj8yVf5Q",
+  "episode_number": 4
+}

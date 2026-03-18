@@ -1,0 +1,34 @@
+{
+  "slug": "securibot",
+  "company_name": "SecuriBot",
+  "tagline": "Your neighborhood never sleeps.",
+  "elevator_pitch": "SecuriBot is an autonomous neighborhood patrol robot equipped with 360-degree cameras and AI-powered threat detection. Shared among residents, it roams the streets at night, streaming live footage to a monitoring service and deterring crime simply by being visible.",
+  "problem": "Residential break-ins and petty crime remain common even in seemingly safe neighborhoods. Static security cameras only cover fixed angles, are easy to avoid, and require homeowners to actively monitor alerts. Many neighborhoods lack any coordinated security presence.",
+  "solution": "SecuriBot is a Roomba-style outdoor robot that autonomously patrols neighborhood streets on a nightly schedule. Its 360-degree camera feeds live to a professional monitoring center, and AI flags suspicious activity in real time. The visible, moving presence of the robot acts as a powerful deterrent that static cameras cannot match.",
+  "target_market": "HOA communities, gated neighborhoods, and suburban residential developments looking for affordable, shared security solutions. Secondary markets include commercial campuses and apartment complexes.",
+  "revenue_model": "Hardware sales at approximately $1,000 per unit, split among 10 to 15 participating households. Optional professional monitoring subscription at $20 per month per community. Premium AI analytics and incident reporting tiers available.",
+  "key_features": [
+    "Autonomous nightly patrol routes with AI-optimized path planning and obstacle avoidance",
+    "360-degree live-streaming camera with night vision and license plate recognition",
+    "Self-charging dock with automatic return-to-base at dawn",
+    "Community alert system that notifies all participating residents of suspicious activity"
+  ],
+  "competitive_advantage": "Unlike static Ring doorbells and security cameras, SecuriBot is mobile and unpredictable, covering entire neighborhoods rather than single doorsteps. Its shared-cost model makes professional-grade security accessible at a fraction of the price of hiring a patrol service.",
+  "market_size_estimate": "There are over 370,000 HOAs in the US covering 53 million homes. At $1,000 per unit plus $240 per year in monitoring fees, capturing just 1% of HOAs represents a $370M hardware opportunity and $90M in recurring annual revenue.",
+  "go_to_market": "Partner directly with HOA management companies to bundle SecuriBot into community safety packages. Run pilot programs in 10 neighborhoods across different regions and publish crime-reduction data to drive word-of-mouth referrals.",
+  "risks": [
+    "Local regulations and privacy laws may restrict autonomous surveillance robots on public or shared streets",
+    "Vandalism or theft of the robot itself, despite onboard cameras and live monitoring",
+    "Weather durability and reliability concerns for year-round outdoor operation"
+  ],
+  "year_one_milestones": [
+    "Complete hardware prototype and secure FCC certification for wireless components",
+    "Deploy pilot units in 10 HOA communities and collect 6 months of performance data",
+    "Reach 100 communities and establish a professional monitoring operations center"
+  ],
+  "startup_cost_range": "$500,000 to $1,500,000",
+  "category": "Hardware",
+  "vibe": "technical",
+  "episode_url": "https://www.youtube.com/watch?v=_T1iGm70E5Q",
+  "episode_number": 19
+}
