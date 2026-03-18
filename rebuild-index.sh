@@ -77,7 +77,7 @@ while IFS= read -r idea_line; do
 
   CARDS_HTML+="
       <article class=\"idea-card\" data-category=\"$category\" data-vibe=\"$vibe\" data-name=\"$(echo "$name" | tr '[:upper:]' '[:lower:]')\" data-ep=\"$ep_num\">
-        <a href=\"ideas/$slug/index.html\" class=\"card-img-link\">
+        <a href=\"ideas/$slug/index.html\" target=\"_blank\" class=\"card-img-link\">
           <div class=\"card-img vibe-$vibe\" $img_style>
             <div class=\"card-img-overlay\">
               <span class=\"card-vibe-tag\">$vibe</span>
@@ -88,11 +88,11 @@ while IFS= read -r idea_line; do
           <div class=\"card-meta\">
             <span class=\"card-category\">$category</span>
           </div>
-          <h2 class=\"card-title\"><a href=\"ideas/$slug/index.html\">$name</a></h2>
+          <h2 class=\"card-title\"><a href=\"ideas/$slug/index.html\" target=\"_blank\">$name</a></h2>
           <p class=\"card-tagline\">$tagline</p>
           <p class=\"card-pitch\">$pitch</p>
           <div class=\"card-actions\">
-            <a href=\"ideas/$slug/index.html\" class=\"card-link page-link\">View Landing Page</a>
+            <a href=\"ideas/$slug/index.html\" target=\"_blank\" class=\"card-link page-link\">View Landing Page</a>
             $ep_link
           </div>
         </div>
