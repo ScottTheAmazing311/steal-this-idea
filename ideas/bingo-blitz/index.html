@@ -78,19 +78,33 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1626972310639-638b41ed9810?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-            filter: brightness(0.25) saturate(1.3);
+            background: url('Bingo%20Blitz.png') center/cover no-repeat;
+            filter: brightness(0.3) saturate(1.3);
         }
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(10,10,15,0.5) 0%, rgba(10,10,15,0.85) 100%);
+            background: linear-gradient(180deg, rgba(10,10,15,0.4) 0%, rgba(10,10,15,0.8) 60%, rgba(10,10,15,0.95) 100%);
         }
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 900px;
             padding: 2rem;
+        }
+        .hero-image {
+            margin: 0 auto 2rem;
+            max-width: 360px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(57,255,20,0.2), 0 8px 32px rgba(0,0,0,0.6);
+            border: 2px solid rgba(57,255,20,0.25);
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
         .hero-content h1 {
             font-family: 'Bebas Neue', sans-serif;
@@ -504,6 +518,9 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
+            <div class="hero-image reveal">
+                <img src="Bingo%20Blitz.png" alt="Bingo Blitz app concept">
+            </div>
             <h1 class="reveal">BINGO <span class="highlight">BLITZ</span></h1>
             <p class="hero-tagline reveal reveal-delay-1">Play Bingo. Win Big. Support Local.</p>
             <p class="hero-pitch reveal reveal-delay-2">A free, regionalized mobile bingo app where local businesses sponsor games and give away real prizes instead of wasting money on billboards. Users play daily for cash and services while businesses get trackable, engaged leads.</p>

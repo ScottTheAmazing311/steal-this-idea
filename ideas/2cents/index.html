@@ -158,18 +158,19 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.25;
+      opacity: 0.18;
     }
     .hero-bg::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(10,14,23,0.4) 0%, var(--dark) 95%);
+      background: linear-gradient(180deg, rgba(10,14,23,0.5) 0%, var(--dark) 95%);
     }
     .hero-content {
       position: relative;
       z-index: 2;
       padding: 120px 0 80px;
+      max-width: 55%;
     }
     .hero-eyebrow {
       font-family: 'Source Sans 3', sans-serif;
@@ -277,22 +278,21 @@
       letter-spacing: 0.05em;
     }
 
-    /* Floating phone mockup */
+    /* Hero product image */
     .hero-visual {
       position: absolute;
-      right: -60px;
+      right: 40px;
       top: 50%;
       transform: translateY(-50%);
-      width: 420px;
-      height: 560px;
-      z-index: 1;
-      opacity: 0.12;
+      width: 460px;
+      z-index: 3;
     }
     .hero-visual img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
       border-radius: 24px;
+      filter: drop-shadow(0 20px 60px rgba(0, 229, 160, 0.2)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
     }
 
     /* ========== PROBLEM ========== */
@@ -813,6 +813,7 @@
       .bp-risk-grid { grid-template-columns: 1fr; }
       .hero-stats { flex-direction: column; gap: 24px; }
       .hero-visual { display: none; }
+      .hero-content { max-width: 100%; }
       .solution-image-row { grid-template-columns: 1fr; }
     }
 
@@ -839,6 +840,9 @@
   <section class="hero">
     <div class="hero-bg">
       <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80" alt="People collaborating">
+    </div>
+    <div class="hero-visual">
+      <img src="2cents.png" alt="2Cents app concept">
     </div>
     <div class="container hero-content">
       <div class="hero-eyebrow reveal">Instant Knowledge Exchange</div>

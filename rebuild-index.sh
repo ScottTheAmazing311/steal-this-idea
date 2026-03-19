@@ -59,9 +59,13 @@ while IFS= read -r idea_line; do
   ep_url=$(echo "$idea_line" | jq -r '.episode_url // ""')
   ep_num=$(echo "$idea_line" | jq -r '.episode_number // 0')
 
-  # Build card image style
+  # Build card image style — prefer local image if one exists
   img_style=""
-  if [[ -n "$hero_img" && "$hero_img" != "null" && "$hero_img" != "" ]]; then
+  local_img=$(find "$SCRIPT_DIR/ideas/$slug" -maxdepth 1 -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' 2>/dev/null | grep -vi 'index\|meta' | head -1)
+  if [[ -n "$local_img" ]]; then
+    local_img_name=$(basename "$local_img")
+    img_style="style=\"background-image:url('ideas/$slug/$local_img_name')\""
+  elif [[ -n "$hero_img" && "$hero_img" != "null" && "$hero_img" != "" ]]; then
     img_style="style=\"background-image:url('${hero_img}?auto=format&fit=crop&w=800&q=60')\""
   fi
 

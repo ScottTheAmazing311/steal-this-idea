@@ -124,8 +124,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.2;
-    filter: saturate(0.3);
+    opacity: 0.35;
+    filter: saturate(0.5) brightness(0.9);
   }
   .hero-bg::after {
     content: '';
@@ -227,13 +227,45 @@
     background: var(--accent-glow);
   }
 
-  /* Terminal-style decoration */
-  .terminal-float {
+  /* Hero product image showcase */
+  .hero-product-showcase {
     position: absolute;
-    right: 5%;
+    right: 3%;
     top: 50%;
     transform: translateY(-50%);
-    width: 380px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 420px;
+  }
+  .hero-product-img {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0, 229, 160, 0.15), 0 10px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 229, 160, 0.2);
+    position: relative;
+  }
+  .hero-product-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+  }
+  .hero-product-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(180deg, transparent 60%, rgba(10,14,23,0.6) 100%);
+    pointer-events: none;
+  }
+
+  /* Terminal-style decoration */
+  .terminal-float {
+    width: 100%;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -703,7 +735,7 @@
 
   /* Responsive */
   @media (max-width: 900px) {
-    .terminal-float { display: none; }
+    .hero-product-showcase { display: none; }
     .problem-grid,
     .solution-content { grid-template-columns: 1fr; }
     .features-grid { grid-template-columns: 1fr; }
@@ -741,7 +773,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=1600&q=80" alt="Organized wardrobe">
+    <img src="Better%20Closet.png" alt="Better Closet product concept">
   </div>
   <div class="hero-content">
     <div class="hero-label reveal">Smart Wardrobe Technology</div>
@@ -757,24 +789,29 @@
       </a>
     </div>
   </div>
-  <div class="terminal-float">
-    <div class="terminal-header">
-      <span class="terminal-dot red"></span>
-      <span class="terminal-dot yellow"></span>
-      <span class="terminal-dot green"></span>
+  <div class="hero-product-showcase">
+    <div class="hero-product-img">
+      <img src="Better%20Closet.png" alt="Better Closet product concept">
     </div>
-    <div class="terminal-body">
-      <span class="prompt">$</span> better-closet scan --status<br>
-      <span class="output">Scanning RFID tags...</span><br>
-      <br>
-      <span class="highlight">CLOSET</span> <span class="output">24 items detected</span><br>
-      <span class="highlight">HAMPER</span> <span class="output">11 items detected</span><br>
-      <span class="highlight">WASHER</span> <span class="output">6 items detected</span><br>
-      <br>
-      <span class="prompt">$</span> better-closet suggest<br>
-      <span class="output">Your 3 favorite shirts are in the hamper.</span><br>
-      <span class="output">Rain forecasted Thursday.</span><br>
-      <span class="output">All hoodies are dirty. <span class="highlight">Do laundry today.</span></span><br>
+    <div class="terminal-float">
+      <div class="terminal-header">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+      </div>
+      <div class="terminal-body">
+        <span class="prompt">$</span> better-closet scan --status<br>
+        <span class="output">Scanning RFID tags...</span><br>
+        <br>
+        <span class="highlight">CLOSET</span> <span class="output">24 items detected</span><br>
+        <span class="highlight">HAMPER</span> <span class="output">11 items detected</span><br>
+        <span class="highlight">WASHER</span> <span class="output">6 items detected</span><br>
+        <br>
+        <span class="prompt">$</span> better-closet suggest<br>
+        <span class="output">Your 3 favorite shirts are in the hamper.</span><br>
+        <span class="output">Rain forecasted Thursday.</span><br>
+        <span class="output">All hoodies are dirty. <span class="highlight">Do laundry today.</span></span><br>
+      </div>
     </div>
   </div>
 </section>
