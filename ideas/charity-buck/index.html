@@ -136,9 +136,49 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            max-width: 800px;
+            max-width: 1100px;
             padding: 40px 24px;
             color: white;
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 480px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            animation: floatImage 4s ease-in-out infinite;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                max-width: 800px;
+            }
+
+            .hero-image-container img {
+                max-height: 320px;
+            }
         }
 
         .hero-logo {
@@ -925,17 +965,22 @@
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="hero-content">
-            <div class="hero-logo">
-                <div class="hero-logo-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.94s4.18 1.36 4.18 3.85c0 1.89-1.41 2.85-3.12 3.19z"/></svg>
+            <div class="hero-text">
+                <div class="hero-logo">
+                    <div class="hero-logo-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.94s4.18 1.36 4.18 3.85c0 1.89-1.41 2.85-3.12 3.19z"/></svg>
+                    </div>
+                </div>
+                <h1>Charity Buck</h1>
+                <div class="hero-tagline">Slide your giving. Change the world.</div>
+                <p class="hero-pitch">A subscription-based charitable giving platform that lets you set a monthly donation budget, then seamlessly slide your pooled funds between vetted charities, emergency causes, and community projects with a single tap.</p>
+                <div class="hero-ctas">
+                    <a href="#" class="cta-btn cta-primary" onclick="return false;">Start Giving Today</a>
+                    <a href="#" class="cta-btn cta-secondary" onclick="return false;">See How It Works</a>
                 </div>
             </div>
-            <h1>Charity Buck</h1>
-            <div class="hero-tagline">Slide your giving. Change the world.</div>
-            <p class="hero-pitch">A subscription-based charitable giving platform that lets you set a monthly donation budget, then seamlessly slide your pooled funds between vetted charities, emergency causes, and community projects with a single tap.</p>
-            <div class="hero-ctas">
-                <a href="#" class="cta-btn cta-primary" onclick="return false;">Start Giving Today</a>
-                <a href="#" class="cta-btn cta-secondary" onclick="return false;">See How It Works</a>
+            <div class="hero-image-container">
+                <img src="charitybuck.png" alt="Charity Buck app preview">
             </div>
         </div>
     </section>

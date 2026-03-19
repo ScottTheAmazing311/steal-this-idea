@@ -96,22 +96,87 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            filter: brightness(0.35);
+            background: linear-gradient(135deg, var(--plum) 0%, #3a1f30 50%, var(--dark) 100%);
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,107,107,0.5) 0%, rgba(92,55,76,0.7) 100%);
+            background: linear-gradient(135deg, rgba(255,107,107,0.15) 0%, rgba(92,55,76,0.2) 100%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem;
         }
 
         .hero-content {
+            text-align: left;
+            padding: 2rem 0;
+        }
+
+        .hero-image-wrapper {
             position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 2rem;
-            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            max-width: 520px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-image-glow {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255,107,107,0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                text-align: center;
+                order: 2;
+            }
+
+            .hero-image-wrapper {
+                order: 1;
+            }
+
+            .hero-image-wrapper img {
+                max-width: 380px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-image-wrapper img {
+                max-width: 280px;
+            }
         }
 
         .hero-logo {
@@ -200,7 +265,7 @@
 
         .hero-buttons {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: wrap;
             gap: 1rem;
         }
@@ -808,13 +873,19 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-logo">Cookies<span class="dot"></span></div>
-            <p class="hero-tagline">Send good vibes, not just cash.</p>
-            <p class="hero-pitch">A social gifting platform that lets you send thoughtful pick-me-ups to friends and family. From lunch credits to spa days, recipients redeem on their own terms. Think Venmo meets a wish list, where every gesture feels personal, not transactional.</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn-primary">Set Up Your Profile</a>
-                <a href="#features" class="btn-secondary">See How It Works</a>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-logo">Cookies<span class="dot"></span></div>
+                <p class="hero-tagline">Send good vibes, not just cash.</p>
+                <p class="hero-pitch">A social gifting platform that lets you send thoughtful pick-me-ups to friends and family. From lunch credits to spa days, recipients redeem on their own terms. Think Venmo meets a wish list, where every gesture feels personal, not transactional.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Set Up Your Profile</a>
+                    <a href="#features" class="btn-secondary">See How It Works</a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <div class="hero-image-glow"></div>
+                <img src="cookies.png" alt="Cookies social gifting platform">
             </div>
         </div>
         <div class="scroll-indicator">

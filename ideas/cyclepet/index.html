@@ -98,28 +98,59 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1593062096033-9a26b09da705?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            filter: brightness(0.35);
+            background: var(--night);
         }
 
         .hero-gradient {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(110, 198, 255, 0.6) 0%, rgba(179, 157, 219, 0.6) 50%, rgba(255, 171, 145, 0.5) 100%);
+            background: linear-gradient(135deg, rgba(110, 198, 255, 0.25) 0%, rgba(179, 157, 219, 0.25) 50%, rgba(255, 171, 145, 0.2) 100%);
         }
 
-        .hero-content {
+        .hero-inner {
             position: relative;
             z-index: 2;
-            text-align: center;
-            max-width: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
             padding: 40px 24px;
         }
 
+        .hero-content {
+            flex: 1;
+            text-align: left;
+            max-width: 560px;
+        }
+
+        .hero-image-wrapper {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            max-width: 460px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 80px rgba(255, 217, 61, 0.15);
+            animation: heroFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+
         .hero-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 30px;
+            width: 80px;
+            height: 80px;
+            margin: 0 0 24px;
             background: var(--sunshine);
             border-radius: 50%;
             display: flex;
@@ -131,16 +162,16 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-10px); }
         }
 
         .hero-icon svg {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
             color: var(--white);
             margin-bottom: 16px;
             letter-spacing: -1px;
@@ -148,19 +179,19 @@
         }
 
         .hero .tagline {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
             color: var(--sunshine);
             font-family: 'Fredoka', sans-serif;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .hero .pitch {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: rgba(255,255,255,0.9);
             line-height: 1.7;
-            max-width: 620px;
-            margin: 0 auto 40px;
+            max-width: 520px;
+            margin: 0 0 36px;
         }
 
         .btn-primary {
@@ -694,7 +725,32 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-content { padding: 100px 20px 40px; }
+            .hero-inner {
+                flex-direction: column;
+                gap: 36px;
+                padding: 100px 20px 40px;
+            }
+
+            .hero-content {
+                text-align: center;
+                max-width: 100%;
+            }
+
+            .hero-icon {
+                margin: 0 auto 24px;
+            }
+
+            .hero .pitch {
+                margin: 0 auto 36px;
+            }
+
+            .hero-image-wrapper {
+                max-width: 340px;
+            }
+
+            .hero-image-wrapper img {
+                max-width: 100%;
+            }
 
             .btn-secondary {
                 margin-left: 0;
@@ -750,25 +806,30 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-gradient"></div>
-        <div class="hero-content">
-            <div class="hero-icon">
-                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="20" r="8" fill="#2C3040" opacity="0.9"/>
-                    <circle cx="21" cy="18" r="1.5" fill="#FFF"/>
-                    <circle cx="27" cy="18" r="1.5" fill="#FFF"/>
-                    <path d="M20 22 Q24 26 28 22" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                    <path d="M16 14 Q14 8 18 10" stroke="#2C3040" stroke-width="2" fill="none" stroke-linecap="round"/>
-                    <path d="M32 14 Q34 8 30 10" stroke="#2C3040" stroke-width="2" fill="none" stroke-linecap="round"/>
-                    <ellipse cx="24" cy="38" rx="10" ry="4" fill="#2C3040" opacity="0.15"/>
-                    <rect x="18" y="28" width="12" height="8" rx="3" fill="#2C3040" opacity="0.7"/>
-                </svg>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="20" r="8" fill="#2C3040" opacity="0.9"/>
+                        <circle cx="21" cy="18" r="1.5" fill="#FFF"/>
+                        <circle cx="27" cy="18" r="1.5" fill="#FFF"/>
+                        <path d="M20 22 Q24 26 28 22" stroke="#FFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                        <path d="M16 14 Q14 8 18 10" stroke="#2C3040" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M32 14 Q34 8 30 10" stroke="#2C3040" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <ellipse cx="24" cy="38" rx="10" ry="4" fill="#2C3040" opacity="0.15"/>
+                        <rect x="18" y="28" width="12" height="8" rx="3" fill="#2C3040" opacity="0.7"/>
+                    </svg>
+                </div>
+                <h1>CyclePet</h1>
+                <div class="tagline">Pedal More. Play More. Feel Better.</div>
+                <p class="pitch">An under-desk pedal exerciser paired with a virtual pet Chrome extension. Your pedaling powers your pet's world: sunshine, food, happiness. Stop pedaling, and the rain rolls in.</p>
+                <div>
+                    <a href="#" class="btn-primary">Join the Waitlist</a>
+                    <a href="#features" class="btn-secondary">See How It Works</a>
+                </div>
             </div>
-            <h1>CyclePet</h1>
-            <div class="tagline">Pedal More. Play More. Feel Better.</div>
-            <p class="pitch">An under-desk pedal exerciser paired with a virtual pet Chrome extension. Your pedaling powers your pet's world: sunshine, food, happiness. Stop pedaling, and the rain rolls in.</p>
-            <div>
-                <a href="#" class="btn-primary">Join the Waitlist</a>
-                <a href="#features" class="btn-secondary">See How It Works</a>
+            <div class="hero-image-wrapper">
+                <img src="cyclepet.png" alt="CyclePet product concept showing the virtual pet and pedal device">
             </div>
         </div>
     </section>

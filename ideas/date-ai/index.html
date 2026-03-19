@@ -122,27 +122,55 @@
             position: absolute;
             inset: 0;
             z-index: 0;
-        }
-
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.25) saturate(0.6);
+            background: var(--dark);
         }
 
         .hero-gradient {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(13, 13, 26, 0.9) 0%, rgba(123, 47, 255, 0.15) 50%, rgba(255, 51, 102, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(13, 13, 26, 0.95) 0%, rgba(123, 47, 255, 0.12) 50%, rgba(255, 51, 102, 0.08) 100%);
             z-index: 1;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 120px 60px;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
-            padding: 120px 60px;
+        }
+
+        .hero-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(255, 51, 102, 0.25), 0 10px 40px rgba(123, 47, 255, 0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 51, 102, 0.2);
+            pointer-events: none;
         }
 
         .hero-label {
@@ -723,8 +751,16 @@
                 padding: 80px 24px;
             }
 
-            .hero-content {
+            .hero-inner {
+                grid-template-columns: 1fr;
                 padding: 100px 24px;
+                gap: 40px;
+            }
+
+            .hero-image {
+                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
             }
 
             .problem-grid,
@@ -812,18 +848,21 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?auto=format&fit=crop&w=1920&q=80" alt="Couple on a date at sunset">
-        </div>
+        <div class="hero-bg"></div>
         <div class="hero-gradient"></div>
-        <div class="hero-content">
-            <div class="hero-label">AI-Powered Dating</div>
-            <h1>DateAI</h1>
-            <div class="tagline">Your AI Matchmaker Books the Date.</div>
-            <p>Stop swiping. Stop ghosting. Stop guessing. DateAI uses deep personality analysis and advanced AI to find your most compatible matches, then books real dates directly on your calendar. All you have to do is show up.</p>
-            <div class="btn-group">
-                <a href="#" class="btn btn-primary">Find Your Match</a>
-                <a href="#solution" class="btn btn-outline">See How It Works</a>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-label">AI-Powered Dating</div>
+                <h1>DateAI</h1>
+                <div class="tagline">Your AI Matchmaker Books the Date.</div>
+                <p>Stop swiping. Stop ghosting. Stop guessing. DateAI uses deep personality analysis and advanced AI to find your most compatible matches, then books real dates directly on your calendar. All you have to do is show up.</p>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-primary">Find Your Match</a>
+                    <a href="#solution" class="btn btn-outline">See How It Works</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="dateai.png" alt="DateAI - AI-powered dating app">
             </div>
         </div>
         <div class="shape shape-1"></div>

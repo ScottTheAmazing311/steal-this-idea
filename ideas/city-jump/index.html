@@ -99,7 +99,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 24px 60px;
+            padding: 120px 24px 80px;
             position: relative;
             overflow: hidden;
         }
@@ -107,7 +107,7 @@
         .hero-bg {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1559677624-3c956f10d431?auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
+            background: url('cityjump.png') center center / cover no-repeat;
             z-index: 0;
         }
 
@@ -117,9 +117,9 @@
             inset: 0;
             background: linear-gradient(
                 180deg,
-                rgba(10, 10, 10, 0.7) 0%,
-                rgba(10, 10, 10, 0.55) 40%,
-                rgba(10, 10, 10, 0.8) 100%
+                rgba(10, 10, 10, 0.78) 0%,
+                rgba(10, 10, 10, 0.65) 40%,
+                rgba(10, 10, 10, 0.85) 100%
             );
         }
 
@@ -157,6 +157,25 @@
             position: relative;
             z-index: 3;
             max-width: 900px;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 3;
+            margin-top: 48px;
+            max-width: 780px;
+            width: 90%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 240, 255, 0.15), 0 0 80px rgba(255, 45, 123, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-image img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
         }
 
         .hero-label {
@@ -934,6 +953,9 @@
                 <a href="#" class="btn-primary" onclick="return false;">Find Your City</a>
                 <a href="#" class="btn-secondary" onclick="return false;">Get Notified</a>
             </div>
+        </div>
+        <div class="hero-image reveal reveal-delay-4">
+            <img src="cityjump.png" alt="City Jump: a traveling bungee jumping experience with a massive neon crane lighting up the city skyline">
         </div>
         <div class="scroll-indicator">
             <span>Scroll</span>
