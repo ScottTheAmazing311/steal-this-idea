@@ -90,7 +90,22 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,107,53,0.92) 0%, rgba(255,200,71,0.88) 50%, rgba(46,196,182,0.85) 100%);
+            background: linear-gradient(135deg, rgba(255,107,53,0.88) 0%, rgba(255,200,71,0.82) 50%, rgba(46,196,182,0.80) 100%);
+        }
+
+        .hero-feature-img {
+            margin-top: 48px;
+            max-width: 520px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            overflow: hidden;
+            display: inline-block;
+        }
+        .hero-feature-img img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .hero-content {
@@ -98,7 +113,7 @@
             z-index: 2;
             max-width: 800px;
             margin: 0 auto;
-            padding: 120px 24px 80px;
+            padding: 120px 24px 60px;
             text-align: center;
         }
         .hero-logo {
@@ -656,7 +671,7 @@
     <!-- ===== HERO ===== -->
     <section class="hero">
         <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1662140246046-fc44f41e4362?auto=format&fit=crop&w=1200&q=80" alt="City aerial view" loading="eager">
+            <img src="breadcrumbs.png" alt="BreadCrumbs app concept" loading="eager">
         </div>
 
         <!-- Floating decorations -->
@@ -678,6 +693,9 @@
             <div>
                 <a href="#features" class="cta-btn">Start Dropping Crumbs</a>
                 <a href="#how-it-works" class="cta-btn cta-secondary">See How It Works</a>
+            </div>
+            <div class="hero-feature-img">
+                <img src="breadcrumbs.png" alt="BreadCrumbs app preview" loading="eager">
             </div>
         </div>
 

@@ -91,8 +91,8 @@ h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.2;
-  filter: blur(2px);
+  opacity: 0.15;
+  filter: blur(4px);
 }
 .hero-overlay {
   position: absolute;
@@ -146,6 +146,28 @@ h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
   font-family: 'Fredoka', sans-serif;
   font-weight: 500;
   margin-bottom: 28px;
+}
+
+.hero-showcase {
+  margin: 32px auto 36px;
+  max-width: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08);
+  position: relative;
+}
+.hero-showcase img {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+}
+.hero-showcase::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 2px solid rgba(255,210,63,0.2);
+  pointer-events: none;
 }
 
 .hero .pitch {
@@ -770,7 +792,7 @@ section {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80" alt="Friends hanging out together">
+    <img src="Blender.png" alt="Blender app concept">
   </div>
   <div class="hero-overlay"></div>
   <div class="float-shape"></div>
@@ -791,6 +813,9 @@ section {
     </div>
     <h1><span>Blender</span></h1>
     <p class="tagline">Hit blend. Find your next adventure.</p>
+    <div class="hero-showcase">
+      <img src="Blender.png" alt="Blender app preview">
+    </div>
     <p class="pitch">Stop arguing about what to do tonight. Blender takes your group's budget, location, and vibe, then serves up curated local experiences you never knew existed. Everyone votes. Everyone goes. Everyone has fun.</p>
     <a href="#" class="btn-blend" onclick="return false;">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>

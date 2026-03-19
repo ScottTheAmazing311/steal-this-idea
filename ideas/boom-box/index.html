@@ -178,13 +178,58 @@
             z-index: 2;
             text-align: center;
             padding: 2rem;
-            max-width: 800px;
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px;
+            border-radius: 24px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+            animation: heroFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                text-align: center;
+            }
+            .hero-text .hero-icon {
+                margin: 0 auto 1.5rem;
+            }
+            .hero-image img {
+                max-height: 320px;
+            }
         }
 
         .hero-icon {
             width: 80px;
             height: 80px;
-            margin: 0 auto 1.5rem;
+            margin: 0 0 1.5rem;
             background: var(--sunshine);
             border-radius: 20px;
             display: flex;
@@ -858,19 +903,24 @@
             <div class="hero-shape hero-shape-3"></div>
         </div>
         <div class="hero-content">
-            <div class="hero-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#2D3436" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                    <line x1="12" y1="22.08" x2="12" y2="12"/>
-                </svg>
+            <div class="hero-text">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#2D3436" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                </div>
+                <h1>Boom <span>Box</span></h1>
+                <p class="hero-tagline">Your night out, in a box.</p>
+                <p class="hero-pitch">A drive-through mystery box packed with curated games, activities, playlists, swag, and local deals that turn any boring night into an instant party.</p>
+                <div class="hero-buttons">
+                    <a href="#features" class="btn-primary">See What's Inside</a>
+                    <a href="#business-plan" class="btn-secondary">View the Plan</a>
+                </div>
             </div>
-            <h1>Boom <span>Box</span></h1>
-            <p class="hero-tagline">Your night out, in a box.</p>
-            <p class="hero-pitch">A drive-through mystery box packed with curated games, activities, playlists, swag, and local deals that turn any boring night into an instant party.</p>
-            <div class="hero-buttons">
-                <a href="#features" class="btn-primary">See What's Inside</a>
-                <a href="#business-plan" class="btn-secondary">View the Plan</a>
+            <div class="hero-image">
+                <img src="boombox.png" alt="Boom Box product">
             </div>
         </div>
     </section>

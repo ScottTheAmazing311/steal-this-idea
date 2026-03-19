@@ -84,8 +84,8 @@ h1, h2, h3, h4 {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1622046120199-32f27980473d?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-  opacity: 0.35;
+  background: url('carspot.png') center/cover no-repeat;
+  opacity: 0.4;
   transform: scale(1.05);
   animation: heroZoom 20s ease-in-out infinite alternate;
 }
@@ -148,6 +148,18 @@ h1, h2, h3, h4 {
 .hero-cta:hover {
   background: var(--accent-dark);
   transform: scale(1.05);
+}
+.hero-image {
+  margin-top: 48px;
+  max-width: 720px;
+  width: 100%;
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+.hero-image img {
+  width: 100%;
+  display: block;
 }
 .scroll-hint {
   position: absolute;
@@ -495,6 +507,9 @@ footer .footer-brand {
     <p class="hero-tagline">Test drive here. Delivered to your door.</p>
     <p class="hero-pitch">The dealership, reimagined. Compact urban showrooms for test drives. A central hub for inventory. Your new car, delivered to your driveway within 48 hours. Lower overhead, lower prices, better experience.</p>
     <a href="#solution" class="hero-cta">See How It Works</a>
+    <div class="hero-image">
+      <img src="carspot.png" alt="CarSpot concept - compact urban car showroom">
+    </div>
   </div>
   <div class="scroll-hint">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
