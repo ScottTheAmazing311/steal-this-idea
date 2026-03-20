@@ -104,18 +104,15 @@
     max-width: 800px;
     padding: 2rem;
   }
-  .hero-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1.5rem;
-    background: var(--electric-dim);
-    border: 2px solid var(--electric);
+  .hero-image {
+    width: 320px;
+    max-width: 90%;
+    margin: 0 auto 2rem;
     border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 8px 40px rgba(0,229,255,0.2), 0 0 80px rgba(0,229,255,0.08);
+    border: 2px solid rgba(0,229,255,0.25);
+    display: block;
   }
-  .hero-icon svg { width: 40px; height: 40px; }
   .hero h1 {
     font-size: clamp(4rem, 10vw, 8rem);
     line-height: 0.95;
@@ -579,14 +576,7 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="3"/>
-        <path d="M8 4V2m8 2V2"/>
-        <path d="M7 12h2m6 0h2"/>
-        <path d="M12 9v6"/>
-      </svg>
-    </div>
+    <img src="glovebox.png" alt="GloveBox app preview" class="hero-image">
     <h1>Glove<span class="accent">Box</span></h1>
     <p class="tagline">Your entire car, in one app.</p>
     <p class="pitch">Registration, insurance, maintenance reminders, recall alerts, live car valuation, and parts ordering. Everything you need for your vehicle, all in one place. No more digging through your actual glove box.</p>

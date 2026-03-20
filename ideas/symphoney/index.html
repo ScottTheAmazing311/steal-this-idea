@@ -159,6 +159,20 @@
     text-align: center;
     max-width: 800px;
   }
+  .hero-image {
+    margin: 24px auto 32px;
+    max-width: 520px;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 229, 160, 0.15), 0 0 80px rgba(0, 229, 160, 0.08);
+    border: 1px solid rgba(0, 229, 160, 0.2);
+  }
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
   .hero-logo {
     font-family: var(--mono);
     font-size: clamp(3rem, 8vw, 5.5rem);
@@ -727,6 +741,9 @@
     <div class="section-label">AI-Powered Notification Intelligence</div>
     <h1 class="hero-logo">SymPhoney</h1>
     <p class="hero-tagline">Only the notifications that matter.</p>
+    <div class="hero-image">
+      <img src="Symphony.png" alt="SymPhoney app interface">
+    </div>
     <p class="hero-pitch">SymPhoney is an AI layer that sits between you and your communication overload. It learns which messages, calls, emails, and Slack threads actually need your attention, then silences everything else. Disconnect with confidence.</p>
     <a href="#features" class="hero-cta">
       Request Early Access

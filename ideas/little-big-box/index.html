@@ -59,9 +59,22 @@ h1,h2,h3,h4{font-family:'Fredoka',sans-serif;line-height:1.2}
   content:'';position:absolute;inset:0;
   background:linear-gradient(160deg,rgba(255,190,11,.88) 0%,rgba(255,107,107,.82) 50%,rgba(78,205,196,.8) 100%);
 }
-.hero-content{position:relative;z-index:2;max-width:780px}
+.hero-content{
+  position:relative;z-index:2;max-width:1100px;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  text-align:left;
+}
+.hero-text{max-width:560px}
+.hero-product{
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-product img{
+  max-width:100%;height:auto;border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  animation:float 3s ease-in-out infinite;
+}
 .hero-icon{
-  width:80px;height:80px;margin:0 auto 24px;
+  width:80px;height:80px;margin:0 0 24px;
   background:var(--card);border-radius:20px;
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 8px 30px rgba(0,0,0,.15);
@@ -263,6 +276,10 @@ h1,h2,h3,h4{font-family:'Fredoka',sans-serif;line-height:1.2}
 
 /* ---- RESPONSIVE ---- */
 @media(max-width:768px){
+  .hero-content{grid-template-columns:1fr;text-align:center}
+  .hero-text{max-width:100%}
+  .hero-icon{margin:0 auto 24px}
+  .hero-product img{max-width:320px}
   .problem-grid,.solution-grid,.market-content{grid-template-columns:1fr;gap:32px}
   .solution-img{order:-1}
   .stat-row{flex-direction:column}
@@ -289,20 +306,25 @@ h1,h2,h3,h4{font-family:'Fredoka',sans-serif;line-height:1.2}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-icon">
-      <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
-        <rect x="6" y="16" width="36" height="24" rx="3" stroke="#FF6B6B" stroke-width="3" fill="none"/>
-        <rect x="12" y="20" width="24" height="16" rx="2" stroke="#FFBE0B" stroke-width="2.5" fill="none"/>
-        <rect x="18" y="24" width="12" height="8" rx="1.5" stroke="#4ECDC4" stroke-width="2" fill="none"/>
-        <path d="M24 10V16" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M18 12L20 16" stroke="#FFBE0B" stroke-width="2" stroke-linecap="round"/>
-        <path d="M30 12L28 16" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+    <div class="hero-text">
+      <div class="hero-icon">
+        <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="16" width="36" height="24" rx="3" stroke="#FF6B6B" stroke-width="3" fill="none"/>
+          <rect x="12" y="20" width="24" height="16" rx="2" stroke="#FFBE0B" stroke-width="2.5" fill="none"/>
+          <rect x="18" y="24" width="12" height="8" rx="1.5" stroke="#4ECDC4" stroke-width="2" fill="none"/>
+          <path d="M24 10V16" stroke="#FF6B6B" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M18 12L20 16" stroke="#FFBE0B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M30 12L28 16" stroke="#4ECDC4" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>Little Big Box</h1>
+      <p class="tagline">Nesting cardboard play worlds for kids.</p>
+      <p class="pitch">Themed kits of 8 to 10 nested corrugated boxes that unfold into entire play scenes: cities, farms, jungles, and more. Stack them up, play them out, recycle when done. Imagination delivered to your door.</p>
+      <a href="#features" class="btn btn-primary">Explore the Kits</a>
     </div>
-    <h1>Little Big Box</h1>
-    <p class="tagline">Nesting cardboard play worlds for kids.</p>
-    <p class="pitch">Themed kits of 8 to 10 nested corrugated boxes that unfold into entire play scenes: cities, farms, jungles, and more. Stack them up, play them out, recycle when done. Imagination delivered to your door.</p>
-    <a href="#features" class="btn btn-primary">Explore the Kits</a>
+    <div class="hero-product">
+      <img src="littlebigbox.png" alt="Little Big Box product featuring nested cardboard play worlds">
+    </div>
   </div>
 </section>
 

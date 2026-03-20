@@ -104,12 +104,34 @@
       inset: 0;
       background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.6) 50%, rgba(0,229,160,0.1) 100%);
     }
-    .hero-content {
+    .hero-inner {
       position: relative;
       z-index: 2;
-      text-align: center;
-      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      max-width: 1200px;
       padding: 40px 24px;
+      width: 100%;
+    }
+    .hero-content {
+      text-align: center;
+      max-width: 600px;
+      flex: 1 1 auto;
+    }
+    .hero-product-image {
+      flex: 0 0 auto;
+      max-width: 380px;
+      width: 100%;
+      position: relative;
+    }
+    .hero-product-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      filter: drop-shadow(0 20px 60px rgba(191, 255, 0, 0.2)) drop-shadow(0 8px 24px rgba(0,0,0,0.6));
     }
     .hero-label {
       font-family: 'Bebas Neue', sans-serif;
@@ -578,6 +600,14 @@
       }
       .feature-item:nth-child(1) { grid-row: auto; }
       .bp-card.full-width { grid-column: auto; }
+      .hero-inner {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .hero-product-image {
+        max-width: 260px;
+        order: -1;
+      }
       .hero-stages { gap: 16px; }
       .problem-stats { grid-template-columns: 1fr; }
       .lifestyle-strip { grid-template-columns: 1fr 1fr; height: auto; }
@@ -606,24 +636,29 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-label reveal">Wellness, Simplified</div>
-      <h1 class="reveal">SICK JUICE<span>Your 3-Stage Defense Against Getting Sick</span></h1>
-      <p class="hero-pitch reveal">A color-coded remedy system that guides you through every phase of feeling unwell. Prevention, immunity, recovery. One brand, three bottles, zero confusion.</p>
-      <a href="#solution" class="hero-cta reveal">EXPLORE THE SYSTEM</a>
-      <div class="hero-stages reveal">
-        <div class="hero-stage-pill">
-          <div class="dot" style="background: var(--stage1);"></div>
-          STAGE 1: PREVENT
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-label reveal">Wellness, Simplified</div>
+        <h1 class="reveal">SICK JUICE<span>Your 3-Stage Defense Against Getting Sick</span></h1>
+        <p class="hero-pitch reveal">A color-coded remedy system that guides you through every phase of feeling unwell. Prevention, immunity, recovery. One brand, three bottles, zero confusion.</p>
+        <a href="#solution" class="hero-cta reveal">EXPLORE THE SYSTEM</a>
+        <div class="hero-stages reveal">
+          <div class="hero-stage-pill">
+            <div class="dot" style="background: var(--stage1);"></div>
+            STAGE 1: PREVENT
+          </div>
+          <div class="hero-stage-pill">
+            <div class="dot" style="background: var(--stage2);"></div>
+            STAGE 2: FIGHT
+          </div>
+          <div class="hero-stage-pill">
+            <div class="dot" style="background: var(--stage3);"></div>
+            STAGE 3: RECOVER
+          </div>
         </div>
-        <div class="hero-stage-pill">
-          <div class="dot" style="background: var(--stage2);"></div>
-          STAGE 2: FIGHT
-        </div>
-        <div class="hero-stage-pill">
-          <div class="dot" style="background: var(--stage3);"></div>
-          STAGE 3: RECOVER
-        </div>
+      </div>
+      <div class="hero-product-image reveal-right">
+        <img src="sickjuice.png" alt="Sick Juice product">
       </div>
     </div>
   </section>

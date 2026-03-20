@@ -73,8 +73,8 @@ h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; 
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-  opacity: 0.45;
+  background: url('Freakingoodsalad.png') center/cover no-repeat;
+  opacity: 0.5;
 }
 .hero-overlay {
   position: absolute;
@@ -86,7 +86,25 @@ h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; 
   z-index: 2;
   text-align: center;
   padding: 2rem;
-  max-width: 800px;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-featured-img {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--lime);
+  box-shadow: 0 8px 40px rgba(168,225,12,0.35), 0 0 80px rgba(168,225,12,0.15);
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) {
+  .hero-featured-img {
+    width: 200px;
+    height: 200px;
+  }
 }
 .hero-tag {
   display: inline-block;
@@ -522,6 +540,7 @@ footer a:hover { text-decoration: underline; }
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-tag">FAST CASUAL. FRESH DAILY. ZERO COMPROMISE.</div>
+    <img src="Freakingoodsalad.png" alt="Freakin Good Salad" class="hero-featured-img">
     <h1>FREAKIN'<br><span>GOOD</span><br>SALADS</h1>
     <p class="hero-pitch">Six perfected salads. One drive-thru lane. Restaurant-quality greens you can grab in under five minutes. Think In-N-Out, but for salads that actually taste incredible.</p>
     <a href="#" class="btn-primary" onclick="return false;">Find a Location</a>

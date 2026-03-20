@@ -84,7 +84,7 @@ h1, h2, h3, h4 {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1605164599901-57e4186efa65?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  background: url('washorama.png') center/cover no-repeat;
   filter: brightness(0.25);
 }
 .hero-overlay {
@@ -125,6 +125,19 @@ h1, h2, h3, h4 {
   max-width: 600px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
+}
+.hero-feature-img {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 50px rgba(0, 240, 255, 0.2), 0 0 80px rgba(255, 0, 229, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+}
+.hero-feature-img img {
+  width: 100%;
+  display: block;
 }
 .cta-btn {
   display: inline-block;
@@ -600,6 +613,9 @@ footer a:hover {
   <div class="hero-content">
     <h1>Wash-O-Rama</h1>
     <p class="hero-tagline">Your Car Wash Just Became a Ride.</p>
+    <div class="hero-feature-img">
+      <img src="washorama.png" alt="Wash-O-Rama immersive car wash experience">
+    </div>
     <p class="hero-pitch">
       Imagine pulling into a car wash and choosing a space battle, an underwater adventure, or a holiday light show. Wash-O-Rama transforms boring 5-minute washes into immersive AR experiences that keep customers coming back.
     </p>

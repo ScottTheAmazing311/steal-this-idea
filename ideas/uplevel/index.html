@@ -80,15 +80,32 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-    filter: brightness(0.3);
+    background: var(--black);
     z-index: 0;
   }
-  .hero-content {
+  .hero-inner {
     position: relative;
     z-index: 1;
-    max-width: 800px;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
     padding: 2rem;
+    width: 100%;
+  }
+  .hero-content {
+    flex: 1;
+    text-align: left;
+  }
+  .hero-image {
+    flex: 1;
+    max-width: 480px;
+  }
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
   .hero h1 {
     font-size: clamp(4rem, 12vw, 9rem);
@@ -479,6 +496,9 @@
       grid-template-columns: 1fr;
     }
     .problem-stats { grid-template-columns: 1fr 1fr; }
+    .hero-inner { flex-direction: column; text-align: center; }
+    .hero-content { text-align: center; }
+    .hero-image { max-width: 320px; }
     .hero h1 { font-size: clamp(3rem, 14vw, 5rem); }
     section { padding: 70px 20px; }
     .bp-card.full { grid-column: auto; }
@@ -497,11 +517,16 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-content">
-    <h1>Up<span>Level</span></h1>
-    <p class="tagline">Try five. Keep the best.</p>
-    <p class="pitch">Stop drowning in reviews and comparison charts. UpLevel sends you five expert-curated products in any category. Try them all at home, keep the one that fits your life, and send back the rest. One box, zero guesswork.</p>
-    <a href="#solution" class="btn">Get Your First Box</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>Up<span>Level</span></h1>
+      <p class="tagline">Try five. Keep the best.</p>
+      <p class="pitch">Stop drowning in reviews and comparison charts. UpLevel sends you five expert-curated products in any category. Try them all at home, keep the one that fits your life, and send back the rest. One box, zero guesswork.</p>
+      <a href="#solution" class="btn">Get Your First Box</a>
+    </div>
+    <div class="hero-image">
+      <img src="uplevel.png" alt="UpLevel product box concept">
+    </div>
   </div>
   <div class="scroll-hint">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>

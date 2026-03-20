@@ -164,20 +164,19 @@
     }
     .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
     .hero-cta svg { width: 18px; height: 18px; }
-    .hero-image-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 12px;
+    .hero-image-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 520px;
     }
-    .hero-image-grid img {
+    .hero-image-wrapper img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
+      object-fit: contain;
+      border-radius: 16px;
+      filter: drop-shadow(0 20px 60px rgba(59, 92, 204, 0.18));
     }
-    .hero-image-grid img:first-child { grid-row: 1 / 3; border-radius: 12px; }
 
     /* ========== PROBLEM ========== */
     .problem {
@@ -480,7 +479,7 @@
     /* Responsive */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; padding-top: 140px; gap: 40px; }
-      .hero-image-grid { height: 320px; }
+      .hero-image-wrapper { height: 320px; }
       .problem-grid { grid-template-columns: 1fr; }
       .problem-image-row { grid-template-columns: 1fr 1fr; height: 200px; }
       .problem-image-row img:first-child { grid-column: span 2; }
@@ -498,9 +497,8 @@
 
     @media (max-width: 600px) {
       .hero h1 { font-size: 2.2rem; }
-      .hero-image-grid { grid-template-columns: 1fr; height: auto; }
-      .hero-image-grid img:first-child { grid-row: auto; }
-      .hero-image-grid img { height: 180px; }
+      .hero-image-wrapper { height: auto; }
+      .hero-image-wrapper img { height: 280px; }
       .problem-stats { grid-template-columns: 1fr; }
       .sti-badge { top: 12px; left: 12px; font-size: 0.65rem; padding: 6px 10px; }
     }
@@ -538,10 +536,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
-    <div class="hero-image-grid reveal reveal-delay-2">
-      <img src="https://images.unsplash.com/photo-1504711434969-e33886168d6c?auto=format&fit=crop&w=800&q=80" alt="Person reading on phone" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80" alt="Coffee and laptop workspace" loading="lazy">
-      <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" alt="Person working at desk" loading="lazy">
+    <div class="hero-image-wrapper reveal reveal-delay-2">
+      <img src="notable.png" alt="Notable - curated news by real humans">
     </div>
   </section>
 

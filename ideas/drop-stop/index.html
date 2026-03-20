@@ -56,6 +56,7 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   overflow: hidden;
 }
@@ -131,6 +132,27 @@ body {
   flex: 1;
   width: 100%;
   object-fit: cover;
+}
+.hero-product-img {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 38%;
+  max-width: 520px;
+  filter: drop-shadow(0 20px 60px rgba(232, 255, 0, 0.15)) drop-shadow(0 8px 30px rgba(0, 0, 0, 0.6));
+  animation: heroImgFloat 4s ease-in-out infinite;
+}
+.hero-product-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+@keyframes heroImgFloat {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(calc(-50% - 12px)); }
 }
 
 /* SECTION COMMON */
@@ -453,6 +475,16 @@ footer a:hover { text-decoration: underline; }
   .biz-plan-doc { padding: 28px; }
   .stat-row { flex-direction: column; gap: 20px; }
   .badge { top: 12px; left: 12px; font-size: 12px; padding: 6px 12px; }
+  .hero-product-img {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 80%;
+    max-width: 320px;
+    margin: 32px auto 0;
+    animation: none;
+  }
 }
 </style>
 </head>
@@ -477,6 +509,9 @@ footer a:hover { text-decoration: underline; }
     <h1>DROP<br><span>STOP</span></h1>
     <p>Secure luggage lockers right where the action is. Stash your bags, explore the city hands-free, and catch a shuttle straight to the airport. The gap between checkout and takeoff just became the best part of your trip.</p>
     <a href="#" class="cta-btn">Find a Drop Stop Near You</a>
+  </div>
+  <div class="hero-product-img">
+    <img src="DropStop.png" alt="Drop Stop luggage locker station">
   </div>
 </section>
 

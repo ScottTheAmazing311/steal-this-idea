@@ -90,7 +90,15 @@
     z-index: 2;
     text-align: center;
     padding: 40px 24px;
-    max-width: 820px;
+    max-width: 960px;
+  }
+  .hero-image {
+    display: block;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto 32px;
+    border-radius: 18px;
+    box-shadow: 0 12px 48px rgba(0, 229, 255, 0.25), 0 0 0 2px rgba(0, 229, 255, 0.15);
   }
   .hero-icon {
     display: inline-flex;
@@ -553,6 +561,7 @@
     }
     .solution-img { order: 0; }
     .solution-text { order: 1; }
+    .hero-image { max-width: 300px; }
     .feature-card { min-height: 260px; }
     .biz-plan { padding: 36px 24px; }
     .section { padding: 72px 20px; }
@@ -572,9 +581,7 @@
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-    </div>
+    <img src="parkshark.png" alt="Park Shark" class="hero-image">
     <h1>PARK <span>SHARK</span></h1>
     <p class="tagline">Your spot is waiting. Reserve it.</p>
     <p class="pitch">The Airbnb of parking. Homeowners list their driveways, businesses open their lots, and you reserve and pay before you leave the house. No more circling the block. No more cash-only chaos.</p>

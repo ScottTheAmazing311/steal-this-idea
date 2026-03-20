@@ -98,13 +98,45 @@
       inset: 0;
       background: linear-gradient(180deg, rgba(26,26,46,0.3) 0%, rgba(26,26,46,0.1) 50%, rgba(26,26,46,0.4) 100%);
     }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
     .hero-content {
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 120px 24px 80px;
-      max-width: 800px;
-      margin: 0 auto;
+      flex: 1;
+      min-width: 0;
+    }
+    .hero-image {
+      flex: 0 0 380px;
+      max-width: 380px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    @media (max-width: 900px) {
+      .hero-inner {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .hero-image {
+        flex: none;
+        max-width: 280px;
+      }
     }
     .hero-pill {
       display: inline-block;
@@ -706,15 +738,20 @@
     <div class="hero-blob-1"></div>
     <div class="hero-blob-2"></div>
     <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-pill">A social coordination app for friend groups</div>
-      <h1>Groupie</h1>
-      <p class="hero-tagline">Better errands with better company.</p>
-      <p class="hero-pitch">Turn boring errands and chores into shared experiences with your friend group. Groupie matches friends who need to do similar tasks, making everyday to-dos more fun while saving everyone time and trips.</p>
-      <a href="#features" class="btn-primary">
-        Get Early Access
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-pill">A social coordination app for friend groups</div>
+        <h1>Groupie</h1>
+        <p class="hero-tagline">Better errands with better company.</p>
+        <p class="hero-pitch">Turn boring errands and chores into shared experiences with your friend group. Groupie matches friends who need to do similar tasks, making everyday to-dos more fun while saving everyone time and trips.</p>
+        <a href="#features" class="btn-primary">
+          Get Early Access
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-image">
+        <img src="groupie.png" alt="Groupie app preview">
+      </div>
     </div>
   </section>
 

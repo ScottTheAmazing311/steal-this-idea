@@ -107,20 +107,55 @@ h1, h2, h3, h4 {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-  opacity: 0.25;
+  background: url('package%20buddy.png') center/cover no-repeat;
+  opacity: 0.18;
 }
 .hero-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(10,22,40,0.95) 0%, rgba(10,22,40,0.7) 50%, rgba(0,229,255,0.15) 100%);
 }
-.hero-content {
+.hero-inner {
   position: relative;
   z-index: 2;
-  text-align: center;
-  max-width: 820px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  max-width: 1100px;
   padding: 2rem;
+  width: 100%;
+}
+.hero-content {
+  text-align: left;
+  max-width: 540px;
+  flex: 1;
+}
+.hero-image {
+  flex: 0 0 380px;
+  max-width: 380px;
+}
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,229,255,0.2), 0 8px 30px rgba(0,0,0,0.4);
+  border: 2px solid rgba(0,229,255,0.15);
+}
+@media (max-width: 768px) {
+  .hero-inner {
+    flex-direction: column-reverse;
+    gap: 30px;
+    text-align: center;
+  }
+  .hero-content {
+    text-align: center;
+    max-width: 100%;
+  }
+  .hero-image {
+    flex: 0 0 auto;
+    max-width: 260px;
+  }
 }
 .hero-content h1 {
   font-size: clamp(3.5rem, 10vw, 8rem);
@@ -678,11 +713,16 @@ footer a:hover {
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-gradient"></div>
-  <div class="hero-content">
-    <h1>PACKAGE<span>BUDDY</span></h1>
-    <div class="hero-tagline">Your porch, finally pirate-proof.</div>
-    <p class="hero-pitch">A sleek, lockable door-mounted delivery sack that secures your packages and food deliveries without custom installation, bulky porch lockers, or awkward doorstep encounters.</p>
-    <a href="#features" class="btn-primary">See How It Works</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>PACKAGE<span>BUDDY</span></h1>
+      <div class="hero-tagline">Your porch, finally pirate-proof.</div>
+      <p class="hero-pitch">A sleek, lockable door-mounted delivery sack that secures your packages and food deliveries without custom installation, bulky porch lockers, or awkward doorstep encounters.</p>
+      <a href="#features" class="btn-primary">See How It Works</a>
+    </div>
+    <div class="hero-image">
+      <img src="package%20buddy.png" alt="PackageBuddy product concept">
+    </div>
   </div>
   <div class="hero-scroll-indicator">
     <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>

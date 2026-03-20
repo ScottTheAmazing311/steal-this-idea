@@ -86,11 +86,22 @@ h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 120px 24px 80px;
   text-align: center;
   color: #fff;
+}
+.hero-product-image {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+.hero-product-image img {
+  max-width: 100%;
+  width: 720px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 .hero-pill {
   display: inline-block;
@@ -638,6 +649,9 @@ h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
     <p class="tagline">Social media microservices for small business</p>
     <p class="pitch">Post a quick gig. Get tweets, graphics, and posts delivered by freelance creators. Approve and publish to all your channels from one dashboard. No agencies, no headaches, no credential sharing.</p>
     <a href="#features" class="btn-primary">Get Early Access</a>
+    <div class="hero-product-image">
+      <img src="Minipost.png" alt="Minipost product preview">
+    </div>
   </div>
 </section>
 

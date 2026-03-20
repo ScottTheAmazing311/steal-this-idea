@@ -80,7 +80,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1474511320723-9a56873571b7?auto=format&fit=crop&w=1600&q=80') center/cover;
+      background: url('microzoo.png') center/cover;
       filter: brightness(0.35);
     }
     .hero-shapes {
@@ -160,6 +160,21 @@
     }
     .btn-primary { background: var(--orange); color: #fff; }
     .btn-secondary { background: #fff; color: var(--navy); }
+
+    .hero-image {
+      margin-top: 2.5rem;
+      max-width: 560px;
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      border: 3px solid rgba(255,255,255,0.15);
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     /* Section styling */
     section { padding: 6rem 2rem; }
@@ -570,6 +585,9 @@
     <p class="tagline">A tiny zoo, a huge experience.</p>
     <p class="pitch">Compact, storefront-sized zoos with rotating animal exhibits. Affordable, intimate, and educational wildlife encounters for families: no sprawl, no sleeping animals, no $60 tickets.</p>
     <a href="#" class="btn btn-primary">Find Your Local MicroZoo</a>
+    <div class="hero-image">
+      <img src="microzoo.png" alt="MicroZoo concept illustration">
+    </div>
   </div>
 </section>
 

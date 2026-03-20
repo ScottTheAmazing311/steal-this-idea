@@ -82,13 +82,30 @@ h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; }
 .hero-shapes .c2 { width: 250px; height: 250px; background: var(--lavender); bottom: -80px; left: 10%; }
 .hero-shapes .c3 { width: 150px; height: 150px; background: var(--white); top: 30%; left: -40px; }
 
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  width: 100%;
+}
+.hero-product-img {
+  flex: 0 0 420px;
+  max-width: 420px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  object-fit: cover;
+  width: 100%;
+}
 .hero-content {
   position: relative;
   z-index: 2;
   max-width: 700px;
-  margin: 0 auto;
-  padding: 60px 24px;
-  text-align: center;
+  text-align: left;
 }
 .hero-content h1 {
   font-size: clamp(3rem, 8vw, 5.5rem);
@@ -389,6 +406,9 @@ section { padding: 100px 24px; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  .hero-inner { flex-direction: column-reverse; text-align: center; }
+  .hero-content { text-align: center; }
+  .hero-product-img { flex: none; max-width: 280px; }
   .problem-grid, .solution-grid { grid-template-columns: 1fr; gap: 30px; }
   .features-grid { grid-template-columns: 1fr; }
   .market-stats { grid-template-columns: 1fr; }
@@ -413,16 +433,19 @@ section { padding: 100px 24px; }
     <div class="circle c2"></div>
     <div class="circle c3"></div>
   </div>
-  <div class="hero-content">
-    <h1>The College Pen</h1>
-    <p class="tagline">The pen that helps you focus.</p>
-    <p class="pitch">A multi-functional writing instrument that combines a premium ballpoint pen with silent fidget elements, a built-in lecture recorder, laser pointer, and PowerPoint clicker. The ultimate tool for staying engaged in class.</p>
-    <a href="#features" class="btn-primary">Explore the Pen</a>
-    <div class="hero-img-strip">
-      <img src="https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=400&q=80" alt="Pens on desk">
-      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" alt="College lecture">
-      <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80" alt="Student studying">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>The College Pen</h1>
+      <p class="tagline">The pen that helps you focus.</p>
+      <p class="pitch">A multi-functional writing instrument that combines a premium ballpoint pen with silent fidget elements, a built-in lecture recorder, laser pointer, and PowerPoint clicker. The ultimate tool for staying engaged in class.</p>
+      <a href="#features" class="btn-primary">Explore the Pen</a>
+      <div class="hero-img-strip">
+        <img src="https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=400&q=80" alt="Pens on desk">
+        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" alt="College lecture">
+        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80" alt="Student studying">
+      </div>
     </div>
+    <img src="College%20pen.png" alt="The College Pen product" class="hero-product-img">
   </div>
 </section>
 

@@ -290,6 +290,25 @@
             border: 1px solid #2ea04330;
         }
 
+        .hero-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+        .hero-logo-img {
+            width: 220px;
+            height: auto;
+            max-width: 80vw;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(46, 160, 67, 0.25), 0 0 80px rgba(46, 160, 67, 0.1);
+            border: 2px solid var(--border-accent);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .hero-logo-img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 50px rgba(46, 160, 67, 0.35), 0 0 100px rgba(46, 160, 67, 0.15);
+        }
+
         .hero-name {
             font-family: var(--font-mono);
             font-size: clamp(3.5rem, 10vw, 6.5rem);
@@ -1102,13 +1121,16 @@
     <!-- ========== HERO ========== -->
     <section class="hero">
         <div class="hero-bg-image">
-            <img src="https://images.unsplash.com/photo-1752052029345-6f494e314b05?auto=format&fit=crop&w=1200&q=80" alt="Suburban neighborhood under sunny sky" loading="eager">
+            <img src="Nexserve.png" alt="NexServe hero visual" loading="eager">
         </div>
         <div class="hero-bg-grid"></div>
         <div class="hero-glow"></div>
         <div class="hero-content">
             <div class="hero-version reveal">
                 <span>Marketplace</span> // Steal This Idea
+            </div>
+            <div class="hero-logo reveal reveal-delay-1">
+                <img src="Nexserve.png" alt="NexServe" class="hero-logo-img">
             </div>
             <h1 class="hero-name reveal reveal-delay-1">NexServe</h1>
             <p class="hero-tagline reveal reveal-delay-2">Your neighbors, at your service.</p>
